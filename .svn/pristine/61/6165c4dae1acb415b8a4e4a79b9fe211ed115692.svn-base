@@ -1,0 +1,455 @@
+package application.view;
+
+import java.io.File;
+import java.time.LocalDateTime;
+
+import application.MainApp;
+import application.errors.ReportError;
+import application.models.FileEntity;
+import application.models.Report;
+import application.models.TransportFile;
+import application.utils.DateUtils;
+import application.utils.FileUtils;
+import application.utils.ProcessExecutor;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
+import javafx.util.Callback;
+import javafx.util.Duration;
+
+public class EncryptOverviewController {
+
+	@FXML
+	private TextField decryptPath;
+	@FXML
+	private TextField encryptPath;
+
+	@FXML
+	private TextField decryptPathArch;
+	@FXML
+	private TextField encryptPathArch;
+
+	@FXML
+	private TextField decryptOutputPath;
+	@FXML
+	private TextField encryptOutputPath;
+
+	@FXML
+	private Label decryptFileCount;
+	@FXML
+	private Label encryptFileCount;
+
+	@FXML
+	private ListView<String> decryptFileList;
+	@FXML
+	private ListView<String> encryptFileList;
+
+	@FXML
+	private TableView<FileEntity> decryptFileTable;
+	@FXML
+	private TableView<FileEntity> encryptFileTable;
+
+	@FXML
+	private TableView<TransportFile> decryptArchiveFileTable;
+	@FXML
+	private TableView<TransportFile> encryptArchiveFileTable;
+
+	@FXML
+	private TableColumn<FileEntity, String> decryptFileTableColumn;
+	@FXML
+	private TableColumn<FileEntity, LocalDateTime> decryptDateTableColumn;
+	@FXML
+	private TableColumn<FileEntity, String> encryptFileTableColumn;
+	@FXML
+	private TableColumn<FileEntity, LocalDateTime> encryptDateTableColumn;
+
+	@FXML
+	private TableColumn<FileEntity, String> decryptArchiveFileTableColumn;
+	@FXML
+	private TableColumn<TransportFile, LocalDateTime> decryptArchiveDateTableColumn;
+	@FXML
+	private TableColumn<FileEntity, String> encryptArchiveFileTableColumn;
+	@FXML
+	private TableColumn<TransportFile, LocalDateTime> encryptArchiveDateTableColumn;
+
+	@FXML
+	private ComboBox<Report> reportChooser;
+
+	private String[] path;
+
+	private MainApp mainApp;
+
+	public EncryptOverviewController() {
+
+	}
+
+	@FXML
+	private void initialize() {
+		reportChooser.setCellFactory(new Callback<ListView<Report>, ListCell<Report>>() {
+			@Override
+			public ListCell<Report> call(ListView<Report> param) {
+				final ListCell<Report> cell = new ListCell<Report>() {
+					{
+						super.setPrefWidth(100);
+					}
+
+					@Override
+					public void updateItem(Report item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item != null) {
+							setText(item.getName());
+						} else {
+							setText(null);
+						}
+					}
+				};
+				return cell;
+			}
+		});
+
+		encryptArchiveDateTableColumn
+				.setCellValueFactory((cellData) -> cellData.getValue().getDatetimeProperty());
+		encryptArchiveDateTableColumn.setCellFactory(
+				new Callback<TableColumn<TransportFile, LocalDateTime>, TableCell<TransportFile, LocalDateTime>>() {
+
+					@Override
+					public TableCell<TransportFile, LocalDateTime> call(
+							TableColumn<TransportFile, LocalDateTime> param) {
+						return new TableCell<TransportFile, LocalDateTime>() {
+							@Override
+							protected void updateItem(LocalDateTime date, boolean empty) {
+								super.updateItem(date, empty);
+								if (empty) {
+									setText(null);
+								} else {
+									setText(DateUtils.formatGUI(date));
+								}
+							}
+
+						};
+					}
+				});
+
+		encryptArchiveFileTableColumn
+				.setCellValueFactory((cellData) -> cellData.getValue().getNameProperty());
+		encryptFileTableColumn
+				.setCellValueFactory((cellData) -> cellData.getValue().getNameProperty());
+		encryptDateTableColumn
+				.setCellValueFactory((cellData) -> cellData.getValue().getDatetimeProperty());
+		encryptDateTableColumn.setCellFactory(
+				new Callback<TableColumn<FileEntity, LocalDateTime>, TableCell<FileEntity, LocalDateTime>>() {
+
+					@Override
+					public TableCell<FileEntity, LocalDateTime> call(
+							TableColumn<FileEntity, LocalDateTime> param) {
+						return new TableCell<FileEntity, LocalDateTime>() {
+							@Override
+							protected void updateItem(LocalDateTime date, boolean empty) {
+								super.updateItem(date, empty);
+								if (empty) {
+									setText(null);
+								} else {
+									setText(DateUtils.formatGUI(date));
+								}
+							}
+
+						};
+					}
+				});
+
+		decryptArchiveDateTableColumn
+				.setCellValueFactory((cellData) -> cellData.getValue().getDatetimeProperty());
+		decryptArchiveDateTableColumn.setCellFactory(
+				new Callback<TableColumn<TransportFile, LocalDateTime>, TableCell<TransportFile, LocalDateTime>>() {
+
+					@Override
+					public TableCell<TransportFile, LocalDateTime> call(
+							TableColumn<TransportFile, LocalDateTime> param) {
+						return new TableCell<TransportFile, LocalDateTime>() {
+							@Override
+							protected void updateItem(LocalDateTime date, boolean empty) {
+								super.updateItem(date, empty);
+								if (empty) {
+									setText(null);
+								} else {
+									setText(DateUtils.formatGUI(date));
+								}
+							}
+
+						};
+					}
+				});
+
+		decryptArchiveFileTableColumn
+				.setCellValueFactory((cellData) -> cellData.getValue().getNameProperty());
+		decryptFileTableColumn
+				.setCellValueFactory((cellData) -> cellData.getValue().getNameProperty());
+		decryptDateTableColumn
+				.setCellValueFactory((cellData) -> cellData.getValue().getDatetimeProperty());
+		decryptDateTableColumn.setCellFactory(
+				new Callback<TableColumn<FileEntity, LocalDateTime>, TableCell<FileEntity, LocalDateTime>>() {
+
+					@Override
+					public TableCell<FileEntity, LocalDateTime> call(
+							TableColumn<FileEntity, LocalDateTime> param) {
+						return new TableCell<FileEntity, LocalDateTime>() {
+							@Override
+							protected void updateItem(LocalDateTime date, boolean empty) {
+								super.updateItem(date, empty);
+								if (empty) {
+									setText(null);
+								} else {
+									setText(DateUtils.formatGUI(date));
+								}
+							}
+
+						};
+					}
+				});
+
+		decryptArchiveFileTableColumn.setCellFactory(
+				new Callback<TableColumn<FileEntity, String>, TableCell<FileEntity, String>>() {
+					public TableCell<FileEntity, String> call(
+							javafx.scene.control.TableColumn<FileEntity, String> param) {
+						TableCell cell = new TableCell<FileEntity, String>() {
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								setText(empty ? "" : item);
+								setGraphic(null);
+
+								TableRow currentRow = getTableRow();
+								if (!isEmpty()) {
+
+									if (new File(decryptPathArch + item).exists()) {
+										currentRow.setStyle("-fx-background-color:white");
+										currentRow.setStyle("-fx-color:black");
+
+									} else {
+										currentRow.setStyle("-fx-background-color:red");
+									}
+								}
+							}
+						};
+						return cell;
+					};
+				});
+
+		encryptArchiveFileTableColumn.setCellFactory(
+				new Callback<TableColumn<FileEntity, String>, TableCell<FileEntity, String>>() {
+					public TableCell<FileEntity, String> call(
+							javafx.scene.control.TableColumn<FileEntity, String> param) {
+						TableCell cell = new TableCell<FileEntity, String>() {
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								setText(empty ? "" : item);
+								setGraphic(null);
+								TableRow currentRow = getTableRow();
+								if (!isEmpty()) {
+
+									if (new File(encryptPathArch.getText() +"\\"+ item).exists()) {
+										currentRow.setStyle("-fx-background-color:transparent");
+										currentRow.setStyle("-fx-color:black");
+										currentRow.setStyle("-fx-border-color: transparent #1d1d1d");
+
+									} else {
+										currentRow.setStyle("-fx-background-color:red");
+									}
+								}
+							}
+						};
+						return cell;
+					};
+				});
+
+		encryptArchiveFileTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> fillFilesFromArchive());
+
+		decryptArchiveFileTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> fillFilesFromArchive());
+
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+		fillData();
+
+	}
+
+	private void fillData() {
+
+		reportChooser.setItems(mainApp.getDb().getReports());
+		reportChooser.setValue(reportChooser.getItems().get(0));
+		encryptArchiveFileTable
+				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), 1));
+		decryptArchiveFileTable
+				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), 0));
+
+		calculateData();
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.millis(5000), ae -> calculateData()));
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
+	}
+
+	@FXML
+	public void openEncryptPathDialog() {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setInitialDirectory(
+				new File(mainApp.getDb().getPathForReport(reportChooser.getValue())[0]));
+		File selectedDirectory = directoryChooser.showDialog(null);
+
+		if (selectedDirectory != null) {
+			mainApp.getDb().savePath(reportChooser.getValue(), selectedDirectory.getAbsolutePath(),
+					false, false);
+		}
+
+	}
+
+	@FXML
+	public void openDecryptPathDialog() {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setInitialDirectory(
+				new File(mainApp.getDb().getPathForReport(reportChooser.getValue())[1]));
+		File selectedDirectory = directoryChooser.showDialog(null);
+
+		if (selectedDirectory != null) {
+			mainApp.getDb().savePath(reportChooser.getValue(), selectedDirectory.getAbsolutePath(),
+					true, false);
+		}
+
+	}
+
+	@FXML
+	public void openEncryptPathDialogArch() {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setInitialDirectory(
+				new File(mainApp.getDb().getPathForReport(reportChooser.getValue())[2]));
+		File selectedDirectory = directoryChooser.showDialog(null);
+
+		if (selectedDirectory != null) {
+			mainApp.getDb().savePath(reportChooser.getValue(), selectedDirectory.getAbsolutePath(),
+					false, true);
+		}
+	}
+
+	@FXML
+	public void openDecryptPathDialogArch() {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setInitialDirectory(
+				new File(mainApp.getDb().getPathForReport(reportChooser.getValue())[3]));
+		File selectedDirectory = directoryChooser.showDialog(null);
+
+		if (selectedDirectory != null) {
+			mainApp.getDb().savePath(reportChooser.getValue(), selectedDirectory.getAbsolutePath(),
+					true, true);
+		}
+	}
+
+	@FXML
+	public void calculateData() {
+		path = mainApp.getDb().getPathForReport(reportChooser.getValue());
+		decryptPath.setText(path[1]);
+		encryptPath.setText(path[0]);
+		decryptPathArch.setText(path[3]);
+		encryptPathArch.setText(path[2]);
+		decryptOutputPath.setText(path[5]);
+		encryptOutputPath.setText(path[4]);
+
+		encryptFileList.setItems(FileUtils.getDirContentByMask(path[0],
+				reportChooser.getValue().getPatternEncrypt()));
+		decryptFileList.setItems(FileUtils.getDirContentByMask(path[1],
+				reportChooser.getValue().getPatternDecrypt()));
+
+		decryptFileCount.setText(
+				FileUtils.getDirContentByMask(path[1], reportChooser.getValue().getPatternDecrypt())
+						.size() + "");
+		encryptFileCount.setText(
+				FileUtils.getDirContentByMask(path[0], reportChooser.getValue().getPatternEncrypt())
+						.size() + "");
+	}
+
+	public void fillFilesFromArchive() {
+		if (encryptArchiveFileTable.getSelectionModel().getSelectedItem() != null)
+			encryptFileTable.setItems(FXCollections.observableArrayList(encryptArchiveFileTable
+					.getSelectionModel().getSelectedItem().getListFiles().values()));
+		if (decryptArchiveFileTable.getSelectionModel().getSelectedItem() != null)
+			decryptFileTable.setItems(FXCollections.observableArrayList(decryptArchiveFileTable
+					.getSelectionModel().getSelectedItem().getListFiles().values()));
+	}
+
+	@FXML
+	public void decryptFiles() {
+		ProcessExecutor executor = new ProcessExecutor(decryptFileList.getItems(),
+				reportChooser.getValue(), mainApp.getDb(), decryptPath.getText(),
+				decryptOutputPath.getText(), decryptPathArch.getText(), 0);
+		try {
+			executor.start();
+
+		} catch (ReportError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		fillFilesFromArchive();
+	}
+
+	@FXML
+	public void encryptFiles() {
+		ProcessExecutor executor = new ProcessExecutor(encryptFileList.getItems(),
+				reportChooser.getValue(), mainApp.getDb(), encryptPath.getText(),
+				encryptOutputPath.getText(), encryptPathArch.getText(), 1);
+		try {
+			executor.start();
+
+		} catch (ReportError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		fillFilesFromArchive();
+	}
+
+	@FXML
+	public void openDecryptOutputPathDialog() {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setInitialDirectory(
+				new File(mainApp.getDb().getPathForReport(reportChooser.getValue())[5]));
+		File selectedDirectory = directoryChooser.showDialog(null);
+
+		if (selectedDirectory != null) {
+			mainApp.getDb().saveOutputPath(reportChooser.getValue(),
+					selectedDirectory.getAbsolutePath(), true);
+		}
+	}
+
+	@FXML
+	public void openEncryptOutputPathDialog() {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setInitialDirectory(
+				new File(mainApp.getDb().getPathForReport(reportChooser.getValue())[4]));
+		File selectedDirectory = directoryChooser.showDialog(null);
+
+		if (selectedDirectory != null) {
+			mainApp.getDb().saveOutputPath(reportChooser.getValue(),
+					selectedDirectory.getAbsolutePath(), false);
+		}
+	}
+
+	
+	@FXML
+	public void openArchive(){
+		mainApp.showArchive();
+	}
+}

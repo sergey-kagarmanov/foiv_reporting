@@ -1,0 +1,142 @@
+package application.models;
+
+import java.util.List;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+public class Report {
+
+	private IntegerProperty id;
+	private StringProperty name;
+	private StringProperty patternEncrypt;
+	private StringProperty patternDecrypt;
+	private StringProperty transportPattern;
+	private ListProperty<TransportFile> transportFiles;
+
+	public Report() {
+		this(null, null, null, null, null);
+	}
+
+	public Report(Integer id, String name, String patternEncrypt, String patternDecrypt, String transportPattern) {
+		this.id = new SimpleIntegerProperty();
+		this.id.setValue(id);
+		this.name = new SimpleStringProperty(name);
+		this.patternDecrypt = new SimpleStringProperty(patternDecrypt);
+		this.patternEncrypt = new SimpleStringProperty(patternEncrypt);
+		this.transportPattern = new SimpleStringProperty(transportPattern);
+	}
+
+	/**
+	 * @return the id
+	 */
+	public IntegerProperty getIdProperty() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setIdProperty(IntegerProperty id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public StringProperty getNameProperty() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setNameProperty(StringProperty name) {
+		this.name = name;
+	}
+
+	public Integer getId() {
+		return id.get();
+	}
+
+	public void setId(Integer id) {
+		this.id.set(id);
+	}
+
+	public String getName() {
+		return name.get();
+	}
+
+	public void setName(String name) {
+		this.name.set(name);
+	}
+
+	public StringProperty getPatternDecryptProperty() {
+		return patternDecrypt;
+	}
+
+	public void setPatternDecryptProperty(StringProperty patternDecrypt) {
+		this.patternDecrypt = patternDecrypt;
+	}
+
+	public StringProperty getPatternEncryptProperty() {
+		return patternEncrypt;
+	}
+
+	public void setPatternEncryptProperty(StringProperty patternEncrypt) {
+		this.patternEncrypt = patternEncrypt;
+	}
+
+	public String getPatternDecrypt() {
+		return patternDecrypt.get();
+	}
+
+	public void setPatternDecrypt(String patternDecrypt) {
+		this.patternDecrypt.set(patternDecrypt);
+	}
+
+	public String getPatternEncrypt() {
+		return patternEncrypt.get();
+	}
+
+	public void setPatternEncrypt(String patternEncrypt) {
+		this.patternEncrypt.set(patternEncrypt);
+	}
+
+	public String getTransportPattern(){
+		return transportPattern.get();
+	}
+	
+	public void setTransportPattern(String pattern){
+		this.transportPattern.set(pattern);
+	}
+	
+	public StringProperty getTransportPatternProperty(){
+		return transportPattern;
+	}
+	
+	public void setTransportPetternProperty(StringProperty patternProperty){
+		this.transportPattern = patternProperty;
+	}
+	
+	public List<TransportFile> getFiles(){
+		if (this.transportFiles!=null)
+			return this.transportFiles.get();
+		return null;
+	}
+	
+	public void setFiles(List files){
+		this.transportFiles.addAll(files);
+	}
+	
+	@Override
+	public String toString() {
+		return name.get();
+	}
+	
+}

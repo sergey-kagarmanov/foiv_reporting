@@ -1,0 +1,157 @@
+package application;
+
+import java.io.IOException;
+
+import application.db.Dao;
+import application.view.AddReportController;
+import application.view.ArchiveOverviewController;
+import application.view.EncryptOverviewController;
+import application.view.RootLayoutController;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+public class MainApp extends Application {
+
+    private Stage primaryStage;
+    private BorderPane rootLayout;
+    private Dao dao;
+
+	@Override
+	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+		this.primaryStage.setTitle("Работа с шифрованными файлами");
+		
+		initDB();
+		
+		initRootLayout();
+		
+		showEncryptOverview();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+	
+	public Dao getDb(){
+		return dao;
+	}
+	
+	public void initDB(){
+		dao = new Dao();
+	}
+	
+	public void initRootLayout() {
+        try {
+            // Загружаем корневой макет из fxml файла.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+            rootLayout = (BorderPane) loader.load();
+
+            // Отображаем сцену, содержащую корневой макет.
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
+            primaryStage.setMaximized(true);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void showEncryptOverview(){
+        try {
+            // Загружаем сведения об адресатах.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ReportDetails.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Помещаем сведения об адресатах в центр корневого макета.
+            rootLayout.setCenter(personOverview);
+            
+            EncryptOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	}
+	
+	public void showArchive(){
+		try{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ArchiveOverview.fxml"));
+			AnchorPane archiveOverview = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+			
+			// Create the dialog Stage.
+			dialogStage.setTitle("Архив сообщений");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.setMaximized(true);
+			Scene scene = new Scene(archiveOverview);
+			dialogStage.setScene(scene);
+
+			// Set the company into the controller.
+            ArchiveOverviewController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setReports(dao.getReports());
+			controller.setData(dao.getArchiveFiles());
+			controller.setDialogStage(dialogStage);
+			
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			//return controller.isOkClicked();
+
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void showAddReportDialog(){
+		try{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/AddReport.fxml"));
+			AnchorPane reportDialog = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+			
+			// Create the dialog Stage.
+			dialogStage.setTitle("Добавление отчета");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.setMaximized(true);
+			Scene scene = new Scene(reportDialog);
+			dialogStage.setScene(scene);
+
+			// Set the company into the controller.
+            AddReportController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setData(dao.getReportById(1));
+			controller.setDialogStage(dialogStage);
+			
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			//return controller.isOkClicked();
+
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+	}
+	
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+}

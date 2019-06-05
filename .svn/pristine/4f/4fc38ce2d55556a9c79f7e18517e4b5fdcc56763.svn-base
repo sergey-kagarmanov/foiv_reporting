@@ -1,0 +1,64 @@
+package application.models;
+
+public class FileAttribute {
+
+	private Integer id;
+	private String name;
+	private String value;
+
+	public FileAttribute(Integer id, String name, String value) {
+		this.id = id;
+		this.name = name;
+		this.value = value;
+	}
+	
+	public FileAttribute() {
+		this(null, null, null);
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the value
+	 */
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * @param value
+	 *            the value to set
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+}

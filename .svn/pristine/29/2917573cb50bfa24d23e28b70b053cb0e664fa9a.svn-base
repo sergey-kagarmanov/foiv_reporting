@@ -1,0 +1,283 @@
+package application.utils;
+
+import java.io.File;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import application.db.Dao;
+import application.models.AttributeDescr;
+import application.models.Chain;
+import application.models.FileType;
+import application.models.ProcessStep;
+import application.models.Report;
+
+public class XMLCreator {
+
+	public static String create(Report report, Dao dao) {
+		String content = "";
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
+			Element rootElement = doc.createElement("form");
+			doc.appendChild(rootElement);
+			
+			Attr name = doc.createAttribute("name");
+			rootElement.setAttributeNode(name);
+			name.setValue(report.getName());
+			
+			Element input = doc.createElement("input");
+			rootElement.appendChild(input);
+			
+			/*
+			 * Input
+			 */
+			Element ti = doc.createElement("transport");
+			input.appendChild(ti);
+			Attr tiName = doc.createAttribute("name");
+			tiName.setValue(report.getTransportInPattern().getName());
+			ti.setAttributeNode(tiName);
+			Attr tiMask = doc.createAttribute("mask");
+			tiMask.setValue(report.getTransportInPattern().getMask());
+			ti.setAttributeNode(tiMask);
+			
+			final Element imsgs = doc.createElement("messages");
+			input.appendChild(imsgs);
+			
+			Element msg = null;
+			Attr msgName = null;
+			Attr msgMask = null;
+			Attr msgSchema = null;
+			Element msgAttrs = null;
+			Element msgAttr = null;
+			Attr attrName = null;
+			Attr attrInName = null;
+			Attr attrLoc = null;
+			Attr attrAdd = null;
+			for(FileType fType : report.getPatternIn()){
+				msg = doc.createElement("message");
+				imsgs.appendChild(msg);
+				
+				msgName = doc.createAttribute("name");
+				msgName.setValue(fType.getName());
+				msg.setAttributeNode(msgName);
+				
+				msgMask = doc.createAttribute("mask");
+				msgMask.setValue(fType.getMask());
+				msg.setAttributeNode(msgMask);
+				
+				msgSchema = doc.createAttribute("schema");
+				msgSchema.setValue(fType.getValidationSchema());
+				msg.setAttributeNode(msgSchema);
+				
+				msgAttrs = doc.createElement("attributes");
+				msg.appendChild(msgAttrs);
+				
+				for(AttributeDescr attr : dao.getAttributes(fType).values()){
+					msgAttr = doc.createElement("attribute");
+					msgAttrs.appendChild(msgAttr);
+					
+					attrName = doc.createAttribute("name");
+					attrName.setValue(attr.getAttr().getName());
+					msgAttr.setAttributeNode(attrName);
+					
+					attrInName = doc.createAttribute("in_name");
+					attrInName.setValue(attr.getInName().toString());
+					msgAttr.setAttributeNode(attrInName);
+					
+					attrLoc = doc.createAttribute("location");
+					attrLoc.setValue(attr.getLocation());
+					msgAttr.setAttributeNode(attrLoc);
+					
+					attrAdd = doc.createAttribute("addition");
+					attrAdd.setValue(attr.getEtc());
+					msgAttr.setAttributeNode(attrAdd);
+				}
+			}
+			
+			Element tickets = doc.createElement("tickets");
+			input.appendChild(tickets);
+			for(FileType fType : report.getTickets()){
+				msg = doc.createElement("ticket");
+				tickets.appendChild(msg);
+				
+				msgName = doc.createAttribute("name");
+				msgName.setValue(fType.getName());
+				msg.setAttributeNode(msgName);
+				
+				msgMask = doc.createAttribute("mask");
+				msgMask.setValue(fType.getMask());
+				msg.setAttributeNode(msgMask);
+				
+				msgSchema = doc.createAttribute("schema");
+				msgSchema.setValue(fType.getValidationSchema());
+				msg.setAttributeNode(msgSchema);
+				
+				msgAttrs = doc.createElement("attributes");
+				msg.appendChild(msgAttrs);
+				
+				for(AttributeDescr attr : dao.getAttributes(fType).values()){
+					msgAttr = doc.createElement("attribute");
+					msgAttrs.appendChild(msgAttr);
+					
+					attrName = doc.createAttribute("name");
+					attrName.setValue(attr.getAttr().getName());
+					msgAttr.setAttributeNode(attrName);
+					
+					attrInName = doc.createAttribute("in_name");
+					attrInName.setValue(attr.getInName().toString());
+					msgAttr.setAttributeNode(attrInName);
+					
+					attrLoc = doc.createAttribute("location");
+					attrLoc.setValue(attr.getLocation());
+					msgAttr.setAttributeNode(attrLoc);
+					
+					attrAdd = doc.createAttribute("addition");
+					attrAdd.setValue(attr.getEtc());
+					msgAttr.setAttributeNode(attrAdd);
+				}
+				
+			}
+			
+			Element iProc = doc.createElement("processing");
+			input.appendChild(iProc);
+			Element chains = doc.createElement("chains");
+			iProc.appendChild(chains);
+			Element eChain = null;
+			Element steps = null;
+			Element eStep = null;
+			Attr data = null;
+			Element key = null;
+			Attr action = null;
+			Attr position = null;
+			for(Chain chain : dao.getChains(report, Constants.IN)){
+				eChain = doc.createElement("chain");
+				chains.appendChild(eChain);
+				name = doc.createAttribute("name");
+				name.setValue(chain.getName());
+				eChain.setAttributeNode(name);
+				steps = doc.createElement("steps");
+				eChain.appendChild(steps);
+				for(ProcessStep step : chain.getSteps()){
+					eStep = doc.createElement("step");
+					steps.appendChild(eStep);
+					
+					data = doc.createAttribute("data");
+					data.setValue(step.getData());
+					eStep.setAttributeNode(data);
+					
+					if (step.getKey()!=null){
+						key = doc.createElement("key");
+						eStep.appendChild(key);
+						
+						name = doc.createAttribute("name");
+						name.setValue(step.getKey().getName());
+						key.setAttributeNode(name);
+						
+						data = doc.createAttribute("data");
+						data.setValue(step.getKey().getData());
+						key.setAttributeNode(data);
+					}
+					
+					action = doc.createAttribute("action");
+					action.setValue(step.getAction().getName());
+					eStep.setAttributeNode(action);
+					
+					position = doc.createAttribute("position");
+					position.setValue(step.getPosition().toString());
+					eStep.setAttributeNode(position);
+					
+				}
+			}
+			
+			/**
+			 * Output
+			 */
+			Element output = doc.createElement("output");
+			rootElement.appendChild(output);
+			Element to = doc.createElement("transport");
+			output.appendChild(to);
+			Attr oname = doc.createAttribute("name");
+			to.setAttributeNode(oname);
+			oname.setValue(report.getTransportOutPattern().getName());
+			Attr omask = doc.createAttribute("mask");
+			omask.setValue(report.getTransportOutPattern().getMask());
+			to.setAttributeNode(omask);
+			
+			Element omsgs = doc.createElement("messages");
+			output.appendChild(omsgs);
+			for(FileType fType : report.getPatternOut()){
+				msg = doc.createElement("message");
+				omsgs.appendChild(msg);
+				
+				msgName = doc.createAttribute("name");
+				msgName.setValue(fType.getName());
+				msg.setAttributeNode(msgName);
+				
+				msgMask = doc.createAttribute("mask");
+				msgMask.setValue(fType.getMask());
+				msg.setAttributeNode(msgMask);
+				
+				msgSchema = doc.createAttribute("schema");
+				msgSchema.setValue(fType.getValidationSchema());
+				msg.setAttributeNode(msgSchema);
+				
+				msgAttrs = doc.createElement("attributes");
+				msg.appendChild(msgAttrs);
+				
+				for(AttributeDescr attr : dao.getAttributes(fType).values()){
+					msgAttr = doc.createElement("attribute");
+					msgAttrs.appendChild(msgAttr);
+					
+					attrName = doc.createAttribute("name");
+					attrName.setValue(attr.getAttr().getName());
+					msgAttr.setAttributeNode(attrName);
+					
+					attrInName = doc.createAttribute("in_name");
+					attrInName.setValue(attr.getInName().toString());
+					msgAttr.setAttributeNode(attrInName);
+					
+					attrLoc = doc.createAttribute("location");
+					attrLoc.setValue(attr.getLocation());
+					msgAttr.setAttributeNode(attrLoc);
+					
+					attrAdd = doc.createAttribute("addition");
+					attrAdd.setValue(attr.getEtc());
+					msgAttr.setAttributeNode(attrAdd);
+				}
+			}
+			
+			
+			
+			// write the content into xml file
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File("C:\\file.xml"));
+
+			// Output to console for testing
+			// StreamResult result = new StreamResult(System.out);
+
+			transformer.transform(source, result);
+
+		} catch (ParserConfigurationException | TransformerException pce) {
+			pce.printStackTrace();
+		}
+
+		return content;
+	}
+
+
+}

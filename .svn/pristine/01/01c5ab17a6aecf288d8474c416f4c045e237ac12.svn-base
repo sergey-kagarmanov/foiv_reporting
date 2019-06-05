@@ -1,0 +1,71 @@
+package application.utils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import application.models.FileType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+public class FileUtils {
+
+	
+	public static String tmpDir = "d:\\sdm\\tmp\\";
+	public static String exeDir = "d:\\sdm\\exe\\";
+	public static String rarFullPath = "\"C:\\Program Files (x86)\\WinRAR\\WinRAR.exe\"";
+
+	/**
+	 * Returns observableArrayList
+	 * 
+	 * @param directory
+	 * @param observableList
+	 * @return
+	 */
+	public static ObservableList<String> getDirContentByMask(String directory, ObservableList<FileType> observableList) {
+		File file = new File(directory);
+		String[] files = file
+				.list((dir, filename) -> {
+					boolean flag = false;
+					for(FileType tmp : observableList){
+						flag = Pattern.compile(tmp.getMask()).matcher(filename).matches();
+						if (flag)
+							return flag;
+					}
+					return true;
+				});
+		if (files != null)
+			return FXCollections.observableArrayList(files);
+		else
+			return FXCollections.observableArrayList();
+	}
+
+	//TODO: Need to check uses and refactor to FileType or list
+	/**
+	 * Returns observableArrayList
+	 * 
+	 * @param directory
+	 * @param observableList
+	 * @return
+	 */
+	public static ObservableList<String> getDirContentByMask(String directory, String mask) {
+		File file = new File(directory);
+		String[] files = file
+				.list((dir, filename) -> Pattern.compile(mask).matcher(filename).matches());
+		if (files != null)
+			return FXCollections.observableArrayList(files);
+		else
+			return FXCollections.observableArrayList();
+	}
+
+	public static void clearTmp(ObservableList<FileType> mask){
+		for(String filename : mask!=null ? getDirContentByMask(tmpDir,  mask) : FXCollections.observableArrayList(new File(tmpDir).list())){
+			File file = new File(tmpDir+filename);
+			if (file.exists()){
+				file.delete();
+			}
+		}
+	}
+}

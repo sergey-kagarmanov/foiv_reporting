@@ -1,0 +1,328 @@
+package application.view;
+
+import java.util.List;
+import java.util.Map;
+
+import application.MainApp;
+import application.errors.ReportError;
+import application.models.AttributeDescr;
+import application.models.FileAttribute;
+import application.models.FileEntity;
+import application.models.Report;
+import application.models.ReportFile;
+import application.models.TransportFile;
+import application.utils.Constants;
+import application.utils.DateUtils;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableCell;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import javafx.scene.control.TreeTableRow;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+
+public class ArchiveOverviewController {
+
+	@FXML
+	DatePicker startDate;
+	@FXML
+	DatePicker endDate;
+
+	@FXML
+	ComboBox<Report> reportChooser;
+
+	@FXML
+	Label answerFile;
+	@FXML
+	Label answerCode;
+	@FXML
+	Label comment;
+	@FXML
+	Label dateTimeAnswer;
+	@FXML
+	Label dateTimeFile;
+
+	@FXML
+	TreeTableView<FileEntity> fileView;
+	@FXML
+	TreeTableColumn<FileEntity, String> fileNameColumn;
+	@FXML
+	TreeTableColumn<FileEntity, String> fileDateColumn;
+	@FXML
+	TreeTableColumn<FileEntity, String> fileDirectionColumn;
+	@FXML
+	TreeTableColumn<FileEntity, String> fileStatusColumn;
+	@FXML
+	TreeTableColumn<FileEntity, String> fileReportColumn;
+
+	private MainApp mainApp;
+
+	private Map<String, FileEntity> fileFiles;
+
+	// private final Node inIcon = new ImageView(new
+	// Image(getClass().getResourceAsStream("/img/in.png")));
+	// private final Node outIcon = new ImageView(new
+	// Image(getClass().getResourceAsStream("/img/out.png")));
+
+	public ArchiveOverviewController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@FXML
+	private void initialize() {
+
+		reportChooser.setCellFactory(new Callback<ListView<Report>, ListCell<Report>>() {
+			@Override
+			public ListCell<Report> call(ListView<Report> param) {
+				final ListCell<Report> cell = new ListCell<Report>() {
+					{
+						super.setPrefWidth(100);
+					}
+
+					@Override
+					public void updateItem(Report item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item != null) {
+							setText(item.getName());
+						} else {
+							setText(null);
+						}
+					}
+				};
+				return cell;
+			}
+		});
+
+		fileNameColumn
+				.setCellValueFactory(new TreeItemPropertyValueFactory<FileEntity, String>("name"));
+		fileDateColumn.setCellValueFactory(
+				new TreeItemPropertyValueFactory<FileEntity, String>("datetime") {
+					@Override
+					public ObservableValue<String> call(
+							CellDataFeatures<FileEntity, String> param) {
+
+						return new SimpleStringProperty(
+								DateUtils.formatGUI(param.getValue().getValue().getDatetime()));
+					}
+				});
+		fileReportColumn.setCellValueFactory(
+				new TreeItemPropertyValueFactory<FileEntity, String>("report"));
+		fileDirectionColumn.setCellValueFactory(
+				new TreeItemPropertyValueFactory<FileEntity, String>("direction") {
+					@Override
+					public ObservableValue<String> call(
+							CellDataFeatures<FileEntity, String> param) {
+						return new SimpleStringProperty(param.getValue().getValue().getDirection()
+								? Constants.IN : Constants.OUT);
+					}
+				});
+		fileStatusColumn.setCellValueFactory(
+				new TreeItemPropertyValueFactory<FileEntity, String>("linkedFile") {
+					@Override
+					public ObservableValue<String> call(
+							CellDataFeatures<FileEntity, String> param) {
+						FileEntity fe = param.getValue().getValue().getLinkedFile();
+						String tmp = "";
+						if (fe == null) {
+							if (param.getValue().getValue() instanceof ReportFile) {
+								if (!((ReportFile) param.getValue().getValue()).getAttributes()
+										.isEmpty()) {
+									Map<String, FileAttribute> attr = ((ReportFile) param.getValue()
+											.getValue()).getAttributes();
+									if (attr.get(AttributeDescr.PARENT) != null) {
+										if (attr != null && attr.get(AttributeDescr.CODE) != null) {
+											if ("0".equals(attr.get(AttributeDescr.CODE).getValue())
+													|| "00".equals(attr.get(AttributeDescr.CODE)
+															.getValue()))
+												tmp += Constants.POSITIVE + " ";
+											else
+												tmp += Constants.NEGATIVE + " ";
+											tmp += Constants.ANSWER_ON
+													+ attr.get(AttributeDescr.PARENT).getValue();
+										}
+									} else {
+										tmp = "";
+									}
+								} else {
+									tmp = "Ответ не получен";
+								}
+							} else {
+								tmp = "Ответ не получен";
+							}
+						} else if (fe instanceof ReportFile) {
+							ReportFile rf = (ReportFile) fe;
+							if (rf.getAttributes() != null) {
+								FileAttribute fa = rf.getAttributes().get(AttributeDescr.CODE);
+								FileAttribute commentAttr = rf.getAttributes().get(AttributeDescr.COMMENT);
+								if (((fa != null) && (fa.getValue().equals("00")
+										|| "0".equals(fa.getValue()))) || ((commentAttr!=null)&&( Constants.ACCEPT.equals(commentAttr.getValue())))) {
+									tmp = "Успешно";
+								} else if (fa != null
+										&& rf.getAttributes().get(AttributeDescr.COMMENT) != null) {
+									tmp = rf.getAttributes().get(AttributeDescr.COMMENT).getValue();
+								} else {
+									tmp = "Ответ обработан некорректно";
+								}
+								
+							} else {
+								tmp = "Ответ некорректного формата";
+							}
+						}
+						return new SimpleStringProperty(tmp);
+					}
+				});
+		fileView.setRowFactory(new Callback<TreeTableView<FileEntity>, TreeTableRow<FileEntity>>() {
+			@Override
+			public TreeTableRow<FileEntity> call(TreeTableView<FileEntity> param) {
+
+				TreeTableRow<FileEntity> row = new TreeTableRow<FileEntity>() {
+					@Override
+					protected void updateItem(FileEntity item, boolean empty) {
+						super.updateItem(item, empty);
+
+						this.setBackground(
+								new Background(new BackgroundFill(Color.WHITE, null, null)));
+						FileEntity fe = item;
+						if (fe != null && fe.getLinkedFile() == null) {
+							if (fe instanceof ReportFile) {
+								ReportFile rf = ((ReportFile) fe);
+								if (rf.getAttributes() == null) {
+									this.setBackground(new Background(
+											new BackgroundFill(Color.PINK, null, null)));
+								} else {
+									if (rf.getAttributes().get(AttributeDescr.PARENT) != null) {
+										if ((rf.getAttributes().get(AttributeDescr.CODE) != null
+												&& ("00".equals(rf.getAttributes()
+														.get(AttributeDescr.CODE).getValue())
+														|| "0".equals(rf.getAttributes()
+																.get(AttributeDescr.CODE)
+																.getValue())))||(rf.getAttributes().get(AttributeDescr.COMMENT) != null
+																&&(Constants.ACCEPT.equals(rf.getAttributes().get(AttributeDescr.COMMENT).getValue())))) {
+											this.setBackground(new Background(new BackgroundFill(
+													Color.SPRINGGREEN, null, null)));
+										} else {
+											this.setBackground(new Background(
+													new BackgroundFill(Color.RED, null, null)));
+
+										}
+									} else {
+										this.setBackground(new Background(
+												new BackgroundFill(Color.PINK, null, null)));
+									}
+								}
+							} else {
+								this.setBackground(
+										new Background(new BackgroundFill(Color.PINK, null, null)));
+							}
+						} else {
+							if (fe != null && fe.getLinkedFile() instanceof ReportFile) {
+								ReportFile lrf = (ReportFile) fe.getLinkedFile();
+								if (lrf.getAttributes() != null) {
+									if (lrf.getAttributes() != null)
+										if (lrf.getAttributes().get(AttributeDescr.CODE) != null) {
+											if ("0".equals(lrf.getAttributes()
+													.get(AttributeDescr.CODE).getValue())
+													|| "00".equals(lrf.getAttributes()
+															.get(AttributeDescr.CODE).getValue())) {
+												this.setBackground(
+														new Background(new BackgroundFill(
+																Color.SPRINGGREEN, null, null)));
+											}
+										}else if (lrf.getAttributes().get(AttributeDescr.COMMENT)!=null){
+											if (Constants.ACCEPT.equals(lrf.getAttributes().get(AttributeDescr.COMMENT).getValue())){
+												this.setBackground(
+														new Background(new BackgroundFill(
+																Color.SPRINGGREEN, null, null)));
+												
+											}else{
+												this.setBackground(
+														new Background(new BackgroundFill(
+																Color.RED, null, null)));
+
+											}
+										}
+								} else {
+									try {
+										throw new ReportError("Не обработан файл " + fe.getName());
+									} catch (ReportError e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						}
+					}
+				};
+				return row;
+			}
+		});
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+
+	}
+
+	private Stage dialogStage;
+
+	public void setDialogStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
+
+	public void setReports(List reports) {
+		reportChooser.getItems().addAll(reports);
+		reportChooser.getItems().add(new Report());
+	}
+
+	public void fillData() {
+		TreeItem<FileEntity> root = new TreeItem<>(new FileEntity());
+		root.setExpanded(true);
+		fileView.setShowRoot(false);
+		for (FileEntity file : fileFiles.values()) {
+			root.getChildren().add(createItem(file, 0));
+		}
+		fileView.setRoot(root);
+	}
+
+	private TreeItem<FileEntity> createItem(FileEntity entity, Integer padding) {
+		TreeItem<FileEntity> item = null;
+		if (!entity.getDirection()) {
+			Node outIcon = new ImageView(new Image(getClass().getResourceAsStream("out.png")));
+			item = new TreeItem<FileEntity>(entity, outIcon);
+		} else {
+			Node inIcon = new ImageView(new Image(getClass().getResourceAsStream("in.png")));
+			item = new TreeItem<FileEntity>(entity, inIcon);
+		} // item.
+		if (entity instanceof TransportFile) {
+			TransportFile tFile = (TransportFile) entity;
+			for (FileEntity cEntity : tFile.getListFiles().values()) {
+				item.getChildren().add(createItem(cEntity, padding + 5));
+			}
+		}
+
+		if (entity.getLinkedFile() != null) {
+			item.getChildren().add(createItem(entity.getLinkedFile(), padding + 5));
+		}
+		return item;
+	}
+
+	public void setData(Map<String, FileEntity> fileFiles) {
+		this.fileFiles = fileFiles;
+		fillData();
+	}
+}

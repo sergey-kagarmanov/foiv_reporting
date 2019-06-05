@@ -1,0 +1,108 @@
+package application.models;
+
+public class FileType {
+
+	private Integer id;
+	private String name;
+	private String mask;
+	private Report report;
+	private Boolean encrypt;
+	private Boolean transport;
+
+	public FileType(){
+		this(null, null, null, null, null, null);
+	}
+	
+	public FileType(Integer id, String name, String mask, Report report, Boolean encrypt, Boolean transport){
+		this.id = id;
+		this.name = name;
+		this.mask = mask;
+		this.report = report;
+		this.encrypt = encrypt;
+		this.transport = transport;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the mask
+	 */
+	public String getMask() {
+		return mask;
+	}
+
+	/**
+	 * @param mask
+	 *            the mask to set
+	 */
+	public void setMask(String mask) {
+		this.mask = mask;
+	}
+
+	/**
+	 * @return the report
+	 */
+	public Report getReport() {
+		return report;
+	}
+
+	/**
+	 * @param report
+	 *            the report to set
+	 */
+	public void setReport(Report report) {
+		this.report = report;
+	}
+
+	/**
+	 * @return the encrypt
+	 */
+	public Boolean getEncrypt() {
+		return encrypt;
+	}
+
+	/**
+	 * @param encrypt
+	 *            the encrypt to set
+	 */
+	public void setEncrypt(Boolean encrypt) {
+		this.encrypt = encrypt;
+	}
+
+	public Boolean getTransport() {
+		return transport;
+	}
+
+	public void setTransport(Boolean transport) {
+		this.transport = transport;
+	}
+
+}

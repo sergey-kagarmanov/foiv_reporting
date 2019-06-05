@@ -1,0 +1,117 @@
+package application.utils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import application.db.Dao;
+import application.errors.ReportError;
+import application.models.AttributeDescr;
+import application.models.FileAttribute;
+import application.models.FileType;
+import application.models.Report;
+
+public class FileParser {
+
+	private Report report;
+	private boolean encrypt;
+	private Dao dao;
+
+	public FileParser(Dao dao, Report report, boolean encrypt) {
+		this.dao = dao;
+		this.report = report;
+		this.encrypt = encrypt;
+	}
+
+	public Map<String, FileAttribute> parse(File file) {
+		Map<String, FileAttribute> attr = new HashMap<>();
+
+		FileType fType = getType(file);
+		Map<String, AttributeDescr> map = dao.getAttributes(fType);
+		try {
+			for (AttributeDescr ad : map.values()) {
+				attr.put(ad.getName(), new FileAttribute(ad.getId(), ad.getName(), getValue(file, ad)));
+			}
+
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ReportError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return attr;
+	}
+
+	private String getValue(File file, AttributeDescr attributeDescr) throws ReportError {
+		if (attributeDescr.getInName()) {
+			return file.getName().replace(attributeDescr.getValue(), "");
+		} else {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder;
+			try {
+				dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(file);
+				String[] par = attributeDescr.getValue().split("\\|");
+				int i = 0;
+				boolean nextNode = false;
+				Node node = null;
+				NodeList list = doc.getChildNodes();
+				while (i < par.length && (!nextNode)) {
+
+					int j = 0;
+					boolean flag = true;
+					while (j < list.getLength() && flag) {
+						Node n = list.item(j);
+						if (n.getNodeName().equals(par[i])) {
+							flag = false;
+							node = n;
+						} else {
+							j++;
+						}
+					}
+					if (!flag) {
+						list = node.getChildNodes();
+						i++;
+					} else {
+						throw new ReportError("Node not found");
+					}
+				}
+
+				if ("".equals(attributeDescr.getAttr()) || attributeDescr.getAttr() == null) {
+					return node.getFirstChild().getNodeValue();
+				} else {
+					NamedNodeMap m = node.getAttributes();
+					node = m.getNamedItem(par[par.length - 1]);
+					return node.getNodeValue();
+				}
+			} catch (ParserConfigurationException | SAXException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
+	private FileType getType(File file) {
+		for (FileType type : dao.getFileTypes(report, encrypt)) {
+			if (Pattern.compile(type.getMask()).matcher(file.getName()).matches()) {
+				return type;
+			}
+		}
+		return null;
+	}
+}

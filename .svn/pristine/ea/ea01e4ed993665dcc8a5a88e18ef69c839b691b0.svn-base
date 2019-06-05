@@ -1,0 +1,105 @@
+package application.view;
+
+import java.time.LocalDateTime;
+import java.util.Map;
+
+import application.MainApp;
+import application.models.AttributeDescr;
+import application.models.Report;
+import application.models.ReportFile;
+import application.models.TransportFile;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
+import javafx.util.Callback;
+
+public class ArchiveOverviewController {
+
+	@FXML
+	DatePicker startDate;
+	@FXML
+	DatePicker endDate;
+	
+	@FXML
+	ComboBox<Report> reportChooser;
+	
+	@FXML
+	Label answerFile;
+	@FXML
+	Label answerCode;
+	@FXML
+	Label comment;
+	@FXML
+	Label dateTimeAnswer;
+	@FXML
+	Label dateTimeFile;
+	
+	@FXML
+	TreeTableView<TransportFile> transportView;
+	@FXML
+	TreeTableColumn<TransportFile, String> transportNameColumn;
+	@FXML
+	TreeTableColumn<TransportFile, LocalDateTime> transportDateColumn;
+	@FXML
+	TreeTableColumn<TransportFile, String> transportDirectionColumn;
+	@FXML
+	TreeTableColumn<TransportFile, String> transportStatusColumn;
+	@FXML
+	TreeTableColumn<TransportFile, String> transportCommentColumn;
+	
+	@FXML
+	TreeTableView<ReportFile> reportFileView;
+	@FXML
+	TreeTableColumn<ReportFile, String> reportNameColumn;
+	@FXML
+	TreeTableColumn<ReportFile, LocalDateTime> reportDateColumn;
+	@FXML
+	TreeTableColumn<ReportFile, String> reportDirectionColumn;
+	
+	private MainApp mainApp;
+	
+	private Map<String, TransportFile> transportFiles;
+	
+	
+	public ArchiveOverviewController() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@FXML
+	private void initialize() {
+		
+		reportChooser.setCellFactory(new Callback<ListView<Report>, ListCell<Report>>() {
+			@Override
+			public ListCell<Report> call(ListView<Report> param) {
+				final ListCell<Report> cell = new ListCell<Report>() {
+					{
+						super.setPrefWidth(100);
+					}
+
+					@Override
+					public void updateItem(Report item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item != null) {
+							setText(item.getName());
+						} else {
+							setText(null);
+						}
+					}
+				};
+				return cell;
+			}
+		});
+		
+		/*transportCommentColumn.setCellValueFactory((
+	            TreeTableColumn.CellDataFeatures<TransportFile, String> param) -> new ReadOnlyStringWrapper(
+	                    param.getValue().getValue().getLinkedFile()!=null ? ((ReportFile)param.getValue().getValue().getLinkedFile()).getAttributes().get(AttributeDescr.COMMENT) : "Нет данных")));*/
+		
+	}
+	
+}

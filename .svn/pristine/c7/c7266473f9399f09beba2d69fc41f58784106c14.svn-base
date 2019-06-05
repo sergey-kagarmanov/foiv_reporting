@@ -1,0 +1,300 @@
+package application.view;
+
+
+
+import application.MainApp;
+import application.errors.ReportError;
+import application.models.FileType;
+import application.models.Report;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+
+public class AddReportController {
+
+	@FXML
+	private TableView<FileType> maskIn;
+
+	@FXML
+	private TableColumn<FileType, String> inNameColumn;
+
+	@FXML
+	private TableColumn<FileType, String> inMaskColumn;
+
+	@FXML
+	private TableView<FileType> maskOut;
+
+	@FXML
+	private TableColumn<FileType, String> outNameColumn;
+
+	@FXML
+	private TableColumn<FileType, String> outMaskColumn;
+
+	@FXML
+	private TextField maskTransportIn;
+	@FXML
+	private TextField nameTransportIn;
+
+	@FXML
+	private TextField nameField;
+
+	@FXML
+	private TextField maskTransportOut;
+
+	@FXML
+	private TextField nameTransportOut;
+
+	@FXML
+	private TextField nameInChooser;
+
+	@FXML
+	private TextField maskInValue;
+
+	@FXML
+	private TextField nameOutChooser;
+
+	@FXML
+	private TextField maskOutValue;
+	
+	@FXML
+	private ComboBox<Report> reportChooser;
+
+	private MainApp mainApp;
+
+	private Report report;
+
+	public AddReportController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * List of 2 items: first - decrypt, second - encrypt
+	 * 
+	 * @param settings
+	 */
+	public void setData(Report report) {
+		this.report = report;
+		fillData();
+	}
+
+	public void initialize() {
+		inNameColumn.setCellValueFactory((cellData) -> cellData.getValue().getNameProperty());
+		inMaskColumn.setCellValueFactory((cellData) -> cellData.getValue().getMaskProperty());
+		outNameColumn.setCellValueFactory((cellData) -> cellData.getValue().getNameProperty());
+		outMaskColumn.setCellValueFactory((cellData) -> cellData.getValue().getMaskProperty());
+		
+		maskIn.setRowFactory(new Callback<TableView<FileType>, TableRow<FileType>>(){
+
+			@Override
+			public TableRow<FileType> call(TableView<FileType> param) {
+	               final TableRow<FileType> row = new TableRow<>();  
+	                final ContextMenu contextMenu = new ContextMenu();  
+	                final MenuItem removeMenuItem = new MenuItem("Удалить");  
+	                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {  
+	                    @Override  
+	                    public void handle(ActionEvent event) { 
+	                    	mainApp.getDb().remove(row.getItem());
+	                    	report.getPatternIn().remove(row.getItem());
+	                    	maskIn.getItems().remove(row.getItem());  
+	                    }  
+	                });  
+	                contextMenu.getItems().add(removeMenuItem);  
+	               // Set context menu on row, but use a binding to make it only show for non-empty rows:  
+	                row.contextMenuProperty().bind(  
+	                        Bindings.when(row.emptyProperty())  
+	                        .then((ContextMenu)null)  
+	                        .otherwise(contextMenu)  
+	                );  
+	                return row ;  
+			}
+		});
+		inNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		inNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<FileType,String>>() {
+
+			@Override
+			public void handle(CellEditEvent<FileType, String> event) {
+				event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(event.getNewValue());
+				
+			}
+		});
+		inMaskColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		inMaskColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<FileType,String>>() {
+
+			@Override
+			public void handle(CellEditEvent<FileType, String> event) {
+				event.getTableView().getItems().get(event.getTablePosition().getRow()).setMask(event.getNewValue());
+				
+			}
+		});
+		
+		maskOut.setRowFactory(new Callback<TableView<FileType>, TableRow<FileType>>(){
+
+			@Override
+			public TableRow<FileType> call(TableView<FileType> param) {
+	               final TableRow<FileType> row = new TableRow<>();  
+	                final ContextMenu contextMenu = new ContextMenu();  
+	                final MenuItem removeMenuItem = new MenuItem("Удалить");  
+	                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {  
+	                    @Override  
+	                    public void handle(ActionEvent event) {  
+	                    	maskOut.getItems().remove(row.getItem());  
+	                    }  
+	                });  
+	                contextMenu.getItems().add(removeMenuItem);  
+	               // Set context menu on row, but use a binding to make it only show for non-empty rows:  
+	                row.contextMenuProperty().bind(  
+	                        Bindings.when(row.emptyProperty())  
+	                        .then((ContextMenu)null)  
+	                        .otherwise(contextMenu)  
+	                );  
+	                return row ;  
+			}
+		});
+		
+		outNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		outNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<FileType,String>>() {
+
+			@Override
+			public void handle(CellEditEvent<FileType, String> event) {
+				event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(event.getNewValue());
+				
+			}
+		});
+		
+		outMaskColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		outMaskColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<FileType,String>>() {
+
+			@Override
+			public void handle(CellEditEvent<FileType, String> event) {
+				event.getTableView().getItems().get(event.getTablePosition().getRow()).setMask(event.getNewValue());
+				
+			}
+		});
+
+
+		reportChooser.valueProperty().addListener(new ChangeListener<Report>() {
+			@Override
+			public void changed(ObservableValue<? extends Report> observable, Report oldValue,
+					Report newValue) {
+				report = reportChooser.getValue();
+				fillData();
+			}
+		});
+	}
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+		reportChooser.setItems(mainApp.getDb().getReports());
+		reportChooser.getItems().add(new Report(){
+			{
+				setName("Добавить");
+			}
+		});
+
+	}
+
+	@FXML
+	public void saveAction() {
+		try {
+			mainApp.getDb().saveReport(report);
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Сохранение");
+			alert.setContentText("Сохранение прошло успешно!");
+			alert.setHeaderText("Успешно!");
+			alert.showAndWait();
+		} catch (ReportError e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void fillData() {
+		if (report != null) {
+			if (report.getId()!=0)
+				nameField.setText(report.getName());
+			else
+				nameField.setText("");
+			if (report.getTransportInPattern() != null) {
+				maskTransportIn.setText(report.getTransportInPattern().getMask());
+				//nameTransportIn.setText(report.getTransportInPattern().getName());
+			}
+			if (report.getTransportOutPattern() != null) {
+				maskTransportOut.setText(report.getTransportOutPattern().getMask());
+				//nameTransportOut.setText(report.getTransportOutPattern().getName());
+			}
+			if (report.getPatternIn() != null) {
+				maskIn.setItems(report.getPatternIn());
+			}
+			if (report.getPatternOut() != null) {
+				maskOut.setItems(report.getPatternOut());
+			}
+		}
+	}
+
+	@FXML
+	public void addInMask() {
+		if (maskInValue.getText() != null && !"".equals(maskInValue.getText())) {
+			if (report.getPatternIn() != null) {
+				report.getPatternIn().add(new FileType(0, nameInChooser.getText(),
+						maskInValue.getText(), false, false));
+			}else{
+				report.setPatternIn(FXCollections.observableArrayList(new FileType(0, nameInChooser.getText(),
+						maskInValue.getText(), false, false)));
+			}
+			
+			maskInValue.setText("");
+			nameInChooser.setText("");
+		}else{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Ошибка");
+			alert.setContentText("Маска для добавления не введена");
+			alert.showAndWait();
+		}
+
+	}
+
+	@FXML
+	public void addOutMask() {
+		if (maskOutValue.getText() != null && !"".equals(maskOutValue.getText())) {
+			if (report.getPatternOut() != null) {
+				report.getPatternOut().add(new FileType(0, nameOutChooser.getText(),
+						maskOutValue.getText(), true, false));
+			}else{
+				report.setPatternOut(FXCollections.observableArrayList(new FileType(0, nameOutChooser.getText(),
+						maskOutValue.getText(), true, false)));
+			}
+			maskOutValue.setText("");
+			nameOutChooser.setText("");
+			
+		}else{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Ошибка");
+			alert.setContentText("Маска для добавления не введена");
+			alert.showAndWait();
+		}
+
+	}
+
+	private Stage dialogStage;
+
+	public void setDialogStage(Stage dialogStage) {
+		this.dialogStage = dialogStage;
+	}
+
+}

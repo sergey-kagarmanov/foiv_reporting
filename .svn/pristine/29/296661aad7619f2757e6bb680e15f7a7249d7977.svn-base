@@ -1,0 +1,98 @@
+package application.models;
+
+/**
+ * Info for attributes stored as way how them could be searched in file. If inName `true` `value` contains regular expression to get attribute value from filename. If `inName` - `false` so value contain path to find value in xml or another document.  
+ * Delimiter would be `|` and last is attribute name in tag
+ * @author admin
+ *
+ */
+public class AttributeDescr {
+
+	public static final String NAME="name";
+	public static final String CODE="code";
+	public static final String DATETIME = "datetime";
+	public static final String DATE = "date";
+	public static final String TIME = "time";
+	public static final String COMMENT = "comment";
+	public static final String PARENT = "parent";
+	
+	
+	
+	private Integer id; 
+	private String value;
+	private Boolean inName;
+	private String etc;
+	private String attr;
+	private String name;
+
+	public AttributeDescr(Integer id, String name, String value, Boolean inName, String etc, String attr) {
+		this.id = id;
+		this.name = name;
+		this.value = value;
+		this.inName = inName;
+		this.etc = etc;
+		this.setAttr(attr);
+	}
+	
+	public AttributeDescr() {
+		this(null, null, null, null, null, null);
+	}
+	
+	
+	/**
+	 * @return the value
+	 */
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * @param value
+	 *            the value to set
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Boolean getInName() {
+		return inName;
+	}
+
+	public void setInName(Boolean inName) {
+		this.inName = inName;
+	}
+
+	public String getEtc() {
+		return etc;
+	}
+
+	public void setEtc(String etc) {
+		this.etc = etc;
+	}
+
+	public String getAttr() {
+		return attr;
+	}
+
+	public void setAttr(String attr) {
+		this.attr = attr;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}

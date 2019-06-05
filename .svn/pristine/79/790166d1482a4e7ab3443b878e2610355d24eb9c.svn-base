@@ -1,0 +1,84 @@
+package application.models;
+
+public class ProcessStep {
+
+	private Integer id;
+	private Action action;
+	private ProcessStep next;
+	private Key key;
+	private Report report;
+
+	public ProcessStep(){
+		this(null, null, null, null, null);
+	}
+	
+	public ProcessStep(Integer id, Action action, Key key, ProcessStep next, Report report){
+		this.id = id;
+		this.action = action;
+		this.key = key;
+		this.next = next;
+		this.setReport(report);
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the action
+	 */
+	public Action getAction() {
+		return action;
+	}
+
+	/**
+	 * @param action
+	 *            the action to set
+	 */
+	public void setAction(Action action) {
+		this.action = action;
+	}
+
+	/**
+	 * @return the next
+	 */
+	public ProcessStep getNext() {
+		return next;
+	}
+
+	/**
+	 * @param next
+	 *            the next to set
+	 */
+	public void setNext(ProcessStep next) {
+		this.next = next;
+	}
+
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
+	public Report getReport() {
+		return report;
+	}
+
+	public void setReport(Report report) {
+		this.report = report;
+	}
+
+}

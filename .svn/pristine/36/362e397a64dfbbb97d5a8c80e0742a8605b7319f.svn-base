@@ -1,0 +1,35 @@
+package application.utils;
+
+import java.io.File;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import application.db.Dao;
+import application.models.Report;
+import application.models.TransportFile;
+
+public class Logger {
+
+	private Dao dao;
+	private Report report;
+	private boolean encrypt;
+	
+	public Logger(Dao dao, Report report, boolean encrypt){
+		this.dao = dao;
+		this.report = report;
+		this.encrypt = encrypt;
+	}
+	
+	public void log(String transportFile, List<File> files, LocalDateTime datetime){
+		dao.saveTransport(report, transportFile, encrypt ? 1 : 0, datetime);
+		
+		for(File file : files){
+			
+		}
+		
+	}
+	
+	public void log(TransportFile transportFile){
+			dao.saveTransportFile(transportFile);//TODO: test if it fills id
+	}
+}

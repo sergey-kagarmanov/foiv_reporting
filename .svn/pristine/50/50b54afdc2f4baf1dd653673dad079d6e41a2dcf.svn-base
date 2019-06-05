@@ -1,0 +1,170 @@
+package application.models;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+public class FileType {
+
+	private IntegerProperty id;
+	private StringProperty name;
+	private StringProperty mask;
+	private BooleanProperty encrypt;
+	private BooleanProperty transport;
+	private StringProperty vSchema;
+
+	public FileType(){
+		this(null, null, null, null, null, null);
+	}
+	
+	public FileType(Integer id, String name, String mask, String vSchema, Boolean encrypt, Boolean transport){
+		this.id = new SimpleIntegerProperty();
+		this.id.set(id);
+		this.name = new SimpleStringProperty(name);
+		this.mask = new SimpleStringProperty(mask);
+		this.encrypt = new SimpleBooleanProperty(encrypt);
+		this.transport = new SimpleBooleanProperty(transport);
+		this.vSchema = new SimpleStringProperty(vSchema);
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id.get();
+	}
+
+	public IntegerProperty getIdProperty(){
+		return id;
+	}
+	
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Integer id) {
+		this.id.set(id);
+	}
+
+	public void setIdProperty(IntegerProperty id){
+		this.id = id;
+	}
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name.get();
+	}
+	
+	public StringProperty getNameProperty(){
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name.set(name);
+	}
+	
+	public void setNameProperty(StringProperty name){
+		this.name = name;
+	}
+
+	/**
+	 * @return the mask
+	 */
+	public String getMask() {
+		return mask.get();
+	}
+
+	public StringProperty getMaskProperty(){
+		return mask;
+	}
+	
+	/**
+	 * @param mask
+	 *            the mask to set
+	 */
+	public void setMask(String mask) {
+		this.mask.set(mask);
+	}
+	
+	public void setMaskProperty(StringProperty mask){
+		this.mask = mask;
+	}
+
+
+	/**
+	 * @return the encrypt
+	 */
+	public Boolean getEncrypt() {
+		return encrypt.get();
+	}
+
+	public BooleanProperty getEncryptProperty(){
+		return encrypt;
+	}
+	
+	/**
+	 * @param encrypt
+	 *            the encrypt to set
+	 */
+	public void setEncrypt(Boolean encrypt) {
+		this.encrypt.set(encrypt);
+	}
+
+	public void stEncryptProperty(BooleanProperty encrypt){
+		this.encrypt = encrypt;
+	}
+	
+	public Boolean getTransport() {
+		return transport.get();
+	}
+	
+	public BooleanProperty getTranportProperty(){
+		return transport;
+	}
+
+	public void setTransport(Boolean transport) {
+		this.transport.set(transport);
+	}
+	
+	public void setTransportProperty(BooleanProperty transport){
+		this.transport = transport;
+	}
+	
+	public String getValidationSchema(){
+		return vSchema.get();
+	}
+	
+	public StringProperty getValidationSchemaProperty(){
+		return vSchema;
+	}
+	
+	public void setValidationSchema(String validationSchema){
+		vSchema.set(validationSchema);
+	}
+	
+	public void setValidationSchemaProperty(StringProperty validationSchema){
+		vSchema = validationSchema;
+	}
+	
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 instanceof FileType)
+			return ((FileType)arg0).getId().equals(id.get());
+		else
+			return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return 14*id.get();
+	}
+}
