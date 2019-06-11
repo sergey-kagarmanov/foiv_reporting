@@ -26,6 +26,7 @@ import application.models.Report;
 import application.models.ReportFile;
 import application.models.TicketResults;
 import application.models.TransportFile;
+import application.utils.Configuration;
 import application.utils.Constants;
 import application.utils.DateUtils;
 import javafx.collections.FXCollections;
@@ -39,7 +40,7 @@ public class Dao {
 	public Dao() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:D:\\sdm\\fc_reports.db");
+			connection = DriverManager.getConnection(Configuration.get("db_path","jdbc:sqlite:D:\\programs\\fc_reporting\\fc_reports.db").toString());
 			System.out.println("Database connection");
 		} catch (SQLException e) {
 			e.printStackTrace();
