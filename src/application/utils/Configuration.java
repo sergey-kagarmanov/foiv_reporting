@@ -26,13 +26,7 @@ public class Configuration {
 	private Configuration() {
 		String applicationDir=CurrentDir();
 		configurationMap=new HashMap();
-		fileName=applicationDir+"\\fc_config.xml";
-		try {
-			loadFile();
-		}
-		catch(Exception ex){
-			
-		}
+		fileName=applicationDir+"\\fc_config.xml";		
 	}
 	
 	/**
@@ -43,9 +37,13 @@ public class Configuration {
 	private static boolean saveFile() throws Exception{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
-		Document doc = factory.newDocumentBuilder().newDocument();	   
-	    Element root = doc.createElement("app-settings");
-	    Element propertiesElement = doc.createElement("properties");
+		Document doc = factory.newDocumentBuilder().newDocument();
+		
+		Element root = doc.createElement("app-settings");
+	    root.setAttribute("xmlns", "http://www.javacore.ru/schemas/");
+	    doc.appendChild(root);
+	    
+		Element propertiesElement = doc.createElement("properties");
 	    root.appendChild(propertiesElement);
 	    Set set = instance.configurationMap.keySet();
 	    if (set != null) {
@@ -113,6 +111,10 @@ public class Configuration {
 	
 	static {
 		instance = new Configuration();
+		try {
+			loadFile();
+		}
+		catch(Exception ex){}
 	}
 	
 	private static String CurrentDir(){
@@ -154,6 +156,7 @@ public class Configuration {
 			saveFile();
 		}
 		catch(Exception ex){
+			ex.printStackTrace();
 		}
 		}
 }
