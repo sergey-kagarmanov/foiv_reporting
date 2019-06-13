@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -11,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.ArchiveOverviewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.ArchiveOverviewController">
    <children>
       <VBox layoutX="48.0" layoutY="48.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -22,7 +26,7 @@
                         <Insets right="5.0" top="3.0" />
                      </padding>
                   </Label>
-                  <DatePicker fx:id="startDate">
+                  <DatePicker fx:id="startDate" onAction="#handleStartDateSelected">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
@@ -35,7 +39,7 @@
                         <Insets top="3.0" />
                      </padding>
                   </Label>
-                  <DatePicker fx:id="endDate">
+                  <DatePicker fx:id="endDate" onAction="#handleEndDateSelected">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
@@ -50,7 +54,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" onAction="#handleUpdate" text="Применить" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

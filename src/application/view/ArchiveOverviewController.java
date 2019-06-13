@@ -285,16 +285,44 @@ public class ArchiveOverviewController {
 	}
 
 	public void setReports(List reports) {
+		reportChooser.getItems().clear();
 		reportChooser.getItems().addAll(reports);
-		reportChooser.getItems().add(new Report());
+		
+		//I don't understand why we added an empty report to the end of the list
+		//reportChooser.getItems().add(new Report());  
 	}
-
+	
+	@FXML 
+	public void handleUpdate() {
+		fillData();
+	}
+	
+	
 	public void fillData() {
 		TreeItem<FileEntity> root = new TreeItem<>(new FileEntity());
 		root.setExpanded(true);
 		fileView.setShowRoot(false);
 		for (FileEntity file : fileFiles.values()) {
-			root.getChildren().add(createItem(file, 0));
+			boolean filterPassed=true;
+			
+			if(startDate.getValue()!=null) {
+				if(file.getDatetime().isBefore(startDate.getValue().atTime(0,0)))
+					filterPassed=false;				
+			}
+			
+			if(endDate.getValue()!=null) {
+				if(file.getDatetime().isAfter(endDate.getValue().atTime(0,0)))
+					filterPassed=false;				
+			}
+			
+			if(reportChooser.getValue()!=null) {
+				if(!file.getReport().equals(reportChooser.getValue()))
+					filterPassed=false;
+			}
+			
+			
+			if(filterPassed)
+				root.getChildren().add(createItem(file, 0));
 		}
 		fileView.setRoot(root);
 	}
@@ -325,4 +353,23 @@ public class ArchiveOverviewController {
 		this.fileFiles = fileFiles;
 		fillData();
 	}
+	
+	@FXML 
+	public void handleStartDateSelected() {
+		//checks that own date is correct
+		if(endDate.getValue()!=null)
+			if(startDate.getValue().isAfter(endDate.getValue())) {
+				startDate.setValue(endDate.getValue());			
+			}			
+	}
+	
+	@FXML 
+	public void handleEndDateSelected() {
+		//checks that own date is correct
+		if(startDate.getValue()!=null)
+			if(endDate.getValue().isBefore(startDate.getValue())) {
+				endDate.setValue(startDate.getValue());			
+			}			
+	}
+	
 }
