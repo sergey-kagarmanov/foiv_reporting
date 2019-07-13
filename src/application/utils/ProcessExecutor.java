@@ -47,6 +47,8 @@ public class ProcessExecutor {
 	private Chain chain;
 
 	private Dao dao;
+	
+	private Signatura signatura;
 
 	private boolean useScript = false;
 	private String script = "";
@@ -79,6 +81,7 @@ public class ProcessExecutor {
 		parser = new FileParser(dao, report, direction);
 		ticketFiles = new HashMap<String, ReportFile>();
 		this.direction = direction;
+		signatura = new Signatura();
 	}
 
 	public void start() throws ReportError {
@@ -186,14 +189,18 @@ public class ProcessExecutor {
 		// currentStep = dao.getActionForReport(report, direction);
 		chain = dao.getChains(report, direction ? Constants.IN : Constants.OUT).get(0);
 		currentStep = chain.getSteps().get(0);
-
+		/**
+		 * Set signatura parameters
+		 */
+		signatura.initConfig();
+		signatura.setParameters();
 		while (currentStep != null) {
 			try {
-				executeStep(currentStep);
+				executeStepSignatura(currentStep);
 				// Only fo instruction TO we need to proceed next element
 				if (Constants.ACTIONS[0].equals(currentStep.getAction().getName())) {
 					currentStep = currentStep.getNext();
-					executeStep(currentStep);
+					executeStepSignatura(currentStep);
 				}
 				if (useScript) {
 					loadKey(currentStep.getKey());
@@ -229,7 +236,7 @@ public class ProcessExecutor {
 				e.printStackTrace();
 			}
 		}
-
+		signatura.unload();
 		// Copy files from tmp dir to output dir
 		try {
 			if (!direction) {
@@ -421,7 +428,147 @@ public class ProcessExecutor {
 		}
 	}
 
-	public void executeStep(ProcessStep step) throws FileNotFoundException, IOException {
+	public void executeStepSignatura(ProcessStep step) {
+		if (Constants.ACTIONS[0].equals(step.getAction().getName())) {
+			//Do nothing
+		} else if (Constants.ACTIONS[1].equals(step.getAction().getName())) {
+			//encrypt
+			signatura.encryptFilesInPath(FileUtils.tmpDir);
+		} else if (Constants.ACTIONS[2].equals(step.getAction().getName())) {
+			//sign
+			signatura.signFilesInPath(FileUtils.tmpDir);
+		} else if (Constants.ACTIONS[3].equals(step.getAction().getName())) {
+			//decrypt
+			signatura.decryptFilesInPath(FileUtils.tmpDir);
+		} else if (Constants.ACTIONS[4].equals(step.getAction().getName())) {
+			//verify and unsign
+			signatura.verifyAndUnsignFilesInPath(FileUtils.tmpDir);
+		} else if (Constants.ACTIONS[5].equals(step.getAction().getName())) {
+			//post??
+		} else if (Constants.ACTIONS[6].equals(step.getAction().getName())) {
+			Runtime r = Runtime.getRuntime();
+			Process p = null;
+			boolean loop = true;
+			int i = 0;
+			ObservableList<TransportFile> otf = dao.getArchiveFiles(report, direction);
+			if (otf != null)
+				for (TransportFile f : otf) {
+					if (f.getDatetime().toLocalDate().isEqual(LocalDate.now())) {
+						i++;
+					}
+				}
+			ObservableList<String> fileList = FileUtils.getDirContentByMask(FileUtils.tmpDir,
+					step.getData());
+			ObservableList<String> doneList = FXCollections.observableArrayList();
+			try {
+				while (loop) {
+					i++;
+					ObservableList<String> fileListTmp = FXCollections.observableArrayList();
+					for (String f : fileList) {
+						if (!doneList.contains(f))
+							fileListTmp.add(f);
+					}
+					long fileSize = 0;
+					String command = FileUtils.exeDir + "arj.exe a -e ";// +
+																		// FileUtils.tmpDir+step.getAction().getData();
+
+					String pattern = direction
+							? report.getTransportInPattern().getMask().replaceAll("%date",
+									DateUtils.formatReport(LocalDate.now()))
+							: report.getTransportOutPattern().getMask().replaceAll("%date",
+									DateUtils.formatReport(LocalDate.now()));
+					if (i < 10) {
+						pattern = pattern.replaceAll("%n", i + "").replaceAll("%", "0");
+					} else if (i < 100) {
+						pattern = pattern.replaceAll("%%n", i + "").replaceAll("%", "0");
+					} else {
+						pattern = pattern.replaceAll("%%%n", i + "").replaceAll("%", "0");
+					}
+					command += FileUtils.tmpDir + pattern + " " + FileUtils.tmpDir;
+
+					// Add files to transport arch, if summary filesize doesn't
+					// greater than constant
+					int col = 0;
+					HashMap<String, ReportFile> toLog = new HashMap<String, ReportFile>();
+					for (String filename : fileListTmp) {
+						File tmpFile = new File(FileUtils.tmpDir + filename);
+						fileSize += tmpFile.length();
+						if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
+							command += " " + filename;
+							doneList.add(filename);
+							if (renameFiles == null)
+								toLog.put(filename, mapFiles.get(filename));
+							else
+								toLog.put(filename.replaceAll(renameFiles[1], renameFiles[0]),
+										mapFiles.get(filename));
+							loop = false;
+							col++;
+						} else {
+							loop = true;
+						}
+					}
+					transportFiles.put(pattern, new TransportFile(0, pattern, LocalDateTime.now(),
+							report, direction, null, toLog));
+
+					try {
+						p = r.exec(command);
+
+						InputStream is = p.getInputStream();
+						int w = 0;
+						while ((w = is.read()) != -1) {
+							System.out.print((char) w);
+						}
+						System.out.println(p.waitFor());
+					} catch (InterruptedException | IOException ie) {
+						ie.printStackTrace();
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Error!!!");
+			}
+			System.out.println("ARJ returned " + p.exitValue());
+
+		} else if (Constants.ACTIONS[7].equals(step.getAction().getName())) {
+			renameFiles = step.getData().split("|");
+			for (File file : files) {
+				file.renameTo(new File(file.getName().replaceAll(renameFiles[0], renameFiles[1])));
+			}
+
+		} else if (Constants.ACTIONS[8].equals(step.getAction().getName())) {
+			// Runtime r = Runtime.getRuntime();
+			// Process p = null;
+			for (String filename : FileUtils.getDirContentByMask(FileUtils.tmpDir,
+					step.getData())) {
+
+				/*
+				 * String q = FileUtils.rarFullPath + " e " + FileUtils.tmpDir +
+				 * filename + " " + FileUtils.tmpDir; p = r.exec(q);
+				 * System.out.println(p.waitFor()); File file = new
+				 * File(FileUtils.tmpDir + filename); if (file.exists()) {
+				 * file.delete(); } File par = new File(FileUtils.tmpDir); for
+				 * (String fname : par.list( (dir, name) ->
+				 * !(name.contains(".arj") || name.contains(".ARJ")))) {
+				 * transportFiles.get(filename).getListFiles().put(fname, new
+				 * ReportFile(0, fname, LocalDateTime.now(), report, direction,
+				 * null, null)); }
+				 */
+				List<File> tmpFiles = unrar(FileUtils.tmpDir + filename);
+				for (File f : tmpFiles) {
+					if (transportFiles.get(filename).getListFiles() == null) {
+						transportFiles.get(filename)
+								.setListFiles(new HashMap<String, ReportFile>());
+					}
+					transportFiles.get(filename).getListFiles().put(f.getName(), new ReportFile(0,
+							f.getName(), LocalDateTime.now(), report, direction, null, null));
+				}
+			}
+
+		}
+		
+	}
+	
+	public void executeStep_old(ProcessStep step) throws FileNotFoundException, IOException {
 		if (Constants.ACTIONS[0].equals(step.getAction().getName())) {
 			script += "TO ";
 			script += step.getData();

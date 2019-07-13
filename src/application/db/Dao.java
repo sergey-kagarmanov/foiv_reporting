@@ -39,7 +39,7 @@ public class Dao {
 	public Dao() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:D:\\sdm\\fc_reports.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:c:\\sdm\\fc_reports.db");
 			System.out.println("Database connection");
 		} catch (SQLException e) {
 			e.printStackTrace();

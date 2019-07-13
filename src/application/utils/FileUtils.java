@@ -18,8 +18,8 @@ import javafx.collections.ObservableList;
 
 public class FileUtils {
 
-	public static String tmpDir = "d:\\sdm\\tmp\\";
-	public static String exeDir = "d:\\sdm\\exe\\";
+	public static String tmpDir = "c:\\sdm\\tmp\\";
+	public static String exeDir = "c:\\sdm\\exe\\";
 	//public static String rarFullPath = "\"C:\\Program Files (x86)\\WinRAR\\WinRAR.exe\"";
 
 	/**
@@ -92,9 +92,9 @@ public class FileUtils {
 	}
 
 	public static void clearTmp(ObservableList<FileType> mask) throws ReportError {
-		for (String filename : mask != null ? getDirContentByMask(tmpDir, mask)
-				: FXCollections.observableArrayList(new File(tmpDir).list())) {
-			File file = new File(tmpDir + filename);
+		for (String filename : (mask != null ? getDirContentByMask(FileUtils.tmpDir, mask)
+				: FXCollections.observableArrayList(new File(FileUtils.tmpDir).list()))) {
+			File file = new File(FileUtils.tmpDir + filename);
 			if (file.exists()) {
 				file.delete();
 			}
