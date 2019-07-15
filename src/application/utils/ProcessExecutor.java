@@ -47,7 +47,7 @@ public class ProcessExecutor {
 	private Chain chain;
 
 	private Dao dao;
-	
+
 	private Signatura signatura;
 
 	private boolean useScript = false;
@@ -168,70 +168,52 @@ public class ProcessExecutor {
 			};
 		}
 
-		//Check parser exceptions
-		if (parser.getExceptions().size()>0){
+		// Check parser exceptions
+		if (parser.getExceptions().size() > 0) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Ошибки валидации");
 			alert.setHeaderText("При проверки валидации по схеме возникли ошибки");
-			
+
 			parser.getExceptions().forEach(error -> {
-				text += error.getMessage()+"\r\n";
+				text += error.getMessage() + "\r\n";
 			});
 			text += "Продолжить обработку?";
 			alert.setContentText(text);
 			breakFlag = alert.showAndWait().get() == ButtonType.OK;
 		}
-		
-		if (breakFlag){
+
+		if (breakFlag) {
 			return;
 		}
-		
+
 		// currentStep = dao.getActionForReport(report, direction);
 		chain = dao.getChains(report, direction ? Constants.IN : Constants.OUT).get(0);
 		currentStep = chain.getSteps().get(0);
 		while (currentStep != null) {
 			executeStepSignatura(currentStep);
 			currentStep = currentStep.getNext();
-			/*try {
-				executeStepSignatura(currentStep);
-				// Only for instruction TO we need to proceed next element
-				if (Constants.ACTIONS[0].equals(currentStep.getAction().getName())) {
-					currentStep = currentStep.getNext();
-					executeStepSignatura(currentStep);
-				}
-				if (useScript) {
-					loadKey(currentStep.getKey());
-					File batFile = new File(FileUtils.tmpDir + "batfile");
-					if (batFile.exists()) {
-						batFile.delete();
-					}
-					batFile.createNewFile();
-					FileWriter fw = new FileWriter(batFile);
-
-					fw.write(script);
-					fw.flush();
-					fw.close();
-					Runtime r = Runtime.getRuntime();
-					Process p = null;
-					try {
-						String q = Settings.VERBA_PATH + " /@\"" + batFile.getAbsolutePath() + "\"";
-						p = r.exec(q);
-						System.out.println(p.waitFor());
-
-					} catch (InterruptedException | IOException ie) {
-						ie.printStackTrace();
-					}
-					unloadKey();
-					batFile.delete();
-					script = "";
-					useScript = false;
-				}
-				currentStep = currentStep.getNext();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}*/
+			/*
+			 * try { executeStepSignatura(currentStep); // Only for instruction
+			 * TO we need to proceed next element if
+			 * (Constants.ACTIONS[0].equals(currentStep.getAction().getName()))
+			 * { currentStep = currentStep.getNext();
+			 * executeStepSignatura(currentStep); } if (useScript) {
+			 * loadKey(currentStep.getKey()); File batFile = new
+			 * File(FileUtils.tmpDir + "batfile"); if (batFile.exists()) {
+			 * batFile.delete(); } batFile.createNewFile(); FileWriter fw = new
+			 * FileWriter(batFile);
+			 * 
+			 * fw.write(script); fw.flush(); fw.close(); Runtime r =
+			 * Runtime.getRuntime(); Process p = null; try { String q =
+			 * Settings.VERBA_PATH + " /@\"" + batFile.getAbsolutePath() + "\"";
+			 * p = r.exec(q); System.out.println(p.waitFor());
+			 * 
+			 * } catch (InterruptedException | IOException ie) {
+			 * ie.printStackTrace(); } unloadKey(); batFile.delete(); script =
+			 * ""; useScript = false; } currentStep = currentStep.getNext(); }
+			 * catch (FileNotFoundException e) { e.printStackTrace(); } catch
+			 * (IOException e) { e.printStackTrace(); }
+			 */
 		}
 		// Copy files from tmp dir to output dir
 		try {
@@ -426,33 +408,33 @@ public class ProcessExecutor {
 
 	public void executeStepSignatura(ProcessStep step) {
 		if (Constants.ACTIONS[0].equals(step.getAction().getName())) {
-			//Do nothing
+			// Do nothing
 		} else if (Constants.ACTIONS[1].equals(step.getAction().getName())) {
-			//encrypt
+			// encrypt
 			signatura.initConfig(step.getKey().getData());
 			signatura.setParameters();
 			signatura.encryptFilesInPath(FileUtils.tmpDir, step.getKey().getData());
 			signatura.unload();
 		} else if (Constants.ACTIONS[2].equals(step.getAction().getName())) {
-			//sign
+			// sign
 			signatura.initConfig(step.getKey().getData());
 			signatura.setSignParameters();
 			signatura.signFilesInPath(FileUtils.tmpDir);
 			signatura.unload();
 		} else if (Constants.ACTIONS[3].equals(step.getAction().getName())) {
-			//decrypt
+			// decrypt
 			signatura.initConfig(step.getKey().getData());
 			signatura.setParameters();
-			signatura.decryptFilesInPath(FileUtils.tmpDir);
+			signatura.decryptFilesInPath(FileUtils.tmpDir, step.getData());
 			signatura.unload();
 		} else if (Constants.ACTIONS[4].equals(step.getAction().getName())) {
-			//verify and unsign
+			// verify and unsign
 			signatura.initConfig(step.getKey().getData());
 			signatura.setParameters();
-			signatura.verifyAndUnsignFilesInPath(FileUtils.tmpDir);
+			signatura.verifyAndUnsignFilesInPath(FileUtils.tmpDir, step.getData());
 			signatura.unload();
 		} else if (Constants.ACTIONS[5].equals(step.getAction().getName())) {
-			//post??
+			// post??
 		} else if (Constants.ACTIONS[6].equals(step.getAction().getName())) {
 			Runtime r = Runtime.getRuntime();
 			Process p = null;
@@ -569,13 +551,14 @@ public class ProcessExecutor {
 					}
 					transportFiles.get(filename).getListFiles().put(f.getName(), new ReportFile(0,
 							f.getName(), LocalDateTime.now(), report, direction, null, null));
+
 				}
 			}
 
 		}
-		
+
 	}
-	
+
 	public void executeStep_old(ProcessStep step) throws FileNotFoundException, IOException {
 		if (Constants.ACTIONS[0].equals(step.getAction().getName())) {
 			script += "TO ";
@@ -644,7 +627,7 @@ public class ProcessExecutor {
 						pattern = pattern.replaceAll("%n", i + "").replaceAll("%", "0");
 					} else if (i < 100) {
 						pattern = pattern.replaceAll("%%n", i + "").replaceAll("%", "0");
-					} else if (i < 1000){
+					} else if (i < 1000) {
 						pattern = pattern.replaceAll("%%%%n", i + "").replaceAll("%", "0");
 					}
 					command += FileUtils.tmpDir + pattern + " " + FileUtils.tmpDir;

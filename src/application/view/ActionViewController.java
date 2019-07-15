@@ -311,12 +311,13 @@ public class ActionViewController {
 	public void handleDelete(){
 		Object obj = chainsTable.getSelectionModel().getSelectedItem();
 		if (obj!=null){
-			Object tmp = (TreeItem)obj;
+			Object tmp = ((TreeItem)obj).getValue();
 			if (tmp instanceof Chain){
 				mainApp.getDb().remove((Chain) tmp);
 			}else{
 				mainApp.getDb().remove((ProcessStep)tmp);
 			}
+			((TreeItem)obj).getParent().getChildren().remove(obj);
 		}else{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Ошибка");

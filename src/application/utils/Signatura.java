@@ -1,7 +1,10 @@
 package application.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.zip.GZIPInputStream;
 
 import Pki1.LocalIface;
 import Pki1.LocalIface.certificate_t;
@@ -12,6 +15,7 @@ import Pki1.LocalIface.find_param_t;
 import Pki1.LocalIface.find_result_t;
 import Pki1.LocalIface.sign_param_t;
 import Pki1.LocalIface.verify_param_t;
+import javafx.collections.ObservableList;
 
 public class Signatura {
 
@@ -183,15 +187,16 @@ public class Signatura {
 		}
 	}
 
-	public void verifyAndUnsignFilesInPath(String path) {
-		File fPath = new File(path);
-		File[] files = fPath.listFiles();
+	public void verifyAndUnsignFilesInPath(String path, String filter) {
+		ObservableList<String> files = FileUtils.getDirContentByMask(path, filter);
 		File tmp = null;
-		for (File f : files) {
-			tmp = new File(f.getAbsolutePath() + "_unsign");
-			verifySign(f.getAbsolutePath(), f.getAbsolutePath() + "_unsign");
-			if (f.delete())
-				tmp.renameTo(f);
+		File fFile = null;
+		for (String f : files) {
+			tmp = new File(FileUtils.tmpDir + f + "_unsign");
+			fFile = new File(FileUtils.tmpDir + f);
+			verifySign(FileUtils.tmpDir + f, FileUtils.tmpDir + f + "_unsign");
+			if (fFile.delete())
+				tmp.renameTo(fFile);
 		}
 	}
 
@@ -254,15 +259,31 @@ public class Signatura {
 		}
 	}
 
-	public void decryptFilesInPath(String path) {
-		File fPath = new File(path);
-		File[] files = fPath.listFiles();
+	public void decryptFilesInPath(String path, String filter) {
+		ObservableList<String> files = FileUtils.getDirContentByMask(path, filter);
 		File tmp = null;
-		for (File f : files) {
-			tmp = new File(f.getAbsolutePath() + "_enc");
-			decrypt(f.getAbsolutePath(), f.getAbsolutePath() + "_enc");
-			if (f.delete())
-				tmp.renameTo(f);
+		for (String f : files) {
+			tmp = new File(FileUtils.tmpDir + f + "_enc");
+			decrypt(FileUtils.tmpDir + f, FileUtils.tmpDir + f + "_enc");
+			try {
+				decompressGzip(tmp, new File(FileUtils.tmpDir + f));
+				tmp.delete();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void decompressGzip(File input, File output) throws IOException {
+		try (GZIPInputStream in = new GZIPInputStream(new FileInputStream(input))) {
+			try (FileOutputStream out = new FileOutputStream(output)) {
+				byte[] buffer = new byte[1024];
+				int len;
+				while ((len = in.read(buffer)) != -1) {
+					out.write(buffer, 0, len);
+				}
+			}
 		}
 	}
 
