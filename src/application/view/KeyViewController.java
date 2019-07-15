@@ -42,7 +42,7 @@ public class KeyViewController {
 	TextField nameField;
 
 	@FXML
-	TextField pathField;
+	TextField dataField;
 
 	@FXML
 	TableView<Key> keyTable;
@@ -51,7 +51,7 @@ public class KeyViewController {
 	TableColumn<Key, String> nameColumn;
 
 	@FXML
-	TableColumn<Key, String> pathColumn;
+	TableColumn<Key, String> dataColumn;
 
 	@FXML
 	Button editButton;
@@ -60,7 +60,7 @@ public class KeyViewController {
 
 	public void initialize() {
 		nameColumn.setCellValueFactory((cellData) -> cellData.getValue().getNameProperty());
-		pathColumn.setCellValueFactory((cellData) -> cellData.getValue().getDataProperty());
+		dataColumn.setCellValueFactory((cellData) -> cellData.getValue().getDataProperty());
 
 		keyTable.setRowFactory(new Callback<TableView<Key>, TableRow<Key>>() {
 
@@ -90,7 +90,7 @@ public class KeyViewController {
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
 						nameField.setText(newSelection.getName());
-						pathField.setText(newSelection.getData());
+						dataField.setText(newSelection.getData());
 						key = newSelection;
 						editButton.setDisable(false);
 					} else {
@@ -111,12 +111,12 @@ public class KeyViewController {
 			errors.add("Не заполнено поле имя");
 		}
 		
-		if ("".equals(pathField.getText())){
+		if ("".equals(dataField.getText())){
 			errors.add("Не заполнено поле путь");
 		}
 		
 		if (errors.size() == 0){
-			mainApp.getDb().addKey(nameField.getText(), pathField.getText());
+			mainApp.getDb().addKey(nameField.getText(), dataField.getText());
 			setData();
 		}else{
 			Alert alert = new Alert(AlertType.ERROR);
@@ -137,13 +137,13 @@ public class KeyViewController {
 			errors.add("Не заполнено поле имя");
 		}
 		
-		if ("".equals(pathField.getText())){
+		if ("".equals(dataField.getText())){
 			errors.add("Не заполнено поле путь");
 		}
 		
 		if (errors.size() == 0){
 			key.setName(nameField.getText());
-			key.setData(pathField.getText());
+			key.setData(dataField.getText());
 			mainApp.getDb().editKey(key);
 			setData();
 		}else{
@@ -164,7 +164,7 @@ public class KeyViewController {
 		File file = chooser.showOpenDialog(null);
 
 		if (file != null) {
-			pathField.setText(file.getAbsolutePath());
+			dataField.setText(file.getAbsolutePath());
 		}
 
 	}

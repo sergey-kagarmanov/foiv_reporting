@@ -195,9 +195,11 @@ public class ProcessExecutor {
 		signatura.initConfig();
 		signatura.setParameters();
 		while (currentStep != null) {
-			try {
+			executeStepSignatura(currentStep);
+			currentStep = currentStep.getNext();
+			/*try {
 				executeStepSignatura(currentStep);
-				// Only fo instruction TO we need to proceed next element
+				// Only for instruction TO we need to proceed next element
 				if (Constants.ACTIONS[0].equals(currentStep.getAction().getName())) {
 					currentStep = currentStep.getNext();
 					executeStepSignatura(currentStep);
@@ -234,7 +236,7 @@ public class ProcessExecutor {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 		signatura.unload();
 		// Copy files from tmp dir to output dir
@@ -433,7 +435,7 @@ public class ProcessExecutor {
 			//Do nothing
 		} else if (Constants.ACTIONS[1].equals(step.getAction().getName())) {
 			//encrypt
-			signatura.encryptFilesInPath(FileUtils.tmpDir);
+			signatura.encryptFilesInPath(FileUtils.tmpDir, step.getKey().getData());
 		} else if (Constants.ACTIONS[2].equals(step.getAction().getName())) {
 			//sign
 			signatura.signFilesInPath(FileUtils.tmpDir);

@@ -169,6 +169,39 @@ public class Signatura {
 			tmp.renameTo(f);
 		}
 	}
+	
+	public void encrypt(String in, String out, String to) {
+		setEncryptParameters(to);
+		result = iFace.VCERT_EncryptFile(encryptParameters, in, out);
+		if (result==LocalIface.VCERT_OK) {
+			System.out.println("File "+in+" encrypted in "+out);
+		}else{
+			System.out.println(result);
+		}
+	}
+
+	public void setEncryptParameters(String string) {
+		encryptParameters = new encrypt_param_t();
+		encryptParameters.flag = LocalIface.FLAG_PKCS7;
+		encryptParameters.mycert = null;
+		encryptParameters.receiver_num = 1;
+		encryptParameters.receivers = new LocalIface.certificate_t[MAX_ELEMENTS_NUM];
+		encryptParameters.receivers[0] = getCert(string);
+	}
+
+	public certificate_t getCert(String string) {
+		certificate_t cert = new LocalIface.certificate_t();
+		find_param_t findParameters = new find_param_t();
+		findParameters.flag = LocalIface.FLAG_FIND_PARTIAL_SUBJECT | LocalIface.FLAG_FIND_SELECTUI;
+		findParameters.certTemplate = new certificate_t();
+		findParameters.certTemplate.subject = "OU="+string;
+		find_result_t findResult_t = new find_result_t();
+		result = iFace.VCERT_FindCert(findParameters, findResult_t);
+		if (findResult_t.num>0){
+			cert = findResult_t.certs[0];
+		}
+		return cert;
+	}
 
 	public void encryptFilesInPath(String path) {
 		File fPath = new File(path);
@@ -181,7 +214,20 @@ public class Signatura {
 			tmp.renameTo(f);
 		}
 	}
-	
+
+	public void encryptFilesInPath(String path, String to) {
+		setEncryptParameters(to);
+		File fPath = new File(path);
+		File[] files = fPath.listFiles();
+		File tmp = null;
+		for(File f : files) {
+			tmp = new File(f.getAbsolutePath()+"_enc");
+			encrypt(f.getAbsolutePath(), f.getAbsolutePath()+"_enc");
+			if (f.delete())
+			tmp.renameTo(f);
+		}
+	}
+
 	public void decryptFilesInPath(String path) {
 		File fPath = new File(path);
 		File[] files = fPath.listFiles();
