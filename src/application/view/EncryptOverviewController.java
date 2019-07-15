@@ -324,6 +324,27 @@ public class EncryptOverviewController {
 		timeline.play();
 	}
 
+	private void fillData(String form) {
+		Report tmp = null;
+		reportChooser.setItems(mainApp.getDb().getReports());
+		for(Report current : reportChooser.getItems()) {
+			if (current.getName().equals(form)) {
+				tmp = current;
+			}
+		}
+		reportChooser.setValue(tmp);
+		outArchiveFileTable
+				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), false));
+		inArchiveFileTable
+				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), true));
+
+		calculateData();
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.millis(timer), ae -> calculateData()));
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
+	}
+
 	@FXML
 	public void openOutPathDialog() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -466,7 +487,7 @@ public class EncryptOverviewController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		fillData();
+		fillData(reportChooser.getSelectionModel().selectedItemProperty().getValue().getName());
 	}
 
 	@FXML
@@ -487,7 +508,7 @@ public class EncryptOverviewController {
 		}
 		executor = null;
 		System.gc();
-		fillData();
+		fillData(reportChooser.getSelectionModel().selectedItemProperty().getValue().getName());
 	}
 
 	@FXML

@@ -189,11 +189,6 @@ public class ProcessExecutor {
 		// currentStep = dao.getActionForReport(report, direction);
 		chain = dao.getChains(report, direction ? Constants.IN : Constants.OUT).get(0);
 		currentStep = chain.getSteps().get(0);
-		/**
-		 * Set signatura parameters
-		 */
-		signatura.initConfig();
-		signatura.setParameters();
 		while (currentStep != null) {
 			executeStepSignatura(currentStep);
 			currentStep = currentStep.getNext();
@@ -238,7 +233,6 @@ public class ProcessExecutor {
 				e.printStackTrace();
 			}*/
 		}
-		signatura.unload();
 		// Copy files from tmp dir to output dir
 		try {
 			if (!direction) {
@@ -435,16 +429,28 @@ public class ProcessExecutor {
 			//Do nothing
 		} else if (Constants.ACTIONS[1].equals(step.getAction().getName())) {
 			//encrypt
+			signatura.initConfig(step.getKey().getData());
+			signatura.setParameters();
 			signatura.encryptFilesInPath(FileUtils.tmpDir, step.getKey().getData());
+			signatura.unload();
 		} else if (Constants.ACTIONS[2].equals(step.getAction().getName())) {
 			//sign
+			signatura.initConfig(step.getKey().getData());
+			signatura.setSignParameters();
 			signatura.signFilesInPath(FileUtils.tmpDir);
+			signatura.unload();
 		} else if (Constants.ACTIONS[3].equals(step.getAction().getName())) {
 			//decrypt
+			signatura.initConfig(step.getKey().getData());
+			signatura.setParameters();
 			signatura.decryptFilesInPath(FileUtils.tmpDir);
+			signatura.unload();
 		} else if (Constants.ACTIONS[4].equals(step.getAction().getName())) {
 			//verify and unsign
+			signatura.initConfig(step.getKey().getData());
+			signatura.setParameters();
 			signatura.verifyAndUnsignFilesInPath(FileUtils.tmpDir);
+			signatura.unload();
 		} else if (Constants.ACTIONS[5].equals(step.getAction().getName())) {
 			//post??
 		} else if (Constants.ACTIONS[6].equals(step.getAction().getName())) {

@@ -37,6 +37,15 @@ public class Signatura {
 		}
 	}
 
+	public void initConfig(String profile) {
+		int flag = LocalIface.FLAG_INIT_REGISTRY;
+
+		result = iFace.VCERT_Initialize(profile, flag);
+		if (result == LocalIface.VCERT_OK) {
+			System.out.println("Init success");
+		}
+	}
+
 	public void setSignParameters() {
 		signParameters = new sign_param_t();
 		signParameters.flag = LocalIface.FLAG_PKCS7;
