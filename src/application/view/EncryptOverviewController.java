@@ -306,6 +306,8 @@ public class EncryptOverviewController {
 
 	}
 
+	private int timer = 5000;
+
 	private void fillData() {
 
 		reportChooser.setItems(mainApp.getDb().getReports());
@@ -317,7 +319,7 @@ public class EncryptOverviewController {
 
 		calculateData();
 		Timeline timeline = new Timeline(
-				new KeyFrame(Duration.millis(5000), ae -> calculateData()));
+				new KeyFrame(Duration.millis(timer), ae -> calculateData()));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
@@ -325,7 +327,11 @@ public class EncryptOverviewController {
 	@FXML
 	public void openOutPathDialog() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File(report.getPathOut()));
+		String path = report.getPathOut();
+		if (path == null) {
+			path = "c:\\";
+		}
+		directoryChooser.setInitialDirectory(new File(path));
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
@@ -340,7 +346,11 @@ public class EncryptOverviewController {
 	@FXML
 	public void openInPathDialog() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File(report.getPathOut()));
+		String pathOut = report.getPathIn();
+		if (pathOut == null) {
+			pathOut = "c:\\";
+		}
+		directoryChooser.setInitialDirectory(new File(pathOut));
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
@@ -355,7 +365,11 @@ public class EncryptOverviewController {
 	@FXML
 	public void openInputPathDialogArch() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File(report.getPathIn()));
+		String path = report.getPathIn();
+		if (path == null) {
+			path = "c:\\";
+		}
+		directoryChooser.setInitialDirectory(new File(path));
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
@@ -369,7 +383,11 @@ public class EncryptOverviewController {
 	@FXML
 	public void openOutputPathDialogArch() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File(report.getPathArchiveOut()));
+		String path = report.getPathArchiveOut();
+		if (path == null) {
+			path = "c:\\";
+		}
+		directoryChooser.setInitialDirectory(new File(path));
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
@@ -390,6 +408,10 @@ public class EncryptOverviewController {
 		outPathArch.setText(report.getPathArchiveOut());
 		inOutputPath.setText(report.getPathOutputIn());
 		outOutputPath.setText(report.getPathOutputOut());
+		outArchiveFileTable
+				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), false));
+		inArchiveFileTable
+				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), true));
 		try {
 			outFileList.setItems(FileUtils.getDirContentByMask(report.getPathOut(),
 					reportChooser.getValue().getPatternOut()));
@@ -401,20 +423,21 @@ public class EncryptOverviewController {
 			inFileList.setItems(FileUtils.getDirContentByMask(report.getPathIn(), list));
 
 			inFileCount
-					.setText(
-							FileUtils
-									.getDirContentByMask(report.getPathIn(),
-											list)
-									.size() + "");
+					.setText(FileUtils.getDirContentByMask(report.getPathIn(), list).size() + "");
 			outFileCount.setText(FileUtils.getDirContentByMask(report.getPathOut(),
 					reportChooser.getValue().getPatternOut()).size() + "");
+			if (timer > 5000) {// if error appears timer to check will be 50000
+								// or greater
+				timer = timer / 10;
+			}
 		} catch (ReportError e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Ошибка");
 			alert.setHeaderText("Ошибка выполнения");
 			alert.setContentText(
 					"При загрузке данных возникла ошибка проверьте настройки фильтрации");
-			alert.showAndWait();
+			alert.show();
+			timer = timer * 10;
 		}
 	}
 
@@ -470,7 +493,11 @@ public class EncryptOverviewController {
 	@FXML
 	public void openOutputPathOutDialog() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File(report.getPathOutputOut()));
+		String path = report.getPathOutputOut();
+		if (path == null) {
+			path = "c:\\";
+		}
+		directoryChooser.setInitialDirectory(new File(path));
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
@@ -484,7 +511,11 @@ public class EncryptOverviewController {
 	@FXML
 	public void openOutputPathInDialog() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File(report.getPathOutputIn()));
+		String path = report.getPathOutputIn();
+		if (path == null) {
+			path = "c:\\";
+		}
+		directoryChooser.setInitialDirectory(new File(path));
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {

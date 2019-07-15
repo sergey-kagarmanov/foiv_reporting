@@ -239,20 +239,20 @@ public class Dao {
 				/**
 				 * Get transport decrypt pattern
 				 */
-				tmpReport.setTransportInPattern(getFileType(tmpReport.getId(), 1, 1));
+				tmpReport.setTransportInPattern(getFileType(tmpReport.getId(), Constants.IN_DB, Constants.TRANSPORT));
 				/**
 				 * Get transport encrypt pattern
 				 */
-				tmpReport.setTransportOutPattern(getFileType(tmpReport.getId(), 0, 1));
+				tmpReport.setTransportOutPattern(getFileType(tmpReport.getId(), Constants.OUT_DB, Constants.TRANSPORT));
 				/**
 				 * Get report encrypt patterns
 				 */
-				tmpReport.setPatternOut(getFileTypeAsList(tmpReport.getId(), 0, 0));
+				tmpReport.setPatternOut(getFileTypeAsList(tmpReport.getId(), Constants.OUT_DB, Constants.SIMPLE));
 
 				/**
 				 * Get report decrypt patterns
 				 */
-				tmpReport.setPatternIn(getFileTypeAsList(tmpReport.getId(), 1, 0));
+				tmpReport.setPatternIn(getFileTypeAsList(tmpReport.getId(), Constants.IN_DB, Constants.SIMPLE));
 
 				reports.add(tmpReport);
 
@@ -445,19 +445,19 @@ public class Dao {
 				/**
 				 * Get transport decrypt pattern
 				 */
-				tmpReport.setTransportInPattern(getFileType(tmpReport.getId(), 0, 1));
+				tmpReport.setTransportInPattern(getFileType(tmpReport.getId(), Constants.IN_DB, Constants.TRANSPORT));
 				/**
 				 * Get transport encrypt pattern
 				 */
-				tmpReport.setTransportOutPattern(getFileType(tmpReport.getId(), 1, 1));
+				tmpReport.setTransportOutPattern(getFileType(tmpReport.getId(), Constants.OUT_DB, Constants.TRANSPORT));
 				/**
 				 * Get report encrypt patterns
 				 */
-				tmpReport.setPatternOut(getFileTypeAsList(tmpReport.getId(), 0, 0));
+				tmpReport.setPatternOut(getFileTypeAsList(tmpReport.getId(), Constants.OUT_DB, Constants.SIMPLE));
 				/**
 				 * Get report decrypt patterns
 				 */
-				tmpReport.setPatternIn(getFileTypeAsList(tmpReport.getId(), 1, 0));
+				tmpReport.setPatternIn(getFileTypeAsList(tmpReport.getId(), Constants.IN_DB, Constants.SIMPLE));
 
 			}
 			rs.close();
@@ -1418,7 +1418,7 @@ public class Dao {
 		return fileType;
 	}
 
-	public FileType getFileType(Integer reportId, Integer destination, Integer transport) {
+	public FileType getFileType(Integer reportId, Integer direction, Integer transport) {
 		String sql = "";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -1427,7 +1427,7 @@ public class Dao {
 			sql = "SELECT * from file_types WHERE report_id = ? AND direction = ? AND transport = ? AND ticket = 0 ORDER BY direction ASC";
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, reportId);
-			ps.setInt(2, destination);
+			ps.setInt(2, direction);
 			ps.setInt(3, transport);
 			rs = ps.executeQuery();
 			if (rs.next()) {

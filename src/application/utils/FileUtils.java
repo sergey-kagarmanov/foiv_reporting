@@ -33,6 +33,9 @@ public class FileUtils {
 	public static ObservableList<String> getDirContentByMask(String directory,
 			ObservableList<FileType> observableList) throws ReportError {
 		try {
+			if (directory==null) {
+				directory = "c:\\";
+			}
 			File file = new File(directory);
 			String[] files = file.list((dir, filename) -> {
 				boolean flag = false;

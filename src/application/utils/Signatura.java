@@ -194,7 +194,8 @@ public class Signatura {
 		find_param_t findParameters = new find_param_t();
 		findParameters.flag = LocalIface.FLAG_FIND_PARTIAL_SUBJECT | LocalIface.FLAG_FIND_SELECTUI;
 		findParameters.certTemplate = new certificate_t();
-		findParameters.certTemplate.subject = "CN="+string;
+		//findParameters.certTemplate.subject = "CN="+string;
+		findParameters.certTemplate.keyId = string;
 		find_result_t findResult_t = new find_result_t();
 		result = iFace.VCERT_FindCert(findParameters, findResult_t);
 		if (findResult_t.num>0){

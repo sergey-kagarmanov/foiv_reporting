@@ -638,8 +638,8 @@ public class ProcessExecutor {
 						pattern = pattern.replaceAll("%n", i + "").replaceAll("%", "0");
 					} else if (i < 100) {
 						pattern = pattern.replaceAll("%%n", i + "").replaceAll("%", "0");
-					} else {
-						pattern = pattern.replaceAll("%%%n", i + "").replaceAll("%", "0");
+					} else if (i < 1000){
+						pattern = pattern.replaceAll("%%%%n", i + "").replaceAll("%", "0");
 					}
 					command += FileUtils.tmpDir + pattern + " " + FileUtils.tmpDir;
 

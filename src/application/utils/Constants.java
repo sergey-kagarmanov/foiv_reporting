@@ -8,6 +8,11 @@ public class Constants {
 	public static final String P364 = "364-П";*/
 
 	public static final String ALL = "Все";
+	public static final int OUT_DB = 0;
+	public static final int IN_DB = 1;
+	public static final int TRANSPORT = 1;
+	public static final int SIMPLE = 0;
+	
 
 	/*public static final int P1459N = 1;
 	public static final int P311N = 2;
