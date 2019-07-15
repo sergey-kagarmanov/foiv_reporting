@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPOutputStream;
 
 import application.errors.ReportError;
 import application.models.FileType;
@@ -161,4 +162,17 @@ public class FileUtils {
 			
 		}
 	}
+	
+    public static void compressGZIP(File input, File output) throws IOException {
+        try (GZIPOutputStream out = new GZIPOutputStream(new FileOutputStream(output))){
+            try (FileInputStream in = new FileInputStream(input)){
+                byte[] buffer = new byte[1024];
+                int len;
+                while((len=in.read(buffer)) != -1){
+                    out.write(buffer, 0, len);
+                }
+            }
+        }
+    }
+
 }
