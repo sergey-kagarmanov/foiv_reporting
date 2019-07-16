@@ -351,8 +351,12 @@ public class ProcessExecutor {
 					FileUtils.copy(f, tmpFile);
 					f.delete();
 					for (ReportFile rf : tf.getListFiles().values()) {
-						File rfFile = new File(FileUtils.tmpDir + rf.getName());
-						tmpFile = new File(archivePath + "\\" + rf.getName());
+						String fileName = rf.getName();
+						if (renameFiles.length>0) {
+							fileName = fileName.replaceAll(renameFiles[0], renameFiles[1]);
+						}
+						File rfFile = new File(FileUtils.tmpDir+fileName);
+						tmpFile = new File(archivePath + "\\" + fileName);
 						tmpFile.mkdirs();
 						if (tmpFile.exists()) {
 							tmpFile.delete();
@@ -489,8 +493,8 @@ public class ProcessExecutor {
 							if (renameFiles == null)
 								toLog.put(filename, mapFiles.get(filename));
 							else
-								toLog.put(filename.replaceAll(renameFiles[1], renameFiles[0]),
-										mapFiles.get(filename));
+								toLog.put(filename,
+										mapFiles.get(filename.replaceAll(renameFiles[1], renameFiles[0])));
 							loop = false;
 							col++;
 						} else {
@@ -520,9 +524,14 @@ public class ProcessExecutor {
 			System.out.println("ARJ returned " + p.exitValue());
 
 		} else if (Constants.ACTIONS[7].equals(step.getAction().getName())) {
-			renameFiles = step.getData().split("|");
+			renameFiles = step.getData().split("\\|");
 			for (File file : files) {
-				file.renameTo(new File(file.getName().replaceAll(renameFiles[0], renameFiles[1])));
+				File rFile = new File(FileUtils.tmpDir+file.getName().replaceAll(renameFiles[0], renameFiles[1]));
+				file.renameTo(rFile);
+			}
+			
+			for (String f : filenames) {
+				f.replaceAll(renameFiles[0], renameFiles[1]);
 			}
 
 		} else if (Constants.ACTIONS[8].equals(step.getAction().getName())) {
