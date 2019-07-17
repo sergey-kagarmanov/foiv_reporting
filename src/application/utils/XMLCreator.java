@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,11 +28,80 @@ import application.models.FileType;
 import application.models.Key;
 import application.models.ProcessStep;
 import application.models.Report;
+import application.models.FileAttribute;
+import application.models.AttributeDescr;
+import application.models.Action;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class XMLCreator {
 
+	
+	
+	private static Element createChainElement(Chain chain,Document doc,Dao dao)	{
+		Element out_element=doc.createElement("chain");
+		
+		out_element.setAttribute("name", chain.getName());
+		out_element.setAttribute("direction", chain.getDirection()?"1":"0");
+		List<ProcessStep> steps_list=chain.getSteps();		
+		for(ProcessStep step:steps_list)
+		{
+			Element step_element=doc.createElement("step");
+			step_element.setAttribute("position", step.getPosition().toString());
+			
+			Action action=step.getAction();
+			Element action_element=doc.createElement("action");
+			action_element.setAttribute("name", action.getName());
+			action_element.setAttribute("data", step.getData());
+			step_element.appendChild(action_element);
+			out_element.appendChild(step_element);
+		}
+		
+		
+		
+		return out_element;
+	}
+	
+	private static Element createAttributeElement(AttributeDescr descriptor,Document doc) {
+		Element out_element=null;		
+		
+		out_element=doc.createElement("attribute");
+		out_element.setAttribute("in_name", descriptor.getInName()?"1":"0");
+		out_element.setAttribute("place", descriptor.getLocation());
+		out_element.setAttribute("etc", descriptor.getEtc());
+		out_element.setAttribute("operation_id", descriptor.getAttr().getName());
+		
+		return out_element;
+	}
+	
+	private static Element createPatternElement(FileType pattern,Document doc,Dao dao)
+	{		
+		
+		final Element out_element=doc.createElement("pattern");;
+				
+		if(pattern.getTicket()) {
+			out_element.setAttribute("is_ticket", "1");			
+		}
+		if(pattern.getTransport()) {
+			out_element.setAttribute("is_transport", "1");			
+		}	
+		out_element.setAttribute("file_type", pattern.getFileType().toString());
+		if(pattern.getDirection()){
+			out_element.setAttribute("direction", "in");			
+		}
+		else {
+			out_element.setAttribute("direction", "out");
+		}
+		out_element.setAttribute("mask", pattern.getMask());
+		out_element.setAttribute("name", pattern.getName());		
+		
+		Map<String, AttributeDescr> attributes_map=dao.getAttributes(pattern);
+		
+		attributes_map.forEach((name,descriptor)->out_element.appendChild(createAttributeElement(descriptor,doc)));
+		
+		return out_element;
+	}
+	
 	public static String create(Report report, Dao dao, File file) {
 		String content = "";
 		try {
@@ -41,291 +111,41 @@ public class XMLCreator {
 			Element rootElement = doc.createElement("form");
 			doc.appendChild(rootElement);
 			
-			Attr name = doc.createAttribute("name");
-			rootElement.setAttributeNode(name);
-			name.setValue(report.getName());
+			//export reports table data
+			rootElement.setAttribute("name", report.getName());
+			rootElement.setAttribute("path_in", report.getPathIn());
+			rootElement.setAttribute("path_out", report.getPathOut());
+			rootElement.setAttribute("output_path_in", report.getPathOutputIn());
+			rootElement.setAttribute("output_path_out", report.getPathOutputOut());
+			rootElement.setAttribute("archive_path_in", report.getPathArchiveIn());
+			rootElement.setAttribute("archive_path_out", report.getPathArchiveOut());	
 			
-			Element input = doc.createElement("input");
-			rootElement.appendChild(input);
 			
-			/*
-			 * Input
-			 */
-			Element ti = doc.createElement("transport");
-			input.appendChild(ti);
-			Attr tiName = doc.createAttribute("name");
-			tiName.setValue(report.getTransportInPattern().getName());
-			ti.setAttributeNode(tiName);
-			Attr tiMask = doc.createAttribute("mask");
-			tiMask.setValue(report.getTransportInPattern().getMask());
-			ti.setAttributeNode(tiMask);
-			
-			final Element imsgs = doc.createElement("messages");
-			input.appendChild(imsgs);
-			
-			Element msg = null;
-			Attr msgName = null;
-			Attr msgMask = null;
-			Attr msgSchema = null;
-			Element msgAttrs = null;
-			Element msgAttr = null;
-			Attr attrName = null;
-			Attr attrInName = null;
-			Attr attrLoc = null;
-			Attr attrAdd = null;
-			Attr msgType = null;
-			for(FileType fType : report.getPatternIn()){
-				msg = doc.createElement("message");
-				imsgs.appendChild(msg);
-				
-				msgName = doc.createAttribute("name");
-				msgName.setValue(fType.getName());
-				msg.setAttributeNode(msgName);
-				
-				msgMask = doc.createAttribute("mask");
-				msgMask.setValue(fType.getMask());
-				msg.setAttributeNode(msgMask);
-				
-				msgSchema = doc.createAttribute("schema");
-				msgSchema.setValue(fType.getValidationSchema());
-				msg.setAttributeNode(msgSchema);
-				
-				msgType = doc.createAttribute("type");
-				msg.setAttributeNode(msgType);
-				msgType.setValue(fType.getFileType().toString());
-				
-				msgAttrs = doc.createElement("attributes");
-				msg.appendChild(msgAttrs);
-				
-				
-				
-				for(AttributeDescr attr : dao.getAttributes(fType).values()){
-					msgAttr = doc.createElement("attribute");
-					msgAttrs.appendChild(msgAttr);
-					
-					attrName = doc.createAttribute("name");
-					attrName.setValue(attr.getAttr().getName());
-					msgAttr.setAttributeNode(attrName);
-					
-					attrInName = doc.createAttribute("in_name");
-					attrInName.setValue(attr.getInName().toString());
-					msgAttr.setAttributeNode(attrInName);
-					
-					attrLoc = doc.createAttribute("location");
-					attrLoc.setValue(attr.getLocation());
-					msgAttr.setAttributeNode(attrLoc);
-					
-					attrAdd = doc.createAttribute("addition");
-					attrAdd.setValue(attr.getEtc());
-					msgAttr.setAttributeNode(attrAdd);
-					
-				}
+			//export file_types table data
+			Element file_types=doc.createElement("file_types");
+			List<FileType> ft_list=new ArrayList<FileType>();
+			ft_list.addAll(report.getPatternIn());
+			ft_list.addAll(report.getPatternOut());
+			ft_list.addAll(report.getTickets());
+			ft_list.add(report.getTransportInPattern());
+			ft_list.add(report.getTransportOutPattern());
+			for(FileType currentPattern:ft_list){
+				Element patternElement=createPatternElement(currentPattern,doc,dao);
+				file_types.appendChild(patternElement);
 			}
+			rootElement.appendChild(file_types);
 			
-			Element tickets = doc.createElement("tickets");
-			input.appendChild(tickets);
-			for(FileType fType : report.getTickets()){
-				msg = doc.createElement("ticket");
-				tickets.appendChild(msg);
-				
-				msgName = doc.createAttribute("name");
-				msgName.setValue(fType.getName());
-				msg.setAttributeNode(msgName);
-				
-				msgMask = doc.createAttribute("mask");
-				msgMask.setValue(fType.getMask());
-				msg.setAttributeNode(msgMask);
-				
-				msgSchema = doc.createAttribute("schema");
-				msgSchema.setValue(fType.getValidationSchema());
-				msg.setAttributeNode(msgSchema);
-				
-				msgType = doc.createAttribute("type");
-				msg.setAttributeNode(msgType);
-				msgType.setValue(fType.getFileType().toString());
-
-				msgAttrs = doc.createElement("attributes");
-				msg.appendChild(msgAttrs);
-				
-				for(AttributeDescr attr : dao.getAttributes(fType).values()){
-					msgAttr = doc.createElement("attribute");
-					msgAttrs.appendChild(msgAttr);
-					
-					attrName = doc.createAttribute("name");
-					attrName.setValue(attr.getAttr().getName());
-					msgAttr.setAttributeNode(attrName);
-					
-					attrInName = doc.createAttribute("in_name");
-					attrInName.setValue(attr.getInName().toString());
-					msgAttr.setAttributeNode(attrInName);
-					
-					attrLoc = doc.createAttribute("location");
-					attrLoc.setValue(attr.getLocation());
-					msgAttr.setAttributeNode(attrLoc);
-					
-					attrAdd = doc.createAttribute("addition");
-					attrAdd.setValue(attr.getEtc());
-					msgAttr.setAttributeNode(attrAdd);
-				}
-				
+			//export chains table data
+			Element chains=doc.createElement("chains");	
+			List<Chain> chains_list=new ArrayList<Chain>();
+			chains_list.addAll(dao.getChains(report, null));
+			
+			for(Chain chain:chains_list) {
+				Element chain_element=createChainElement(chain,doc,dao);
+				chains.appendChild(chain_element);
 			}
+			rootElement.appendChild(chains);
 			
-			Element iProc = doc.createElement("processing");
-			input.appendChild(iProc);
-			Element chains = doc.createElement("chains");
-			iProc.appendChild(chains);
-			Element eChain = null;
-			Element steps = null;
-			Element eStep = null;
-			Attr data = null;
-			Element key = null;
-			Attr action = null;
-			Attr position = null;
-			for(Chain chain : dao.getChains(report, Constants.IN)){
-				eChain = doc.createElement("chain");
-				chains.appendChild(eChain);
-				name = doc.createAttribute("name");
-				name.setValue(chain.getName());
-				eChain.setAttributeNode(name);
-				steps = doc.createElement("steps");
-				eChain.appendChild(steps);
-				for(ProcessStep step : chain.getSteps()){
-					eStep = doc.createElement("step");
-					steps.appendChild(eStep);
-					
-					data = doc.createAttribute("data");
-					data.setValue(step.getData());
-					eStep.setAttributeNode(data);
-					
-					if (step.getKey()!=null){
-						key = doc.createElement("key");
-						eStep.appendChild(key);
-						
-						name = doc.createAttribute("name");
-						name.setValue(step.getKey().getName());
-						key.setAttributeNode(name);
-						
-						data = doc.createAttribute("data");
-						data.setValue(step.getKey().getData());
-						key.setAttributeNode(data);
-					}
-					
-					action = doc.createAttribute("action");
-					action.setValue(step.getAction().getName());
-					eStep.setAttributeNode(action);
-					
-					position = doc.createAttribute("position");
-					position.setValue(step.getPosition().toString());
-					eStep.setAttributeNode(position);
-					
-				}
-			}
-			
-			/**
-			 * Output
-			 */
-			Element output = doc.createElement("output");
-			rootElement.appendChild(output);
-			Element to = doc.createElement("transport");
-			output.appendChild(to);
-			Attr oname = doc.createAttribute("name");
-			to.setAttributeNode(oname);
-			oname.setValue(report.getTransportOutPattern().getName());
-			Attr omask = doc.createAttribute("mask");
-			omask.setValue(report.getTransportOutPattern().getMask());
-			to.setAttributeNode(omask);
-			
-			Element omsgs = doc.createElement("messages");
-			output.appendChild(omsgs);
-			for(FileType fType : report.getPatternOut()){
-				msg = doc.createElement("message");
-				omsgs.appendChild(msg);
-				
-				msgName = doc.createAttribute("name");
-				msgName.setValue(fType.getName());
-				msg.setAttributeNode(msgName);
-				
-				msgMask = doc.createAttribute("mask");
-				msgMask.setValue(fType.getMask());
-				msg.setAttributeNode(msgMask);
-				
-				msgSchema = doc.createAttribute("schema");
-				msgSchema.setValue(fType.getValidationSchema());
-				msg.setAttributeNode(msgSchema);
-				
-				msgType = doc.createAttribute("type");
-				msg.setAttributeNode(msgType);
-				msgType.setValue(fType.getFileType().toString());
-
-				msgAttrs = doc.createElement("attributes");
-				msg.appendChild(msgAttrs);
-				
-				for(AttributeDescr attr : dao.getAttributes(fType).values()){
-					msgAttr = doc.createElement("attribute");
-					msgAttrs.appendChild(msgAttr);
-					
-					attrName = doc.createAttribute("name");
-					attrName.setValue(attr.getAttr().getName());
-					msgAttr.setAttributeNode(attrName);
-					
-					attrInName = doc.createAttribute("in_name");
-					attrInName.setValue(attr.getInName().toString());
-					msgAttr.setAttributeNode(attrInName);
-					
-					attrLoc = doc.createAttribute("location");
-					attrLoc.setValue(attr.getLocation());
-					msgAttr.setAttributeNode(attrLoc);
-					
-					attrAdd = doc.createAttribute("addition");
-					attrAdd.setValue(attr.getEtc());
-					msgAttr.setAttributeNode(attrAdd);
-				}
-			}
-			
-			Element oProc = doc.createElement("processing");
-			output.appendChild(oProc);
-			chains = doc.createElement("chains");
-			oProc.appendChild(chains);
-			for(Chain chain : dao.getChains(report, Constants.OUT)){
-				eChain = doc.createElement("chain");
-				chains.appendChild(eChain);
-				name = doc.createAttribute("name");
-				name.setValue(chain.getName());
-				eChain.setAttributeNode(name);
-				steps = doc.createElement("steps");
-				eChain.appendChild(steps);
-				for(ProcessStep step : chain.getSteps()){
-					eStep = doc.createElement("step");
-					steps.appendChild(eStep);
-					
-					data = doc.createAttribute("data");
-					data.setValue(step.getData());
-					eStep.setAttributeNode(data);
-					
-					if (step.getKey()!=null){
-						key = doc.createElement("key");
-						eStep.appendChild(key);
-						
-						name = doc.createAttribute("name");
-						name.setValue(step.getKey().getName());
-						key.setAttributeNode(name);
-						
-						data = doc.createAttribute("data");
-						data.setValue(step.getKey().getData());
-						key.setAttributeNode(data);
-					}
-					
-					action = doc.createAttribute("action");
-					action.setValue(step.getAction().getName());
-					eStep.setAttributeNode(action);
-					
-					position = doc.createAttribute("position");
-					position.setValue(step.getPosition().toString());
-					eStep.setAttributeNode(position);
-					
-				}
-			}
-
 			
 			// write the content into xml file
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
