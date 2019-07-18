@@ -999,6 +999,7 @@ public class Dao {
 	public void insertFileType(FileType fType, int reportId) {
 		String sql = "INSERT INTO file_types(report_id, direction, mask, name, transport, ticket, file_type, validation_schema)VALUES(?,?, ?,?,?,?,?,?)";
 		PreparedStatement ps = null;
+		ResultSet rs=null;		
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, reportId);
@@ -1014,12 +1015,16 @@ public class Dao {
 				ps.setString(8, fType.getValidationSchema());
 			}
 			ps.executeUpdate();
+			rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				fType.setId(rs.getInt(1));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
-			} catch (SQLException e) {
+			} catch (SQLException e) {  
 				e.printStackTrace();
 			}
 		}
@@ -1160,7 +1165,7 @@ public class Dao {
 		}
 		return list;
 	}
-
+	
 	public FileAttribute getFileAttribute(Integer id) {
 		String sql = "SELECT * FROM attributes WHERE id = ?";
 		PreparedStatement ps = null;

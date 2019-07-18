@@ -18,6 +18,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -82,9 +83,18 @@ public class XMLCreator {
 		if(pattern.getTicket()) {
 			out_element.setAttribute("is_ticket", "1");			
 		}
+		else {
+			out_element.setAttribute("is_ticket", "0");	
+		}
+		
+		
 		if(pattern.getTransport()) {
 			out_element.setAttribute("is_transport", "1");			
 		}	
+		else {
+			out_element.setAttribute("is_transport", "0");			
+		}
+		
 		out_element.setAttribute("file_type", pattern.getFileType().toString());
 		if(pattern.getDirection()){
 			out_element.setAttribute("direction", "in");			
@@ -167,144 +177,19 @@ public class XMLCreator {
 		return content;
 	}
 
-	public static Report load(File file, Dao dao){
-		Report report = new Report();
-		report.setPatternIn(FXCollections.observableArrayList());
-		report.setPatternOut(FXCollections.observableArrayList());
-		report.setTickets(FXCollections.observableArrayList());
+	public static Report load(File file, Dao dao){		
+		Report report = null;
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
-		boolean input = false;
-		boolean output = false;
-		FileType fType = null;
-		boolean messages = false;
-		boolean message = false;
-		boolean attributes = false;
-		AttributeDescr attr = null;
-		List<AttributeDescr> attrs = new ArrayList<>();
-		boolean ticket = false;
-		List<Chain> chains = new ArrayList<>();
-		Chain chain = null;
-		ObservableList<ProcessStep> steps;
-		ProcessStep step = null;
+		
 		try{
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(file);
 
-			Node node = null;
-			NodeList list = doc.getChildNodes();
-			for(int i = 0; i<list.getLength(); i++){
-				node = list.item(i);
-				
-				switch (node.getNodeName()){
-				case "form":
-					report.setName(node.getAttributes().getNamedItem("name").getNodeValue());
-					break;
-				case "input":
-					input = true;
-					break;
-				case "output":
-					output = true;
-					break;
-				case "transport":
-					fType = new FileType();
-					fType.setName(node.getAttributes().getNamedItem("name").getNodeValue());
-					fType.setMask(node.getAttributes().getNamedItem("mask").getNodeValue());
-					if (input){
-						fType.setDirection(true);
-						report.setTransportInPattern(fType);
-					}
-					if (output){
-						fType.setDirection(false);
-						report.setTransportOutPattern(fType);
-					}
-					break;
-				case "messages":
-					messages = true;
-					break;
-				case "message":
-					message = true;
-					fType = new FileType();
-					fType.setName(node.getAttributes().getNamedItem("name").getNodeValue());
-					fType.setMask(node.getAttributes().getNamedItem("mask").getNodeValue());
-					fType.setValidationSchema(node.getAttributes().getNamedItem("schema").getNodeValue());
-					try{
-						fType.setFileType(Integer.parseInt(node.getAttributes().getNamedItem("type").getNodeValue()));
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-					if (ticket){
-						fType.setTicket(true);
-					}
-					if (input){
-						report.getPatternIn().add(fType);
-					}
-					if (output){
-						report.getPatternOut().add(fType);
-					}
-					break;
-				case "attributes":
-					attributes = true;
-					break;
-				case "attribute":
-					attr = new AttributeDescr();
-					attr.setAttr(dao.getFileAttribute(node.getAttributes().getNamedItem("name").getNodeValue()));
-					attr.setEtc(node.getAttributes().getNamedItem("addition").getNodeValue());
-					attr.setInName(Boolean.valueOf(node.getAttributes().getNamedItem("in_name").getNodeValue()));
-					attr.setLocation(node.getAttributes().getNamedItem("location").getNodeValue());
-					attr.setFile(fType);
-					attrs.add(attr);
-				break;	
-				case "tickets":
-					ticket = true;
-					break;
-				case "ticket":
-					fType = new FileType();
-					fType.setTicket(true);
-					fType.setName(node.getAttributes().getNamedItem("name").getNodeValue());
-					fType.setMask(node.getAttributes().getNamedItem("mask").getNodeValue());
-					fType.setValidationSchema(node.getAttributes().getNamedItem("schema").getNodeValue());
-					try{
-						fType.setFileType(Integer.parseInt(node.getAttributes().getNamedItem("type").getNodeValue()));
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-					if (ticket){
-						fType.setTicket(true);
-					}
-					if (input){
-						report.getPatternIn().add(fType);
-					}
-					if (output){
-						report.getPatternOut().add(fType);
-					}
-					break;
-				case "processing":
-					break;
-				case "chains":
-					break;
-				case "chain":
-					chain = new Chain();
-					chain.setName(node.getAttributes().getNamedItem("name").getNodeValue());
-					chain.setReport(report);
-					steps = FXCollections.observableArrayList();
-					chain.setSteps(steps);
-					break;
-				case "step":
-					step = new ProcessStep();
-					step.setData(node.getAttributes().getNamedItem("data").getNodeValue());
-					try{
-						step.setPosition(Integer.parseInt(node.getAttributes().getNamedItem("position").getNodeValue()));
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-					step.setAction(dao.getAction(node.getAttributes().getNamedItem("action").getNodeValue()));
-					NodeList childs = node.getChildNodes();
-					Node keyNode = childs.item(0);
-					Key key = dao.addKey(keyNode.getAttributes().getNamedItem("name").getNodeValue(), keyNode.getAttributes().getNamedItem("data").getNodeValue());
-					step.setKey(key);
-				break;	
-				}
+			NodeList forms=doc.getElementsByTagName("form");
+			for(int i=0;i<forms.getLength();i++)
+			{
+				report=parseForm(forms.item(i),dao);
 			}
 			
 		}catch(Exception e){
@@ -315,6 +200,118 @@ public class XMLCreator {
 		return report;
 	}
 	
+	private static Report parseForm(Node form_node,Dao dao) {
+		Report report = null;
+		NamedNodeMap report_parameters=form_node.getAttributes();
+		String name=report_parameters.getNamedItem("name").getNodeValue();
+		String path_out=report_parameters.getNamedItem("path_out").getNodeValue();
+		String path_in=report_parameters.getNamedItem("path_in").getNodeValue();
+		String output_path_in=report_parameters.getNamedItem("output_path_in").getNodeValue();
+		String output_path_out=report_parameters.getNamedItem("output_path_out").getNodeValue();
+		String archive_path_in=report_parameters.getNamedItem("archive_path_in").getNodeValue();
+		String archive_path_out=report_parameters.getNamedItem("archive_path_out").getNodeValue();
+		
+		report=new Report();
+		report.setName(name);
+		report.setPathOut(path_out);
+		report.setPathIn(path_in);
+		report.setPathOutputIn(output_path_in);
+		report.setPathOutputOut(output_path_out);
+		report.setPathArchiveIn(archive_path_in);
+		report.setPathArchiveOut(archive_path_out);
+		
+		dao.insertReport(report);				
+			
+		NodeList form_childs=form_node.getChildNodes();
+		for(int child_index=0;child_index<form_childs.getLength();child_index++)
+		{
+			if(form_childs.item(child_index).getNodeName().equalsIgnoreCase("file_types")) {
+				NodeList file_types=form_childs.item(child_index).getChildNodes();
+				for(int ft_index=0;ft_index<file_types.getLength();ft_index++){
+					parseFileTypes(file_types.item(ft_index),report,dao);
+				}				
+			}
+			else if(form_childs.item(child_index).getNodeName().equalsIgnoreCase("chains")) {
+				NodeList chains=form_childs.item(child_index).getChildNodes();
+				for(int ch_index=0;ch_index<chains.getLength();ch_index++){
+					parseChain(chains.item(ch_index),report,dao);
+				}
+			}
+		}
+		
+		
+		return report;
+	}
+	
+	private static void parseChain(Node chain_node,Report report,Dao dao) {
+		NamedNodeMap chain_parameters=chain_node.getAttributes();
+		String name=chain_parameters.getNamedItem("name").getNodeValue();
+		boolean direction=chain_parameters.getNamedItem("name").getNodeValue().equalsIgnoreCase("1");
+		Chain chain=new Chain();
+		chain.setName(name);
+		chain.setDirection(direction);
+		dao.insertChain(chain);
+		
+		//import steps and actions
+		NodeList steps=chain_node.getChildNodes();
+		for(int step_index=0;step_index<steps.getLength();step_index++)
+		{
+			NamedNodeMap step_parameters=steps.item(step_index).getAttributes();
+			int position=Integer.parseInt(step_parameters.getNamedItem("position").getNodeValue());
 
+			Node action_node=steps.item(step_index).getChildNodes().item(0);//one step has only one action
+			NamedNodeMap action_parameters=action_node.getAttributes();
+			Action action=dao.getAction(action_parameters.getNamedItem("name").getNodeValue());			
+			ProcessStep step=new ProcessStep();
+			step.setAction(action);
+			step.setData(action_parameters.getNamedItem("data").getNodeValue());
+			step.setPosition(position);
+			dao.insertStep(step, chain);
+		}
+		
+	}
+	
+	private static void parseFileTypes(Node file_type_node,Report report,Dao dao) {
+		NamedNodeMap file_type_parameters=file_type_node.getAttributes();
+		String name=file_type_parameters.getNamedItem("name").getNodeValue();
+		String mask=file_type_parameters.getNamedItem("mask").getNodeValue();
+		boolean is_ticket=file_type_parameters.getNamedItem("is_ticket").getNodeValue().equalsIgnoreCase("1");
+		boolean is_transport=file_type_parameters.getNamedItem("is_transport").getNodeValue().equalsIgnoreCase("1");
+		int ft=Integer.parseInt(file_type_parameters.getNamedItem("file_type").getNodeValue());
+		boolean direction=file_type_parameters.getNamedItem("direction").getNodeValue().equalsIgnoreCase("in");
+		
+		FileType file_type=new FileType();
+		file_type.setName(name);
+		file_type.setMask(mask);
+		file_type.setTicket(is_ticket);
+		file_type.setTransport(is_transport);
+		file_type.setFileType(ft);
+		file_type.setDirection(direction);
+		dao.insertFileType(file_type, report.getId());
+		
+		NodeList file_type_childs=file_type_node.getChildNodes();
+		for(int child_index=0;child_index<file_type_childs.getLength();child_index++){
+			if(file_type_childs.item(child_index).getNodeName().equalsIgnoreCase("attribute")){
+				parseAttribute(file_type_childs.item(child_index),file_type,dao);
+			}
+		}		
+	}
+	
+	private static void parseAttribute(Node attribute_node,FileType file_type,Dao dao) {
+		NamedNodeMap attribute_parameters=attribute_node.getAttributes();
+		String place=attribute_parameters.getNamedItem("place").getNodeValue();
+		boolean in_name=attribute_parameters.getNamedItem("in_name").getNodeValue().equalsIgnoreCase("1");
+		String etc=attribute_parameters.getNamedItem("etc").getNodeValue();
+		FileAttribute attr=dao.getFileAttribute(attribute_parameters.getNamedItem("operation_id").getNodeValue());
+		
+		AttributeDescr attribute=new AttributeDescr();
+		attribute.setFile(file_type);
+		attribute.setInName(in_name);
+		attribute.setLocation(place);
+		attribute.setEtc(etc);
+		attribute.setAttr(attr);
+		
+		dao.insertAttr(attribute);
+	}
 	
 }
