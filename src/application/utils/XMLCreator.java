@@ -34,6 +34,8 @@ import application.models.AttributeDescr;
 import application.models.Action;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class XMLCreator {
 
@@ -220,6 +222,26 @@ public class XMLCreator {
 		report.setPathArchiveIn(archive_path_in);
 		report.setPathArchiveOut(archive_path_out);
 		
+		List<Report> report_list=dao.getReports();		
+		for(Report current_report:report_list)
+		{
+			if(current_report.getName().equalsIgnoreCase(report.getName())){
+				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+				alert.setTitle("Внимание!");
+				alert.setHeaderText("Диалог с именем "+report.getName()+" уже существует");
+				alert.setContentText("Загрузить повторно?");
+				if(alert.showAndWait().get()==ButtonType.OK) {
+					break;
+				}
+				else
+				{
+					return null;
+				}
+				
+				
+			}
+		}
+		
 		dao.insertReport(report);				
 			
 		NodeList form_childs=form_node.getChildNodes();
@@ -250,6 +272,7 @@ public class XMLCreator {
 		Chain chain=new Chain();
 		chain.setName(name);
 		chain.setDirection(direction);
+		chain.setReport(report);
 		dao.insertChain(chain);
 		
 		//import steps and actions
