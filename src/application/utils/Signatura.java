@@ -5,7 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPInputStream;
-
+import application.models.Action;
+import application.models.ProcessStep;
 import Pki1.LocalIface;
 import Pki1.LocalIface.certificate_t;
 import Pki1.LocalIface.decrypt_param_t;
@@ -175,9 +176,9 @@ public class Signatura {
 		}
 	}
 
-	public void signFilesInPath(String path) {
+	public void signFilesInPath(String path,ProcessStep step) {
 		File fPath = new File(path);
-		File[] files = fPath.listFiles();
+		File[] files = fPath.listFiles(new FileFilter(step.getData()));
 		File tmp = null;
 		for (File f : files) {
 			tmp = new File(f.getAbsolutePath() + "_sign");
@@ -246,10 +247,10 @@ public class Signatura {
 		}
 	}
 
-	public void encryptFilesInPath(String path, String to) {
+	public void encryptFilesInPath(String path, String to,ProcessStep step) {
 		setEncryptParameters(to);
 		File fPath = new File(path);
-		File[] files = fPath.listFiles();
+		File[] files = fPath.listFiles(new FileFilter(step.getData()));
 		File tmp = null;
 		for (File f : files) {
 			tmp = new File(f.getAbsolutePath() + "_enc");

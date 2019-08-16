@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="C:/jars/sevenzipjbinding.jar" sourcepath="D:/jars/sevenzipjbinding-9.20-2.00beta-AllPlatforms/java-src.zip"/>
 	<classpathentry kind="lib" path="C:/jars/sevenzipjbinding-all-platforms.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/skad"/>
+	<classpathentry kind="lib" path="C:/jars/Pki1.LocalIface.Jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
