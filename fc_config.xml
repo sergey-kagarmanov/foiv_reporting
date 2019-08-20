@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app-settings xmlns="http://www.javacore.ru/schemas/">
+<properties>
+<property key="db_path">jdbc:sqlite:fc_reports.db</property>
+</properties>
+</app-settings>
