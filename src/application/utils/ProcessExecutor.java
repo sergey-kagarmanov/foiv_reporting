@@ -350,17 +350,17 @@ public class ProcessExecutor {
 					tmpFile.createNewFile();
 					FileUtils.copy(f, tmpFile);
 					f.delete();
-					Map<String,ReportFile> mf=tf.getListFiles();
-					Collection<ReportFile> fc=mf.values();
-					
+					Map<String, ReportFile> mf = tf.getListFiles();
+					Collection<ReportFile> fc = mf.values();
+
 					for (ReportFile rf : tf.getListFiles().values()) {
 						String fileName = rf.getName();
-						if (renameFiles!=null && renameFiles.length>0) {
-							if(FileFilter.maskFilter(renameFiles[0], fileName)) {
-								fileName = fileName.replaceAll(renameFiles[1], renameFiles[2]);
+						if (renameFiles != null && renameFiles.length > 0) {
+							if (FileFilter.maskFilter(renameFiles[0], fileName.toLowerCase())) {
+								fileName = fileName.toLowerCase().replaceAll(renameFiles[1], renameFiles[2]);
 							}
 						}
-						File rfFile = new File(FileUtils.tmpDir+fileName);
+						File rfFile = new File(FileUtils.tmpDir + fileName);
 						tmpFile = new File(archivePath + "\\" + fileName);
 						tmpFile.mkdirs();
 						if (tmpFile.exists()) {
@@ -379,7 +379,6 @@ public class ProcessExecutor {
 			e.printStackTrace();
 			throw new ReportError("Ошибка при копировании исходных файлов в архив");
 		}
-
 	}
 
 	private void loadKey(Key key) throws ReportError {
@@ -422,13 +421,13 @@ public class ProcessExecutor {
 			// encrypt
 			signatura.initConfig(step.getKey().getData());
 			signatura.setParameters();
-			signatura.encryptFilesInPath(FileUtils.tmpDir, step.getKey().getData(),step);
+			signatura.encryptFilesInPath(FileUtils.tmpDir, step.getKey().getData(), step);
 			signatura.unload();
 		} else if (Constants.ACTIONS[2].equals(step.getAction().getName())) {
 			// sign
 			signatura.initConfig(step.getKey().getData());
 			signatura.setSignParameters();
-			signatura.signFilesInPath(FileUtils.tmpDir,step);
+			signatura.signFilesInPath(FileUtils.tmpDir, step);
 			signatura.unload();
 		} else if (Constants.ACTIONS[3].equals(step.getAction().getName())) {
 			// decrypt
@@ -489,20 +488,20 @@ public class ProcessExecutor {
 					// greater than constant
 					int col = 0;
 					HashMap<String, ReportFile> toLog = new HashMap<String, ReportFile>();
-					
+
 					for (String filename : fileListTmp) {
 						File tmpFile = new File(FileUtils.tmpDir + filename);
 						fileSize += tmpFile.length();
 						if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
 							command += " " + filename;
-							doneList.add(filename);							
-							
-							if (renameFiles == null 
-									|| !FileFilter.maskFilter(renameFiles[0], filename.replaceAll(renameFiles[2], renameFiles[1])))
+							doneList.add(filename);
+
+							if (renameFiles == null || !FileFilter.maskFilter(renameFiles[0],
+									filename.replaceAll(renameFiles[2], renameFiles[1])))
 								toLog.put(filename, mapFiles.get(filename));
-							else								
-								toLog.put(filename,
-										mapFiles.get(filename.replaceAll(renameFiles[2], renameFiles[1])));
+							else
+								toLog.put(filename, mapFiles
+										.get(filename.replaceAll(renameFiles[2], renameFiles[1])));
 							loop = false;
 							col++;
 						} else {
@@ -510,7 +509,7 @@ public class ProcessExecutor {
 						}
 					}
 					transportFiles.put(pattern, new TransportFile(0, pattern, LocalDateTime.now(),
-							report, direction, null, toLog));
+							report, direction, null, mapFiles));
 
 					try {
 						p = r.exec(command);
@@ -532,25 +531,26 @@ public class ProcessExecutor {
 			System.out.println("ARJ returned " + p.exitValue());
 
 		} else if (Constants.ACTIONS[7].equals(step.getAction().getName())) {
-			renameFiles=new String[3];
-			renameFiles[0]=step.getData().substring(0,step.getData().indexOf(" > "));
-			String ReplaceText=step.getData().substring(step.getData().indexOf(" > (")+4,step.getData().lastIndexOf(")"));
-			renameFiles[1] = ReplaceText.substring(0,ReplaceText.indexOf("|"));
-			renameFiles[2] = ReplaceText.substring(ReplaceText.indexOf("|")+1,ReplaceText.length());
-			
-			FileFilter filter=new FileFilter(renameFiles[0]);
-			
+			renameFiles = new String[3];
+			renameFiles[0] = step.getData().substring(0, step.getData().indexOf(" > "));
+			String ReplaceText = step.getData().substring(step.getData().indexOf(" > (") + 4,
+					step.getData().lastIndexOf(")"));
+			renameFiles[1] = ReplaceText.substring(0, ReplaceText.indexOf("|"));
+			renameFiles[2] = ReplaceText.substring(ReplaceText.indexOf("|") + 1,
+					ReplaceText.length());
+
+			FileFilter filter = new FileFilter(renameFiles[0]);
+
 			for (File file : files) {
-				if(filter.accept(file, FileUtils.tmpDir+file.getName()))
-				{
-					File rFile = new File(FileUtils.tmpDir+file.getName().replaceAll(renameFiles[1], renameFiles[2]));
+				if (filter.accept(file, FileUtils.tmpDir + file.getName())) {
+					File rFile = new File(FileUtils.tmpDir + file.getName().toLowerCase()
+							.replaceAll(renameFiles[1], renameFiles[2]));
 					file.renameTo(rFile);
 				}
 			}
-			
+
 			for (String f : filenames) {
-				if(filter.accept(null, f))
-				{
+				if (filter.accept(null, f)) {
 					f.replaceAll(renameFiles[1], renameFiles[2]);
 				}
 			}
@@ -672,8 +672,8 @@ public class ProcessExecutor {
 						if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
 							command += " " + filename;
 							doneList.add(filename);
-							if (renameFiles == null 
-									|| FileFilter.maskFilter(renameFiles[0],filename.replaceAll(renameFiles[2], renameFiles[1])))
+							if (renameFiles == null || FileFilter.maskFilter(renameFiles[0],
+									filename.replaceAll(renameFiles[2], renameFiles[1])))
 								toLog.put(filename, mapFiles.get(filename));
 							else
 								toLog.put(filename.replaceAll(renameFiles[2], renameFiles[1]),

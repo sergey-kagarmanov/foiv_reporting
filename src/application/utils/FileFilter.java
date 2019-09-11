@@ -18,7 +18,8 @@ public class FileFilter implements FilenameFilter{
     }
     
     @Override
-    public boolean accept(File dir, String name) {    	
+    public boolean accept(File dir, String name) {  
+    	name = name.toLowerCase();
     	Pattern sp=Pattern.compile(mask);
     	String shortName=name;
     	if(shortName.contains("\\")){
@@ -26,8 +27,9 @@ public class FileFilter implements FilenameFilter{
     	}
     	
     	Matcher matcher = sp.matcher(shortName);
-    	if(matcher.find()
-    			&& matcher.group().equals(shortName)){
+    	boolean f1 = matcher.find();
+    	boolean f2 = matcher.group().equals(shortName);
+    	if(f1 && f2){
     		return true;
     	}
     	return false;    		
