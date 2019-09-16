@@ -92,7 +92,7 @@ public class Key {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Key){
-			return ((Key)obj).getData().equals(data);
+			return ((Key)obj).getData().equals(data.get());
 		}else{
 			return false;
 		}

@@ -2,7 +2,7 @@
 <app-settings xmlns="http://www.javacore.ru/schemas/">
 <properties>
 
-<property key="db_path">jdbc:sqlite:fc_reports.db</property>
+<property key="db_path">jdbc:sqlite:C:\sdm\fc_reports.db</property>
 
 </properties>
 </app-settings>

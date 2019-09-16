@@ -10,7 +10,7 @@ public class FileFilter implements FilenameFilter{
     private String mask;
      
     public FileFilter(String mask){
-        this.mask = mask;
+        this.mask = mask.toLowerCase();
         
         this.mask=this.mask.replace("*", "\\w+");        
         this.mask=this.mask.replace("?", "\\w");
@@ -26,24 +26,22 @@ public class FileFilter implements FilenameFilter{
     		shortName=shortName.substring(shortName.lastIndexOf("\\")+1);
     	}
     	
-    	Matcher matcher = sp.matcher(shortName);
-    	boolean f1 = matcher.find();
-    	boolean f2 = matcher.group().equals(shortName);
-    	if(f1 && f2){
-    		return true;
+    	Matcher matcher = sp.matcher(shortName);    	
+    	if(matcher.find() && matcher.group().equals(shortName)){    		
+    			return true;
     	}
     	return false;    		
     }
     
     public static boolean maskFilter(String mask, String FileName)
     {
-    	String regMask=mask;
+    	String regMask=mask.toLowerCase();
     	regMask=regMask.replace("*", "\\w+");        
     	regMask=regMask.replace("?", "\\w");
     	regMask=regMask.replace(".", "\\.");
     	
     	Pattern sp=Pattern.compile(regMask);
-    	String shortName=FileName;
+    	String shortName=FileName.toLowerCase();
     	if(shortName.contains("\\")){
     		shortName=shortName.substring(shortName.lastIndexOf("\\")+1);
     	}

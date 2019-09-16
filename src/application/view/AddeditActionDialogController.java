@@ -5,6 +5,7 @@ import application.models.Action;
 import application.models.Chain;
 import application.models.Key;
 import application.models.ProcessStep;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -57,8 +58,10 @@ public class AddeditActionDialogController {
 		if (step != null) {
 			this.step = step;
 			position.setText(step.getPosition().toString());
-			typeChooser.getSelectionModel().select(step.getAction());
-			keyChooser.getSelectionModel().select(step.getKey());
+			typeChooser.getSelectionModel().select(step.getAction());			
+			if(keyChooser.getItems().contains(step.getKey())) {
+				keyChooser.getSelectionModel().select(step.getKey());
+			}
 			dataField.setText(step.getData());
 		}else{
 			this.step = new ProcessStep();

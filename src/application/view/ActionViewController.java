@@ -211,6 +211,7 @@ public class ActionViewController {
 			else
 				editChain((Chain) tmpObj);
 		}
+		setData();
 	}
 
 	@FXML
