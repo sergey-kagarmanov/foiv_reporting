@@ -505,6 +505,11 @@ public class EncryptOverviewController {
 			alert.showAndWait();
 		} catch (ReportError e) {
 			e.printStackTrace();
+			Alert msg = new Alert(AlertType.ERROR);
+			msg.setContentText(e.getMessage());
+			msg.setTitle("Ошибка выполнения");
+			msg.setHeaderText("Выполнение прервано");
+			msg.show();
 		}
 		executor = null;
 		System.gc();

@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
-import application.models.Action;
-import application.models.ProcessStep;
+
 import Pki1.LocalIface;
 import Pki1.LocalIface.certificate_t;
 import Pki1.LocalIface.decrypt_param_t;
@@ -16,6 +17,9 @@ import Pki1.LocalIface.find_param_t;
 import Pki1.LocalIface.find_result_t;
 import Pki1.LocalIface.sign_param_t;
 import Pki1.LocalIface.verify_param_t;
+import application.models.ErrorFile;
+import application.models.ProcessStep;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Signatura {
@@ -27,12 +31,13 @@ public class Signatura {
 	private static final int MAX_ELEMENTS_NUM = 32;
 	private encrypt_param_t encryptParameters;
 	private decrypt_param_t decryptParameters;
+	private List<ErrorFile> errorFiles = null;
 
 	public Signatura() {
 		iFace = new LocalIface();
 	}
 
-	public void initConfig() {
+	public int initConfig() {
 		String profile = "FOIV";
 		int flag = LocalIface.FLAG_INIT_REGISTRY;
 
@@ -40,15 +45,19 @@ public class Signatura {
 		if (result == LocalIface.VCERT_OK) {
 			System.out.println("Init success");
 		}
+		return result;
 	}
 
-	public void initConfig(String profile) {
+	public int initConfig(String profile) {
 		int flag = LocalIface.FLAG_INIT_REGISTRY;
 
 		result = iFace.VCERT_Initialize(profile, flag);
 		if (result == LocalIface.VCERT_OK) {
 			System.out.println("Init success");
+
 		}
+		return result;
+
 	}
 
 	public void setSignParameters() {
@@ -100,17 +109,17 @@ public class Signatura {
 		}
 	}
 
-	public void signFile(String in, String out) {
+	public int signFile(String in, String out) {
 		result = iFace.VCERT_SignFile(signParameters, in, null, out);
 		if (result == LocalIface.VCERT_OK) {
 			System.out.println("File " + in + " signed in " + out);
 		} else {
 			System.out.println(result);
 		}
-
+		return result;
 	}
 
-	public void verifySign(String in, String out) {
+	public int verifySign(String in, String out) {
 		LocalIface.verify_result_t verifyResult = new LocalIface.verify_result_t();
 		result = iFace.VCERT_VerifyFile(verifyParameters, null, in, out, verifyResult);
 		if (result == LocalIface.VCERT_OK) {
@@ -118,6 +127,7 @@ public class Signatura {
 		} else {
 			System.out.print(result);
 		}
+		return result;
 	}
 
 	public void setEncryptParameters() {
@@ -140,7 +150,7 @@ public class Signatura {
 		return cert;
 	}
 
-	public void encrypt(String in, String out) {
+	public int encrypt(String in, String out) {
 		try {
 			File file = new File(in + "_gz");
 			if (file.exists()) {
@@ -152,13 +162,17 @@ public class Signatura {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			result = -1;
 		}
-		result = iFace.VCERT_EncryptFile(encryptParameters, in, out);
-		if (result == LocalIface.VCERT_OK) {
-			System.out.println("File " + in + " encrypted in " + out);
-		} else {
-			System.out.println(result);
+		if (result != -1) {
+			result = iFace.VCERT_EncryptFile(encryptParameters, in, out);
+			if (result == LocalIface.VCERT_OK) {
+				System.out.println("File " + in + " encrypted in " + out);
+			} else {
+				System.out.println(result);
+			}
 		}
+		return result;
 	}
 
 	public void setDecryptParameters() {
@@ -166,7 +180,7 @@ public class Signatura {
 		decryptParameters.flag = LocalIface.FLAG_PKCS7;
 	}
 
-	public void decrypt(String in, String out) {
+	public int decrypt(String in, String out) {
 		decrypt_result_t decryptResult = new decrypt_result_t();
 		result = iFace.VCERT_DecryptFile(decryptParameters, in, out, decryptResult);
 		if (result == LocalIface.VCERT_OK) {
@@ -174,34 +188,47 @@ public class Signatura {
 		} else {
 			System.out.println(result);
 		}
+		return result;
 	}
 
-	public void signFilesInPath(String path,ProcessStep step) {
+	public ObservableList<ErrorFile> signFilesInPath(String path, ProcessStep step) {
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File fPath = new File(path);
 		File[] files = fPath.listFiles(new FileFilter(step.getData()));
 		File tmp = null;
 		for (File f : files) {
 			tmp = new File(f.getAbsolutePath() + "_sign");
-			signFile(f.getAbsolutePath(), f.getAbsolutePath() + "_sign");
-			if (f.delete())
-				tmp.renameTo(f);
+			result = signFile(f.getAbsolutePath(), f.getAbsolutePath() + "_sign");
+			if (result != 0) {
+				errorFiles.add(new ErrorFile(f.getName(), result));
+			} else {
+				if (f.delete())
+					tmp.renameTo(f);
+			}
 		}
+		return errorFiles;
 	}
 
-	public void verifyAndUnsignFilesInPath(String path, String filter) {
+	public ObservableList<ErrorFile> verifyAndUnsignFilesInPath(String path, String filter) {
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		ObservableList<String> files = FileUtils.getDirContentByMask(path, filter);
 		File tmp = null;
 		File fFile = null;
 		for (String f : files) {
 			tmp = new File(FileUtils.tmpDir + f + "_unsign");
 			fFile = new File(FileUtils.tmpDir + f);
-			verifySign(FileUtils.tmpDir + f, FileUtils.tmpDir + f + "_unsign");
-			if (fFile.delete())
-				tmp.renameTo(fFile);
+			result = verifySign(FileUtils.tmpDir + f, FileUtils.tmpDir + f + "_unsign");
+			if (result == 0) {
+				if (fFile.delete())
+					tmp.renameTo(fFile);
+			} else {
+				errorFiles.add(new ErrorFile(f, result));
+			}
 		}
+		return errorFiles;
 	}
 
-	public void encrypt(String in, String out, String to) {
+	public int encrypt(String in, String out, String to) {
 		setEncryptParameters(to);
 		result = iFace.VCERT_EncryptFile(encryptParameters, in, out);
 		if (result == LocalIface.VCERT_OK) {
@@ -209,6 +236,7 @@ public class Signatura {
 		} else {
 			System.out.println(result);
 		}
+		return result;
 	}
 
 	public void setEncryptParameters(String string) {
@@ -235,48 +263,72 @@ public class Signatura {
 		return cert;
 	}
 
-	public void encryptFilesInPath(String path) {
+	public ObservableList<ErrorFile> encryptFilesInPath(String path) {
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File fPath = new File(path);
 		File[] files = fPath.listFiles();
 		File tmp = null;
 		for (File f : files) {
 			tmp = new File(f.getAbsolutePath() + "_enc");
-			encrypt(f.getAbsolutePath(), f.getAbsolutePath() + "_enc");
-			if (f.delete())
-				tmp.renameTo(f);
+			result = encrypt(f.getAbsolutePath(), f.getAbsolutePath() + "_enc");
+			if (result == 0) {
+				if (f.delete())
+					tmp.renameTo(f);
+			}else {
+				errorFiles.add(new ErrorFile(f.getName(), result));
+			}
+			
 		}
+		return errorFiles;
 	}
 
-	public void encryptFilesInPath(String path, String to,ProcessStep step) {
+	public ObservableList<ErrorFile> encryptFilesInPath(String path, String to, ProcessStep step) {
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		setEncryptParameters(to);
 		File fPath = new File(path);
 		File[] files = fPath.listFiles(new FileFilter(step.getData()));
 		File tmp = null;
 		for (File f : files) {
 			tmp = new File(f.getAbsolutePath() + "_enc");
-			encrypt(f.getAbsolutePath(), f.getAbsolutePath() + "_enc");
-			if (f.delete())
-				tmp.renameTo(f);
+			result = encrypt(f.getAbsolutePath(), f.getAbsolutePath() + "_enc");
+			if (result != 0) {
+				errorFiles.add(new ErrorFile(f.getName(), result));
+			} else {
+				if (f.delete())
+					tmp.renameTo(f);
+			}
 		}
+		return errorFiles;
 	}
 
-	public void decryptFilesInPath(String path, String filter) {
+	public ObservableList<ErrorFile> decryptFilesInPath(String path, String filter) {
 		ObservableList<String> files = FileUtils.getDirContentByMask(path, filter);
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;
 		for (String f : files) {
 			tmp = new File(FileUtils.tmpDir + f + "_enc");
-			decrypt(FileUtils.tmpDir + f, FileUtils.tmpDir + f + "_enc");
-			try {
-				decompressGzip(tmp, new File(FileUtils.tmpDir + f));
-				tmp.delete();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			result = decrypt(FileUtils.tmpDir + f, FileUtils.tmpDir + f + "_enc");
+			if (result == 0) {
+				try {
+					result = decompressGzip(tmp, new File(FileUtils.tmpDir + f));
+					tmp.delete();
+				} catch (IOException e) {
+					e.printStackTrace();
+					result = -1;
+				}
+			}
+			if (result != 0) {
+				errorFiles.add(new ErrorFile(f, result));
 			}
 		}
+		return errorFiles;
 	}
 
-	public static void decompressGzip(File input, File output) throws IOException {
+	public List<ErrorFile> getErrorFiles() {
+		return errorFiles;
+	}
+
+	public static int decompressGzip(File input, File output) throws IOException {
 		try (GZIPInputStream in = new GZIPInputStream(new FileInputStream(input))) {
 			try (FileOutputStream out = new FileOutputStream(output)) {
 				byte[] buffer = new byte[1024];
@@ -285,7 +337,11 @@ public class Signatura {
 					out.write(buffer, 0, len);
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
 		}
+		return 0;
 	}
 
 	public void setParameters() {
