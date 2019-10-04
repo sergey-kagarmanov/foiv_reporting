@@ -94,7 +94,7 @@ public class ProcessExecutor {
 
 					// Copy files to tmp directory for work
 					File tmpFile = new File(FileUtils.tmpDir + file.getName());
-					tmpFile.mkdirs();
+ 					tmpFile.mkdirs();
 					if (tmpFile.exists()) {
 						tmpFile.delete();
 					}
@@ -139,7 +139,7 @@ public class ProcessExecutor {
 								ReportFile fileEntity = new ReportFile(0, filename,
 										LocalDateTime.now(), report, direction, null,
 										parser.parse(tmpFile));
-								mapFiles.put(filename, fileEntity);
+								mapFiles.put(filename.toLowerCase(), fileEntity);
 							} else {
 								transportFiles.put(filename, new TransportFile(0, filename,
 										LocalDateTime.now(), report, direction, null, null));
@@ -463,8 +463,8 @@ public class ProcessExecutor {
 					i++;
 					ObservableList<String> fileListTmp = FXCollections.observableArrayList();
 					for (String f : fileList) {
-						if (!doneList.contains(f))
-							fileListTmp.add(f);
+						if (!doneList.contains(f.toLowerCase()))
+							fileListTmp.add(f.toLowerCase());
 					}
 					long fileSize = 0;
 					String command = FileUtils.exeDir + "arj.exe a -e ";// +
@@ -490,6 +490,7 @@ public class ProcessExecutor {
 					HashMap<String, ReportFile> toLog = new HashMap<String, ReportFile>();
 
 					for (String filename : fileListTmp) {
+						filename=filename.toLowerCase();
 						File tmpFile = new File(FileUtils.tmpDir + filename);
 						fileSize += tmpFile.length();
 						if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
@@ -497,11 +498,15 @@ public class ProcessExecutor {
 							doneList.add(filename);
 
 							if (renameFiles == null || !FileFilter.maskFilter(renameFiles[0],
-									filename.replaceAll(renameFiles[2], renameFiles[1])))
-								toLog.put(filename, mapFiles.get(filename));
-							else
-								toLog.put(filename, mapFiles
-										.get(filename.replaceAll(renameFiles[2], renameFiles[1])));
+									filename.replaceAll(renameFiles[2], renameFiles[1]))){
+								ReportFile rep=mapFiles.get(filename);
+								toLog.put(filename, rep);
+							}
+							else {
+								ReportFile rep=mapFiles
+										.get(filename.replaceAll(renameFiles[2], renameFiles[1]));
+								toLog.put(filename,rep);
+							}
 							loop = false;
 							col++;
 						} else {
@@ -509,7 +514,7 @@ public class ProcessExecutor {
 						}
 					}
 					transportFiles.put(pattern, new TransportFile(0, pattern, LocalDateTime.now(),
-							report, direction, null, mapFiles));
+							report, direction, null, toLog));
 
 					try {
 						p = r.exec(command);
