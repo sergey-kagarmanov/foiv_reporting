@@ -2,10 +2,12 @@ package application.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.Map;
 import application.db.Dao;
 import application.errors.ReportError;
 import application.models.Chain;
+import application.models.ErrorFile;
 import application.models.FileAttribute;
 import application.models.FileEntity;
 import application.models.FileType;
@@ -66,6 +69,8 @@ public class ProcessExecutor {
 	private String text = "";
 	private boolean breakFlag = false;
 
+	private ObservableList<ErrorFile> errorFiles;
+
 	public ProcessExecutor(List<String> filenames, Report report, Dao dao, String path,
 			String outputPath, String archivePath, Boolean direction) {
 		this.report = report;
@@ -82,6 +87,7 @@ public class ProcessExecutor {
 		ticketFiles = new HashMap<String, ReportFile>();
 		this.direction = direction;
 		signatura = new Signatura();
+		errorFiles = FXCollections.observableArrayList();
 	}
 
 	public void start() throws ReportError {
@@ -188,136 +194,143 @@ public class ProcessExecutor {
 
 		// currentStep = dao.getActionForReport(report, direction);
 		chain = dao.getChains(report, direction ? Constants.IN : Constants.OUT).get(0);
-		currentStep = chain.getSteps().get(0);
-		while (currentStep != null) {
-			executeStepSignatura(currentStep);
-			currentStep = currentStep.getNext();
-			/*
-			 * try { executeStepSignatura(currentStep); // Only for instruction
-			 * TO we need to proceed next element if
-			 * (Constants.ACTIONS[0].equals(currentStep.getAction().getName()))
-			 * { currentStep = currentStep.getNext();
-			 * executeStepSignatura(currentStep); } if (useScript) {
-			 * loadKey(currentStep.getKey()); File batFile = new
-			 * File(FileUtils.tmpDir + "batfile"); if (batFile.exists()) {
-			 * batFile.delete(); } batFile.createNewFile(); FileWriter fw = new
-			 * FileWriter(batFile);
-			 * 
-			 * fw.write(script); fw.flush(); fw.close(); Runtime r =
-			 * Runtime.getRuntime(); Process p = null; try { String q =
-			 * Settings.VERBA_PATH + " /@\"" + batFile.getAbsolutePath() + "\"";
-			 * p = r.exec(q); System.out.println(p.waitFor());
-			 * 
-			 * } catch (InterruptedException | IOException ie) {
-			 * ie.printStackTrace(); } unloadKey(); batFile.delete(); script =
-			 * ""; useScript = false; } currentStep = currentStep.getNext(); }
-			 * catch (FileNotFoundException e) { e.printStackTrace(); } catch
-			 * (IOException e) { e.printStackTrace(); }
-			 */
+		if (chain.getSteps() != null) {
+			currentStep = chain.getSteps().get(0);
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Пустой список обработки");
+			alert.show();
+			return;
 		}
-		// Copy files from tmp dir to output dir
-		try {
-			if (!direction) {
-				for (TransportFile tf : transportFiles.values()) {
-					File tfile = new File(FileUtils.tmpDir + tf.getName());
+
+		/**
+		 * List files that had errors
+		 */
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
+		boolean breakFlag = true;
+		while (currentStep != null && breakFlag) {
+			errorFiles = executeStepSignatura(currentStep);
+			if (errorFiles.size() == 0) {
+				currentStep = currentStep.getNext();
+			} else {
+				String errorString = "";
+				for (ErrorFile errorFile : errorFiles) {
+					errorString += " Файл - " + errorFile.getFile() + " ошибка:"
+							+ (errorFile.getErrorCode() == -1 ? " Проблема с доступом к файлу"
+									: errorFile.getErrorCode());
+				}
+				Alert msg = new Alert(AlertType.CONFIRMATION);
+				msg.setContentText("Имеются ошибки при обработке файлов: " + errorString
+						+ " Продолжить обработку?");
+
+				breakFlag = msg.showAndWait().get() == ButtonType.YES;
+			}
+		}
+		if (breakFlag) {
+			// Copy files from tmp dir to output dir
+			try {
+				if (!direction) {
+					for (TransportFile tf : transportFiles.values()) {
+						File tfile = new File(FileUtils.tmpDir + tf.getName());
+						if (tfile.exists()) {
+							File outTFile = new File(outputPath + "\\" + tfile.getName());
+							outTFile.mkdirs();
+							if (outTFile.exists())
+								outTFile.delete();
+							outTFile.createNewFile();
+							FileUtils.copy(tfile, outTFile);
+						}
+					}
+				} else {
+					for (ReportFile rf : mapFiles.values()) {
+						File rfile = new File(FileUtils.tmpDir + rf.getName());
+						if (rfile.exists()) {
+							File outrFile = new File(outputPath + "\\" + rfile.getName());
+							outrFile.mkdirs();
+							if (outrFile.exists())
+								outrFile.delete();
+							outrFile.createNewFile();
+							FileUtils.copy(rfile, outrFile);
+						}
+
+					}
+					try {
+						for (TransportFile tf : transportFiles.values()) {
+							if (tf.getListFiles() != null) {
+								for (String rfName : tf.getListFiles().keySet()) {
+
+									((ReportFile) tf.getListFiles().get(rfName)).setAttributes(
+											parser.parse(new File(FileUtils.tmpDir).listFiles(
+													(dir, name) -> name.contains(rfName))[0]));
+									FileUtils.copy(new File(FileUtils.tmpDir + rfName),
+											new File(outputPath + "\\" + rfName));
+								}
+							} else {
+
+							}
+						}
+					} catch (ReportError e) {
+						Alert alert = new Alert(AlertType.CONFIRMATION);
+						alert.setTitle("Ошибка");
+						alert.setHeaderText("Ошибка при обработке файла - " + e.getMessage());
+						alert.setContentText("Произошла ошибка при обработке файла - "
+								+ e.getMessage() + "\n\rВы хотите прервать обработку?");
+						if (alert.showAndWait().get() == ButtonType.OK) {
+							throw new ReportError("Прервать обработку");
+						} else {
+							System.out.println(e.getMessage());
+							e.printStackTrace();
+						}
+					}
+				}
+
+				/**
+				 * Copy tickets
+				 */
+				for (ReportFile fe : ticketFiles.values()) {
+					File tfile = new File(FileUtils.tmpDir + "\\" + fe.getName());
 					if (tfile.exists()) {
-						File outTFile = new File(outputPath + "\\" + tfile.getName());
+						File outTFile = new File(outputPath + "\\" + fe.getName());
 						outTFile.mkdirs();
 						if (outTFile.exists())
 							outTFile.delete();
 						outTFile.createNewFile();
 						FileUtils.copy(tfile, outTFile);
 					}
-				}
-			} else {
-				for (ReportFile rf : mapFiles.values()) {
-					File rfile = new File(FileUtils.tmpDir + rf.getName());
-					if (rfile.exists()) {
-						File outrFile = new File(outputPath + "\\" + rfile.getName());
-						outrFile.mkdirs();
-						if (outrFile.exists())
-							outrFile.delete();
-						outrFile.createNewFile();
-						FileUtils.copy(rfile, outrFile);
+
+					// Copy to archive
+					File archiveFile = new File(archivePath + "\\" + fe.getName());
+					archiveFile.mkdirs();
+					if (archiveFile.exists()) {
+						archiveFile.delete();
 					}
+					archiveFile.createNewFile();
+					FileUtils.copy(tfile, archiveFile);
 
 				}
-				try {
-					for (TransportFile tf : transportFiles.values()) {
-						if (tf.getListFiles() != null) {
-							for (String rfName : tf.getListFiles().keySet()) {
 
-								((ReportFile) tf.getListFiles().get(rfName)).setAttributes(
-										parser.parse(new File(FileUtils.tmpDir).listFiles(
-												(dir, name) -> name.contains(rfName))[0]));
-								FileUtils.copy(new File(FileUtils.tmpDir + rfName),
-										new File(outputPath + "\\" + rfName));
-							}
-						} else {
+				putFilesIntoArch();
 
-						}
-					}
-				} catch (ReportError e) {
-					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setTitle("Ошибка");
-					alert.setHeaderText("Ошибка при обработке файла - " + e.getMessage());
-					alert.setContentText("Произошла ошибка при обработке файла - " + e.getMessage()
-							+ "\n\rВы хотите прервать обработку?");
-					if (alert.showAndWait().get() == ButtonType.OK) {
-						throw new ReportError("Прервать обработку");
-					} else {
-						System.out.println(e.getMessage());
-						e.printStackTrace();
-					}
+				for (TransportFile tf : transportFiles.values()) {
+					logger.log(tf);
 				}
-			}
-
-			/**
-			 * Copy tickets
-			 */
-			for (ReportFile fe : ticketFiles.values()) {
-				File tfile = new File(FileUtils.tmpDir + "\\" + fe.getName());
-				if (tfile.exists()) {
-					File outTFile = new File(outputPath + "\\" + fe.getName());
-					outTFile.mkdirs();
-					if (outTFile.exists())
-						outTFile.delete();
-					outTFile.createNewFile();
-					FileUtils.copy(tfile, outTFile);
+				for (ReportFile ticket : ticketFiles.values()) {
+					logger.log(ticket);
 				}
 
-				// Copy to archive
-				File archiveFile = new File(archivePath + "\\" + fe.getName());
-				archiveFile.mkdirs();
-				if (archiveFile.exists()) {
-					archiveFile.delete();
+				if (direction)
+					deleteSources(transportFiles.values());
+				else
+					deleteSources(mapFiles.values());
+
+				if (!ticketFiles.values().isEmpty()) {
+					deleteSourcesTickets(ticketFiles.values());
 				}
-				archiveFile.createNewFile();
-				FileUtils.copy(tfile, archiveFile);
-
+				ticketFiles = null;
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new ReportError("Ошибка при копировании подготовленных файлов");
 			}
-
-			putFilesIntoArch();
-
-			for (TransportFile tf : transportFiles.values()) {
-				logger.log(tf);
-			}
-			for (ReportFile ticket : ticketFiles.values()) {
-				logger.log(ticket);
-			}
-
-			if (direction)
-				deleteSources(transportFiles.values());
-			else
-				deleteSources(mapFiles.values());
-
-			if (!ticketFiles.values().isEmpty()) {
-				deleteSourcesTickets(ticketFiles.values());
-			}
-			ticketFiles = null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new ReportError("Ошибка при копировании подготовленных файлов");
 		}
 	}
 
@@ -357,7 +370,8 @@ public class ProcessExecutor {
 						String fileName = rf.getName();
 						if (renameFiles != null && renameFiles.length > 0) {
 							if (FileFilter.maskFilter(renameFiles[0], fileName.toLowerCase())) {
-								fileName = fileName.toLowerCase().replaceAll(renameFiles[1], renameFiles[2]);
+								fileName = fileName.toLowerCase().replaceAll(renameFiles[1],
+										renameFiles[2]);
 							}
 						}
 						File rfFile = new File(FileUtils.tmpDir + fileName);
@@ -414,33 +428,52 @@ public class ProcessExecutor {
 		}
 	}
 
-	public void executeStepSignatura(ProcessStep step) {
+	public ObservableList<ErrorFile> executeStepSignatura(ProcessStep step) throws ReportError {
+		int result = 0;
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		if (Constants.ACTIONS[0].equals(step.getAction().getName())) {
 			// Do nothing
 		} else if (Constants.ACTIONS[1].equals(step.getAction().getName())) {
-			// encrypt
-			signatura.initConfig(step.getKey().getData());
-			signatura.setParameters();
-			signatura.encryptFilesInPath(FileUtils.tmpDir, step.getKey().getData(), step);
-			signatura.unload();
+			// encrypt`
+			result = signatura.initConfig(step.getKey().getData());
+			if (result == 0) {
+				signatura.setParameters();
+				errorFiles = signatura.encryptFilesInPath(FileUtils.tmpDir, step.getKey().getData(),
+						step);
+				signatura.unload();
+			}else {
+				throw new ReportError("Ошибка инициализации криптосистемы");
+			}
 		} else if (Constants.ACTIONS[2].equals(step.getAction().getName())) {
 			// sign
-			signatura.initConfig(step.getKey().getData());
-			signatura.setSignParameters();
-			signatura.signFilesInPath(FileUtils.tmpDir, step);
-			signatura.unload();
+			result = signatura.initConfig(step.getKey().getData());
+			if (result == 0) {
+				signatura.setSignParameters();
+				errorFiles = signatura.signFilesInPath(FileUtils.tmpDir, step);
+				signatura.unload();
+			}else {
+				throw new ReportError("Ошибка инициализации криптосистемы");
+			}
 		} else if (Constants.ACTIONS[3].equals(step.getAction().getName())) {
 			// decrypt
-			signatura.initConfig(step.getKey().getData());
-			signatura.setParameters();
-			signatura.decryptFilesInPath(FileUtils.tmpDir, step.getData());
-			signatura.unload();
+			result = signatura.initConfig(step.getKey().getData());
+			if (result == 0) {
+				signatura.setParameters();
+				errorFiles = signatura.decryptFilesInPath(FileUtils.tmpDir, step.getData());
+				signatura.unload();
+			}else {
+				throw new ReportError("Ошибка инициализации криптосистемы");
+			}
 		} else if (Constants.ACTIONS[4].equals(step.getAction().getName())) {
 			// verify and unsign
-			signatura.initConfig(step.getKey().getData());
-			signatura.setParameters();
-			signatura.verifyAndUnsignFilesInPath(FileUtils.tmpDir, step.getData());
-			signatura.unload();
+			result = signatura.initConfig(step.getKey().getData());
+			if (result == 0) {
+				signatura.setParameters();
+				errorFiles = signatura.verifyAndUnsignFilesInPath(FileUtils.tmpDir, step.getData());
+				signatura.unload();
+			}else {
+				throw new ReportError("Ошибка инициализации криптосистемы");
+			}
 		} else if (Constants.ACTIONS[5].equals(step.getAction().getName())) {
 			// post??
 		} else if (Constants.ACTIONS[6].equals(step.getAction().getName())) {
@@ -527,11 +560,13 @@ public class ProcessExecutor {
 						System.out.println(p.waitFor());
 					} catch (InterruptedException | IOException ie) {
 						ie.printStackTrace();
+						throw new ReportError("Ошибка создания транспортного файла");
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("Error!!!");
+				throw new ReportError("Ошибка создания транспортного файла");
 			}
 			System.out.println("ARJ returned " + p.exitValue());
 
@@ -566,18 +601,6 @@ public class ProcessExecutor {
 			for (String filename : FileUtils.getDirContentByMask(FileUtils.tmpDir,
 					step.getData())) {
 
-				/*
-				 * String q = FileUtils.rarFullPath + " e " + FileUtils.tmpDir +
-				 * filename + " " + FileUtils.tmpDir; p = r.exec(q);
-				 * System.out.println(p.waitFor()); File file = new
-				 * File(FileUtils.tmpDir + filename); if (file.exists()) {
-				 * file.delete(); } File par = new File(FileUtils.tmpDir); for
-				 * (String fname : par.list( (dir, name) ->
-				 * !(name.contains(".arj") || name.contains(".ARJ")))) {
-				 * transportFiles.get(filename).getListFiles().put(fname, new
-				 * ReportFile(0, fname, LocalDateTime.now(), report, direction,
-				 * null, null)); }
-				 */
 				List<File> tmpFiles = unrar(FileUtils.tmpDir + filename);
 				for (File f : tmpFiles) {
 					if (transportFiles.get(filename).getListFiles() == null) {
@@ -592,6 +615,11 @@ public class ProcessExecutor {
 
 		}
 
+		if (errorFiles.size() > 0) {
+			excludeErrorFiles(errorFiles);
+		}
+
+		return errorFiles;
 	}
 
 	public void executeStep_old(ProcessStep step) throws FileNotFoundException, IOException {
@@ -785,6 +813,19 @@ public class ProcessExecutor {
 			}
 		}
 		return files;
+	}
+
+	private void excludeErrorFiles(ObservableList<ErrorFile> errorFiles) {
+		this.errorFiles.addAll(errorFiles);
+		for (ErrorFile errorFile : errorFiles) {
+			try {
+				Files.move(Paths.get(FileUtils.tmpDir + errorFile.getFile()),
+						Paths.get(Configuration.get("error_path").toString()),
+						StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
