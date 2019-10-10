@@ -1,12 +1,14 @@
 package application.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -396,6 +398,49 @@ public class Dao {
 		return FXCollections.observableArrayList(files);
 	}
 
+	/**
+	 * Return files without linked files and attributes, but transport files
+	 * with list it contains
+	 * 
+	 * @param report
+	 * @param direction
+	 * @return
+	 */
+	public ObservableList<TransportFile> getArchiveFiles(Report report, Boolean direction, LocalDate date) {
+		List<TransportFile> files = new ArrayList<TransportFile>();
+		TransportFile tfile = null;
+		Integer id = 0;
+		Map<String, ReportFile> listFiles = null;
+		try {
+			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL AND f.datetime > ? ORDER BY f.id ASC , f.datetime ASC";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, report.getId());
+			ps.setInt(2, direction ? 1 : 0);
+			ps.setString(3, DateUtils.toSQLite(date));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				if (id != rs.getInt("id")) {
+					id = rs.getInt("id");
+					listFiles = new HashMap<String, ReportFile>();
+					tfile = new TransportFile(id, rs.getString("name"),
+							DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
+							listFiles);
+					files.add(tfile);
+				}
+				listFiles.put(rs.getString("cname"),
+						new ReportFile(rs.getInt("cid"), rs.getString("cname"),
+								DateUtils.fromSQLite(rs.getString("cdatetime")), report, direction,
+								null, null));
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return FXCollections.observableArrayList(files);
+	}
+
 	public Map<String, FileEntity> getArchiveFiles() {
 		Map<String, FileEntity> files = new HashMap<String, FileEntity>();
 		FileEntity tfile = null;
@@ -403,7 +448,7 @@ public class Dao {
 		Map<String, ReportFile> listFiles = null;
 		try {
 			String sql = "SELECT f.id, f.name, f.datetime, f.linked_id, f2.id as cid, f2.name as cname, f2.datetime as cdatetime,"
-					+ " f.direction, f.report_id, f2.direction as cdir"
+					+ " f.direction, f.report_id, f2.direction as cdir, f.lastname, f2.lastname as clastname"
 					+ ", r.id as rid FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id LEFT JOIN reports r ON f.report_id = r.id WHERE tf.id IS NOT NULL ORDER BY f.id ASC , f.datetime ASC";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();

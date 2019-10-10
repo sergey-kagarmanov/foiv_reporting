@@ -1,5 +1,6 @@
 package application.models;
 
+
 public class ErrorFile {
 
 	private String file;

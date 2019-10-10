@@ -94,6 +94,11 @@ public class DateUtils {
     public static String toSQLite(LocalDateTime datetime){
     	return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(datetime);
     }
+    
+    public static String toSQLite(LocalDate datetime){
+    	return DateTimeFormatter.ISO_LOCAL_DATE.format(datetime);
+    }
+    
 
     public static LocalDateTime fromDeclare(String pattern, String dateString){
    	return LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern(pattern));

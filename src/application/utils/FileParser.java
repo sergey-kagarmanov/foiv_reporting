@@ -43,6 +43,12 @@ public class FileParser {
 		schemaExceptions = new ArrayList<Exception>();
 	}
 
+	/**
+	 * Parse exist file in temp directory
+	 * @param file
+	 * @return
+	 * @throws ReportError
+	 */
 	public Map<String, FileAttribute> parse(File file) throws ReportError {
 		Map<String, FileAttribute> attr = new HashMap<>();
 

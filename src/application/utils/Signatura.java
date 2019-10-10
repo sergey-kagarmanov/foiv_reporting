@@ -18,6 +18,7 @@ import Pki1.LocalIface.find_result_t;
 import Pki1.LocalIface.sign_param_t;
 import Pki1.LocalIface.verify_param_t;
 import application.models.ErrorFile;
+import application.models.FileTransforming;
 import application.models.ProcessStep;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -191,38 +192,49 @@ public class Signatura {
 		return result;
 	}
 
-	public ObservableList<ErrorFile> signFilesInPath(String path, ProcessStep step) {
+	public ObservableList<ErrorFile> signFilesInPath(ObservableList<FileTransforming> files,
+			ProcessStep step) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
-		File fPath = new File(path);
-		File[] files = fPath.listFiles(new FileFilter(step.getData()));
 		File tmp = null;
-		for (File f : files) {
-			tmp = new File(f.getAbsolutePath() + "_sign");
-			result = signFile(f.getAbsolutePath(), f.getAbsolutePath() + "_sign");
-			if (result != 0) {
-				errorFiles.add(new ErrorFile(f.getName(), result));
-			} else {
-				if (f.delete())
-					tmp.renameTo(f);
+		for (FileTransforming f : files) {
+			if (f.getErrorCode() == 0) {
+				tmp = new File(f.getCurrentFile().getAbsolutePath() + "_sign");
+				result = signFile(f.getCurrentFile().getAbsolutePath(),
+						f.getCurrentFile().getAbsolutePath() + "_sign");
+				if (result != 0) {
+					errorFiles.add(new ErrorFile(f.getCurrent(), result));
+					f.setErrorCode(result);
+				} else {
+					if (f.getCurrentFile().delete()) {
+						FileUtils.copy(tmp, f.getCurrentFile());
+						f.setSigned(tmp);
+					}
+				}
 			}
 		}
 		return errorFiles;
 	}
 
-	public ObservableList<ErrorFile> verifyAndUnsignFilesInPath(String path, String filter) {
+	public ObservableList<ErrorFile> verifyAndUnsignFilesInPath(
+			ObservableList<FileTransforming> files, String filter) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
-		ObservableList<String> files = FileUtils.getDirContentByMask(path, filter);
 		File tmp = null;
-		File fFile = null;
-		for (String f : files) {
-			tmp = new File(FileUtils.tmpDir + f + "_unsign");
-			fFile = new File(FileUtils.tmpDir + f);
-			result = verifySign(FileUtils.tmpDir + f, FileUtils.tmpDir + f + "_unsign");
-			if (result == 0) {
-				if (fFile.delete())
-					tmp.renameTo(fFile);
-			} else {
-				errorFiles.add(new ErrorFile(f, result));
+		for (FileTransforming f : files) {
+			if (f.getErrorCode() == 0) {
+				tmp = new File(f.getCurrentFile().getAbsolutePath() + "_unsign");
+				result = verifySign(f.getCurrentFile().getAbsolutePath(),
+						f.getCurrentFile().getAbsolutePath() + "_unsign");
+				if (result == 0) {
+					if (f.getCurrentFile().delete()) {
+						File signed = new File(f.getCurrentFile().getAbsolutePath()+"_sign");
+						FileUtils.copy(tmp, signed);
+						f.setSigned(signed);
+						tmp.renameTo(f.getCurrentFile());
+					}
+				} else {
+					errorFiles.add(new ErrorFile(f.getCurrent(), result));
+					f.setErrorCode(result);
+				}
 			}
 		}
 		return errorFiles;
@@ -274,10 +286,10 @@ public class Signatura {
 			if (result == 0) {
 				if (f.delete())
 					tmp.renameTo(f);
-			}else {
+			} else {
 				errorFiles.add(new ErrorFile(f.getName(), result));
 			}
-			
+
 		}
 		return errorFiles;
 	}
@@ -301,24 +313,50 @@ public class Signatura {
 		return errorFiles;
 	}
 
-	public ObservableList<ErrorFile> decryptFilesInPath(String path, String filter) {
-		ObservableList<String> files = FileUtils.getDirContentByMask(path, filter);
+	public ObservableList<ErrorFile> encryptFilesInPath(ObservableList<FileTransforming> files,
+			String to) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
+		setEncryptParameters(to);
 		File tmp = null;
-		for (String f : files) {
-			tmp = new File(FileUtils.tmpDir + f + "_enc");
-			result = decrypt(FileUtils.tmpDir + f, FileUtils.tmpDir + f + "_enc");
-			if (result == 0) {
-				try {
-					result = decompressGzip(tmp, new File(FileUtils.tmpDir + f));
-					tmp.delete();
-				} catch (IOException e) {
-					e.printStackTrace();
-					result = -1;
+		for (FileTransforming f : files) {
+			if (f.getErrorCode() == 0) {
+				tmp = new File(f.getCurrentFile().getAbsolutePath() + "_enc");
+				result = encrypt(f.getCurrentFile().getAbsolutePath(),
+						f.getCurrentFile().getAbsolutePath() + "_enc");
+				if (result != 0) {
+					f.setErrorCode(result);
+					errorFiles.add(new ErrorFile(f.getCurrent(), result));
+				} else {
+					if (f.getCurrentFile().delete())
+						tmp.renameTo(f.getCurrentFile());
 				}
 			}
-			if (result != 0) {
-				errorFiles.add(new ErrorFile(f, result));
+		}
+		return errorFiles;
+	}
+
+	public ObservableList<ErrorFile> decryptFilesInPath(ObservableList<FileTransforming> files,
+			String filter) {
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
+		File tmp = null;
+		for (FileTransforming f : files) {
+			if (f.getErrorCode() == 0) {
+				tmp = new File(f.getCurrentFile().getAbsolutePath() + "_enc");
+				result = decrypt(f.getCurrentFile().getAbsolutePath(),
+						f.getCurrentFile().getAbsolutePath() + "_enc");
+				if (result == 0) {
+					try {
+						result = decompressGzip(tmp, f.getCurrentFile());
+						tmp.delete();
+					} catch (IOException e) {
+						e.printStackTrace();
+						result = -1;
+					}
+				}
+				if (result != 0) {
+					errorFiles.add(new ErrorFile(f.getCurrentFile().getAbsolutePath(), result));
+					f.setErrorCode(result);
+				}
 			}
 		}
 		return errorFiles;
