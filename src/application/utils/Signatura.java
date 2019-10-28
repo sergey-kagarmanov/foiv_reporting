@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -192,7 +192,7 @@ public class Signatura {
 		return result;
 	}
 
-	public ObservableList<ErrorFile> signFilesInPath(ObservableList<FileTransforming> files,
+	public ObservableList<ErrorFile> signFilesInPath(Collection<FileTransforming> files,
 			ProcessStep step) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;
@@ -216,7 +216,7 @@ public class Signatura {
 	}
 
 	public ObservableList<ErrorFile> verifyAndUnsignFilesInPath(
-			ObservableList<FileTransforming> files, String filter) {
+			Collection<FileTransforming> files, String filter) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;
 		for (FileTransforming f : files) {
@@ -313,7 +313,7 @@ public class Signatura {
 		return errorFiles;
 	}
 
-	public ObservableList<ErrorFile> encryptFilesInPath(ObservableList<FileTransforming> files,
+	public ObservableList<ErrorFile> encryptFilesInPath(Collection<FileTransforming> files,
 			String to) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		setEncryptParameters(to);
@@ -335,7 +335,7 @@ public class Signatura {
 		return errorFiles;
 	}
 
-	public ObservableList<ErrorFile> decryptFilesInPath(ObservableList<FileTransforming> files,
+	public ObservableList<ErrorFile> decryptFilesInPath(Collection<FileTransforming> files,
 			String filter) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;

@@ -55,7 +55,13 @@ public class FileTransforming {
 			if (tmpFile.exists()) {
 				tmpFile.delete();
 			}
-			FileUtils.copy(signed, tmpFile);
+			
+			//if it use unattached signature, this block is to proceed copying signature
+			if (signed!=null)
+				FileUtils.copy(signed, tmpFile);
+			else
+				FileUtils.copy(original, tmpFile);
+			
 			return true;
 		} else {
 			return false;

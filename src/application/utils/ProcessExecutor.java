@@ -15,6 +15,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 import application.db.Dao;
 import application.errors.ReportError;
@@ -413,7 +415,17 @@ public class ProcessExecutor {
 			result = signatura.initConfig(step.getKey().getData());
 			if (result == 0) {
 				signatura.setParameters();
-				errorFiles = signatura.encryptFilesInPath(executedFiles, step.getKey().getData());
+				
+				errorFiles = signatura.encryptFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
+
+					@Override
+					public boolean test(FileTransforming t) {
+						if (t.getCurrent()!=null)
+							return t.getCurrent().matches(step.getData());
+						else
+							return t.getOriginal().matches(step.getData());
+					}
+				}), step.getKey().getData());
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -423,7 +435,16 @@ public class ProcessExecutor {
 			result = signatura.initConfig(step.getKey().getData());
 			if (result == 0) {
 				signatura.setSignParameters();
-				errorFiles = signatura.signFilesInPath(executedFiles, step);
+				errorFiles = signatura.signFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
+
+					@Override
+					public boolean test(FileTransforming t) {
+						if (t.getCurrent()!=null)
+							return t.getCurrent().matches(step.getData());
+						else
+							return t.getOriginal().matches(step.getData());
+					}
+				}), step);
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -433,7 +454,16 @@ public class ProcessExecutor {
 			result = signatura.initConfig(step.getKey().getData());
 			if (result == 0) {
 				signatura.setParameters();
-				errorFiles = signatura.decryptFilesInPath(executedFiles, step.getData());
+				errorFiles = signatura.decryptFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
+
+					@Override
+					public boolean test(FileTransforming t) {
+						if (t.getCurrent()!=null)
+							return t.getCurrent().matches(step.getData());
+						else
+							return t.getOriginal().matches(step.getData());
+					}
+				}), step.getData());
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -443,7 +473,16 @@ public class ProcessExecutor {
 			result = signatura.initConfig(step.getKey().getData());
 			if (result == 0) {
 				signatura.setParameters();
-				errorFiles = signatura.verifyAndUnsignFilesInPath(executedFiles, step.getData());
+				errorFiles = signatura.verifyAndUnsignFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
+
+					@Override
+					public boolean test(FileTransforming t) {
+						if (t.getCurrent()!=null)
+							return t.getCurrent().matches(step.getData());
+						else
+							return t.getOriginal().matches(step.getData());
+					}
+				}), step.getData());
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
