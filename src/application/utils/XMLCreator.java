@@ -81,7 +81,7 @@ public class XMLCreator {
 	{		
 		
 		final Element out_element=doc.createElement("pattern");;
-				
+		if(pattern!=null) {		
 		if(pattern.getTicket()) {
 			out_element.setAttribute("is_ticket", "1");			
 		}
@@ -112,6 +112,9 @@ public class XMLCreator {
 		attributes_map.forEach((name,descriptor)->out_element.appendChild(createAttributeElement(descriptor,doc)));
 		
 		return out_element;
+		}else {
+			return null;
+		}
 	}
 	
 	public static String create(Report report, Dao dao, File file) {
@@ -143,7 +146,8 @@ public class XMLCreator {
 			ft_list.add(report.getTransportOutPattern());
 			for(FileType currentPattern:ft_list){
 				Element patternElement=createPatternElement(currentPattern,doc,dao);
-				file_types.appendChild(patternElement);
+				if (patternElement!=null)
+					file_types.appendChild(patternElement);
 			}
 			rootElement.appendChild(file_types);
 			
