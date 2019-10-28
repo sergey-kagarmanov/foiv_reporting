@@ -327,7 +327,7 @@ public class EncryptOverviewController {
 	private void fillData(String form) {
 		Report tmp = null;
 		reportChooser.setItems(mainApp.getDb().getReports());
-		for(Report current : reportChooser.getItems()) {
+		for (Report current : reportChooser.getItems()) {
 			if (current.getName().equals(form)) {
 				tmp = current;
 			}
@@ -434,19 +434,27 @@ public class EncryptOverviewController {
 		inArchiveFileTable
 				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), true));
 		try {
-			outFileList.setItems(FileUtils.getDirContentByMask(report.getPathOut(),
-					reportChooser.getValue().getPatternOut()));
+			if (report.getPathOut() != null) {
+				outFileList.setItems(FileUtils.getDirContentByMask(report.getPathOut(),
+						reportChooser.getValue().getPatternOut()));
+				outFileCount
+						.setText(
+								FileUtils
+										.getDirContentByMask(report.getPathOut(),
+												reportChooser.getValue().getPatternOut())
+										.size() + "");
+			}
 			ObservableList<FileType> list = FXCollections
 					.observableArrayList(reportChooser.getValue().getTransportInPattern());
 			if (report.getTickets() != null && report.getTickets().size() > 0) {
 				list.addAll(report.getTickets());
 			}
-			inFileList.setItems(FileUtils.getDirContentByMask(report.getPathIn(), list));
+			if (report.getPathIn() != null) {
+				inFileList.setItems(FileUtils.getDirContentByMask(report.getPathIn(), list));
 
-			inFileCount
-					.setText(FileUtils.getDirContentByMask(report.getPathIn(), list).size() + "");
-			outFileCount.setText(FileUtils.getDirContentByMask(report.getPathOut(),
-					reportChooser.getValue().getPatternOut()).size() + "");
+				inFileCount.setText(
+						FileUtils.getDirContentByMask(report.getPathIn(), list).size() + "");
+			}
 			if (timer > 5000) {// if error appears timer to check will be 50000
 								// or greater
 				timer = timer / 10;
