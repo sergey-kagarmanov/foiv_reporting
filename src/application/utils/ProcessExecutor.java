@@ -589,6 +589,7 @@ public class ProcessExecutor {
 							System.out.print((char) w);
 						}
 						System.out.println(p.waitFor());
+						executedFiles.addAll(transportFiles.keySet());
 					} catch (InterruptedException | IOException ie) {
 						ie.printStackTrace();
 						throw new ReportError("Ошибка создания транспортного файла");
