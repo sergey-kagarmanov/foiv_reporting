@@ -53,6 +53,9 @@ public class FileParser {
 		Map<String, FileAttribute> attr = new HashMap<>();
 
 		fType = getType(file);
+		if (fType==null) {
+			throw new ReportError("Неизвестный тип файла");
+		}
 		if (fType.getValidationSchema() != null && !"".equals(fType.getValidationSchema())) {
 			List<Exception> list = XMLValidator.validate(file,
 					new File(fType.getValidationSchema()));

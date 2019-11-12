@@ -1,7 +1,6 @@
 package application.utils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
@@ -16,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.regex.Pattern;
 
 import application.db.Dao;
 import application.errors.ReportError;
@@ -56,8 +54,6 @@ public class ProcessExecutor {
 
 	private Signatura signatura;
 
-	private boolean useScript = false;
-	private String script = "";
 	private String path = "";
 	private String outputPath = "";
 	private String archivePath = "";
@@ -99,7 +95,8 @@ public class ProcessExecutor {
 		executedFiles = FXCollections.observableArrayList();
 		FileTransforming currentFile = null;
 		for (String filename : filenames) {
-			currentFile = new FileTransforming(filename, direction ? report.getPathIn() : report.getPathOut());
+			currentFile = new FileTransforming(filename,
+					direction ? report.getPathIn() : report.getPathOut());
 			if (currentFile.getOriginalFile().exists()) {
 
 				// Copy files to tmp directory for work
@@ -228,8 +225,8 @@ public class ProcessExecutor {
 			} else {
 				for (FileTransforming rf : mapFiles.keySet()) {
 					if (!rf.copyCurrent(outputPath, false)) {
-						throw new ReportError("не могу перенести файл отчетности "
-								+ rf.getCurrent() + " в выходную директорию " + outputPath);
+						throw new ReportError("не могу перенести файл отчетности " + rf.getCurrent()
+								+ " в выходную директорию " + outputPath);
 					}
 				}
 
@@ -253,8 +250,8 @@ public class ProcessExecutor {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Ошибка");
 					alert.setHeaderText("Ошибка при обработке файла - " + e.getMessage());
-					alert.setContentText("Произошла ошибка при обработке файла - "
-							+ e.getMessage() + "\n\rВы хотите прервать обработку?");
+					alert.setContentText("Произошла ошибка при обработке файла - " + e.getMessage()
+							+ "\n\rВы хотите прервать обработку?");
 					if (alert.showAndWait().get() == ButtonType.OK) {
 						throw new ReportError("Прервать обработку");
 					} else {
@@ -276,8 +273,8 @@ public class ProcessExecutor {
 				// Copy to archive
 				if (!fe.copyCurrent(archivePath, false)) {
 					throw new ReportError("Не могу перенести файл квитанции " + fe.getCurrent()
-					+ " в архив " + archivePath);
-					
+							+ " в архив " + archivePath);
+
 				}
 			}
 
@@ -327,17 +324,19 @@ public class ProcessExecutor {
 
 				// Copy files to tmp directory for work
 				tf.copyCurrent(archivePath, false);
-				
-				//Map<String, ReportFile> mf = tf.getListFiles();
-				//Collection<ReportFile> fc = mf.values();
+
+				// Map<String, ReportFile> mf = tf.getListFiles();
+				// Collection<ReportFile> fc = mf.values();
 
 				for (String rf : transportFiles.get(tf).getListFiles().keySet()) {
-					int index = executedFiles.indexOf(new FileTransforming(rf, direction ? report.getPathIn() : report.getPathOut()));
+					int index = executedFiles.indexOf(new FileTransforming(rf,
+							direction ? report.getPathIn() : report.getPathOut()));
 					FileTransforming fileTransforming = null;
-					if (index>=0) {
+					if (index >= 0) {
 						fileTransforming = executedFiles.get(index);
-					}else {
-						throw new ReportError("Внутренняя ошибка, не могу найти изначальный файл "+ rf);
+					} else {
+						throw new ReportError(
+								"Внутренняя ошибка, не могу найти изначальный файл " + rf);
 					}
 					fileTransforming.copySigned(archivePath);
 				}
@@ -415,17 +414,18 @@ public class ProcessExecutor {
 			result = signatura.initConfig(step.getKey().getData());
 			if (result == 0) {
 				signatura.setParameters();
-				
-				errorFiles = signatura.encryptFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
 
-					@Override
-					public boolean test(FileTransforming t) {
-						if (t.getCurrent()!=null)
-							return t.getCurrent().matches(step.getData());
-						else
-							return t.getOriginal().matches(step.getData());
-					}
-				}), step.getKey().getData());
+				errorFiles = signatura.encryptFilesInPath(
+						executedFiles.filtered(new Predicate<FileTransforming>() {
+
+							@Override
+							public boolean test(FileTransforming t) {
+								if (t.getCurrent() != null)
+									return t.getCurrent().matches(step.getData());
+								else
+									return t.getOriginal().matches(step.getData());
+							}
+						}), step.getKey().getData());
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -435,16 +435,17 @@ public class ProcessExecutor {
 			result = signatura.initConfig(step.getKey().getData());
 			if (result == 0) {
 				signatura.setSignParameters();
-				errorFiles = signatura.signFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
+				errorFiles = signatura
+						.signFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
 
-					@Override
-					public boolean test(FileTransforming t) {
-						if (t.getCurrent()!=null)
-							return t.getCurrent().matches(step.getData());
-						else
-							return t.getOriginal().matches(step.getData());
-					}
-				}), step);
+							@Override
+							public boolean test(FileTransforming t) {
+								if (t.getCurrent() != null)
+									return t.getCurrent().matches(step.getData());
+								else
+									return t.getOriginal().matches(step.getData());
+							}
+						}), step);
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -454,16 +455,17 @@ public class ProcessExecutor {
 			result = signatura.initConfig(step.getKey().getData());
 			if (result == 0) {
 				signatura.setParameters();
-				errorFiles = signatura.decryptFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
+				errorFiles = signatura.decryptFilesInPath(
+						executedFiles.filtered(new Predicate<FileTransforming>() {
 
-					@Override
-					public boolean test(FileTransforming t) {
-						if (t.getCurrent()!=null)
-							return t.getCurrent().matches(step.getData());
-						else
-							return t.getOriginal().matches(step.getData());
-					}
-				}), step.getData());
+							@Override
+							public boolean test(FileTransforming t) {
+								if (t.getCurrent() != null)
+									return t.getCurrent().matches(step.getData());
+								else
+									return t.getOriginal().matches(step.getData());
+							}
+						}), step.getData());
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -473,16 +475,17 @@ public class ProcessExecutor {
 			result = signatura.initConfig(step.getKey().getData());
 			if (result == 0) {
 				signatura.setParameters();
-				errorFiles = signatura.verifyAndUnsignFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
+				errorFiles = signatura.verifyAndUnsignFilesInPath(
+						executedFiles.filtered(new Predicate<FileTransforming>() {
 
-					@Override
-					public boolean test(FileTransforming t) {
-						if (t.getCurrent()!=null)
-							return t.getCurrent().matches(step.getData());
-						else
-							return t.getOriginal().matches(step.getData());
-					}
-				}), step.getData());
+							@Override
+							public boolean test(FileTransforming t) {
+								if (t.getCurrent() != null)
+									return t.getCurrent().matches(step.getData());
+								else
+									return t.getOriginal().matches(step.getData());
+							}
+						}), step.getData());
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -617,11 +620,12 @@ public class ProcessExecutor {
 			for (FileTransforming file : executedFiles) {
 				if (file.getErrorCode() == 0) {
 					if (filter.accept(new File(FileUtils.tmpDir), file.getCurrent())) {
-						file.setCurrent(file.getCurrentFile().getParentFile().getAbsolutePath()+"\\"+
-								file.getCommonCurrent().replaceAll(renameFiles[1], renameFiles[2]));// new
-																									// File(FileUtils.tmpDir
-																									// +
-																									// file.getName().toLowerCase()
+						file.setCurrent(file.getCurrentFile().getParentFile().getAbsolutePath()
+								+ "\\" + file.getCommonCurrent().replaceAll(renameFiles[1],
+										renameFiles[2]));// new
+															// File(FileUtils.tmpDir
+															// +
+															// file.getName().toLowerCase()
 						// .replaceAll(renameFiles[1], renameFiles[2]));
 						// file.renameTo(rFile);
 					}
@@ -649,7 +653,8 @@ public class ProcessExecutor {
 					}
 					tmpTransportFile.getListFiles().put(f.getName(), new ReportFile(0, f.getName(),
 							LocalDateTime.now(), report, direction, null, null));
-
+					executedFiles
+							.add(new FileTransforming(f.getName(), f.getName(), FileUtils.tmpDir));
 				}
 			}
 
