@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -525,10 +526,14 @@ public class ProcessExecutor {
 																		// FileUtils.tmpDir+step.getAction().getData();
 
 					String pattern = direction
-							? report.getTransportInPattern().getMask().replaceAll("%date",
-									DateUtils.formatReport(LocalDate.now()))
-							: report.getTransportOutPattern().getMask().replaceAll("%date",
-									DateUtils.formatReport(LocalDate.now()));
+							? report.getTransportInPattern().getMask()					
+							: report.getTransportOutPattern().getMask();
+							
+					pattern=pattern.replaceAll("%date",DateUtils.formatReport(LocalDate.now()));
+					pattern=pattern.replaceAll("%dd",LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
+					pattern=pattern.replaceAll("%MM",LocalDate.now().format(DateTimeFormatter.ofPattern("MM")));
+					pattern=pattern.replaceAll("%yy",LocalDate.now().format(DateTimeFormatter.ofPattern("yy")));
+					
 					if (i < 10) {
 						pattern = pattern.replaceAll("%n", i + "").replaceAll("%", "0");
 					} else if (i < 100) {
