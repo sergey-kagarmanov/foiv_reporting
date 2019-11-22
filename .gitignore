@@ -1,8 +1,7 @@
-/fc_reports.db
 ./bin
 /bin/
 /fc_config.xml
-/.classpath
+.classpath
 /build/
 /export.xml
 /TEST1.s3db
