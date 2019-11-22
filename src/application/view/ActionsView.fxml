@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.ActionViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.ActionViewController">
    <children>
       <VBox layoutX="79.0" layoutY="32.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -67,7 +67,7 @@
                   <Insets left="10.0" right="10.0" top="5.0" />
                </VBox.margin>
             </GridPane>
-            <TreeTableView fx:id="chainsTable" prefHeight="312.0" prefWidth="600.0">
+            <TreeTableView fx:id="chainsTable" prefHeight="312.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
               <columns>
                 <TreeTableColumn fx:id="reportColumn" prefWidth="75.0" text="Отчет" />
                   <TreeTableColumn fx:id="nameColumn" prefWidth="75.0" text="Цепочка" />

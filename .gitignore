@@ -3,3 +3,6 @@
 /bin/
 /fc_config.xml
 /.classpath
+/build/
+/export.xml
+/TEST1.s3db

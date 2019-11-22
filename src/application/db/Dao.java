@@ -1,7 +1,6 @@
 package application.db;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +27,6 @@ import application.models.Report;
 import application.models.ReportFile;
 import application.models.TicketResults;
 import application.models.TransportFile;
-import application.utils.Configuration;
 import application.utils.Constants;
 import application.utils.DateUtils;
 import javafx.collections.FXCollections;
@@ -42,7 +40,9 @@ public class Dao {
 	public Dao() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection(Configuration.get("db_path","jdbc:sqlite:fc_reports.db").toString());
+			// connection =
+			// DriverManager.getConnection(Configuration.get("db_path","jdbc:sqlite:fc_reports.db").toString());
+			connection = DriverManager.getConnection("jdbc:sqlite:fc_reports.db");
 			System.out.println("Database connection");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -242,20 +242,24 @@ public class Dao {
 				/**
 				 * Get transport decrypt pattern
 				 */
-				tmpReport.setTransportInPattern(getFileType(tmpReport.getId(), Constants.IN_DB, Constants.TRANSPORT));
+				tmpReport.setTransportInPattern(
+						getFileType(tmpReport.getId(), Constants.IN_DB, Constants.TRANSPORT));
 				/**
 				 * Get transport encrypt pattern
 				 */
-				tmpReport.setTransportOutPattern(getFileType(tmpReport.getId(), Constants.OUT_DB, Constants.TRANSPORT));
+				tmpReport.setTransportOutPattern(
+						getFileType(tmpReport.getId(), Constants.OUT_DB, Constants.TRANSPORT));
 				/**
 				 * Get report encrypt patterns
 				 */
-				tmpReport.setPatternOut(getFileTypeAsList(tmpReport.getId(), Constants.OUT_DB, Constants.SIMPLE));
+				tmpReport.setPatternOut(
+						getFileTypeAsList(tmpReport.getId(), Constants.OUT_DB, Constants.SIMPLE));
 
 				/**
 				 * Get report decrypt patterns
 				 */
-				tmpReport.setPatternIn(getFileTypeAsList(tmpReport.getId(), Constants.IN_DB, Constants.SIMPLE));
+				tmpReport.setPatternIn(
+						getFileTypeAsList(tmpReport.getId(), Constants.IN_DB, Constants.SIMPLE));
 
 				reports.add(tmpReport);
 
@@ -406,7 +410,8 @@ public class Dao {
 	 * @param direction
 	 * @return
 	 */
-	public ObservableList<TransportFile> getArchiveFiles(Report report, Boolean direction, LocalDate date) {
+	public ObservableList<TransportFile> getArchiveFiles(Report report, Boolean direction,
+			LocalDate date) {
 		List<TransportFile> files = new ArrayList<TransportFile>();
 		TransportFile tfile = null;
 		Integer id = 0;
@@ -460,7 +465,8 @@ public class Dao {
 							DateUtils.fromSQLite(rs.getString("datetime")),
 							getReportById(rs.getInt("rid")), rs.getInt("cdir") == 1,
 							rs.getObject("linked_id") != null
-									? getReportFileById(rs.getInt("linked_id")) : null,
+									? getReportFileById(rs.getInt("linked_id"))
+									: null,
 							listFiles);
 					files.put(tfile.getName(), tfile);
 				}
@@ -491,19 +497,23 @@ public class Dao {
 				/**
 				 * Get transport decrypt pattern
 				 */
-				tmpReport.setTransportInPattern(getFileType(tmpReport.getId(), Constants.IN_DB, Constants.TRANSPORT));
+				tmpReport.setTransportInPattern(
+						getFileType(tmpReport.getId(), Constants.IN_DB, Constants.TRANSPORT));
 				/**
 				 * Get transport encrypt pattern
 				 */
-				tmpReport.setTransportOutPattern(getFileType(tmpReport.getId(), Constants.OUT_DB, Constants.TRANSPORT));
+				tmpReport.setTransportOutPattern(
+						getFileType(tmpReport.getId(), Constants.OUT_DB, Constants.TRANSPORT));
 				/**
 				 * Get report encrypt patterns
 				 */
-				tmpReport.setPatternOut(getFileTypeAsList(tmpReport.getId(), Constants.OUT_DB, Constants.SIMPLE));
+				tmpReport.setPatternOut(
+						getFileTypeAsList(tmpReport.getId(), Constants.OUT_DB, Constants.SIMPLE));
 				/**
 				 * Get report decrypt patterns
 				 */
-				tmpReport.setPatternIn(getFileTypeAsList(tmpReport.getId(), Constants.IN_DB, Constants.SIMPLE));
+				tmpReport.setPatternIn(
+						getFileTypeAsList(tmpReport.getId(), Constants.IN_DB, Constants.SIMPLE));
 
 			}
 			rs.close();
@@ -863,49 +873,182 @@ public class Dao {
 		}
 	}
 
+	public void deleteReport(Report report) {
+		
+		/**
+		 * Delete chains
+		 */
+		ObservableList<Chain> chains = getChains(report, Constants.IN);
+		chains.addAll(getChains(report, Constants.OUT));
+		for(Chain chain : chains) {
+			deleteChain(chain);
+		}
+		
+		/**
+		 * Delete File types
+		 */
+		for(FileType fileType : getFileTypes(report)) {
+			deleteFileType(fileType);
+		}
+		
+		/**
+		 * Delete Files
+		 */
+		deleteFiles(report);
+		
+		
+		String sql = "DELETE FROM reports WHERE id = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, report.getId());
+			ps.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteFiles(Report report) {
+		String sql = "DELETE from transport_files where parent_id = (select id from files where report_id = ?)";
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, report.getId());
+			ps.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		sql = "DELETE FROM files WHERE report_id = ?";
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, report.getId());
+			ps.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteFileType(FileType fileType) {
+		for(TicketResults ticketResult : fileType.getResults()) {
+			deleteTicketResult(ticketResult);
+		}
+		
+		String sql = "DELETE FROM file_types WHERE id = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, fileType.getId());
+			ps.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteTicketResult(TicketResults ticketResult) {
+		String sql = "DELETE FROM ticket_results WHERE id = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, ticketResult.getId());
+			ps.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	
+	public void deleteChain(Chain chain) {
+		String sql = "DELETE FROM chain_arm WHERE chain_id = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, chain.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		for (ProcessStep step : chain.getSteps()) {
+			deleteChainStep(step);
+		}
+		
+		try {
+			sql = "DELETE FROM chain WHERE id = ?";
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, chain.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void deleteChainStep(ProcessStep step) {
+		String sql = "DELETE FROM actions WHERE id = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, step.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public int saveReport(Report report) throws ReportError {
 		if (report.getId() == 0) {
 			return insertReport(report);
 		} else {
 			return updateReport(report);
 		}
-		/*
-		 * Report tmpReport = null; if (report.getId() != null && report.getId()
-		 * != 0) { tmpReport = getReportById(report.getId()); } String sql = "";
-		 * PreparedStatement ps = null; ResultSet rs = null; try { if (tmpReport
-		 * != null) {
-		 * 
-		 * sql = "UPDATE reports SET name = ? WHERE id = ?"; ps =
-		 * connection.prepareStatement(sql); ps.setString(1, report.getName());
-		 * ps.setInt(2, report.getId()); ps.executeUpdate(); ps.close(); } else
-		 * { sql = "INSERT INTO reports(name) VALUES (?)"; ps =
-		 * connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		 * ps.setString(1, report.getName()); ps.executeUpdate(); rs =
-		 * ps.getGeneratedKeys(); if (rs.next()) { report.setId(rs.getInt(1)); }
-		 * tmpReport = report; }
-		 * tmpReport.setTransportInPattern(addFileType(report.
-		 * getTransportInPattern(), tmpReport));
-		 * tmpReport.setTransportOutPattern(
-		 * addFileType(report.getTransportOutPattern(), tmpReport));
-		 * ObservableList<FileType> list = FXCollections.observableArrayList();
-		 * for (FileType ft : report.getPatternIn()) { list.add(addFileType(ft,
-		 * tmpReport)); } for (FileType ft : tmpReport.getPatternIn()) { if
-		 * (!report.getPatternIn().contains(ft)) delete(ft); }
-		 * tmpReport.setPatternIn(list);
-		 * 
-		 * list = FXCollections.observableArrayList(); for (FileType ft :
-		 * report.getPatternOut()) { list.add(addFileType(ft, tmpReport)); } for
-		 * (FileType ft : tmpReport.getPatternOut()) { if
-		 * (!report.getPatternOut().contains(ft)) delete(ft); }
-		 * 
-		 * tmpReport.setPatternOut(list);
-		 * 
-		 * } catch (SQLException e) { e.printStackTrace(); throw new
-		 * ReportError( "Не получилось сохранить " + report.getName() + " с id "
-		 * + report.getId()); }
-		 * 
-		 * return tmpReport;
-		 */
 	}
 
 	public int updateReport(Report report) {
@@ -1044,7 +1187,7 @@ public class Dao {
 	public void insertFileType(FileType fType, int reportId) {
 		String sql = "INSERT INTO file_types(report_id, direction, mask, name, transport, ticket, file_type, validation_schema)VALUES(?,?, ?,?,?,?,?,?)";
 		PreparedStatement ps = null;
-		ResultSet rs=null;		
+		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, reportId);
@@ -1069,7 +1212,7 @@ public class Dao {
 		} finally {
 			try {
 				ps.close();
-			} catch (SQLException e) {  
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -1210,7 +1353,7 @@ public class Dao {
 		}
 		return list;
 	}
-	
+
 	public FileAttribute getFileAttribute(Integer id) {
 		String sql = "SELECT * FROM attributes WHERE id = ?";
 		PreparedStatement ps = null;
@@ -1533,13 +1676,23 @@ public class Dao {
 	}
 
 	public ObservableList<FileType> getFileTypes() {
+		return getFileTypes(null);
+	}
+	
+	public ObservableList<FileType> getFileTypes(Report report) {
 		String sql = "";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ObservableList<FileType> ft = FXCollections.observableArrayList();
 		try {
-			sql = "SELECT * from file_types ORDER BY direction ASC";
+			sql = "SELECT * from file_types WHERE ";
+			if (report!=null) {
+				sql += " report_id = ? ";
+			}
+			sql += " ORDER BY direction ASC";
 			ps = connection.prepareStatement(sql);
+			if (report!=null)
+				ps.setInt(1, report.getId());
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				ft.add(new FileType(rs.getInt("id"), rs.getString("name"), rs.getString("mask"),
@@ -1559,6 +1712,7 @@ public class Dao {
 		}
 		return ft;
 	}
+
 
 	public void saveAttribute(FileAttribute attr) {
 		String sql = "";
@@ -2094,7 +2248,7 @@ public class Dao {
 		}
 		return action;
 	}
-	
+
 	public Action getAction(String name) {
 		String sql = "SELECT * FROM action_type WHERE name = ?";
 		PreparedStatement ps = null;
@@ -2119,7 +2273,6 @@ public class Dao {
 		}
 		return action;
 	}
-
 
 	public Chain getChainByItemId(Integer id) {
 		String sql = "SELECT * FROM chain_arm ca WHERE action_id=?";

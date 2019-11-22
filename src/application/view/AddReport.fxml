@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.AddReportController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.AddReportController">
    <children>
       <VBox layoutX="100.0" layoutY="37.0" prefHeight="405.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,12 +24,17 @@
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="reportChooser" prefHeight="25.0" prefWidth="364.0">
+                  <ComboBox fx:id="reportChooser" prefHeight="25.0" prefWidth="277.0">
                      <HBox.margin>
                         <Insets left="10.0" top="5.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <Button mnemonicParsing="false" onAction="#saveAction" text="Сохранить">
+                  <Button mnemonicParsing="false" onAction="#saveAction" prefHeight="25.0" prefWidth="75.0" text="Сохранить">
+                     <HBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#deleteData" prefHeight="25.0" prefWidth="75.0" text="Удалить">
                      <HBox.margin>
                         <Insets left="10.0" top="5.0" />
                      </HBox.margin>

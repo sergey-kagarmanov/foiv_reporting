@@ -430,6 +430,11 @@ public class AddReportController {
 		}
 	}
 
+	@FXML
+	public void deleteData() {
+		mainApp.getDb().deleteReport(report);
+	}
+	
 	public void fillData() {
 		if (report != null) {
 

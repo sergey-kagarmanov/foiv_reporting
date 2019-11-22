@@ -170,7 +170,7 @@ public class FileTypeDialogController {
 	@FXML
 	public void openvSchemaDialog() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File("".equals(validSchemaField.getText())? "/" : validSchemaField.getText().substring(0, validSchemaField.getText().lastIndexOf("\\"))));
+		fileChooser.setInitialDirectory(new File((validSchemaField.getText()==null || "".equals(validSchemaField.getText()))? "/" : validSchemaField.getText().substring(0, validSchemaField.getText().lastIndexOf("\\"))));
 		File selectedFile = fileChooser.showOpenDialog(null);
 
 		if (selectedFile != null) {
