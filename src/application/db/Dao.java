@@ -1685,9 +1685,9 @@ public class Dao {
 		ResultSet rs = null;
 		ObservableList<FileType> ft = FXCollections.observableArrayList();
 		try {
-			sql = "SELECT * from file_types WHERE ";
+			sql = "SELECT * from file_types ";
 			if (report!=null) {
-				sql += " report_id = ? ";
+				sql += "WHERE report_id = ? ";
 			}
 			sql += " ORDER BY direction ASC";
 			ps = connection.prepareStatement(sql);

@@ -481,7 +481,10 @@ public class MainApp extends Application {
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			dialogStage.setMaximized(false);
-			dialogStage.setResizable(false);
+			dialogStage.setResizable(true);
+			dialogStage.setMaxHeight(130f);
+			dialogStage.setWidth(1000f);
+			
 			Scene scene = new Scene(reportDialog);
 			dialogStage.setScene(scene);
 
