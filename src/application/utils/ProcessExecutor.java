@@ -513,6 +513,7 @@ public class ProcessExecutor {
 			 */
 			ObservableList<FileTransforming> doneList = FXCollections.observableArrayList();
 			try {
+				boolean multiVolumes = false;
 				while (loop) {
 					i++;
 					ObservableList<FileTransforming> fileListTmp = FXCollections
@@ -525,15 +526,18 @@ public class ProcessExecutor {
 					String command = FileUtils.exeDir + "arj.exe a -e ";// +
 																		// FileUtils.tmpDir+step.getAction().getData();
 
-					String pattern = direction
-							? report.getTransportInPattern().getMask()					
+					String multiCommand = FileUtils.exeDir + "arj.exe A -V5000k -Y -E ";
+					String pattern = direction ? report.getTransportInPattern().getMask()
 							: report.getTransportOutPattern().getMask();
-							
-					pattern=pattern.replaceAll("%date",DateUtils.formatReport(LocalDate.now()));
-					pattern=pattern.replaceAll("%dd",LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
-					pattern=pattern.replaceAll("%MM",LocalDate.now().format(DateTimeFormatter.ofPattern("MM")));
-					pattern=pattern.replaceAll("%yy",LocalDate.now().format(DateTimeFormatter.ofPattern("yy")));
-					
+
+					pattern = pattern.replaceAll("%date", DateUtils.formatReport(LocalDate.now()));
+					pattern = pattern.replaceAll("%dd",
+							LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
+					pattern = pattern.replaceAll("%MM",
+							LocalDate.now().format(DateTimeFormatter.ofPattern("MM")));
+					pattern = pattern.replaceAll("%yy",
+							LocalDate.now().format(DateTimeFormatter.ofPattern("yy")));
+
 					if (i < 10) {
 						pattern = pattern.replaceAll("%n", i + "").replaceAll("%", "0");
 					} else if (i < 100) {
@@ -542,6 +546,7 @@ public class ProcessExecutor {
 						pattern = pattern.replaceAll("%%%n", i + "").replaceAll("%", "0");
 					}
 					command += FileUtils.tmpDir + pattern;
+					multiCommand += FileUtils.tmpDir + pattern;
 
 					// Add files to transport arch, if summary filesize doesn't
 					// greater than constant
@@ -553,43 +558,46 @@ public class ProcessExecutor {
 					// several transport files, it is a part of global mapFiles
 					HashMap<String, ReportFile> partialFileMap = new HashMap<String, ReportFile>();
 
+					int checkCount = 0; // This check count needs to create one
+										// large file in one multiple volume
 					for (FileTransforming currentFile : fileListTmp) {
-						/*
-						 * filename = filename.toLowerCase(); File tmpFile = new
-						 * File(FileUtils.tmpDir +
-						 * filename.replaceAll(renameFiles[2], renameFiles[1]));
-						 */
+
 						fileSize += currentFile.getCurrentFile().length();
 						if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
 							command += " " + currentFile.getCurrentFile().getAbsolutePath();
 							doneList.add(currentFile);
-
-							/*
-							 * if (renameFiles == null ||
-							 * !FileFilter.maskFilter(renameFiles[0],
-							 * currentFile.replaceAll(renameFiles[2],
-							 * renameFiles[1]))) { ReportFile rep =
-							 * mapFiles.get(currentFile); toLog.put(currentFile,
-							 * rep); } else { ReportFile rep = mapFiles
-							 * .get(currentFile.replaceAll(renameFiles[2],
-							 * renameFiles[1]));
-							 * toLog.put(currentFile.replaceAll(renameFiles[2],
-							 * renameFiles[1]), rep); }
-							 */
 							partialFileMap.put(currentFile.getOriginal(),
 									mapFiles.get(currentFile));
 							loop = false;
+							multiVolumes = false;
 							col++;
 						} else {
 							loop = true;
+							if (currentFile.getCurrentFile().length() > Settings.FILE_SIZE
+									&& checkCount == 0) {
+								multiVolumes = true;
+								multiCommand += " "
+										+ currentFile.getCurrentFile().getAbsolutePath();
+								doneList.add(currentFile);
+								partialFileMap.put(currentFile.getOriginal(),
+										mapFiles.get(currentFile));
+								col++;
+							} else {
+								multiVolumes = false;
+							}
 						}
+						checkCount++;
 					}
 					transportFiles.put(new FileTransforming(pattern, FileUtils.tmpDir),
 							new TransportFile(0, pattern, LocalDateTime.now(), report, direction,
 									null, partialFileMap));
 
 					try {
-						p = r.exec(command);
+						if (multiVolumes) {
+							p = r.exec(multiCommand);
+						}else {
+							p = r.exec(command);
+						}
 
 						InputStream is = p.getInputStream();
 						int w = 0;
