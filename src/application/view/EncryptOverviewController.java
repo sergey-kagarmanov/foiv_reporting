@@ -1,6 +1,8 @@
 package application.view;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import application.MainApp;
@@ -349,7 +351,7 @@ public class EncryptOverviewController {
 	public void openOutPathDialog() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		String path = report.getPathOut();
-		if (path == null) {
+		if (path == null || !Files.exists(Paths.get(path))) {
 			path = "c:\\";
 		}
 		directoryChooser.setInitialDirectory(new File(path));
@@ -368,7 +370,7 @@ public class EncryptOverviewController {
 	public void openInPathDialog() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		String pathOut = report.getPathIn();
-		if (pathOut == null) {
+		if (pathOut == null || !Files.exists(Paths.get(pathOut))) {
 			pathOut = "c:\\";
 		}
 		directoryChooser.setInitialDirectory(new File(pathOut));
@@ -387,7 +389,7 @@ public class EncryptOverviewController {
 	public void openInputPathDialogArch() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		String path = report.getPathIn();
-		if (path == null) {
+		if (path == null || !Files.exists(Paths.get(path))) {
 			path = "c:\\";
 		}
 		directoryChooser.setInitialDirectory(new File(path));
@@ -405,7 +407,7 @@ public class EncryptOverviewController {
 	public void openOutputPathDialogArch() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		String path = report.getPathArchiveOut();
-		if (path == null) {
+		if (path == null || !Files.exists(Paths.get(path))) {
 			path = "c:\\";
 		}
 		directoryChooser.setInitialDirectory(new File(path));
@@ -528,7 +530,7 @@ public class EncryptOverviewController {
 	public void openOutputPathOutDialog() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		String path = report.getPathOutputOut();
-		if (path == null) {
+		if (path == null || !Files.exists(Paths.get(path))) {
 			path = "c:\\";
 		}
 		directoryChooser.setInitialDirectory(new File(path));
@@ -546,7 +548,7 @@ public class EncryptOverviewController {
 	public void openOutputPathInDialog() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		String path = report.getPathOutputIn();
-		if (path == null) {
+		if (path == null || !Files.exists(Paths.get(path))) {
 			path = "c:\\";
 		}
 		directoryChooser.setInitialDirectory(new File(path));
