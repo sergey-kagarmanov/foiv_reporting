@@ -560,55 +560,88 @@ public class ProcessExecutor {
 
 					int checkCount = 0; // This check count needs to create one
 										// large file in one multiple volume
-					for (FileTransforming currentFile : fileListTmp) {
+					int numberPart = 1; // If filesize more than limit, this is
+										// numbers of multivolume archive
+					if (fileListTmp.size() > 0)
+						for (FileTransforming currentFile : fileListTmp) {
 
-						fileSize += currentFile.getCurrentFile().length();
-						if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
-							command += " " + currentFile.getCurrentFile().getAbsolutePath();
-							doneList.add(currentFile);
-							partialFileMap.put(currentFile.getOriginal(),
-									mapFiles.get(currentFile));
-							loop = false;
-							multiVolumes = false;
-							col++;
-						} else {
-							loop = true;
-							if (currentFile.getCurrentFile().length() > Settings.FILE_SIZE
-									&& checkCount == 0) {
-								multiVolumes = true;
-								multiCommand += " "
-										+ currentFile.getCurrentFile().getAbsolutePath();
+							fileSize += currentFile.getCurrentFile().length();
+							if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
+								command += " " + currentFile.getCurrentFile().getAbsolutePath();
 								doneList.add(currentFile);
 								partialFileMap.put(currentFile.getOriginal(),
 										mapFiles.get(currentFile));
+								loop = false;
+								multiVolumes = false;
 								col++;
 							} else {
-								multiVolumes = false;
+								if (currentFile.getCurrentFile().length() > Settings.FILE_SIZE
+										&& checkCount == 0) {
+									multiVolumes = true;
+									multiCommand += " "
+											+ currentFile.getCurrentFile().getAbsolutePath();
+									doneList.add(currentFile);
+									partialFileMap.put(currentFile.getOriginal(),
+											mapFiles.get(currentFile));
+									col++;
+									numberPart = (int) Math
+											.ceil((currentFile.getCurrentFile().length() * 10)
+													/ Settings.FILE_SIZE / 10.0); // each
+																					// are
+																					// int,
+																					// so
+																					// result
+																					// would
+																					// be
+																					// int,
+																					// but
+																					// for
+																					// round
+																					// we
+																					// need
+																					// float
+								} else {
+									loop = true;
+								}
+							}
+							checkCount++;
+							transportFiles.put(new FileTransforming(pattern, FileUtils.tmpDir),
+									new TransportFile(0, pattern, LocalDateTime.now(), report,
+											direction, null, partialFileMap));
+							doneList.add(new FileTransforming(pattern, FileUtils.tmpDir));
+							if (multiVolumes) {
+								for (int k = 1; k < numberPart; k++) {
+									String localPattern = pattern.replaceAll("\\.(arj|ARJ)",
+											".a0" + k);
+									FileTransforming tmpFile = new FileTransforming(localPattern,
+											FileUtils.tmpDir);
+									doneList.add(tmpFile);
+									transportFiles.put(tmpFile,
+											new TransportFile(0, localPattern, LocalDateTime.now(),
+													report, direction, null, partialFileMap));
+								}
+							}
+							try {
+								if (multiVolumes) {
+									p = r.exec(multiCommand);
+								} else {
+									p = r.exec(command);
+								}
+
+								InputStream is = p.getInputStream();
+								int w = 0;
+								while ((w = is.read()) != -1) {
+									System.out.print((char) w);
+								}
+								System.out.println(p.waitFor());
+								executedFiles.addAll(transportFiles.keySet());
+							} catch (InterruptedException | IOException ie) {
+								ie.printStackTrace();
+								throw new ReportError("Ошибка создания транспортного файла");
 							}
 						}
-						checkCount++;
-					}
-					transportFiles.put(new FileTransforming(pattern, FileUtils.tmpDir),
-							new TransportFile(0, pattern, LocalDateTime.now(), report, direction,
-									null, partialFileMap));
-
-					try {
-						if (multiVolumes) {
-							p = r.exec(multiCommand);
-						}else {
-							p = r.exec(command);
-						}
-
-						InputStream is = p.getInputStream();
-						int w = 0;
-						while ((w = is.read()) != -1) {
-							System.out.print((char) w);
-						}
-						System.out.println(p.waitFor());
-						executedFiles.addAll(transportFiles.keySet());
-					} catch (InterruptedException | IOException ie) {
-						ie.printStackTrace();
-						throw new ReportError("Ошибка создания транспортного файла");
+					else {
+						loop = false;
 					}
 				}
 			} catch (Exception e) {

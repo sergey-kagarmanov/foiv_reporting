@@ -22,8 +22,8 @@ public class Settings {
 	
 	public static String ARJ_PATH = "";
 	
-	public static long FILE_SIZE = 7340032;
+	public static long FILE_SIZE = 5125000;
 	
-	public static int FILE_COUNT = 50;
+	public static int FILE_COUNT = 70;
 
 }
