@@ -192,8 +192,7 @@ public class Signatura {
 		return result;
 	}
 
-	public ObservableList<ErrorFile> signFilesInPath(Collection<FileTransforming> files,
-			ProcessStep step) {
+	public ObservableList<ErrorFile> signFilesInPath(Collection<FileTransforming> files) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;
 		for (FileTransforming f : files) {
@@ -216,7 +215,7 @@ public class Signatura {
 	}
 
 	public ObservableList<ErrorFile> verifyAndUnsignFilesInPath(
-			Collection<FileTransforming> files, String filter) {
+			Collection<FileTransforming> files) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;
 		for (FileTransforming f : files) {
@@ -335,8 +334,7 @@ public class Signatura {
 		return errorFiles;
 	}
 
-	public ObservableList<ErrorFile> decryptFilesInPath(Collection<FileTransforming> files,
-			String filter) {
+	public ObservableList<ErrorFile> decryptFilesInPath(Collection<FileTransforming> files) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;
 		for (FileTransforming f : files) {

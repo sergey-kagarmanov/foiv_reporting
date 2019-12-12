@@ -6,6 +6,7 @@ import application.db.Dao;
 import application.models.AttributeDescr;
 import application.models.Chain;
 import application.models.FileType;
+import application.models.Key;
 import application.models.ProcessStep;
 import application.models.Report;
 import application.view.ActionViewController;
@@ -16,12 +17,14 @@ import application.view.AddeditActionDialogController;
 import application.view.ArchiveOverviewController;
 import application.view.AttributeEditController;
 import application.view.AttributeLocationDialogController;
+import application.view.ChooseKeyDialogController;
 import application.view.EncryptOverviewController;
 import application.view.FileTypeDialogController;
 import application.view.KeyViewController;
 import application.view.ReportChooserDialogController;
 import application.view.RootLayoutController;
 import application.view.SettingsDialogController;
+import application.view.SingleActionController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -505,8 +508,72 @@ public class MainApp extends Application {
 		
 	}
 
+	public void showSingleAction(){
+		try{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/SingleAction.fxml"));
+			AnchorPane simpleAction = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+			
+			// Create the dialog Stage.
+			dialogStage.setTitle("Базовые функции");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.setMaximized(true);
+			Scene scene = new Scene(simpleAction);
+			dialogStage.setScene(scene);
 
+			// Set the company into the controller.
+            SingleActionController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setDialogStage(dialogStage);
+			
 
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			//return controller.isOkClicked();
+
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public void showChooseKeyDialog(){
+        try {
+             FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ChooseKeyDialog.fxml"));
+            AnchorPane editOverview = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+            Stage dialogStage = new Stage();
+			dialogStage.setTitle("Выберите ключ");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.setMaximized(false);
+			dialogStage.setResizable(false);
+			Scene scene = new Scene(editOverview);
+			dialogStage.setScene(scene);
+
+			// Set the company into the controller.
+            ChooseKeyDialogController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setDialogStage(dialogStage);
+			controller.setKeys(dao.getKeys());
+			
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			//return controller.isOkClicked();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	}
+
+	private Key currentKey;
 	
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -519,4 +586,12 @@ public class MainApp extends Application {
     public void setCurrentReport(Report report){
     	this.currentReport = report;
     }
+
+	public Key getCurrentKey() {
+		return currentKey;
+	}
+
+	public void setCurrentKey(Key currentKey) {
+		this.currentKey = currentKey;
+	}
 }

@@ -238,7 +238,11 @@ public class EncryptOverviewController {
 
 								TableRow currentRow = getTableRow();
 								if (!isEmpty()) {
-
+									Object obj = currentRow.getItem();
+									String dateString = "";
+									if (obj!=null) {
+										
+									}
 									if (new File(inPathArch.getText() + "/" + item).exists()) {
 										currentRow.setStyle("-fx-background-color:white");
 										currentRow.setStyle("-fx-color:black");

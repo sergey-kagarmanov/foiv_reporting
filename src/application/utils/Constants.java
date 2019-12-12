@@ -37,7 +37,8 @@ public class Constants {
 			"POST", // 5
 			"PACK", // 6
 			"RENAME", // 7
-			"UNPACK" // 8
+			"UNPACK", // 8
+			"COPY" //9
 
 	};
 

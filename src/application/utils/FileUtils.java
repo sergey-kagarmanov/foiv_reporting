@@ -4,18 +4,34 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import application.errors.ReportError;
 import application.models.FileType;
 import application.models.Report;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import net.sf.sevenzipjbinding.ExtractOperationResult;
+import net.sf.sevenzipjbinding.IInArchive;
+import net.sf.sevenzipjbinding.ISequentialOutStream;
+import net.sf.sevenzipjbinding.SevenZip;
+import net.sf.sevenzipjbinding.SevenZipException;
+import net.sf.sevenzipjbinding.impl.RandomAccessFileInStream;
+import net.sf.sevenzipjbinding.simple.ISimpleInArchive;
+import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
 
 public class FileUtils {
 
@@ -176,5 +192,150 @@ public class FileUtils {
             }
         }
     }
+
+	public static ObservableList<File> getFromZip(File zipFile) throws IOException {
+		byte[] buffer = new byte[1024];
+		ObservableList<File> list = FXCollections.observableArrayList();
+		File folder = new File("tmp");
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+		ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile));
+		folder.delete();
+
+		ZipEntry ze = zis.getNextEntry();
+		while (ze != null) {
+			String fileName = ze.getName();
+			File newFile = new File(folder + File.separator + fileName);
+			new File(newFile.getParent()).mkdirs();
+
+			FileOutputStream fos = new FileOutputStream(newFile);
+
+			int len;
+			while ((len = zis.read(buffer)) > 0) {
+				fos.write(buffer, 0, len);
+			}
+
+			fos.close();
+
+			if (fileName.endsWith(".xml")) {
+				list.add(newFile);
+			} else if (fileName.endsWith(".zip") || fileName.endsWith(".gz")) {
+				new File(newFile.getParent()).mkdirs();
+				list.addAll(getFromZip(newFile));
+			} else if (fileName.endsWith(".7z") || fileName.endsWith(".arj")) {
+				new File(newFile.getParent()).mkdirs();
+				list.addAll(getFromZip(newFile));
+
+			}
+			ze = zis.getNextEntry();
+		}
+
+		zis.closeEntry();
+		zis.close();
+
+		return list;
+	}
+	
+	public static ObservableList<File> getFrom7z(File file) throws IOException {
+		ObservableList<File> tmp = FXCollections.observableArrayList();
+		RandomAccessFile randomAccessFile = null;
+		IInArchive inArchive = null;
+
+		try {
+			randomAccessFile = new RandomAccessFile(file, "r");
+			inArchive = SevenZip.openInArchive(null, // autodetect archive type
+					new RandomAccessFileInStream(randomAccessFile));
+
+			// Getting simple interface of the archive inArchive
+			ISimpleInArchive simpleInArchive = inArchive.getSimpleInterface();
+
+			for (final ISimpleInArchiveItem item : simpleInArchive.getArchiveItems()) {
+				if (!item.isFolder()) {
+					ExtractOperationResult result;
+
+					result = item.extractSlow(new ISequentialOutStream() {
+						public int write(byte[] data) throws SevenZipException {
+
+							// Write to file
+							FileOutputStream fos;
+							try {
+								File file = new File(item.getPath());
+								file.getParentFile().mkdirs();
+								fos = new FileOutputStream(file);
+								fos.write(data);
+								fos.close();
+
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							return data.length; // Return amount of consumed
+												// data
+						}
+					});
+					if (result == ExtractOperationResult.OK) {
+						if (item.getPath().endsWith(".zip") || item.getPath().endsWith(".gz")) {
+							tmp.addAll(getFromZip(new File(item.getPath())));
+						} else if (item.getPath().endsWith(".zip")
+								|| item.getPath().endsWith(".gz")) {
+							tmp.addAll(getFromZip(new File(item.getPath())));
+						} else if (item.getPath().endsWith(".xml")) {
+							tmp.add(new File(item.getPath()));
+						}
+					} else {
+						System.err.println("Error extracting item: " + result);
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.err.println("Error occurs: " + e);
+			System.exit(1);
+		} finally {
+			if (inArchive != null) {
+				try {
+					inArchive.close();
+				} catch (SevenZipException e) {
+					System.err.println("Error closing archive: " + e);
+				}
+			}
+			if (randomAccessFile != null) {
+				try {
+					randomAccessFile.close();
+				} catch (IOException e) {
+					System.err.println("Error closing file: " + e);
+				}
+			}
+		}
+		return tmp;
+	}
+
+	public static void copyFiles(ObservableList<File> files, String where) {
+		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
+				StandardCopyOption.COPY_ATTRIBUTES };
+		try {
+			for (File f : files) {
+				Files.copy(f.toPath(), Paths.get(where + "\\" + f.getName()), options);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void moveFiles(ObservableList<File> files, String where) {
+		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
+				StandardCopyOption.COPY_ATTRIBUTES };
+		try {
+			for (File f : files) {
+				Files.move(f.toPath(), Paths.get(where + "\\" + f.getName()), options);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 
 }

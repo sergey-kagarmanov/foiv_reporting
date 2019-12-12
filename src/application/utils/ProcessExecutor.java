@@ -7,6 +7,7 @@ import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -131,7 +132,6 @@ public class ProcessExecutor {
 						ticketFiles.put(currentFile, new ReportFile(0, currentFile.getOriginal(),
 								LocalDateTime.now(), report, direction, null, attr));
 						flag = false;
-
 					}
 				}
 
@@ -320,11 +320,12 @@ public class ProcessExecutor {
 	}
 
 	public void putFilesIntoArch() throws ReportError {
+		String dateString = "\\"+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
 		for (FileTransforming tf : transportFiles.keySet()) {
 			if (tf.getCurrentFile().exists()) {
 
 				// Copy files to tmp directory for work
-				tf.copyCurrent(archivePath, false);
+				tf.copyCurrent(archivePath+dateString, false);
 
 				// Map<String, ReportFile> mf = tf.getListFiles();
 				// Collection<ReportFile> fc = mf.values();
@@ -339,7 +340,7 @@ public class ProcessExecutor {
 						throw new ReportError(
 								"Внутренняя ошибка, не могу найти изначальный файл " + rf);
 					}
-					fileTransforming.copySigned(archivePath);
+					fileTransforming.copySigned(archivePath+dateString);
 				}
 			} else {
 				// TODO: Error, warning etc.
@@ -446,7 +447,7 @@ public class ProcessExecutor {
 								else
 									return t.getOriginal().matches(step.getData());
 							}
-						}), step);
+						}));
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -466,7 +467,7 @@ public class ProcessExecutor {
 								else
 									return t.getOriginal().matches(step.getData());
 							}
-						}), step.getData());
+						}));
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -486,7 +487,7 @@ public class ProcessExecutor {
 								else
 									return t.getOriginal().matches(step.getData());
 							}
-						}), step.getData());
+						}));
 				signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
@@ -704,6 +705,11 @@ public class ProcessExecutor {
 				}
 			}
 
+		} else if (Constants.ACTIONS[9].equals(step.getAction().getName())) {
+			//COPY
+			for (FileTransforming fTransforming : executedFiles) {
+				fTransforming.copyCurrent(step.getData(), false);
+			}
 		}
 
 		if (errorFiles.size() > 0) {

@@ -45,4 +45,8 @@ public class RootLayoutController {
 	public void handleSettings(){
 		mainApp.showSettingsDialog();
 	}
+	
+	@FXML void handleSimpleActions() {
+		mainApp.showSingleAction();
+	}
 }

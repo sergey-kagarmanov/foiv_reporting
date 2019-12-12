@@ -1,6 +1,7 @@
 package application.utils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+
+import org.xml.sax.SAXException;
 
 public class XMLValidator {
 
@@ -19,8 +22,11 @@ public class XMLValidator {
                     .newValidator();
             validator.setErrorHandler(new XSDValidatorErrorHandler(exceptions));
             validator.validate(new StreamSource(xmlDocument));
-        } catch (Exception e) {
+        } catch (SAXException e) {
+        	exceptions.add(e);
             e.printStackTrace();
+        } catch (IOException ioe) {
+        	ioe.printStackTrace();
         }
         return exceptions;
 	}

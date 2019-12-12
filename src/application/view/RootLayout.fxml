@@ -5,13 +5,14 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.RootLayoutController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Главная">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleArchiveOpen" text="Архив" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSimpleActions" text="Базовые операции" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Настройки">

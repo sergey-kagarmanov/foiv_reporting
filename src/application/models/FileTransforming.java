@@ -196,4 +196,12 @@ public class FileTransforming {
 	public String toString() {
 		return original.getName();
 	}
+	
+	public static ObservableList<FileTransforming> toFileTransforming(ObservableList<File> files){
+		ObservableList<FileTransforming> result = FXCollections.observableArrayList();
+		for(File f: files) {
+			result.add(new FileTransforming(f.getName(), f.getParent()));
+		}
+		return result;
+	}
 }
