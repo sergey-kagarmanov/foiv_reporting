@@ -2,6 +2,7 @@ package application.view;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.xml.sax.SAXException;
@@ -14,6 +15,7 @@ import application.utils.Signatura;
 import application.utils.XMLValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -71,6 +73,12 @@ public class SingleActionController {
 			}
 		});
 		actions.add(new Pair<String, String>(Constants.ACTIONS[4], "Проверить и снять подпись") {
+			@Override
+			public String toString() {
+				return getValue();
+			}
+		});
+		actions.add(new Pair<String, String>(Constants.ACTIONS[6], "Заархивировать") {
 			@Override
 			public String toString() {
 				return getValue();
@@ -173,6 +181,29 @@ public class SingleActionController {
 						FileTransforming.toFileTransforming(files.getItems()));
 				FileUtils.copyFiles(files.getItems(), outPath.getText());
 			}
+		} else if (action.getKey().equals(Constants.ACTIONS[6])) {
+			mainApp.showChooseArchiveDialog(files.getItems());
+			String archiveName = mainApp.getCurrentArchiveName();
+			String command = FileUtils.exeDir + "arj.exe A -V5000k -Y -E ";
+			command += outPath.getText() + "\\" + archiveName + " ";
+			for (File file : files.getItems()) {
+				command += file.getAbsolutePath() + " ";
+			}
+
+			Process p = null;
+			Runtime r = Runtime.getRuntime();
+			try {
+				p = r.exec(command);
+				InputStream is = p.getInputStream();
+				int w = 0;
+				while ((w = is.read()) != -1) {
+					System.out.print((char) w);
+				}
+				System.out.println(p.waitFor());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		} else if (action.getKey().equals(Constants.ACTIONS[7])) {
 
 		} else if (action.getKey().equals(Constants.ACTIONS[8])) {
@@ -188,21 +219,30 @@ public class SingleActionController {
 		} else if (action.getKey().equals(Constants.ACTIONS[9])) {
 			FileUtils.copyFiles(files.getItems(), outPath.getText());
 		} else if ("CHECK".equals(action.getKey())) {
-			ObservableList<Exception> exceptions = FXCollections.observableArrayList();
-			FileChooser schemaChooser = new FileChooser();
+			ObservableMap<File, String> exceptions = FXCollections.observableHashMap();
+			/*FileChooser schemaChooser = new FileChooser();
 			schemaChooser.setTitle("Выберите схему проверки");
 			String pathOut = "c:\\sdm\\reporting";
 			schemaChooser.setInitialDirectory(new File(pathOut));
-			File schema = schemaChooser.showOpenDialog(null);
-			for (File f : files.getItems()) {
-				exceptions.addAll(XMLValidator.validate(f, schema));
+			File schema = schemaChooser.showOpenDialog(null);*/
+			mainApp.showChooseSchemaDialog(files.getItems());
+			ObservableList<Pair<File, String>> schemaPairs = mainApp.getSchemaPairs();
+			for (Pair<File, String> f : schemaPairs) {
+				List<Exception> tmpList = XMLValidator.validate(f.getKey(), new File(f.getValue()));
+				if (tmpList.size()>0) {
+				String errors = "В файле " + f.getKey().getName();
+				for(Exception ex : tmpList) {
+					errors += " " + ((SAXException) ex).getMessage() + "\r\n";
+				}
+				exceptions.put(f.getKey(), errors);
+				}
 			}
 			if (exceptions.size() > 0) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Результат проверки");
 				String errors = "";
-				for (Exception e : exceptions) {
-					errors += " " + ((SAXException) e).getMessage() + "\r\n";
+				for (String e : exceptions.values()) {
+					errors += " " + e;
 				}
 				alert.setContentText(errors);
 				alert.show();

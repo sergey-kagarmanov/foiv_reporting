@@ -1,5 +1,6 @@
 package application;
 
+import java.io.File;
 import java.io.IOException;
 
 import application.db.Dao;
@@ -14,9 +15,11 @@ import application.view.AddEditAttributeDescrController;
 import application.view.AddEditChainDialogController;
 import application.view.AddReportController;
 import application.view.AddeditActionDialogController;
+import application.view.ArchiveNameDialogController;
 import application.view.ArchiveOverviewController;
 import application.view.AttributeEditController;
 import application.view.AttributeLocationDialogController;
+import application.view.CheckScemaDialogController;
 import application.view.ChooseKeyDialogController;
 import application.view.EncryptOverviewController;
 import application.view.FileTypeDialogController;
@@ -26,6 +29,7 @@ import application.view.RootLayoutController;
 import application.view.SettingsDialogController;
 import application.view.SingleActionController;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -33,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class MainApp extends Application {
 
@@ -44,6 +49,10 @@ public class MainApp extends Application {
      * Temp data
      */
     private Report currentReport;
+    
+    //For single actions
+    private String currentArchiveName;
+    private ObservableList<Pair<File, String>> schemaPairs;
     
     public static Boolean IN = true;
     public static Boolean OUT = false;
@@ -572,6 +581,75 @@ public class MainApp extends Application {
         }
 
 	}
+	
+	public void showChooseArchiveDialog(ObservableList<File> files){
+        try {
+             FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ArchiveNameDialog.fxml"));
+            AnchorPane editOverview = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+            Stage dialogStage = new Stage();
+			dialogStage.setTitle("Выберите ключ");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.setMaximized(false);
+			dialogStage.setResizable(false);
+			Scene scene = new Scene(editOverview);
+			dialogStage.setScene(scene);
+
+			// Set the company into the controller.
+            ArchiveNameDialogController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setDialogStage(dialogStage);
+			controller.setFiles(files);
+			
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			//return controller.isOkClicked();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	}
+
+	public void showChooseSchemaDialog(ObservableList<File> files){
+        try {
+             FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CheckSchemaDialog.fxml"));
+            AnchorPane editOverview = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+            Stage dialogStage = new Stage();
+			dialogStage.setTitle("Выберите ключ");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.setMaximized(false);
+			dialogStage.setResizable(false);
+			Scene scene = new Scene(editOverview);
+			dialogStage.setScene(scene);
+
+			// Set the company into the controller.
+            CheckScemaDialogController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setDialogStage(dialogStage);
+			controller.setFiles(files);
+			
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			//return controller.isOkClicked();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	}
+
 
 	private Key currentKey;
 	
@@ -593,5 +671,21 @@ public class MainApp extends Application {
 
 	public void setCurrentKey(Key currentKey) {
 		this.currentKey = currentKey;
+	}
+
+	public String getCurrentArchiveName() {
+		return currentArchiveName;
+	}
+
+	public void setCurrentArchiveName(String currentArchiveName) {
+		this.currentArchiveName = currentArchiveName;
+	}
+
+	public ObservableList<Pair<File, String>> getSchemaPairs() {
+		return schemaPairs;
+	}
+
+	public void setSchemaPairs(ObservableList<Pair<File, String>> schemaPairs) {
+		this.schemaPairs = schemaPairs;
 	}
 }
