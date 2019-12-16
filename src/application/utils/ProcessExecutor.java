@@ -668,7 +668,7 @@ public class ProcessExecutor {
 				if (file.getErrorCode() == 0) {
 					if (filter.accept(new File(FileUtils.tmpDir), file.getCurrent())) {
 						file.setCurrent(file.getCurrentFile().getParentFile().getAbsolutePath()
-								+ "\\" + file.getCommonCurrent().replaceAll(renameFiles[1],
+								+ "\\" + file.getCurrent().replaceAll(renameFiles[1],
 										renameFiles[2]));// new
 															// File(FileUtils.tmpDir
 															// +
