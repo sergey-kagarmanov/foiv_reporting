@@ -2,6 +2,9 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import application.db.Dao;
 import application.models.AttributeDescr;
@@ -50,6 +53,7 @@ public class MainApp extends Application {
      */
     private Report currentReport;
     
+    
     //For single actions
     private String currentArchiveName;
     private ObservableList<Pair<File, String>> schemaPairs;
@@ -57,17 +61,21 @@ public class MainApp extends Application {
     public static Boolean IN = true;
     public static Boolean OUT = false;
 
+    private Logger logger;
+    
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Работа с шифрованными файлами");
-		
+		createLogger();
 		initDB();
 		
 		initRootLayout();
 		
 		showEncryptOverview();
 	}
+	
+	
 
 	public static void main(String[] args) {
 		launch(args);
@@ -79,6 +87,26 @@ public class MainApp extends Application {
 	
 	public void initDB(){
 		dao = new Dao();
+	}
+	
+	
+	private void createLogger() {
+		logger = Logger.getLogger("MyLog");
+		FileHandler fh;  
+
+	    try {  
+
+	        // This block configure the logger with handler and formatter  
+	        fh = new FileHandler("LogFile.log");  
+	        logger.addHandler(fh);
+	        SimpleFormatter formatter = new SimpleFormatter();  
+	        fh.setFormatter(formatter);  
+
+	    } catch (SecurityException e) {  
+	        e.printStackTrace();  
+	    } catch (IOException e) {  
+	        e.printStackTrace();  
+	    }		
 	}
 	
 	public void initRootLayout() {

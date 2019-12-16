@@ -320,12 +320,13 @@ public class ProcessExecutor {
 	}
 
 	public void putFilesIntoArch() throws ReportError {
-		String dateString = "\\"+LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+		String dateString = "\\"
+				+ LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
 		for (FileTransforming tf : transportFiles.keySet()) {
 			if (tf.getCurrentFile().exists()) {
 
 				// Copy files to tmp directory for work
-				tf.copyCurrent(archivePath+dateString, false);
+				tf.copyCurrent(archivePath + dateString, false);
 
 				// Map<String, ReportFile> mf = tf.getListFiles();
 				// Collection<ReportFile> fc = mf.values();
@@ -340,7 +341,7 @@ public class ProcessExecutor {
 						throw new ReportError(
 								"Внутренняя ошибка, не могу найти изначальный файл " + rf);
 					}
-					fileTransforming.copySigned(archivePath+dateString);
+					fileTransforming.copySigned(archivePath + dateString);
 				}
 			} else {
 				// TODO: Error, warning etc.
@@ -622,28 +623,30 @@ public class ProcessExecutor {
 													report, direction, null, partialFileMap));
 								}
 							}
-							try {
-								if (multiVolumes) {
-									p = r.exec(multiCommand);
-								} else {
-									p = r.exec(command);
-								}
-
-								InputStream is = p.getInputStream();
-								int w = 0;
-								while ((w = is.read()) != -1) {
-									System.out.print((char) w);
-								}
-								System.out.println(p.waitFor());
-								executedFiles.addAll(transportFiles.keySet());
-							} catch (InterruptedException | IOException ie) {
-								ie.printStackTrace();
-								throw new ReportError("Ошибка создания транспортного файла");
-							}
 						}
 					else {
 						loop = false;
 					}
+
+					try {
+						if (multiVolumes) {
+							p = r.exec(multiCommand);
+						} else {
+							p = r.exec(command);
+						}
+
+						InputStream is = p.getInputStream();
+						int w = 0;
+						while ((w = is.read()) != -1) {
+							System.out.print((char) w);
+						}
+						System.out.println(p.waitFor());
+						executedFiles.addAll(transportFiles.keySet());
+					} catch (InterruptedException | IOException ie) {
+						ie.printStackTrace();
+						throw new ReportError("Ошибка создания транспортного файла");
+					}
+
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -668,11 +671,11 @@ public class ProcessExecutor {
 				if (file.getErrorCode() == 0) {
 					if (filter.accept(new File(FileUtils.tmpDir), file.getCurrent())) {
 						file.setCurrent(file.getCurrentFile().getParentFile().getAbsolutePath()
-								+ "\\" + file.getCurrent().replaceAll(renameFiles[1],
-										renameFiles[2]));// new
-															// File(FileUtils.tmpDir
-															// +
-															// file.getName().toLowerCase()
+								+ "\\"
+								+ file.getCurrent().replaceAll(renameFiles[1], renameFiles[2]));// new
+																								// File(FileUtils.tmpDir
+																								// +
+																								// file.getName().toLowerCase()
 						// .replaceAll(renameFiles[1], renameFiles[2]));
 						// file.renameTo(rFile);
 					}
@@ -706,7 +709,7 @@ public class ProcessExecutor {
 			}
 
 		} else if (Constants.ACTIONS[9].equals(step.getAction().getName())) {
-			//COPY
+			// COPY
 			for (FileTransforming fTransforming : executedFiles) {
 				fTransforming.copyCurrent(step.getData(), false);
 			}
