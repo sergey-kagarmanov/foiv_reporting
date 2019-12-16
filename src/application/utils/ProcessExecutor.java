@@ -442,7 +442,7 @@ public class ProcessExecutor {
 				errorFiles = signatura
 						.signFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
 
-							@Override
+	@Override
 							public boolean test(FileTransforming t) {
 								if (t.getCurrent() != null)
 									return t.getCurrent().matches(step.getData());
@@ -482,7 +482,7 @@ public class ProcessExecutor {
 				errorFiles = signatura.verifyAndUnsignFilesInPath(
 						executedFiles.filtered(new Predicate<FileTransforming>() {
 
-							@Override
+	@Override
 							public boolean test(FileTransforming t) {
 								if (t.getCurrent() != null)
 									return t.getCurrent().matches(step.getData());
@@ -681,11 +681,20 @@ public class ProcessExecutor {
 			renameFiles[2] = ReplaceText.substring(ReplaceText.indexOf("|") + 1,
 					ReplaceText.length());
 
-			FileFilter filter = new FileFilter(renameFiles[0]);
+//			FileFilter filter = new FileFilter(renameFiles[0]);
 
-			for (FileTransforming file : executedFiles) {
+			for (FileTransforming file : executedFiles.filtered(new Predicate<FileTransforming>() {
+
+				@Override
+				public boolean test(FileTransforming t) {
+					if (t.getCurrent() != null)
+						return t.getCurrent().matches(renameFiles[0]);
+					else
+						return t.getOriginal().matches(renameFiles[0]);
+				}
+			})) {
 				if (file.getErrorCode() == 0) {
-					if (filter.accept(new File(FileUtils.tmpDir), file.getCurrent())) {
+//					if (filter.accept(new File(FileUtils.tmpDir), file.getCurrent())) {
 						file.setCurrent(file.getCurrentFile().getParentFile().getAbsolutePath()
 								+ "\\"
 								+ file.getCurrent().replaceAll(renameFiles[1], renameFiles[2]));// new
@@ -695,48 +704,46 @@ public class ProcessExecutor {
 						// .replaceAll(renameFiles[1], renameFiles[2]));
 						// file.renameTo(rFile);
 					}
-				}
+				//}
 			}
 
-			/*
-			 * for (String f : filenames) { if (filter.accept(null, f)) {
-			 * f.replaceAll(renameFiles[1], renameFiles[2]); } }
-			 */
+	/*
+	 * for (String f : filenames) { if (filter.accept(null, f)) {
+	 * f.replaceAll(renameFiles[1], renameFiles[2]); } }
+	 */
 
-		} else if (Constants.ACTIONS[8].equals(step.getAction().getName())) {
-			// UNPACK
-			// Runtime r = Runtime.getRuntime();
-			// Process p = null;
-			for (String filename : FileUtils.getDirContentByMask(FileUtils.tmpDir,
-					step.getData())) {
+	}else if(Constants.ACTIONS[8].equals(step.getAction().getName())){
+	// UNPACK
+	// Runtime r = Runtime.getRuntime();
+	// Process p = null;
+	for(
+	String filename:FileUtils.getDirContentByMask(FileUtils.tmpDir,step.getData())){
 
-				List<File> tmpFiles = unrar(FileUtils.tmpDir + filename);
-				for (File f : tmpFiles) {
-					TransportFile tmpTransportFile = transportFiles
-							.get(new FileTransforming(filename, FileUtils.tmpDir));
-					if (tmpTransportFile.getListFiles() == null) {
-						tmpTransportFile.setListFiles(new HashMap<String, ReportFile>());
-					}
-					tmpTransportFile.getListFiles().put(f.getName(), new ReportFile(0, f.getName(),
-							LocalDateTime.now(), report, direction, null, null));
-					executedFiles
-							.add(new FileTransforming(f.getName(), f.getName(), FileUtils.tmpDir));
-				}
-			}
-
-		} else if (Constants.ACTIONS[9].equals(step.getAction().getName())) {
-			// COPY
-			for (FileTransforming fTransforming : executedFiles) {
-				fTransforming.copyCurrent(step.getData(), false);
-			}
+	List<File> tmpFiles = unrar(FileUtils.tmpDir + filename);for(
+	File f:tmpFiles)
+	{
+		TransportFile tmpTransportFile = transportFiles
+				.get(new FileTransforming(filename, FileUtils.tmpDir));
+		if (tmpTransportFile.getListFiles() == null) {
+			tmpTransportFile.setListFiles(new HashMap<String, ReportFile>());
 		}
+		tmpTransportFile.getListFiles().put(f.getName(),
+				new ReportFile(0, f.getName(), LocalDateTime.now(), report, direction, null, null));
+		executedFiles.add(new FileTransforming(f.getName(), f.getName(), FileUtils.tmpDir));
+	}}
 
-		if (errorFiles.size() > 0) {
-			excludeErrorFiles(errorFiles);
-		}
-
-		return errorFiles;
+	}else if(Constants.ACTIONS[9].equals(step.getAction().getName())){
+	// COPY
+	for(
+	FileTransforming fTransforming:executedFiles)
+	{
+		fTransforming.copyCurrent(step.getData(), false);
 	}
+	}
+
+	if(errorFiles.size()>0){excludeErrorFiles(errorFiles);}
+
+	return errorFiles;}
 
 	private List<File> unrar(String file) {
 		List<File> files = new ArrayList<File>();

@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************************************
+XML-СХЕМА для формы отчетности Гарантия
+СГЕНЕРИРОВАНА XSLT-ПРЕОБРАЗОВАНИЕМ GenSchema.xsl
+******************************************************************-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:cbr-bankgarant:bankgar:v2..3" xmlns="urn:cbr-bankgarant:bankgar:v2..3"><xs:element name="Гарантия" type="Гарантия" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+	<xs:complexType name="Гарантия" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:element name="СведенияГарант" type="ГарантияСведенияГарант" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="СведенияПринципал" type="ГарантияСведенияПринципал" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="СведенияБенефициар" type="ГарантияСведенияБенефициар" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="СведенияМарки" type="ГарантияСведенияМарки" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="СведенияПодписант" type="ГарантияСведенияПодписант" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="ИдДокум" type="GUIDтип" use="required"/>
+		<xs:attribute name="ВидГарант" type="НольОдинТип-лок" use="required"/>
+		<xs:attribute name="МестоВыдачи" type="Строка160" use="optional"/>
+		<xs:attribute name="НомерГарант" type="Строка50-лок" use="required"/>
+		<xs:attribute name="ДатаВыдачи" type="Дата" use="required"/>
+		<xs:attribute name="ДатаВступ" type="Дата" use="required"/>
+		<xs:attribute name="СрокДейст" type="Дата" use="required"/>
+		<xs:attribute name="Сумма" type="Десят20.2полож-лок" use="required"/>
+		<xs:attribute name="ВидОбязат" type="Строка6" use="required"/>
+		<xs:attribute name="ТипГарант" type="НольОдинТип-лок" use="required"/>
+		<xs:attribute name="ПризнПереоформ" type="НольОдинТип-лок" use="optional"/>
+		<xs:attribute name="НомПредГарант" type="Строка50-лок" use="optional"/>
+		<xs:attribute name="ПризнОтзв" type="СогласиеТип-лок" use="required"/>
+		<xs:attribute name="СоглСумма" type="СогласиеТип-лок" use="required"/>
+		<xs:attribute name="Согласие" type="СогласиеТип-лок" use="required"/>
+		<xs:attribute name="СоглФакт" type="СогласиеТип-лок" use="required"/>
+		<xs:attribute name="ОбязатСумма" type="СогласиеТип-лок" use="required"/>
+		<xs:attribute name="ПередачаПрав" type="СогласиеТип-лок" use="required"/>
+		<xs:attribute name="СрокОплата" type="СрокОплата-лок" use="required"/>
+		<xs:attribute name="Требование" type="СогласиеТип-лок" use="required"/>
+		<xs:attribute name="ФормаТребования" type="СогласиеТип-лок" use="required"/>
+		<xs:attribute name="БКИ" type="БКИтип-лок" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияГарант" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:element name="АдресГаранта" type="ГарантияСведенияГарантАдресГаранта" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Лицензия" type="ГарантияСведенияГарантЛицензия" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="НаимГарант" type="Строка150" use="required"/>
+		<xs:attribute name="НаимГарантСокр" type="Строка120-лок" use="required"/>
+		<xs:attribute name="ОКПОГарант" type="ОКПОГарантТип-лок" use="required"/>
+		<xs:attribute name="ИННГарант" type="ИННГаранттип-лок" use="required"/>
+		<xs:attribute name="ОГРН" type="ОГРНтип" use="required"/>
+		<xs:attribute name="БИК" type="БИКтип" use="required"/>
+		<xs:attribute name="НомКорСчет" type="Строка20" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияГарантАдресГаранта" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="Индекс" type="Строка6" use="required"/>
+		<xs:attribute name="КодСтраны" type="Строка2" use="required"/>
+		<xs:attribute name="НаимСтраны" type="Строка40" use="required"/>
+		<xs:attribute name="КодОКАТО" type="ОКАТОтип-лок" use="required"/>
+		<xs:attribute name="НаселПункт" type="НаселПункттип-лок" use="required"/>
+		<xs:attribute name="УлицаДомОфис" type="Строка150" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияГарантЛицензия" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="НомЛиц" type="Строка5-лок" use="required"/>
+		<xs:attribute name="ДатаЛиц" type="Дата" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияПринципал" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:element name="ПринципалРез" type="ГарантияСведенияПринципалПринципалРез" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ПринципалНерез" type="ГарантияСведенияПринципалПринципалНерез" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Документ" type="ГарантияСведенияПринципалДокумент" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="АдресПринципал" type="ГарантияСведенияПринципалАдресПринципал" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="ТипПринципал" type="ТипПринципалТип-лок" use="required"/>
+		<xs:attribute name="НаимПринципал" type="Строка150" use="required"/>
+		<xs:attribute name="НаимПринципалСокр" type="Строка120-лок" use="optional"/>
+		<xs:attribute name="КодЯзыка" type="Строка2" use="required"/>
+		<xs:attribute name="ПризнакРез" type="ПризнакРезТип-лок" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияПринципалПринципалРез" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="ОКПОПринципал" type="ОКПОПринципалТип-лок" use="optional"/>
+		<xs:attribute name="ПринципалИНН" type="ИННтип" use="required"/>
+		<xs:attribute name="ОГРНОГРНИП" type="ОГРНОГРНИПтип-лок" use="optional"/>
+		<xs:attribute name="КПП" type="КППтип" use="optional"/>
+		<xs:attribute name="БИК" type="БИКтип" use="optional"/>
+		<xs:attribute name="НомКорСчет" type="Строка20" use="optional"/>
+		<xs:attribute name="НомРасчСчет" type="Строка20" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияПринципалПринципалНерез" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="ПринципалИНН" type="ИННтип" use="optional"/>
+		<xs:attribute name="КПП" type="КППтип" use="optional"/>
+		<xs:attribute name="БИК" type="БИКтип" use="optional"/>
+		<xs:attribute name="НомКорСчет" type="Строка20" use="optional"/>
+		<xs:attribute name="НомРасчСчет" type="Строка20" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияПринципалДокумент" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="КодДок" type="Строка2" use="required"/>
+		<xs:attribute name="НаимДок" type="Строка120-лок" use="required"/>
+		<xs:attribute name="СерияДок" type="Строка11-лок" use="optional"/>
+		<xs:attribute name="НомерДок" type="Строка25" use="optional"/>
+		<xs:attribute name="ДатаДок" type="Дата" use="required"/>
+		<xs:attribute name="НаимОргДок" type="Строка150" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияПринципалАдресПринципал" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="ИндексПринц" type="ИндексПринцтип-лок" use="optional"/>
+		<xs:attribute name="КодСтраны" type="Строка2" use="required"/>
+		<xs:attribute name="НаимСтраны" type="Строка40" use="required"/>
+		<xs:attribute name="Область" type="Областьтип-лок" use="optional"/>
+		<xs:attribute name="НаселПункт" type="НаселПункттип-лок" use="required"/>
+		<xs:attribute name="УлицаДомОфис" type="Строка150" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияБенефициар" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="КодТО" type="Строка8-лок" use="required"/>
+		<xs:attribute name="НаимТО" type="Строка150" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияМарки" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:element name="РеквОбязат" type="ГарантияСведенияМаркиРеквОбязат" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ЗаявМарки" type="ГарантияСведенияМаркиЗаявМарки" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="СрокОбязат" type="Дата" use="required"/>
+		<xs:attribute name="НаимОбязат" type="Строка350Непустая-лок" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияМаркиРеквОбязат" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="НомОбязат" type="Строка50" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияМаркиЗаявМарки" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="ДатаЗаявМарк" type="Дата" use="required"/>
+		<xs:attribute name="НомЗаявМарк" type="Строка50" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ГарантияСведенияПодписант" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="ФИО1" type="ФИОТип-лок" use="required"/>
+		<xs:attribute name="Должность1" type="ДолжностьТип-лок" use="required"/>
+		<xs:attribute name="ПолномДок1" type="Строка120-лок" use="required"/>
+		<xs:attribute name="ФИО2" type="ФИОТип-лок" use="optional"/>
+		<xs:attribute name="Должность2" type="ДолжностьТип-лок" use="optional"/>
+		<xs:attribute name="ПолномДок2" type="Строка120-лок" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="Строка5-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="32145"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="5"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка11-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="4599123456"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="11"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="НаселПункттип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..50 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="50"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка50-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..50 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="50"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка120-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:restriction base="xs:string"><xs:maxLength value="120"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка8-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="12345678"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{8}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка350Непустая-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1..350 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="350"/><xs:minLength value="1"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Десят20.2полож-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="123456789012345678.12"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:decimal"><xs:totalDigits value="20"/><xs:fractionDigits value="2"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="НольОдинТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1"/><xs:ЗначениеТипа ЗначТипа="0"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:integer"><xs:enumeration value="0"/><xs:enumeration value="1"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ИННГаранттип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1234567890"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{10}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ОКАТОтип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="12345"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{5}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ОГРНОГРНИПтип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1234567890123"/><xs:ЗначениеТипа ЗначТипа="123456789012345"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{13}|\d{15}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ОКПОГарантТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="12345678"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{8}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Областьтип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..40 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="40"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ФИОТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1..120 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="120"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ДолжностьТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1..150 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="150"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ИндексПринцтип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1..9"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="9"/><xs:minLength value="1"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="СогласиеТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="=1"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:integer"><xs:enumeration value="1"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ПризнакРезТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="=1"/><xs:ЗначениеТипа ЗначТипа="=0"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:integer"><xs:enumeration value="1"/><xs:enumeration value="0"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="СрокОплата-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="=5"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:nonNegativeInteger"><xs:enumeration value="5"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="БКИтип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1"/><xs:ЗначениеТипа ЗначТипа="0"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:integer"><xs:enumeration value="1"/><xs:enumeration value="0"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ТипПринципалТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1"/><xs:ЗначениеТипа ЗначТипа="2"/><xs:ЗначениеТипа ЗначТипа="3"/><xs:ЗначениеТипа ЗначТипа="4"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:integer"><xs:enumeration value="1"/><xs:enumeration value="2"/><xs:enumeration value="3"/><xs:enumeration value="4"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ОКПОПринципалТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="01234567"/><xs:ЗначениеТипа ЗначТипа="0123456789"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{8}|\d{10}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Дата" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="2014-11-02"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:date"><xs:pattern value="\d{4}-\d{2}-\d{2}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка2" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="2с"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="2"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка6" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..6 с"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="6"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка20" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..20 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="20"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка25" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..25 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="25"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка40" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..40 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="40"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка50" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..50 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="50"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка150" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..150 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="150"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка160" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..160 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="160"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="БИКтип" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="040125003"/><xs:ЗначениеТипа ЗначТипа="123456789"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{9}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ИННтип" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1234567890"/><xs:ЗначениеТипа ЗначТипа="123456789012"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{12}|\d{10}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="КППтип" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="123456789"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="9"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ОГРНтип" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1234567890123"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{13}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="GUIDтип" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="6F9619FF-8B86-D011-B42D-00CF4FC994FF"/><xs:ЗначениеТипа ЗначТипа="A57E17DF-8B86-B711-A42D-00CF4FC994AC"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/></xs:restriction></xs:simpleType></xs:schema>

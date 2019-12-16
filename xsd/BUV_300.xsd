@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by SAN (FGUP GNIVC FNS Russia) -->
+<!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by Home (Home) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:altova="http://www.altova.com/xml-schema-extensions" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.00">
+	<xs:element name="Файл">
+		<xs:annotation>
+			<xs:documentation>Файл электронного документа</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="УВЕБНОБМЕН">
+					<xs:annotation>
+						<xs:documentation>Уведомление банка (филиала банка)</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="СвБанк" type="БанкТип">
+								<xs:annotation>
+									<xs:documentation>Сведения о банке (филиале банка), заключившем договор</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="СвБанкНов" type="БанкТип" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Сведения о банке (филиале банка), новые</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Филиалы" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Перечень филиалов (при наличии), получающих сообщения через банк (филиал банка)</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="НомФил" use="required">
+										<xs:annotation>
+											<xs:appinfo>
+												<altova:exampleValues>
+													<altova:example value="2"/>
+													<altova:example value="15"/>
+												</altova:exampleValues>
+											</xs:appinfo>
+											<xs:documentation>Номер филиала банка по КГРКО</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:nonNegativeInteger">
+												<xs:totalDigits value="4"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="БИК" use="required">
+										<xs:annotation>
+											<xs:documentation>БИК филиала банка</xs:documentation>
+											<xs:appinfo>
+												<altova:exampleValues>
+													<altova:example value="045773603"/>
+													<altova:example value="044537615"/>
+												</altova:exampleValues>
+											</xs:appinfo>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="БИКТип"/>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="НаимФил" use="required">
+										<xs:annotation>
+											<xs:documentation>Сокращенное  наименование филиала банка</xs:documentation>
+											<xs:appinfo>
+												<altova:exampleValues>
+													<altova:example value='ДЕСНОГОРСКИЙ ФИЛИАЛ ОАО АКБ "СМОЛЕВИЧ"'/>
+													<altova:example value='МОСКОВСКИЙ ФИЛИАЛ ОАО АКБ "СМОЛЕВИЧ"'/>
+												</altova:exampleValues>
+											</xs:appinfo>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="160"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="ДатаУвед" type="xs:date" use="required">
+							<xs:annotation>
+								<xs:documentation>Дата направления уведомления в электронном виде</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="2015-06-23"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ДатаЗаклДог" type="xs:date" use="optional">
+							<xs:annotation>
+								<xs:documentation>Дата заключения договора</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="2015-06-17"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ДатаДопСогл" type="xs:date" use="optional">
+							<xs:annotation>
+								<xs:documentation>Дата дополнительного соглашения к договору</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="2015-06-19"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ДатаСоб" type="xs:date" use="required">
+							<xs:annotation>
+								<xs:documentation>Дата события</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="2015-06-25"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="КодУсл" use="optional">
+							<xs:annotation>
+								<xs:documentation>Код условий договора (RPZ)</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="100"/>
+										<altova:example value="101"/>
+										<altova:example value="110"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="3"/>
+									<xs:pattern value="[0,1]{3}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="КодСоб" use="required">
+							<xs:annotation>
+								<xs:documentation>Код события</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="11"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="2"/>
+									<xs:enumeration value="11"/>
+									<xs:enumeration value="12"/>
+									<xs:enumeration value="13"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ИдЭС" type="GUIDТип" use="required">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор сообщения (GUID)</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ТипИнф" use="required">
+				<xs:annotation>
+					<xs:documentation>Тип информации</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="УВЕБНОБМЕН"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="10"/>
+						<xs:enumeration value="УВЕБНОБМЕН"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ВерсПрог" use="required">
+				<xs:annotation>
+					<xs:documentation>Версия передающей программы: &lt;наименование&gt;&lt;пробел&gt;&lt;версия&gt;</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="БИНГО 3.12.01"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ТелОтпр" use="required">
+				<xs:annotation>
+					<xs:documentation>Телефон отправителя</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="(495) 223-33-44"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ДолжнОтпр" use="required">
+				<xs:annotation>
+					<xs:documentation>Должность отправителя</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="оператор"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100" fixed="false"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ФамОтпр" use="required">
+				<xs:annotation>
+					<xs:documentation>Фамилия отправителя</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="Сичкин"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ВерсФорм" use="required">
+				<xs:annotation>
+					<xs:documentation>Версия формата</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="4"/>
+						<xs:fractionDigits value="2"/>
+						<xs:enumeration value="3.00"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="GUIDТип">
+		<xs:annotation>
+			<xs:documentation>Идентификатор GUID</xs:documentation>
+			<xs:appinfo>
+				<altova:exampleValues>
+					<altova:example value="6F9619FF-8B86-D011-B42D-00CF4FC994FF"/>
+				</altova:exampleValues>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="36"/>
+			<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="БИКТип">
+		<xs:annotation>
+			<xs:documentation>БИК по справочнику БИК РФ</xs:documentation>
+			<xs:appinfo>
+				<altova:exampleValues>
+					<altova:example value="044525823"/>
+				</altova:exampleValues>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="9"/>
+			<xs:pattern value="\d{9}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ИННЮЛТип">
+		<xs:annotation>
+			<xs:documentation>Идентификационный номер налогоплательщика - юридического лица</xs:documentation>
+			<xs:appinfo>
+				<altova:exampleValues>
+					<altova:example value="7750275816"/>
+					<altova:example value="05123"/>
+				</altova:exampleValues>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="5"/>
+			<xs:maxLength value="10"/>
+			<xs:pattern value="([0-9]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{8}"/>
+			<xs:pattern value="\d{5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="КППТип">
+		<xs:annotation>
+			<xs:documentation>Код причины постановки на учет (КПП)</xs:documentation>
+			<xs:appinfo>
+				<altova:exampleValues>
+					<altova:example value="775001001"/>
+				</altova:exampleValues>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="9"/>
+			<xs:pattern value="([0-9]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{7}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="БанкТип">
+		<xs:annotation>
+			<xs:documentation>Сведения о банке (филиале банка)</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="РегНом" use="required">
+			<xs:annotation>
+				<xs:appinfo>
+					<altova:exampleValues>
+						<altova:example value="135"/>
+					</altova:exampleValues>
+				</xs:appinfo>
+				<xs:documentation>Регистрационный номер банка по КГРКО</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:nonNegativeInteger">
+					<xs:totalDigits value="4"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="НомФил" use="required">
+			<xs:annotation>
+				<xs:appinfo>
+					<altova:exampleValues>
+						<altova:example value="0"/>
+					</altova:exampleValues>
+				</xs:appinfo>
+				<xs:documentation>Номер филиала банка</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:nonNegativeInteger">
+					<xs:totalDigits value="4"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="БИК" type="БИКТип" use="required"/>
+		<xs:attribute name="НаимБанк" use="required">
+			<xs:annotation>
+				<xs:documentation>Сокращенное  наименование банка(филиала)</xs:documentation>
+				<xs:appinfo>
+					<altova:exampleValues>
+						<altova:example value='ОАО АКБ "СМОЛЕВИЧ"'/>
+					</altova:exampleValues>
+				</xs:appinfo>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:maxLength value="160"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ИННБанк" type="ИННЮЛТип" use="required"/>
+		<xs:attribute name="КППБанк" type="КППТип" use="required">
+			<xs:annotation>
+				<xs:documentation>КПП банка (филиала банка)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

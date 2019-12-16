@@ -177,6 +177,7 @@ public class SingleActionController {
 				showAlert("Ключ не выбран");
 			} else {
 				signatura.initConfig(mainApp.getCurrentKey().getData());
+				signatura.setVerifyParamaters();
 				signatura.verifyAndUnsignFilesInPath(
 						FileTransforming.toFileTransforming(files.getItems()));
 				FileUtils.copyFiles(files.getItems(), outPath.getText());

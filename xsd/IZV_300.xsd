@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by SAN (FGUP GNIVC FNS Russia) -->
+<!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by Home (Home) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:altova="http://www.altova.com/xml-schema-extensions" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.00">
+	<xs:element name="Файл">
+		<xs:annotation>
+			<xs:documentation>Файл электронного документа</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ИЗВЦБКОНТР">
+					<xs:annotation>
+						<xs:documentation>Извещение, формируемое подразделениями Банка России</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="ИмяФайла" use="required">
+							<xs:annotation>
+								<xs:documentation>Наименование полученного файла без расширения</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="RPO14525787_525220111108_000009"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="1000"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="КодРезПроверки" use="required">
+							<xs:annotation>
+								<xs:documentation>Код в соответствии с перечнем кодов результатов проверки</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="73"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="2"/>
+									<xs:pattern value="\d{2}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ДатаВремяПроверки" type="xs:dateTime" use="required">
+							<xs:annotation>
+								<xs:documentation>Дата и время завершения проверки по местному времени</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="2015-06-17T09:30:47"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="Пояснение" use="optional">
+							<xs:annotation>
+								<xs:documentation>Текст, уточняющий причины отрицательного результата проверки</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="отсутствует либо расторгнут договор"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="512"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ДатаВремяПериода" type="xs:dateTime" use="optional">
+							<xs:annotation>
+								<xs:documentation>Дата и время окончания периода согласно графику, установленному Положением № 440-П</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="2015-06-17T15:30:47"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ИдЭС" type="GUIDТип" use="required">
+				<xs:annotation>
+					<xs:documentation>Идентификатор файла</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ТипИнф" use="required">
+				<xs:annotation>
+					<xs:documentation>Тип информации</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="ИЗВЦБКОНТР"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="10"/>
+						<xs:enumeration value="ИЗВЦБКОНТР"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ВерсПрог" use="required">
+				<xs:annotation>
+					<xs:documentation>Версия передающей программы: &lt;наименование&gt;&lt;пробел&gt;&lt;версия&gt;</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="БИНГО 3.12.01"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ТелОтпр" use="required">
+				<xs:annotation>
+					<xs:documentation>Телефон отправителя</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="(495) 223-33-44"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ДолжнОтпр" use="required">
+				<xs:annotation>
+					<xs:documentation>Должность отправителя</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="оператор"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100" fixed="false"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ФамОтпр" use="required">
+				<xs:annotation>
+					<xs:documentation>Фамилия отправителя</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="Сичкин"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ВерсФорм" use="required">
+				<xs:annotation>
+					<xs:documentation>Версия формата</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="4"/>
+						<xs:fractionDigits value="2"/>
+						<xs:enumeration value="3.00"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="GUIDТип">
+		<xs:annotation>
+			<xs:documentation>Идентификатор GUID</xs:documentation>
+			<xs:appinfo>
+				<altova:exampleValues>
+					<altova:example value="6F9619FF-8B86-D011-B42D-00CF4FC994FF"/>
+				</altova:exampleValues>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="36"/>
+			<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

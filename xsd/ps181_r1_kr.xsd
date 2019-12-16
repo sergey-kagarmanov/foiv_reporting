@@ -1,0 +1,1385 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="TRANSPORT">
+		<xs:annotation>
+			<xs:documentation>Учетная информация по кредитному договору</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="THEADER">
+					<xs:annotation>
+						<xs:documentation>Заголовок учетной информации</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="RepType" type="PSRepType">
+								<xs:annotation>
+									<xs:documentation>Тип отчета</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Bank">
+								<xs:annotation>
+									<xs:documentation>
+										-Полное или сокращенное (фирменное) наименование уполномоченного банка (филиала уполномоченного банка),
+										принявшего на учет кредитный договор и присвоившего ему уникальный номер;
+										-Наименование территориального учреждения Банка России – в случае если по кредитному договору в соответствии
+										с Инструкцией Банка России № 138-И паспорт сделки был оформлен в территориальном учреждении Банка России
+									</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="250"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Pasport" type="PSNumType">
+								<xs:annotation>
+									<xs:documentation>
+										Уникальный номер кредитного договора
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Date" type="NullableDateStringType">
+								<xs:annotation>
+									<xs:documentation>
+										Дата постановки кредитного договора на учет [дд/мм/гггг]
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+							<xs:annotation>
+								<xs:documentation>Длина блока</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="date" type="DateStringType" use="required">
+							<xs:annotation>
+								<xs:documentation>
+									Дата формирования ЭСКР [дд/мм/гггг]
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="time" use="required">
+							<xs:annotation>
+								<xs:documentation>
+									Время формирования ЭСКР
+								</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value="[0-9]{2}:[0-9]{2}:[0-9]{2}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="regn" type="RegNumType" use="required">
+							<xs:annotation>
+								<xs:documentation>
+									Реквизиты уполномоченного банка (филиала уполномоченного банка), в котором находится на обслуживании кредитный договор
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="file" use="required">
+							<xs:annotation>
+								<xs:documentation>
+									Наименование ЭСКР (имя файла)
+								</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value="(((p|P)(s|S))[0-9]{4}[0-9,A-Z]{4}_(([0-9]{4}_[0-9]{4})|(0000_GU[0-9]{2}))_[5,6]{1}_[0,1,2,3]{1}_(([0-9]{4}_[0-9]{4})|(0000_GU[0-9]{2}))).((x|X)(m|M)(l|L))"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TBODY">
+					<xs:annotation>
+						<xs:documentation>
+							Данные по кредитному договору
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Resident">
+								<xs:annotation>
+									<xs:documentation>Наименование резидента</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="300"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Subject">
+								<xs:annotation>
+									<xs:documentation>Субъект РФ</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="250"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Rajon">
+								<xs:annotation>
+									<xs:documentation>Район</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="250"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Gorod">
+								<xs:annotation>
+									<xs:documentation>Город</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="250"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="NPunkt">
+								<xs:annotation>
+									<xs:documentation>Населённый пункт</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="250"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Ulica">
+								<xs:annotation>
+									<xs:documentation>Улица (проспект, переулок, и т.д.)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="250"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Dom">
+								<xs:annotation>
+									<xs:documentation>Номер дома (владение)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="100"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Korpus">
+								<xs:annotation>
+									<xs:documentation>Корпус (строение)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="100"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Ofis">
+								<xs:annotation>
+									<xs:documentation>Офис (квартира)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="0"/>
+										<xs:maxLength value="100"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="RegNum">
+								<xs:annotation>
+									<xs:documentation>
+										Основной государственный регистрационный номер (13 или 15 знаков) или NN/NNNN
+									</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="[0-9]{13}|[0-9]{15}|([0-9]{2}/[0-9]{1,12})|"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="RegDate" type="DateStringType">
+								<xs:annotation>
+									<xs:documentation>
+										Дата внесения записи в государственный реестр
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Inn">
+								<xs:annotation>
+									<xs:documentation>Код ИНН/КПП</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="(([0-9]{10})|([0-9]{12}))(()|(/))(()|([0-9]{9}))"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Table1">
+								<xs:annotation>
+									<xs:documentation>
+										Реквизиты нерезидента (нерезидентов)
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="1" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="D101">
+														<xs:annotation>
+															<xs:documentation>Наименование нерезидента</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="300"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D102">
+														<xs:annotation>
+															<xs:documentation>
+																наименование в соответствии с ОКСМ:
+																- страны государственной регистрации (места нахождения) – для юридического лица-нерезидента;
+																- страны ведения основной деятельности – для иностранной структуры без образования юридического лица;
+																- страны места жительства (места нахождения) – для физического лица-нерезидента;
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="250"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D103" type="CountryCodeType">
+														<xs:annotation>
+															<xs:documentation>
+																цифровой код в соответствии с ОКСМ (3 знака):
+																- страны государственной регистрации (места нахождения) – для юридического лица-нерезидента;
+																- страны ведения основной деятельности – для иностранной структуры без образования юридического лица;
+																- страны места жительства (места нахождения) – для физического лица-нерезидента
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="RecID" type="xs:positiveInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Идентификатор строки</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Длина блока</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="nRec" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Число строк</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Table2">
+								<xs:annotation>
+									<xs:documentation>
+										Сведения о кредитном договоре
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="1" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="D104">
+														<xs:annotation>
+															<xs:documentation>
+																Номер кредитного договора (или БН)
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D105" type="DateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Дата кредитного договора [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D106">
+														<xs:annotation>
+															<xs:documentation>
+																Наименование валюты кредитного договора в соответствии с ОКВ
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D107" type="CurrencyCodeType">
+														<xs:annotation>
+															<xs:documentation>
+																Цифровой код валюты кредитного договора в соответствии с ОКВ (3 знака)
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D108">
+														<xs:annotation>
+															<xs:documentation>
+																Сумма денежных средств, предоставляемых (привлекаемых) резидентом по кредитному договору,
+																без учета процентных платежей (сумма основного долга), в единицах валюты кредитного договора (или БС)
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:pattern value="([0-9]{1,20}\.[0-9]{0,2})|([0-9]{1,20})|(БС)"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D109" type="DateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Дата завершения исполнения обязательств по кредитному договору [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D110" type="NullablePositiveRealNumberType">
+														<xs:annotation>
+															<xs:documentation>
+																Сумма в единицах валюты кредитного договора, которая в соответствии с условиями кредитного договора подлежит зачислению на счета в банке-нерезиденте
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D111" type="NullablePositiveRealNumberType">
+														<xs:annotation>
+															<xs:documentation>
+																Сумма погашения за счет валютной выручки в единицах валюты кредитного договора
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D112">
+														<xs:annotation>
+															<xs:documentation>
+																Код срока привлечения (предоставления) денежных средств в виде кредита (займа)
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:pattern value="[0-9]{1}"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="RecID" type="xs:positiveInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Идентификатор строки</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Длина блока</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="nRec" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Число строк</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Table3">
+								<xs:annotation>
+									<xs:documentation>
+										Сведения о сумме и сроках привлечения (предоставления) траншей по кредитному договору
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="D113" type="xs:string">
+														<xs:annotation>
+															<xs:documentation>
+																Наименование валюты кредитного договора в соответствии с ОКВ
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D114" type="NullableCurrencyCodeType">
+														<xs:annotation>
+															<xs:documentation>
+																Цифровой код валюты кредитного договора в соответствии с ОКВ (3 знака)
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D115" type="NullablePositiveRealNumberType">
+														<xs:annotation>
+															<xs:documentation>
+																Сумма транша в единицах валюты кредитного договора
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D116">
+														<xs:annotation>
+															<xs:documentation>
+																Код срока привлечения (предоставления) транша
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:pattern value="([0-9]{1})|"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D117" type="NullableDateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Ожидаемая дата поступления транша [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="RecID" type="xs:positiveInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Идентификатор строки</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Длина блока</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="nRec" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Число строк</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Table4">
+								<xs:annotation>
+									<xs:documentation>
+										Сведения о постановке на учет, переводе и снятии с учета кредитного договора
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="1" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="D118" type="NullableNumberType">
+														<xs:annotation>
+															<xs:documentation>Порядковый номер</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D119" type="NullableRegNumType">
+														<xs:annotation>
+															<xs:documentation>
+																-регистрационный номер уполномоченного банка (филиала уполномоченного банка) в соответствии с КГРКО,
+																принявшего на учет кредитный договор и присвоившего ему уникальный номер (принявшего на обслуживание
+																кредитный договор в случае его перевода из другого уполномоченного банка (филиала уполномоченного банка))
+																-сведения о территориальном учреждении Банка России, в котором в соответствии с Инструкцией
+																Банка России № 138-И был оформлен паспорт сделки (был принят на обслуживание в случае перевода паспорта
+																сделки из другого уполномоченного банка (филиала уполномоченного банка))
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D120">
+														<xs:annotation>
+															<xs:documentation>
+																Дата принятия кредитного договора на обслуживание при его переводе из другого уполномоченного банка
+																(филиала уполномоченного банка), территориального учреждения Банка России  [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:pattern value="([0-9]{2}/[0-9]{2}/[0-9]{4})|(X)"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D121" type="NullableDateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Дата снятия с учета кредитного договора [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D122">
+														<xs:annotation>
+															<xs:documentation>
+																Основание снятия с учета кредитного договора
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="30"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="RecID" type="xs:positiveInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Идентификатор строки</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Длина блока</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="nRec" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Число строк</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Table5">
+								<xs:annotation>
+									<xs:documentation>
+										Сведения о внесении изменений в учетную информацию о кредитном договоре
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="D123" type="NullableNumberType">
+														<xs:annotation>
+															<xs:documentation>
+																Порядковый номер изменений, внесенных в учетную информацию о кредитном договоре
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D124" type="NullableDateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Дата внесения изменений в учетную информацию о кредитном договоре [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D125">
+														<xs:annotation>
+															<xs:documentation>
+																Номер документа (или БН), на основании которого внесены изменения в учетную информацию о кредитном договоре
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D126" type="NullableDateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Дата документа, на основании которого внесены изменения в учетную информацию о кредитном договоре [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="RecID" type="xs:positiveInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Идентификатор строки</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="tip">
+													<xs:annotation>
+														<xs:documentation>
+															Признак внесения изменений в учетную информацию о кредитном договоре
+														</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:pattern value="([0-3](,[0-3]){0,2})|"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Длина блока</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="nRec" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Число строк</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Pasport0" type="NullablePSNumType">
+								<xs:annotation>
+									<xs:documentation>
+										Указывается:
+										- уникальный номер, ранее присвоенный кредитному договору;
+										- номер паспорта сделки, ранее оформленного по этому кредитному договору (в случае если по кредитному договору
+										в соответствии с главой 13 Инструкции Банка России № 138-И был оформлен паспорт сделки)
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Table6">
+								<xs:annotation>
+									<xs:documentation>
+										Специальные сведения о кредитном договоре
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="1" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="D127" type="NullableTextType">
+														<xs:annotation>
+															<xs:documentation>
+																Фиксированный размер процентной ставки (% годовых)
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D128">
+														<xs:annotation>
+															<xs:documentation>
+																Код cтавки "ЛИБОР"
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:pattern value="((Л(01|03|06|12))([0-9,a-z,A-Z]{3}|())|())"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D129" type="NullableTextType">
+														<xs:annotation>
+															<xs:documentation>
+																Другие методы определения процентной ставки
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D130" type="NullableTextType">
+														<xs:annotation>
+															<xs:documentation>
+																Размер процентной надбавки (дополнительных платежей) к базовой процентной ставке (% годовых)
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D131" type="NullableTextType">
+														<xs:annotation>
+															<xs:documentation>
+																Информация об иных платежах
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="RecID" type="xs:positiveInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Идентификатор строки</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Длина блока</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="nRec" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Число строк</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Table7">
+								<xs:annotation>
+									<xs:documentation>
+										Сумма задолженности по основному долгу на дату, предшествующую дате постановки на учет кредитного договора (присвоения уникального номера)
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="D132" type="NullableCurrencyCodeType">
+														<xs:annotation>
+															<xs:documentation>
+																Цифровой код валюты кредитного договора в соответствии с ОКВ (3 знака)
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D133" type="NullablePositiveRealNumberType">
+														<xs:annotation>
+															<xs:documentation>
+																Сумма в единицах валюты кредитного договора
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="RecID" type="xs:positiveInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Идентификатор строки</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Длина блока</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="nRec" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Число строк</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="GR11">
+								<xs:annotation>
+									<xs:documentation>
+										Сведения из кредитного договора
+									</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="(\*)|"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="GR12">
+								<xs:annotation>
+									<xs:documentation>Оценочные данные</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="(\*)|"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Table8">
+								<xs:annotation>
+									<xs:documentation>
+										Описание графика платежей по возврату основного долга и процентных платежей
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="D134" type="NullableNumberType">
+														<xs:annotation>
+															<xs:documentation>Порядковый номер</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D135" type="NullableCurrencyCodeType">
+														<xs:annotation>
+															<xs:documentation>
+																Цифровой код валюты кредитного договора в соответствии с ОКВ (3 знака)
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D136" type="NullableDateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Дата платежа в счет погашения основного долга [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D137" type="NullablePositiveRealNumberType">
+														<xs:annotation>
+															<xs:documentation>
+																Сумма платежа в счет погашения основного долга в единицах валюты кредитного договора
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D138" type="NullableDateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Дата платежа в счет процентных платежей [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D139" type="NullablePositiveRealNumberType">
+														<xs:annotation>
+															<xs:documentation>
+																Сумма платежа в счет процентных платежей в единицах валюты кредитного договора
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D140" type="xs:string">
+														<xs:annotation>
+															<xs:documentation>Описание особых условий</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="RecID" type="xs:positiveInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Идентификатор строки</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Длина блока</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="nRec" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Число строк</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Invest">
+								<xs:annotation>
+									<xs:documentation>
+										Отметка о наличии отношений прямого инвестирования
+									</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="(X)|"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Sum" type="NullablePositiveRealNumberType">
+								<xs:annotation>
+									<xs:documentation>
+										Сумма залогового или другого обеспечения
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Table9">
+								<xs:annotation>
+									<xs:documentation>
+										Информация о привлечении резидентом кредита (займа), предоставленного нерезидентами на синдицированной (консорциональной) основе
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="D141" type="NullableNumberType">
+														<xs:annotation>
+															<xs:documentation>Порядковый номер</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D142">
+														<xs:annotation>
+															<xs:documentation>Наименование нерезидента</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="250"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="D143" type="NullableCountryCodeType">
+														<xs:annotation>
+															<xs:documentation>
+																Цифровой код страны места нахождения нерезидента (3 знака)
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D144" type="NullablePositiveRealNumberType">
+														<xs:annotation>
+															<xs:documentation>
+																Предоставленная сумма денежных средств в единицах валюты кредитного договора
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="D145" type="NullablePositiveRealNumberType">
+														<xs:annotation>
+															<xs:documentation>
+																Доля в общей сумме кредита (займа) (%)
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="RecID" type="xs:positiveInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Идентификатор строки</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Длина блока</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="nRec" type="xs:nonNegativeInteger" use="required">
+										<xs:annotation>
+											<xs:documentation>Число строк</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Razdel8">
+								<xs:annotation>
+									<xs:documentation>
+										Сведения о резиденте, которому уступаются требования (на которого переводится долг) по кредитному договору
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Rec" minOccurs="0" maxOccurs="1">
+											<xs:annotation>
+												<xs:documentation>Строка</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="ResidentN">
+														<xs:annotation>
+															<xs:documentation>Наименование резидента</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="300"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="SubjectN">
+														<xs:annotation>
+															<xs:documentation>Субъект РФ</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="250"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="RajonN">
+														<xs:annotation>
+															<xs:documentation>Район</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="250"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="GorodN">
+														<xs:annotation>
+															<xs:documentation>Город</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="250"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="NPunktN">
+														<xs:annotation>
+															<xs:documentation>Населённый пункт</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="250"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="UlicaN">
+														<xs:annotation>
+															<xs:documentation>Улица (проспект, переулок, и т.д.)</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="250"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="DomN">
+														<xs:annotation>
+															<xs:documentation>Номер дома (владение)</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="KorpusN">
+														<xs:annotation>
+															<xs:documentation>Корпус (строение)</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="OfisN">
+														<xs:annotation>
+															<xs:documentation>Офис (квартира)</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="0"/>
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="RegNumN">
+														<xs:annotation>
+															<xs:documentation>
+																Основной государственный регистрационный номер (13 или 15 знаков) или NN/NNNN
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:pattern value="[0-9]{13}|[0-9]{15}|([0-9]{2}/[0-9]{1,12})"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="RegDateN" type="DateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Дата внесения записи в государственный реестр
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="InnN">
+														<xs:annotation>
+															<xs:documentation>Код ИНН/КПП</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:pattern value="(([0-9]{10})|([0-9]{12}))(()|(/))(()|([0-9]{9}))"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="DocNum">
+														<xs:annotation>
+															<xs:documentation>
+																Номер документа (или БН), подтверждающего уступку требования или перевод долга по кредитному договору
+															</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="DocDate" type="DateStringType">
+														<xs:annotation>
+															<xs:documentation>
+																Дата документа, подтверждающего уступку требования или перевод долга по кредитному договору [дд/мм/гггг]
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+													<xs:annotation>
+														<xs:documentation>Длина блока</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="len" type="xs:nonNegativeInteger" use="required">
+							<xs:annotation>
+								<xs:documentation>Длина блока</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="nTabl" type="xs:positiveInteger" use="required">
+							<xs:annotation>
+								<xs:documentation>Число секций</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="verspo" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						Версия программного средства, сформировавшего XML файл
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="DateStringType">
+		<xs:annotation>
+			<xs:documentation>
+				Непустая дата [дд/мм/гггг]
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{2}/[0-9]{2}/[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NullableDateStringType">
+		<xs:annotation>
+			<xs:documentation>Дата [дд/мм/гггг]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]{2}/[0-9]{2}/[0-9]{4})|"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PSRepType">
+		<xs:annotation>
+			<xs:documentation>Тип отчета</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="ps_kr4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RegNumType">
+		<xs:annotation>
+			<xs:documentation>
+				Регистрационный номер банка/номер филиала
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]{4}/[0-9]{4})|(0000/GU[0-9]{2})"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NullableRegNumType">
+		<xs:annotation>
+			<xs:documentation>
+				Регистрационный номер банка/номер филиала (может быть не задан)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]{4}/[0-9]{4})|(0000/GU[0-9]{2})|"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PSNumType">
+		<xs:annotation>
+			<xs:documentation>
+				Уникальный номер кредитного договора
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]{4}[0-9,A-Z]{4}/(([0-9]{4}/[0-9]{4})|(0000/GU[0-9]{2}))/[5,6]{1}/[0,1,2,3]{1})"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NullablePSNumType">
+		<xs:annotation>
+			<xs:documentation>
+				Уникальный номер кредитного договора (может быть не задан)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]{4}[0-9,A-Z]{4}/(([0-9]{4}/[0-9]{4})|(0000/GU[0-9]{2}))/[5,6]{1}/[0,1,2,3]{1})|"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NumberType">
+		<xs:annotation>
+			<xs:documentation>Порядковый номер</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{1,20}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NullableNumberType">
+		<xs:annotation>
+			<xs:documentation>
+				Порядковый номер (может быть не задан)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]{1,20})|"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PositiveRealNumberType">
+		<xs:annotation>
+			<xs:documentation>Вещественное число</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]{1,20}\.[0-9]{0,2})|([0-9]{1,20})"/>
+		</xs:restriction>
+	</xs:simpleType>	
+	<xs:simpleType name="NullablePositiveRealNumberType">
+		<xs:annotation>
+			<xs:documentation>
+				Вещественное число (может быть не задано)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]{1,20}\.[0-9]{0,2})|([0-9]{1,20})|"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CurrencyCodeType">
+		<xs:annotation>
+			<xs:documentation>
+				Код валюты в соответствии с ОКВ
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9,a-z,A-Z]{3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NullableCurrencyCodeType">
+		<xs:annotation>
+			<xs:documentation>
+				Код валюты в соответствии с ОКВ (может быть не задан)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9,a-z,A-Z]{3})|"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CountryCodeType">
+		<xs:annotation>
+			<xs:documentation>
+				Цифровой код страны
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NullableCountryCodeType">
+		<xs:annotation>
+			<xs:documentation>
+				Цифровой код страны (может быть не задан)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]{3})|"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NullableTextType">
+		<xs:restriction base="xs:string">
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

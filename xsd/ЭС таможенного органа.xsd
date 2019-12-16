@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************************************
+XML-СХЕМА для формы отчетности Уведомление
+СГЕНЕРИРОВАНА XSLT-ПРЕОБРАЗОВАНИЕМ GenSchema.xsl
+******************************************************************-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:cbr-uvedgarant:uvedgarant:v2..3" xmlns="urn:cbr-uvedgarant:uvedgarant:v2..3"><xs:element name="Уведомление" type="Уведомление" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+	<xs:complexType name="Уведомление" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:element name="СведенияТО" type="УведомлениеСведенияТО" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="ИдДокум" type="GUIDтип" use="required"/>
+		<xs:attribute name="ИдИсхДокум" type="GUIDтип" use="required"/>
+		<xs:attribute name="НомерГарант" type="Строка50-лок" use="required"/>
+		<xs:attribute name="ДатаВыдачи" type="Дата" use="required"/>
+		<xs:attribute name="Решение" type="Строка1-лок" use="required"/>
+		<xs:attribute name="Причина" type="Строка255" use="required"/>
+		<xs:attribute name="ДатаРеш" type="Дата" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="УведомлениеСведенияТО" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="КодТО" type="КодТОТип-лок" use="required"/>
+		<xs:attribute name="НаимТО" type="Строка150" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="Строка1-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1"/><xs:ЗначениеТипа ЗначТипа="2"/><xs:ЗначениеТипа ЗначТипа="3"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:enumeration value="1"/><xs:enumeration value="2"/><xs:enumeration value="3"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка50-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..50 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="50"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="КодТОТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="89456123"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{8}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Дата" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="2014-11-02"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:date"><xs:pattern value="\d{4}-\d{2}-\d{2}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка150" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..150 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="150"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка255" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..255 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="255"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="GUIDтип" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="6F9619FF-8B86-D011-B42D-00CF4FC994FF"/><xs:ЗначениеТипа ЗначТипа="A57E17DF-8B86-B711-A42D-00CF4FC994AC"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/></xs:restriction></xs:simpleType></xs:schema>

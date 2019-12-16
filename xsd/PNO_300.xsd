@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by SAN (FGUP GNIVC FNS Russia) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:altova="http://www.altova.com/xml-schema-extensions" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.00">
+	<xs:element name="Файл">
+		<xs:annotation>
+			<xs:documentation>Файл электронного документа</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ПОРУЧСЧЕТН">
+					<xs:annotation>
+						<xs:documentation>Поручение налогового органа</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ПорВал" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Поручение на продажу валюты</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="НомПорВал" use="required">
+										<xs:annotation>
+											<xs:documentation>Номер поручения на продажу валюты</xs:documentation>
+											<xs:appinfo>
+												<altova:exampleValues>
+													<altova:example value="732"/>
+												</altova:exampleValues>
+											</xs:appinfo>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="20"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="ДатаПорВал" use="required">
+										<xs:annotation>
+											<xs:documentation>Дата поручения на продажу валюты</xs:documentation>
+											<xs:appinfo>
+												<altova:exampleValues>
+													<altova:example value="2015-05-25"/>
+												</altova:exampleValues>
+											</xs:appinfo>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:date"/>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="НомВалСч" use="required">
+										<xs:annotation>
+											<xs:documentation>Номер валютного счета</xs:documentation>
+											<xs:appinfo>
+												<altova:exampleValues>
+													<altova:example value="40702840700000004660"/>
+												</altova:exampleValues>
+											</xs:appinfo>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="20"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="НомПоруч" use="required">
+							<xs:annotation>
+								<xs:documentation>Номер поручения</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="25"/>
+										<altova:example value="032401"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:nonNegativeInteger">
+									<xs:totalDigits value="6"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ДатаПоруч" use="required">
+							<xs:annotation>
+								<xs:documentation>Дата составления Поручения налогового органа</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="2015-04-25"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:date"/>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ВидПлат" use="optional">
+							<xs:annotation>
+								<xs:documentation>Вид платежа</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="10"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="СумПлат" use="required">
+							<xs:annotation>
+								<xs:documentation>Сумма платежа, указывается в копейках</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="2445"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:integer">
+									<xs:totalDigits value="18"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="Статус" use="required">
+							<xs:annotation>
+								<xs:documentation>Статус</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="2"/>
+									<xs:enumeration value="04"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ИНННП" use="required">
+							<xs:annotation>
+								<xs:documentation>ИНН или КИО плательщика</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="7206034905"/>
+										<altova:example value="00000"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="5"/>
+									<xs:maxLength value="12"/>
+									<xs:pattern value="\d{5,12}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="КППНП" type="КППТип" use="optional">
+							<xs:annotation>
+								<xs:documentation>КПП плательщика</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="Плательщ" use="required">
+							<xs:annotation>
+								<xs:documentation>Плательщик</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value='ООО "Витамакс-РнД"'/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="160"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="НомСчПл">
+							<xs:annotation>
+								<xs:documentation>Номер счета плательщика</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="40702810501100000100"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="БанкПл" use="required">
+							<xs:annotation>
+								<xs:documentation>Банк плательщика</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="Сбербанк России, ОТДЕЛЕНИЕ ПРИМОРСКОЕ № 8635"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="160"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="БИКБПл" use="required">
+							<xs:annotation>
+								<xs:documentation>БИК банка плательщика</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="046015262"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="БИКТип"/>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="НомСчБПл" use="optional">
+							<xs:annotation>
+								<xs:documentation>Номер счета банка плательщика</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="40702810501100000100"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="НомФ" use="required">
+							<xs:annotation>
+								<xs:documentation>Порядковый номер филиала банка, исполняющего поручение, по КГРКО</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="0"/>
+										<altova:example value="1160"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:nonNegativeInteger">
+									<xs:totalDigits value="4"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="БанкПол" use="required">
+							<xs:annotation>
+								<xs:documentation>Банк получателя</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="Сбербанк России"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="160"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="БИКБПол" use="required">
+							<xs:annotation>
+								<xs:documentation>БИК банка получателя</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="046015262"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="БИКТип"/>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="НомСчБПол" use="optional">
+							<xs:annotation>
+								<xs:documentation>Номер счета банка получателя</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="40702810501100000100"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ИННПол" use="required">
+							<xs:annotation>
+								<xs:documentation>ИНН или КИО получателя</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="02375"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="5"/>
+									<xs:maxLength value="12"/>
+									<xs:pattern value="\d{5,12}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="КПППол" type="КППТип">
+							<xs:annotation>
+								<xs:documentation>КПП получателя</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="Получ" use="required">
+							<xs:annotation>
+								<xs:documentation>Получатель</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="ООО Гардемарин"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="160"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="НомСчПол">
+							<xs:annotation>
+								<xs:documentation>Номер счета получателя</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="40702810501100000100"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ВидОп" use="required">
+							<xs:annotation>
+								<xs:documentation>Вид операции</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="2"/>
+									<xs:enumeration value="06"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="НазПлКод" use="optional">
+							<xs:annotation>
+								<xs:documentation>Назначение платежа кодовое</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="5"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ОчерПл" use="required">
+							<xs:annotation>
+								<xs:documentation>Очередность платежа</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:integer">
+									<xs:totalDigits value="1"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="КодПл" use="required">
+							<xs:annotation>
+								<xs:documentation>Уникальный идентификатор начисления</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="25"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="РезПоле" use="optional">
+							<xs:annotation>
+								<xs:documentation>Резервное поле</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="20"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="НазнПл" use="required">
+							<xs:annotation>
+								<xs:documentation>Назначение платежа</xs:documentation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="№1245372 Выписано по требованию №7465 от 30.04.2013г. на основании ст.46 НК РФ № 146-ФЗ от 31.07.1998г"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="210"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ВидПор" use="optional">
+							<xs:annotation>
+								<xs:documentation>Вид поручения</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="3"/>
+									<xs:enumeration value="КГН"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="УНКГН" use="optional">
+							<xs:annotation>
+								<xs:documentation>Уникальный номер КГН</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="25"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="КБК" use="required">
+							<xs:annotation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="18210302141011000110"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="20"/>
+									<xs:pattern value="([0-9]{20})"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ОКТМО" use="required">
+							<xs:annotation>
+								<xs:appinfo>
+									<altova:exampleValues>
+										<altova:example value="45280569000"/>
+									</altova:exampleValues>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="8"/>
+									<xs:maxLength value="11"/>
+									<xs:pattern value="\d{8,11}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="КодОсн" use="required">
+							<xs:annotation>
+								<xs:documentation>Код основания платежа</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="СрокУплТр" use="required">
+							<xs:annotation>
+								<xs:documentation>Срок уплаты по требованию</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="10"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="НомТреб" use="required">
+							<xs:annotation>
+								<xs:documentation>Номер требования</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="6"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="ДатаТреб" use="required">
+							<xs:annotation>
+								<xs:documentation>Дата требования</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="10"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ИдЭС" type="GUIDТип" use="required">
+				<xs:annotation>
+					<xs:documentation>Идентификатор файла</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ТипИнф" use="required">
+				<xs:annotation>
+					<xs:documentation>Тип информации</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="10"/>
+						<xs:enumeration value="ПОРУЧСЧЕТН"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ВерсПрог" use="required">
+				<xs:annotation>
+					<xs:documentation>Версия передающей программы: &lt;наименование&gt;&lt;пробел&gt;&lt;версия&gt;</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="АИС ФНС 5.20.02"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ТелОтпр" use="required">
+				<xs:annotation>
+					<xs:documentation>Телефон отправителя</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="(495) 223-33-44"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ДолжнОтпр" use="required">
+				<xs:annotation>
+					<xs:documentation>Должность отправителя</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="оператор"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100" fixed="false"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ФамОтпр" use="required">
+				<xs:annotation>
+					<xs:documentation>Фамилия отправителя</xs:documentation>
+					<xs:appinfo>
+						<altova:exampleValues>
+							<altova:example value="Сичкин"/>
+						</altova:exampleValues>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ВерсФорм" use="required">
+				<xs:annotation>
+					<xs:documentation>Версия формата</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="4"/>
+						<xs:fractionDigits value="2"/>
+						<xs:enumeration value="3.00"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="КППТип">
+		<xs:annotation>
+			<xs:documentation>Код причины постановки на учет (КПП)</xs:documentation>
+			<xs:appinfo>
+				<altova:exampleValues>
+					<altova:example value="616301001"/>
+				</altova:exampleValues>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="9"/>
+			<xs:pattern value="([0-9]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{7}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GUIDТип">
+		<xs:annotation>
+			<xs:documentation>Идентификатор GUID</xs:documentation>
+			<xs:appinfo>
+				<altova:exampleValues>
+					<altova:example value="6F9619FF-8B86-D011-B42D-00CF4FC994FF"/>
+				</altova:exampleValues>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="36"/>
+			<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="БИКТип">
+		<xs:annotation>
+			<xs:documentation>БИК по справочнику БИК РФ</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="9"/>
+			<xs:pattern value="\d{9}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="НомСчТип">
+		<xs:annotation>
+			<xs:documentation>Номер банковского счета</xs:documentation>
+			<xs:appinfo>
+				<altova:exampleValues>
+					<altova:example value="40702ABC938090001069"/>
+					<altova:example value="40702917938090001069"/>
+					<altova:example value="40702КМР938090001069"/>
+					<altova:example value="40702255938090001069"/>
+					<altova:example value="40702AМР938090001069"/>
+				</altova:exampleValues>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

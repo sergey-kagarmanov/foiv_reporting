@@ -225,10 +225,9 @@ public class Signatura {
 						f.getCurrentFile().getAbsolutePath() + "_unsign");
 				if (result == 0) {
 					if (f.getCurrentFile().delete()) {
-						File signed = new File(f.getCurrentFile().getAbsolutePath()+"_sign");
-						FileUtils.copy(tmp, signed);
-						f.setSigned(signed);
-						tmp.renameTo(f.getCurrentFile());
+						FileUtils.copy(tmp, f.getCurrentFile());
+					}else {
+						System.out.println("!!!!!!!");
 					}
 				} else {
 					errorFiles.add(new ErrorFile(f.getCurrent(), result));
