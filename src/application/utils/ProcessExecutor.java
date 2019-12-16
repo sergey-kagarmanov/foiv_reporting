@@ -36,6 +36,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import net.sf.saxon.om.CopyOptions;
 import net.sf.sevenzipjbinding.IInArchive;
 import net.sf.sevenzipjbinding.SevenZip;
 import net.sf.sevenzipjbinding.SevenZipException;
@@ -93,7 +94,7 @@ public class ProcessExecutor {
 	}
 
 	public void start() throws ReportError {
-		FileUtils.clearTmp(null);
+		FileUtils.clearTmp();
 		executedFiles = FXCollections.observableArrayList();
 		FileTransforming currentFile = null;
 		for (String filename : filenames) {
@@ -499,6 +500,12 @@ public class ProcessExecutor {
 			// create archive - transport file
 			Runtime r = Runtime.getRuntime();
 			Process p = null;
+			/**
+			 * Tmp dir for create archive, cause arj have only 64 params
+			 */
+			File tmpDir = new File(FileUtils.tmpDir+"arj\\");
+			tmpDir.mkdirs();
+			
 			boolean loop = true;
 			int i = 0;
 			ObservableList<TransportFile> archiveTransportFiles = dao.getArchiveFiles(report,
@@ -547,8 +554,8 @@ public class ProcessExecutor {
 					} else {
 						pattern = pattern.replaceAll("%%%n", i + "").replaceAll("%", "0");
 					}
-					command += FileUtils.tmpDir + pattern;
-					multiCommand += FileUtils.tmpDir + pattern;
+					command += FileUtils.tmpDir+"arj\\" + pattern;
+					multiCommand += FileUtils.tmpDir+"arj\\" + pattern;
 
 					// Add files to transport arch, if summary filesize doesn't
 					// greater than constant
@@ -569,7 +576,8 @@ public class ProcessExecutor {
 
 							fileSize += currentFile.getCurrentFile().length();
 							if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
-								command += " " + currentFile.getCurrentFile().getAbsolutePath();
+								//command += " " + currentFile.getCurrentFile().getAbsolutePath();
+								FileUtils.copyFile(currentFile.getCurrentFile(), FileUtils.tmpDir + "arj\\");
 								doneList.add(currentFile);
 								partialFileMap.put(currentFile.getOriginal(),
 										mapFiles.get(currentFile));
@@ -580,8 +588,10 @@ public class ProcessExecutor {
 								if (currentFile.getCurrentFile().length() > Settings.FILE_SIZE
 										&& checkCount == 0) {
 									multiVolumes = true;
-									multiCommand += " "
-											+ currentFile.getCurrentFile().getAbsolutePath();
+									/*multiCommand += " "
+											+ currentFile.getCurrentFile().getAbsolutePath();*/
+									FileUtils.copyFile(currentFile.getCurrentFile(), FileUtils.tmpDir + "arj\\");
+									
 									doneList.add(currentFile);
 									partialFileMap.put(currentFile.getOriginal(),
 											mapFiles.get(currentFile));
@@ -627,7 +637,8 @@ public class ProcessExecutor {
 					else {
 						loop = false;
 					}
-
+					command += " "+ FileUtils.tmpDir+"arj\\*";
+					multiCommand += " "+ FileUtils.tmpDir+"arj\\*";
 					try {
 						if (multiVolumes) {
 							p = r.exec(multiCommand);
@@ -641,6 +652,11 @@ public class ProcessExecutor {
 							System.out.print((char) w);
 						}
 						System.out.println(p.waitFor());
+						//Copy archive from arj dir to tmp, cause all handlers are in this dir
+						FileUtils.copyFile(new File(FileUtils.tmpDir+"arj\\"+pattern), FileUtils.tmpDir);
+						for(File f:tmpDir.listFiles()) {
+							f.delete();
+						}
 						executedFiles.addAll(transportFiles.keySet());
 					} catch (InterruptedException | IOException ie) {
 						ie.printStackTrace();

@@ -111,13 +111,25 @@ public class FileUtils {
 			return FXCollections.observableArrayList();
 	}
 
-	public static void clearTmp(ObservableList<FileType> mask) throws ReportError {
+	public static void clearTmp_old(ObservableList<FileType> mask) throws ReportError {
 		for (String filename : (mask != null ? getDirContentByMask(FileUtils.tmpDir, mask)
 				: FXCollections.observableArrayList(new File(FileUtils.tmpDir).list()))) {
 			File file = new File(FileUtils.tmpDir + filename);
 			if (file.exists()) {
 				file.delete();
 			}
+		}
+	}
+	
+	public static void clearTmp() {
+		File tmpDirHandler = new File(tmpDir);
+		for (File f : tmpDirHandler.listFiles()) {
+			if (f.isDirectory()) {
+				for (File s : f.listFiles()) {
+					s.delete();
+				}				
+			}
+			f.delete();
 		}
 	}
 
@@ -311,6 +323,18 @@ public class FileUtils {
 		return tmp;
 	}
 
+	public static void copyFile(File file, String where) {
+		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
+				StandardCopyOption.COPY_ATTRIBUTES };
+		try {
+				Files.copy(file.toPath(), Paths.get(where + "\\" + file.getName()), options);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	
 	public static void copyFiles(ObservableList<File> files, String where) {
 		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
 				StandardCopyOption.COPY_ATTRIBUTES };
