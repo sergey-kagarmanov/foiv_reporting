@@ -8,6 +8,7 @@ import java.util.List;
 import org.xml.sax.SAXException;
 
 import application.MainApp;
+import application.models.ErrorFile;
 import application.models.FileTransforming;
 import application.utils.Constants;
 import application.utils.FileUtils;
@@ -146,9 +147,15 @@ public class SingleActionController {
 				showAlert("Ключ не выбран");
 			} else {
 				signatura.initConfig(mainApp.getCurrentKey().getData());
-				signatura.encryptFilesInPath(FileTransforming.toFileTransforming(files.getItems()),
+				ObservableList<ErrorFile> errorFiles = signatura.encryptFilesInPath(FileTransforming.toFileTransforming(files.getItems()),
 						"");
 				FileUtils.copyFiles(files.getItems(), outPath.getText());
+				if (errorFiles.size()==0) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Зашифрование");
+					alert.setContentText("Обработка выполнена успешно");
+					alert.show();
+				}
 			}
 		} else if (action.getKey().equals(Constants.ACTIONS[2])) {
 			mainApp.showChooseKeyDialog();
@@ -157,8 +164,14 @@ public class SingleActionController {
 				showAlert("Ключ не выбран");
 			} else {
 				signatura.initConfig(mainApp.getCurrentKey().getData());
-				signatura.signFilesInPath(FileTransforming.toFileTransforming(files.getItems()));
+				ObservableList<ErrorFile> errorFiles = signatura.signFilesInPath(FileTransforming.toFileTransforming(files.getItems()));
 				FileUtils.copyFiles(files.getItems(), outPath.getText());
+				if (errorFiles.size()==0) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Подпись");
+					alert.setContentText("Обработка выполнена успешно");
+					alert.show();
+				}
 			}
 		} else if (action.getKey().equals(Constants.ACTIONS[3])) {
 			mainApp.showChooseKeyDialog();
@@ -167,8 +180,14 @@ public class SingleActionController {
 				showAlert("Ключ не выбран");
 			} else {
 				signatura.initConfig(mainApp.getCurrentKey().getData());
-				signatura.decryptFilesInPath(FileTransforming.toFileTransforming(files.getItems()));
+				ObservableList<ErrorFile> errorFiles = signatura.decryptFilesInPath(FileTransforming.toFileTransforming(files.getItems()));
 				FileUtils.copyFiles(files.getItems(), outPath.getText());
+				if (errorFiles.size()==0) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Расшифрование");
+					alert.setContentText("Обработка выполнена успешно");
+					alert.show();
+				}
 			}
 		} else if (action.getKey().equals(Constants.ACTIONS[4])) {
 			mainApp.showChooseKeyDialog();
@@ -178,9 +197,15 @@ public class SingleActionController {
 			} else {
 				signatura.initConfig(mainApp.getCurrentKey().getData());
 				signatura.setVerifyParamaters();
-				signatura.verifyAndUnsignFilesInPath(
+				ObservableList<ErrorFile> errorFiles = signatura.verifyAndUnsignFilesInPath(
 						FileTransforming.toFileTransforming(files.getItems()));
 				FileUtils.copyFiles(files.getItems(), outPath.getText());
+				if (errorFiles.size()==0) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Поверка и снятие подписи");
+					alert.setContentText("Обработка выполнена успешно");
+					alert.show();
+				}
 			}
 		} else if (action.getKey().equals(Constants.ACTIONS[6])) {
 			mainApp.showChooseArchiveDialog(files.getItems());
@@ -201,6 +226,10 @@ public class SingleActionController {
 					System.out.print((char) w);
 				}
 				System.out.println(p.waitFor());
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Архивация");
+					alert.setContentText("Обработка выполнена успешно");
+					alert.show();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -213,6 +242,13 @@ public class SingleActionController {
 				for (File f : files.getItems()) {
 					resultFiles.addAll(FileUtils.getFrom7z(f));
 				}
+				if (resultFiles.size()>0) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Разархивирование");
+					alert.setContentText("Обработка выполнена успешно");
+					alert.show();
+				}
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
