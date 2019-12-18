@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 import application.errors.ReportError;
 import application.models.FileType;
@@ -37,7 +38,8 @@ public class FileUtils {
 
 	public static String tmpDir = "c:\\sdm\\tmp\\";
 	public static String exeDir = "c:\\sdm\\exe\\";
-	//public static String rarFullPath = "\"C:\\Program Files (x86)\\WinRAR\\WinRAR.exe\"";
+	// public static String rarFullPath = "\"C:\\Program Files
+	// (x86)\\WinRAR\\WinRAR.exe\"";
 
 	/**
 	 * Returns observableArrayList
@@ -50,7 +52,7 @@ public class FileUtils {
 	public static ObservableList<String> getDirContentByMask(String directory,
 			ObservableList<FileType> observableList) throws ReportError {
 		try {
-			if (directory==null) {
+			if (directory == null) {
 				directory = "c:\\";
 			}
 			File file = new File(directory);
@@ -120,14 +122,14 @@ public class FileUtils {
 			}
 		}
 	}
-	
+
 	public static void clearTmp() {
 		File tmpDirHandler = new File(tmpDir);
 		for (File f : tmpDirHandler.listFiles()) {
 			if (f.isDirectory()) {
 				for (File s : f.listFiles()) {
 					s.delete();
-				}				
+				}
 			}
 			f.delete();
 		}
@@ -180,30 +182,30 @@ public class FileUtils {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
-				if(in!=null)
+				if (in != null)
 					in.close();
-				if(out!=null)
+				if (out != null)
 					out.close();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			
+
 		}
 	}
-	
-    public static void compressGZIP(File input, File output) throws IOException {
-        try (GZIPOutputStream out = new GZIPOutputStream(new FileOutputStream(output))){
-            try (FileInputStream in = new FileInputStream(input)){
-                byte[] buffer = new byte[1024];
-                int len;
-                while((len=in.read(buffer)) != -1){
-                    out.write(buffer, 0, len);
-                }
-            }
-        }
-    }
+
+	public static void compressGZIP(File input, File output) throws IOException {
+		try (GZIPOutputStream out = new GZIPOutputStream(new FileOutputStream(output))) {
+			try (FileInputStream in = new FileInputStream(input)) {
+				byte[] buffer = new byte[1024];
+				int len;
+				while ((len = in.read(buffer)) != -1) {
+					out.write(buffer, 0, len);
+				}
+			}
+		}
+	}
 
 	public static ObservableList<File> getFromZip(File zipFile) throws IOException {
 		byte[] buffer = new byte[1024];
@@ -248,7 +250,7 @@ public class FileUtils {
 
 		return list;
 	}
-	
+
 	public static ObservableList<File> getFrom7z(File file) throws IOException {
 		ObservableList<File> tmp = FXCollections.observableArrayList();
 		RandomAccessFile randomAccessFile = null;
@@ -327,14 +329,13 @@ public class FileUtils {
 		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
 				StandardCopyOption.COPY_ATTRIBUTES };
 		try {
-				Files.copy(file.toPath(), Paths.get(where + "\\" + file.getName()), options);
+			Files.copy(file.toPath(), Paths.get(where + "\\" + file.getName()), options);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	
 	public static void copyFiles(ObservableList<File> files, String where) {
 		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
 				StandardCopyOption.COPY_ATTRIBUTES };
@@ -361,5 +362,25 @@ public class FileUtils {
 
 	}
 
+	public static void compressFile(String sourceFile, String outFile) {
+		try {
+		FileOutputStream fos = new FileOutputStream(outFile);
+		ZipOutputStream zipOut = new ZipOutputStream(fos);
+		File fileToZip = new File(sourceFile);
+		FileInputStream fis = new FileInputStream(fileToZip);
+		ZipEntry zipEntry = new ZipEntry(fileToZip.getName());
+		zipOut.putNextEntry(zipEntry);
+		byte[] bytes = new byte[1024];
+		int length;
+		while ((length = fis.read(bytes)) >= 0) {
+			zipOut.write(bytes, 0, length);
+		}
+		zipOut.close();
+		fis.close();
+		fos.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -120,7 +120,8 @@ public class FileTransforming {
 	 */
 	public void setCurrent(String current) {
 		File newFile = new File(current);
-		this.current.renameTo(newFile);
+		FileUtils.copy(this.current, newFile);
+		//this.current.renameTo(newFile);
 		this.current = newFile;
 		transform.add(current);
 	}

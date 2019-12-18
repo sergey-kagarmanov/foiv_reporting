@@ -299,11 +299,13 @@ public class EncryptOverviewController {
 			public void changed(ObservableValue<? extends Report> observable, Report oldValue,
 					Report newValue) {
 				if (reportChooser.getValue() != null) {
+					MainApp.info(reportChooser.getValue()+" report has been choosen");
 					report = FileUtils.testReport(reportChooser.getValue());
 					calculateData();
 				}
 			}
 		});
+		MainApp.info("Load main view EncriptOverviewController");
 	}
 
 	public void setMainApp(MainApp mainApp) {
@@ -461,6 +463,8 @@ public class EncryptOverviewController {
 				inFileCount.setText(
 						FileUtils.getDirContentByMask(report.getPathIn(), list).size() + "");
 			}
+			if (!"0".equals(inFileCount.getText())||!"0".equals(outFileCount.getText()))
+				MainApp.info("Data for "+reportChooser.getValue().getName()+" was loaded. Count in files is "+inFileCount.getText()+". Count out files is "+ outFileCount.getText());
 			if (timer > 5000) {// if error appears timer to check will be 50000
 								// or greater
 				timer = timer / 10;

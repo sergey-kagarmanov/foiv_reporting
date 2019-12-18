@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import application.MainApp;
 import application.errors.ReportError;
 import application.models.Action;
 import application.models.AttributeDescr;
@@ -44,6 +45,7 @@ public class Dao {
 			// DriverManager.getConnection(Configuration.get("db_path","jdbc:sqlite:fc_reports.db").toString());
 			connection = DriverManager.getConnection("jdbc:sqlite:fc_reports.db");
 			System.out.println("Database connection");
+			MainApp.info("Database connected");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e1) {

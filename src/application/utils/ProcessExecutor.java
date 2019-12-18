@@ -237,12 +237,11 @@ public class ProcessExecutor {
 					for (TransportFile tf : transportFiles.values()) {
 						if (tf.getListFiles() != null) {
 							for (String rfName : tf.getListFiles().keySet()) {
-
+								int index = executedFiles.indexOf(new FileTransforming(rfName, FileUtils.tmpDir));
+								
 								((ReportFile) tf.getListFiles().get(rfName)).setAttributes(
-										parser.parse(new File(FileUtils.tmpDir).listFiles(
-												(dir, name) -> name.contains(rfName))[0]));
-								FileUtils.copy(new File(FileUtils.tmpDir + rfName),
-										new File(outputPath + "\\" + rfName));
+										parser.parse(executedFiles.get(index).getCurrentFile()));
+								executedFiles.get(index).copyCurrent(outputPath, false);
 							}
 						} else {
 
