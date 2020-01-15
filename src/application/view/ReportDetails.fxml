@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -16,7 +20,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.EncryptOverviewController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.EncryptOverviewController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -104,7 +108,7 @@
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                          </columnResizePolicy>
                                                       </TableView>
-                                                      <TableView fx:id="inFileTable" maxHeight="1.7976931348623157E308" prefWidth="238.0" HBox.hgrow="ALWAYS">
+                                                      <TableView fx:id="inFileTable" maxHeight="1.7976931348623157E308" onContextMenuRequested="#contextMenu" prefWidth="238.0" HBox.hgrow="ALWAYS">
                                                          <columns>
                                                             <TableColumn fx:id="inFileTableColumn" prefWidth="138.0" text="Имя Файла" />
                                                             <TableColumn fx:id="inDateTableColumn" prefWidth="98.00006103515625" text="Дата и время" />
