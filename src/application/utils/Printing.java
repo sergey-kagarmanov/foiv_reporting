@@ -51,9 +51,10 @@ import java.io.Writer;
 
 
 public class Printing {
-	public static void printFormattedXML(String fileContent)
+	public static void printFormattedXML(String fileName,String fileContent)
 	{	
 			String formattedXML=toPrettyXmlString(convertStringToDocument(fileContent));
+			formattedXML=fileName+"\n"+formattedXML;			
 			try 
 	        {	           
 				PrintService service = PrintServiceLookup.lookupDefaultPrintService();

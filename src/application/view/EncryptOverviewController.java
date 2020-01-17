@@ -1,6 +1,8 @@
 package application.view;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -13,6 +15,7 @@ import application.models.Report;
 import application.models.TransportFile;
 import application.utils.DateUtils;
 import application.utils.FileUtils;
+import application.utils.Printing;
 import application.utils.ProcessExecutor;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -21,17 +24,24 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
@@ -485,8 +495,11 @@ public class EncryptOverviewController {
 			outFileTable.setItems(FXCollections.observableArrayList(outArchiveFileTable
 					.getSelectionModel().getSelectedItem().getListFiles().values()));
 		if (inArchiveFileTable.getSelectionModel().getSelectedItem() != null)
+		{
+			inFileTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			inFileTable.setItems(FXCollections.observableArrayList(inArchiveFileTable
-					.getSelectionModel().getSelectedItem().getListFiles().values()));
+					.getSelectionModel().getSelectedItem().getListFiles().values()));			
+		}
 	}
 
 	@FXML
@@ -574,5 +587,41 @@ public class EncryptOverviewController {
 	@FXML
 	public void openArchive() {
 		mainApp.showArchive();
+	}
+	
+	@FXML
+	public void contextMenu(ContextMenuEvent contextMenuEvent) 
+	{
+		ContextMenu contextMenu = new ContextMenu();
+	    MenuItem printItem = new MenuItem("Печатать выбранные");
+	    printItem.setOnAction(new EventHandler<ActionEvent>() { 
+            @Override
+            public void handle(ActionEvent event) {
+            	printSelected();
+            }
+        });
+	    
+	    contextMenu.getItems().add(printItem);
+	    contextMenu.setX(10.0);
+	    contextMenu.setY(10.0);
+	    contextMenu.show((Node) contextMenuEvent.getSource(), contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
+	}	
+	
+	public void printSelected()
+	{		
+		ObservableList<FileEntity> items=inFileTable.getSelectionModel().getSelectedItems();
+		for(FileEntity file : items)
+		{
+			String file_name=file.getReport().getPathArchiveIn()+"\\"+file.getName();
+			try
+			{				
+				String file_content=new String(Files.readAllBytes(Paths.get(file_name)),("Windows-1251"));				
+				Printing.printFormattedXML(file.getName(),file_content);				
+			}
+			catch(IOException e)
+			{
+				System.out.println(e.toString());
+			}
+		}
 	}
 }
