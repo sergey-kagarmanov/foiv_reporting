@@ -91,6 +91,13 @@ public class ProcessExecutor {
 		this.direction = direction;
 		signatura = new Signatura();
 		errorFiles = FXCollections.observableArrayList();
+		
+		//Create archive path
+		File ap=new File(archivePath);
+		ap.mkdirs();
+		//Create output path
+		File op=new File(outputPath);
+		op.mkdirs();		
 	}
 
 	public void start() throws ReportError {

@@ -103,17 +103,27 @@ public class MainApp extends Application {
 		FileHandler fh;
 
 		try {
-			//Archive log for previouse day
-			FileTime fTime = Files.getLastModifiedTime(Paths.get("logs\\LogFile.log"));
-			LocalDateTime ldt = LocalDateTime.ofInstant(fTime.toInstant(), ZoneOffset.systemDefault());
-			LocalDate ld = LocalDate.now();
-			if ((ldt.getDayOfYear()<ld.getDayOfYear()&&ldt.getYear()==ld.getYear())||(ldt.getYear()<ld.getYear())) {
-				File logFile = new File("logs\\LogFile.log");
-				FileUtils.compressFile("logs\\LogFile.log","logs\\"+ ldt.format(DateTimeFormatter.ofPattern("yyyyMMdd"))+".zip");
-				logFile.delete();
+			//Archive log for previouse day if it exist
+			if (Files.exists(Paths.get("logs\\LogFile.log"))) {
+				FileTime fTime = Files.getLastModifiedTime(Paths.get("logs\\LogFile.log"));
+				LocalDateTime ldt = LocalDateTime.ofInstant(fTime.toInstant(),
+						ZoneOffset.systemDefault());
+				LocalDate ld = LocalDate.now();
+				if ((ldt.getDayOfYear() < ld.getDayOfYear() && ldt.getYear() == ld.getYear())
+						|| (ldt.getYear() < ld.getYear())) {
+					File logFile = new File("logs\\LogFile.log");
+					FileUtils.compressFile("logs\\LogFile.log", "logs\\"
+							+ ldt.format(DateTimeFormatter.ofPattern("yyyyMMdd")) + ".zip");
+					logFile.delete();
+				}
 			}
 			
 			// This block configure the logger with handler and formatter
+			File log_dir=new File("logs\\");
+			log_dir.mkdirs();
+			File log_file=new File("logs\\LogFile.log");
+			log_file.createNewFile();			
+			
 			fh = new FileHandler("logs\\LogFile.log", true);
 			logger.addHandler(fh);
 			// SimpleFormatter formatter = new SimpleFormatter();
