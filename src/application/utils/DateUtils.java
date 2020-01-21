@@ -13,7 +13,8 @@ public class DateUtils {
 	
     private static final DateTimeFormatter DATE_SQLITE_FORMATTER = DateTimeFormatter.ofPattern(Settings.DATE_FORMAT_DB);
 
-
+    private static final String PATH_FORMAT = "yyyy.MM.dd";
+    
 	/** Форматировщик даты. */
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter
 			.ofPattern(Settings.DATE_FORMAT);
@@ -82,7 +83,10 @@ public class DateUtils {
 	
     public static LocalDateTime fromSQLite(String dateString){
         try {
+        	if (dateString!=null && dateString.length()>=23)
             return DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(dateString, LocalDateTime::from);
+        	else
+        		return LocalDateTime.now();
         } catch (DateTimeParseException e) {
         	e.printStackTrace();
         	System.out.println(dateString);
@@ -106,6 +110,9 @@ public class DateUtils {
     
     public static String toDeclareString(String pattern, LocalDateTime datetime){
     	return DateTimeFormatter.ofPattern(pattern).format(datetime);
+    }
+    public static String toPath(LocalDateTime ldt) {
+    	return DateTimeFormatter.ofPattern(PATH_FORMAT).format(ldt);
     }
     
 }

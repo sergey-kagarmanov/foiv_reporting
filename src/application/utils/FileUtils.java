@@ -36,8 +36,8 @@ import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
 
 public class FileUtils {
 
-	public static String tmpDir = "c:\\sdm\\tmp\\";
-	public static String exeDir = "c:\\sdm\\exe\\";
+	public static String tmpDir = "tmp\\";
+	public static String exeDir = "exe\\";
 	// public static String rarFullPath = "\"C:\\Program Files
 	// (x86)\\WinRAR\\WinRAR.exe\"";
 

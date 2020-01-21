@@ -24,6 +24,6 @@ public class Settings {
 	
 	public static long FILE_SIZE = 5125000;
 	
-	public static int FILE_COUNT = 50;
+	public static int FILE_COUNT = 500;
 
 }

@@ -17,6 +17,7 @@ import Pki1.LocalIface.find_param_t;
 import Pki1.LocalIface.find_result_t;
 import Pki1.LocalIface.sign_param_t;
 import Pki1.LocalIface.verify_param_t;
+import application.MainApp;
 import application.models.ErrorFile;
 import application.models.FileTransforming;
 import application.models.ProcessStep;
@@ -36,6 +37,7 @@ public class Signatura {
 
 	public Signatura() {
 		iFace = new LocalIface();
+		MainApp.info("Local interface of signature is created");
 	}
 
 	public int initConfig() {
@@ -45,6 +47,7 @@ public class Signatura {
 		result = iFace.VCERT_Initialize(profile, flag);
 		if (result == LocalIface.VCERT_OK) {
 			System.out.println("Init success");
+			MainApp.info("Local interface of signature is initialized");
 		}
 		return result;
 	}
@@ -55,7 +58,10 @@ public class Signatura {
 		result = iFace.VCERT_Initialize(profile, flag);
 		if (result == LocalIface.VCERT_OK) {
 			System.out.println("Init success");
-
+			MainApp.info("Local interface of signature is initialized with profile - " + profile);
+		} else {
+			MainApp.error("Local interface of signature isn't initialized with profile - " + profile
+					+ ". Error code - " + Integer.toHexString(result));
 		}
 		return result;
 
@@ -65,6 +71,7 @@ public class Signatura {
 		signParameters = new sign_param_t();
 		signParameters.flag = LocalIface.FLAG_PKCS7;
 		signParameters.mycert = null; // for local skzi
+		MainApp.info("Sign parameters are set");
 	}
 
 	public void setVerifyParamaters() {
@@ -86,6 +93,7 @@ public class Signatura {
 				getExtKeyUsage("1.3.6.1.4.1.10244.7.1.1.25"),
 				getExtKeyUsage("1.3.6.1.4.1.10244.7.1.1.25.5") };
 
+		MainApp.info("Verify parameters are set");
 	}
 
 	private LocalIface.policy_t getSignPolicy() {
@@ -107,15 +115,22 @@ public class Signatura {
 		result = iFace.VCERT_Uninitialize();
 		if (result == LocalIface.VCERT_OK) {
 			System.out.println("Uninit seccess");
+			MainApp.info("Local interface Signatura unloads successfull");
+		} else {
+			MainApp.error("Local interface Signatura unloads with error - "
+					+ Integer.toHexString(result));
 		}
 	}
 
 	public int signFile(String in, String out) {
 		result = iFace.VCERT_SignFile(signParameters, in, null, out);
 		if (result == LocalIface.VCERT_OK) {
-			System.out.println("File " + in + " signed in " + out);
+			System.out.println("File " + in + " is signed in " + out);
+			MainApp.info("File " + in + " is signed in " + out);
 		} else {
 			System.out.println(result);
+			MainApp.error(
+					"File " + in + " isn't signed. Error code - " + Integer.toHexString(result));
 		}
 		return result;
 	}
@@ -124,8 +139,11 @@ public class Signatura {
 		LocalIface.verify_result_t verifyResult = new LocalIface.verify_result_t();
 		result = iFace.VCERT_VerifyFile(verifyParameters, null, in, out, verifyResult);
 		if (result == LocalIface.VCERT_OK) {
-			System.out.println("File " + in + " unsigned in " + out);
+			System.out.println("File " + in + " is unsigned in " + out);
+			MainApp.info("File " + in + " is unsigned in " + out);
 		} else {
+			MainApp.error(
+					"File " + in + " isn't unsigned. Result code - " + Integer.toHexString(result));
 			System.out.print(result);
 		}
 		return result;
@@ -138,6 +156,7 @@ public class Signatura {
 		encryptParameters.receiver_num = 1;
 		encryptParameters.receivers = new LocalIface.certificate_t[MAX_ELEMENTS_NUM];
 		encryptParameters.receivers[0] = getMyCert();
+		MainApp.info("Encrypt parameters are set");
 	}
 
 	public certificate_t getMyCert() {
@@ -160,8 +179,8 @@ public class Signatura {
 			file.createNewFile();
 			FileUtils.compressGZIP(new File(in), file);
 			FileUtils.copy(file, new File(in));
+			file.delete();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result = -1;
 		}
@@ -169,8 +188,11 @@ public class Signatura {
 			result = iFace.VCERT_EncryptFile(encryptParameters, in, out);
 			if (result == LocalIface.VCERT_OK) {
 				System.out.println("File " + in + " encrypted in " + out);
+				MainApp.info("File " + in + " is encrypted in " + out);
 			} else {
 				System.out.println(result);
+				MainApp.error("File " + in + " isn't encrypted. Error code - "
+						+ Integer.toHexString(result));
 			}
 		}
 		return result;
@@ -179,6 +201,7 @@ public class Signatura {
 	public void setDecryptParameters() {
 		decryptParameters = new decrypt_param_t();
 		decryptParameters.flag = LocalIface.FLAG_PKCS7;
+		MainApp.info("Decrypt parameters are set");
 	}
 
 	public int decrypt(String in, String out) {
@@ -186,8 +209,11 @@ public class Signatura {
 		result = iFace.VCERT_DecryptFile(decryptParameters, in, out, decryptResult);
 		if (result == LocalIface.VCERT_OK) {
 			System.out.println("File " + in + " decrypted in " + out);
+			MainApp.info("File " + in + " is decrypted in " + out);
 		} else {
 			System.out.println(result);
+			MainApp.error(
+					"File " + in + " isn't decrypted. Error code - " + Integer.toHexString(result));
 		}
 		return result;
 	}
@@ -206,7 +232,8 @@ public class Signatura {
 				} else {
 					if (f.getCurrentFile().delete()) {
 						FileUtils.copy(tmp, f.getCurrentFile());
-						f.setSigned(tmp);
+						f.setSigned(f.getCurrentFile());
+						tmp.delete();
 					}
 				}
 			}
@@ -226,7 +253,8 @@ public class Signatura {
 				if (result == 0) {
 					if (f.getCurrentFile().delete()) {
 						FileUtils.copy(tmp, f.getCurrentFile());
-					}else {
+						tmp.delete();
+					} else {
 						System.out.println("!!!!!!!");
 					}
 				} else {
@@ -243,8 +271,11 @@ public class Signatura {
 		result = iFace.VCERT_EncryptFile(encryptParameters, in, out);
 		if (result == LocalIface.VCERT_OK) {
 			System.out.println("File " + in + " encrypted in " + out);
+			MainApp.info("File " + in + " is encrypted in " + out);
 		} else {
 			System.out.println(result);
+			MainApp.error(
+					"File " + in + " isn't encrypted. Error code - " + Integer.toHexString(result));
 		}
 		return result;
 	}
@@ -256,6 +287,7 @@ public class Signatura {
 		encryptParameters.receiver_num = 1;
 		encryptParameters.receivers = new LocalIface.certificate_t[MAX_ELEMENTS_NUM];
 		encryptParameters.receivers[0] = getCert(string);
+		MainApp.info("Encrypt parameters are set");
 	}
 
 	public certificate_t getCert(String string) {
@@ -372,7 +404,10 @@ public class Signatura {
 					out.write(buffer, 0, len);
 				}
 			}
+			MainApp.info("File " + input + " is decompressed to " + output);
 		} catch (Exception e) {
+			MainApp.error("File " + input + " isn't decompressed to" + output + " cause "
+					+ e.getLocalizedMessage());
 			e.printStackTrace();
 			return -1;
 		}

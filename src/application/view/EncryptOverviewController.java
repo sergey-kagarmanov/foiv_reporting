@@ -249,11 +249,12 @@ public class EncryptOverviewController {
 								TableRow currentRow = getTableRow();
 								if (!isEmpty()) {
 									Object obj = currentRow.getItem();
+									String path = DateUtils.toPath(((FileEntity)currentRow.getItem()).getDatetime());
 									String dateString = "";
 									if (obj!=null) {
 										
 									}
-									if (new File(inPathArch.getText() + "/" + item).exists()) {
+									if (new File(inPathArch.getText() + "\\"+path+"\\" + item).exists()) {
 										currentRow.setStyle("-fx-background-color:white");
 										currentRow.setStyle("-fx-color:black");
 										currentRow
@@ -281,8 +282,8 @@ public class EncryptOverviewController {
 								setGraphic(null);
 								TableRow currentRow = getTableRow();
 								if (!isEmpty()) {
-
-									if (new File(outPathArch.getText() + "\\" + item).exists()) {
+									String path = DateUtils.toPath(((FileEntity)currentRow.getItem()).getDatetime());
+									if (new File(outPathArch.getText() + "\\"+path+"\\" + item).exists()) {
 										currentRow.setStyle("-fx-background-color:transparent");
 										currentRow.setStyle("-fx-color:black");
 										currentRow
@@ -612,7 +613,7 @@ public class EncryptOverviewController {
 		ObservableList<FileEntity> items=inFileTable.getSelectionModel().getSelectedItems();
 		for(FileEntity file : items)
 		{
-			String file_name=file.getReport().getPathArchiveIn()+"\\"+file.getName();
+			String file_name=file.getReport().getPathArchiveIn()+"\\"+DateUtils.toPath(file.getDatetime())+"\\"+file.getName();
 			try
 			{				
 				String file_content=new String(Files.readAllBytes(Paths.get(file_name)),("Windows-1251"));				
