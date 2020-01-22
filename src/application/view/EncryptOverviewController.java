@@ -249,19 +249,24 @@ public class EncryptOverviewController {
 								TableRow currentRow = getTableRow();
 								if (!isEmpty()) {
 									Object obj = currentRow.getItem();
-									String path = DateUtils.toPath(((FileEntity)currentRow.getItem()).getDatetime());
-									String dateString = "";
-									if (obj!=null) {
-										
-									}
-									if (new File(inPathArch.getText() + "\\"+path+"\\" + item).exists()) {
-										currentRow.setStyle("-fx-background-color:white");
-										currentRow.setStyle("-fx-color:black");
-										currentRow
-												.setStyle("-fx-border-color: transparent #1d1d1d");
+									if (currentRow != null && currentRow.getItem() != null) {
+										String path = DateUtils.toPath(
+												((FileEntity) currentRow.getItem()).getDatetime());
+										String dateString = "";
+										if (obj != null) {
 
-									} else {
-										currentRow.setStyle("-fx-background-color:red");
+										}
+										if (new File(
+												inPathArch.getText() + "\\" + path + "\\" + item)
+														.exists()) {
+											currentRow.setStyle("-fx-background-color:white");
+											currentRow.setStyle("-fx-color:black");
+											currentRow.setStyle(
+													"-fx-border-color: transparent #1d1d1d");
+
+										} else {
+											currentRow.setStyle("-fx-background-color:red");
+										}
 									}
 								}
 							}
@@ -282,15 +287,20 @@ public class EncryptOverviewController {
 								setGraphic(null);
 								TableRow currentRow = getTableRow();
 								if (!isEmpty()) {
-									String path = DateUtils.toPath(((FileEntity)currentRow.getItem()).getDatetime());
-									if (new File(outPathArch.getText() + "\\"+path+"\\" + item).exists()) {
-										currentRow.setStyle("-fx-background-color:transparent");
-										currentRow.setStyle("-fx-color:black");
-										currentRow
-												.setStyle("-fx-border-color: transparent #1d1d1d");
+									if (currentRow != null && currentRow.getItem() != null) {
+										String path = DateUtils.toPath(
+												((FileEntity) currentRow.getItem()).getDatetime());
+										if (new File(
+												outPathArch.getText() + "\\" + path + "\\" + item)
+														.exists()) {
+											currentRow.setStyle("-fx-background-color:transparent");
+											currentRow.setStyle("-fx-color:black");
+											currentRow.setStyle(
+													"-fx-border-color: transparent #1d1d1d");
 
-									} else {
-										currentRow.setStyle("-fx-background-color:red");
+										} else {
+											currentRow.setStyle("-fx-background-color:red");
+										}
 									}
 								}
 							}
@@ -310,7 +320,7 @@ public class EncryptOverviewController {
 			public void changed(ObservableValue<? extends Report> observable, Report oldValue,
 					Report newValue) {
 				if (reportChooser.getValue() != null) {
-					MainApp.info(reportChooser.getValue()+" report has been choosen");
+					MainApp.info(reportChooser.getValue() + " report has been choosen");
 					report = FileUtils.testReport(reportChooser.getValue());
 					calculateData();
 				}
@@ -448,6 +458,10 @@ public class EncryptOverviewController {
 		outPathArch.setText(report.getPathArchiveOut());
 		inOutputPath.setText(report.getPathOutputIn());
 		outOutputPath.setText(report.getPathOutputOut());
+		outArchiveFileTable.setItems(FXCollections.emptyObservableList());
+		inArchiveFileTable.setItems(FXCollections.emptyObservableList());
+		outArchiveFileTable.refresh();
+		inArchiveFileTable.refresh();
 		outArchiveFileTable
 				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), false));
 		inArchiveFileTable
@@ -474,12 +488,15 @@ public class EncryptOverviewController {
 				inFileCount.setText(
 						FileUtils.getDirContentByMask(report.getPathIn(), list).size() + "");
 			}
-			if (!"0".equals(inFileCount.getText())||!"0".equals(outFileCount.getText()))
-				MainApp.info("Data for "+reportChooser.getValue().getName()+" was loaded. Count in files is "+inFileCount.getText()+". Count out files is "+ outFileCount.getText());
-			if (timer > 5000) {// if error appears timer to check will be 50000
-								// or greater
-				timer = timer / 10;
-			}
+			if (!"0".equals(inFileCount.getText()) || !"0".equals(outFileCount.getText()))
+				// MainApp.info("Data for "+reportChooser.getValue().getName()+"
+				// was loaded. Count in files is "+inFileCount.getText()+".
+				// Count out files is "+ outFileCount.getText());
+				if (timer > 5000) {// if error appears timer to check will be
+									// 50000
+									// or greater
+					timer = timer / 10;
+				}
 		} catch (ReportError e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Ошибка");
@@ -495,11 +512,10 @@ public class EncryptOverviewController {
 		if (outArchiveFileTable.getSelectionModel().getSelectedItem() != null)
 			outFileTable.setItems(FXCollections.observableArrayList(outArchiveFileTable
 					.getSelectionModel().getSelectedItem().getListFiles().values()));
-		if (inArchiveFileTable.getSelectionModel().getSelectedItem() != null)
-		{
+		if (inArchiveFileTable.getSelectionModel().getSelectedItem() != null) {
 			inFileTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			inFileTable.setItems(FXCollections.observableArrayList(inArchiveFileTable
-					.getSelectionModel().getSelectedItem().getListFiles().values()));			
+					.getSelectionModel().getSelectedItem().getListFiles().values()));
 		}
 	}
 
@@ -589,38 +605,35 @@ public class EncryptOverviewController {
 	public void openArchive() {
 		mainApp.showArchive();
 	}
-	
+
 	@FXML
-	public void contextMenu(ContextMenuEvent contextMenuEvent) 
-	{
+	public void contextMenu(ContextMenuEvent contextMenuEvent) {
 		ContextMenu contextMenu = new ContextMenu();
-	    MenuItem printItem = new MenuItem("Печатать выбранные");
-	    printItem.setOnAction(new EventHandler<ActionEvent>() { 
-            @Override
-            public void handle(ActionEvent event) {
-            	printSelected();
-            }
-        });
-	    
-	    contextMenu.getItems().add(printItem);
-	    contextMenu.setX(10.0);
-	    contextMenu.setY(10.0);
-	    contextMenu.show((Node) contextMenuEvent.getSource(), contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
-	}	
-	
-	public void printSelected()
-	{		
-		ObservableList<FileEntity> items=inFileTable.getSelectionModel().getSelectedItems();
-		for(FileEntity file : items)
-		{
-			String file_name=file.getReport().getPathArchiveIn()+"\\"+DateUtils.toPath(file.getDatetime())+"\\"+file.getName();
-			try
-			{				
-				String file_content=new String(Files.readAllBytes(Paths.get(file_name)),("Windows-1251"));				
-				Printing.printFormattedXML(file.getName(),file_content);				
+		MenuItem printItem = new MenuItem("Печатать выбранные");
+		printItem.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				printSelected();
 			}
-			catch(IOException e)
-			{
+		});
+
+		contextMenu.getItems().add(printItem);
+		contextMenu.setX(10.0);
+		contextMenu.setY(10.0);
+		contextMenu.show((Node) contextMenuEvent.getSource(), contextMenuEvent.getScreenX(),
+				contextMenuEvent.getScreenY());
+	}
+
+	public void printSelected() {
+		ObservableList<FileEntity> items = inFileTable.getSelectionModel().getSelectedItems();
+		for (FileEntity file : items) {
+			String file_name = file.getReport().getPathArchiveIn() + "\\"
+					+ DateUtils.toPath(file.getDatetime()) + "\\" + file.getName();
+			try {
+				String file_content = new String(Files.readAllBytes(Paths.get(file_name)),
+						("Windows-1251"));
+				Printing.printFormattedXML(file.getName(), file_content);
+			} catch (IOException e) {
 				System.out.println(e.toString());
 			}
 		}

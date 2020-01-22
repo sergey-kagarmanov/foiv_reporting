@@ -128,8 +128,9 @@ public class ArchiveOverviewController {
 					@Override
 					public ObservableValue<String> call(
 							CellDataFeatures<FileEntity, String> param) {
-						return new SimpleStringProperty(param.getValue().getValue().getDirection()
-								? Constants.IN : Constants.OUT);
+						return new SimpleStringProperty(
+								param.getValue().getValue().getDirection() ? Constants.IN
+										: Constants.OUT);
 					}
 				});
 		fileStatusColumn.setCellValueFactory(
@@ -149,7 +150,8 @@ public class ArchiveOverviewController {
 										if (attr != null && attr.get(AttributeDescr.CODE) != null) {
 											if ("0".equals(attr.get(AttributeDescr.CODE).getValue())
 													|| "00".equals(attr.get(AttributeDescr.CODE)
-															.getValue()))
+															.getValue())
+													|| "01".equals(attr.get(AttributeDescr.CODE).getValue()))
 												tmp += Constants.POSITIVE + " ";
 											else
 												tmp += Constants.NEGATIVE + " ";
@@ -169,9 +171,14 @@ public class ArchiveOverviewController {
 							ReportFile rf = (ReportFile) fe;
 							if (rf.getAttributes() != null) {
 								FileAttribute fa = rf.getAttributes().get(AttributeDescr.CODE);
-								FileAttribute commentAttr = rf.getAttributes().get(AttributeDescr.COMMENT);
-								if (((fa != null) && (fa.getValue().equals("00")
-										|| "0".equals(fa.getValue()))) || ((commentAttr!=null)&&( Constants.ACCEPT.equals(commentAttr.getValue())))) {
+								FileAttribute commentAttr = rf.getAttributes()
+										.get(AttributeDescr.COMMENT);
+								if (((fa != null)
+										&& (fa.getValue().equals("00") || "0".equals(fa.getValue())
+												|| "01".equals(rf.getAttributes()
+														.get(AttributeDescr.CODE).getValue())))
+										|| ((commentAttr != null) && (Constants.ACCEPT
+												.equals(commentAttr.getValue())))) {
 									tmp = "Успешно";
 								} else if (fa != null
 										&& rf.getAttributes().get(AttributeDescr.COMMENT) != null) {
@@ -179,7 +186,7 @@ public class ArchiveOverviewController {
 								} else {
 									tmp = "Ответ обработан некорректно";
 								}
-								
+
 							} else {
 								tmp = "Ответ некорректного формата";
 							}
@@ -212,8 +219,15 @@ public class ArchiveOverviewController {
 														.get(AttributeDescr.CODE).getValue())
 														|| "0".equals(rf.getAttributes()
 																.get(AttributeDescr.CODE)
-																.getValue())))||(rf.getAttributes().get(AttributeDescr.COMMENT) != null
-																&&(Constants.ACCEPT.equals(rf.getAttributes().get(AttributeDescr.COMMENT).getValue())))) {
+																.getValue()))
+												|| "01".equals(rf.getAttributes()
+														.get(AttributeDescr.CODE).getValue()))
+												|| (rf.getAttributes()
+														.get(AttributeDescr.COMMENT) != null
+														&& (Constants.ACCEPT
+																.equals(rf.getAttributes()
+																		.get(AttributeDescr.COMMENT)
+																		.getValue())))) {
 											this.setBackground(new Background(new BackgroundFill(
 													Color.SPRINGGREEN, null, null)));
 										} else {
@@ -239,21 +253,24 @@ public class ArchiveOverviewController {
 											if ("0".equals(lrf.getAttributes()
 													.get(AttributeDescr.CODE).getValue())
 													|| "00".equals(lrf.getAttributes()
+															.get(AttributeDescr.CODE).getValue())
+													|| "01".equals(lrf.getAttributes()
 															.get(AttributeDescr.CODE).getValue())) {
 												this.setBackground(
 														new Background(new BackgroundFill(
 																Color.SPRINGGREEN, null, null)));
 											}
-										}else if (lrf.getAttributes().get(AttributeDescr.COMMENT)!=null){
-											if (Constants.ACCEPT.equals(lrf.getAttributes().get(AttributeDescr.COMMENT).getValue())){
+										} else if (lrf.getAttributes()
+												.get(AttributeDescr.COMMENT) != null) {
+											if (Constants.ACCEPT.equals(lrf.getAttributes()
+													.get(AttributeDescr.COMMENT).getValue())) {
 												this.setBackground(
 														new Background(new BackgroundFill(
 																Color.SPRINGGREEN, null, null)));
-												
-											}else{
-												this.setBackground(
-														new Background(new BackgroundFill(
-																Color.RED, null, null)));
+
+											} else {
+												this.setBackground(new Background(
+														new BackgroundFill(Color.RED, null, null)));
 
 											}
 										}
@@ -287,41 +304,40 @@ public class ArchiveOverviewController {
 	public void setReports(List reports) {
 		reportChooser.getItems().clear();
 		reportChooser.getItems().addAll(reports);
-		
-		//I don't understand why we added an empty report to the end of the list
-		//reportChooser.getItems().add(new Report());  
+
+		// I don't understand why we added an empty report to the end of the
+		// list
+		// reportChooser.getItems().add(new Report());
 	}
-	
-	@FXML 
+
+	@FXML
 	public void handleUpdate() {
 		fillData();
 	}
-	
-	
+
 	public void fillData() {
 		TreeItem<FileEntity> root = new TreeItem<>(new FileEntity());
 		root.setExpanded(true);
 		fileView.setShowRoot(false);
 		for (FileEntity file : fileFiles.values()) {
-			boolean filterPassed=true;
-			
-			if(startDate.getValue()!=null) {
-				if(file.getDatetime().isBefore(startDate.getValue().atTime(0,0)))
-					filterPassed=false;				
+			boolean filterPassed = true;
+
+			if (startDate.getValue() != null) {
+				if (file.getDatetime().isBefore(startDate.getValue().atTime(0, 0)))
+					filterPassed = false;
 			}
-			
-			if(endDate.getValue()!=null) {
-				if(file.getDatetime().isAfter(endDate.getValue().atTime(0,0)))
-					filterPassed=false;				
+
+			if (endDate.getValue() != null) {
+				if (file.getDatetime().isAfter(endDate.getValue().atTime(0, 0)))
+					filterPassed = false;
 			}
-			
-			if(reportChooser.getValue()!=null) {
-				if(!file.getReport().equals(reportChooser.getValue()))
-					filterPassed=false;
+
+			if (reportChooser.getValue() != null) {
+				if (!file.getReport().equals(reportChooser.getValue()))
+					filterPassed = false;
 			}
-			
-			
-			if(filterPassed)
+
+			if (filterPassed)
 				root.getChildren().add(createItem(file, 0));
 		}
 		fileView.setRoot(root);
@@ -329,7 +345,7 @@ public class ArchiveOverviewController {
 
 	private TreeItem<FileEntity> createItem(FileEntity entity, Integer padding) {
 		TreeItem<FileEntity> item = null;
-		if (!entity.getDirection()) {
+		if (entity != null && !entity.getDirection()) {
 			Node outIcon = new ImageView(new Image(getClass().getResourceAsStream("out.png")));
 			item = new TreeItem<FileEntity>(entity, outIcon);
 		} else {
@@ -343,7 +359,7 @@ public class ArchiveOverviewController {
 			}
 		}
 
-		if (entity.getLinkedFile() != null) {
+		if (entity != null && entity.getLinkedFile() != null) {
 			item.getChildren().add(createItem(entity.getLinkedFile(), padding + 5));
 		}
 		return item;
@@ -353,23 +369,23 @@ public class ArchiveOverviewController {
 		this.fileFiles = fileFiles;
 		fillData();
 	}
-	
-	@FXML 
+
+	@FXML
 	public void handleStartDateSelected() {
-		//checks that own date is correct
-		if(endDate.getValue()!=null)
-			if(startDate.getValue().isAfter(endDate.getValue())) {
-				startDate.setValue(endDate.getValue());			
-			}			
+		// checks that own date is correct
+		if (endDate.getValue() != null)
+			if (startDate.getValue().isAfter(endDate.getValue())) {
+				startDate.setValue(endDate.getValue());
+			}
 	}
-	
-	@FXML 
+
+	@FXML
 	public void handleEndDateSelected() {
-		//checks that own date is correct
-		if(startDate.getValue()!=null)
-			if(endDate.getValue().isBefore(startDate.getValue())) {
-				endDate.setValue(startDate.getValue());			
-			}			
+		// checks that own date is correct
+		if (startDate.getValue() != null)
+			if (endDate.getValue().isBefore(startDate.getValue())) {
+				endDate.setValue(startDate.getValue());
+			}
 	}
-	
+
 }

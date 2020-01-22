@@ -112,7 +112,10 @@ public class DateUtils {
     	return DateTimeFormatter.ofPattern(pattern).format(datetime);
     }
     public static String toPath(LocalDateTime ldt) {
+    	if (ldt!=null)
     	return DateTimeFormatter.ofPattern(PATH_FORMAT).format(ldt);
+    	else 
+    		return "";
     }
     
 }

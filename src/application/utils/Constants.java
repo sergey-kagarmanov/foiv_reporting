@@ -72,6 +72,7 @@ public class Constants {
 	}
 	
 	public static String ACCEPT = "принят";
+	public static String[] POSITIVE_CODE = new String[] {"0","01"};
 	
 	/*public static boolean AUTO_KEY = true;
 	

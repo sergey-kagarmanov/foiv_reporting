@@ -776,11 +776,11 @@ public class Dao {
 				ps.executeUpdate();
 				ps.close();
 
-				if (Constants.ACCEPT.equals(fattr.getValue())) {
+				if (fattr.getValue().toLowerCase().contains(Constants.ACCEPT) || fattr.getValue().toLowerCase().contains(Constants.POSITIVE.toLowerCase())|| Constants.POSITIVE_CODE[0].equals(fattr.getValue())|| Constants.POSITIVE_CODE[1].equals(fattr.getValue())) {
 					PreparedStatement ps2 = connection
 							.prepareStatement("UPDATE files SET linked_id = ? WHERE name LIKE ?");
 					ps2.setInt(1, file.getId());
-					ps2.setString(2, file.getAttributes().get(AttributeDescr.PARENT).getValue());
+					ps2.setString(2, file.getAttributes().get(AttributeDescr.PARENT).getValue()+".arj");
 					ps2.executeUpdate();
 					ps2.close();
 				}

@@ -107,10 +107,9 @@ public class FileParser {
 																				// not
 																				// work..
 					int i = 0;
-					boolean nextNode = false;
 					Node node = null;
 					NodeList list = doc.getChildNodes();
-					while (i < par.length && (!nextNode)) {
+					while (i < par.length) {
 
 						int j = 0;
 						boolean flag = true;
@@ -126,8 +125,10 @@ public class FileParser {
 						if (!flag) {
 							list = node.getChildNodes();
 							i++;
-						} else {
+						} else if (node==null) {
 							throw new ReportError("Node not found");
+						} else {
+							i++;
 						}
 					}
 

@@ -29,6 +29,7 @@ public class ChooseKeyDialogController {
 	public void setKeys(ObservableList<Key> keys) {
 		this.keys = keys;
 		keysChooser.setItems(keys);
+		keysChooser.getSelectionModel().selectFirst();
 	}
 	
 	@FXML

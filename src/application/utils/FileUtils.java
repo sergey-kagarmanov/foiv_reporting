@@ -76,7 +76,7 @@ public class FileUtils {
 	}
 
 	public static Boolean isType(String fileName, FileType type) {
-		return Pattern.compile(type.getMask()).matcher(fileName).matches();
+		return Pattern.compile(type.getMask().toLowerCase()).matcher(fileName).matches();
 	}
 
 	public static ObservableList<String> getDirContentByMask(String directory, FileType fileType)

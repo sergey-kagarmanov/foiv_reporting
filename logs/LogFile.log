@@ -460,3 +460,772 @@
 [2020-01-21 17:37:43] [INFO   ] Database connected 
 [2020-01-21 17:37:46] [INFO   ] Load main view EncriptOverviewController 
 [2020-01-21 17:37:46] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 17:49:56] [INFO   ] Programm started 
+[2020-01-21 17:49:56] [INFO   ] Database connected 
+[2020-01-21 17:49:58] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 17:49:58] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 17:50:20] [INFO   ] Local interface of signature is created 
+[2020-01-21 17:53:45] [INFO   ] Programm started 
+[2020-01-21 17:53:47] [INFO   ] Database connected 
+[2020-01-21 17:53:50] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 17:53:50] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 17:54:12] [INFO   ] Local interface of signature is created 
+[2020-01-21 18:54:36] [INFO   ] Programm started 
+[2020-01-21 18:54:36] [INFO   ] Database connected 
+[2020-01-21 18:54:38] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 18:54:38] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 18:55:11] [INFO   ] Programm started 
+[2020-01-21 18:55:12] [INFO   ] Database connected 
+[2020-01-21 18:55:14] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 18:55:14] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:01:56] [INFO   ] Programm started 
+[2020-01-21 19:01:56] [INFO   ] Database connected 
+[2020-01-21 19:01:58] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:01:58] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:03:34] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:03:39] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:03:44] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:03:44] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:03:44] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:03:44] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:03:44] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:03:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:03:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:03:54] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:03:54] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:03:59] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:03:59] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:04] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:04] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:09] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:09] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:19] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:19] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:24] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:24] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:29] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:29] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:34] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:34] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:39] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:39] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:44] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:44] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:54] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:54] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:59] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:04:59] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:04] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:04] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:09] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:09] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:12] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:05:46] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:47] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:05:50] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:07:07] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:09] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:10] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:11] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:15] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:16] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:18] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:19] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:20] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:22] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:23] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:24] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:25] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:26] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:28] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:29] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:30] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:31] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:33] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:34] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:35] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:36] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:38] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:39] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:40] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:07:42] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:01] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:11] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:11] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:11] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:11] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:13] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:15] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:15] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:15] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:15] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:15] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:15] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:16] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:19] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:19] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:09:19] [INFO   ] Sign parameters are set 
+[2020-01-21 19:09:19] [INFO   ] Verify parameters are set 
+[2020-01-21 19:09:19] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:09:19] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:09:19] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:09:42] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:42] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:42] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:42] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:42] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:43] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:43] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:43] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:43] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:43] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:43] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:43] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:43] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:43] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:44] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:44] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:51] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:52] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:09:52] [INFO   ] Sign parameters are set 
+[2020-01-21 19:09:52] [INFO   ] Verify parameters are set 
+[2020-01-21 19:09:52] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:09:52] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:09:52] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:09:56] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:56] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:56] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:59] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:09:59] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:00] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:10:00] [INFO   ] Sign parameters are set 
+[2020-01-21 19:10:00] [INFO   ] Verify parameters are set 
+[2020-01-21 19:10:00] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:10:00] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:10:00] [SEVERE ] File C:\workspace_photon\fc_reporting\tmp\IZVTUB_AFN_4030878_MIFNS00_20200109_00001.xml isn't unsigned. Result code - e070001a 
+[2020-01-21 19:10:00] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:10:03] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:04] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:04] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:06] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:09] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:09] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:11] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:14] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:16] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:16] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:10:16] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:16] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:19] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:19] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:21] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:21] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:28] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:28] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:28] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:28] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:29] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:29] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:31] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:31] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:34] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:35] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:36] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:36] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:39] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:39] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:41] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:41] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:44] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:44] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:46] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:49] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:51] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:51] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:54] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:54] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:56] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:56] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:59] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:10:59] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:01] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:02] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:04] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:04] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:06] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:06] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:09] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:09] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:11] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:11:11] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:12:54] [INFO   ] Programm started 
+[2020-01-21 19:12:55] [INFO   ] Database connected 
+[2020-01-21 19:12:57] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:12:57] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:18:18] [INFO   ] Programm started 
+[2020-01-21 19:18:19] [INFO   ] Database connected 
+[2020-01-21 19:18:21] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:18:21] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:18:24] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:18:24] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:27] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:27] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:18:34] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:37] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:39] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:18:39] [INFO   ] Sign parameters are set 
+[2020-01-21 19:18:39] [INFO   ] Verify parameters are set 
+[2020-01-21 19:18:39] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:18:39] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:18:39] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:18:41] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:18:41] [INFO   ] Sign parameters are set 
+[2020-01-21 19:18:41] [INFO   ] Verify parameters are set 
+[2020-01-21 19:18:41] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:18:41] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:18:41] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:18:42] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:44] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:18:44] [INFO   ] Sign parameters are set 
+[2020-01-21 19:18:44] [INFO   ] Verify parameters are set 
+[2020-01-21 19:18:44] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:18:44] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:18:44] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:18:44] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:18:45] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:45] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:47] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:50] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:52] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:55] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:18:57] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:19:00] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:19:02] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:19:04] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:19:05] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:19:07] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:19:07] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:19:07] [INFO   ] Sign parameters are set 
+[2020-01-21 19:19:07] [INFO   ] Verify parameters are set 
+[2020-01-21 19:19:07] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:19:07] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:19:07] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:19:10] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:19:10] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:19:10] [INFO   ] Sign parameters are set 
+[2020-01-21 19:19:10] [INFO   ] Verify parameters are set 
+[2020-01-21 19:19:10] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:19:10] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:19:10] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:19:12] [INFO   ] Data for 440-П was loaded. Count in files is 1. Count out files is 0 
+[2020-01-21 19:19:13] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:19:13] [INFO   ] Sign parameters are set 
+[2020-01-21 19:19:13] [INFO   ] Verify parameters are set 
+[2020-01-21 19:19:13] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:19:13] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:19:13] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:20:16] [INFO   ] Programm started 
+[2020-01-21 19:20:17] [INFO   ] Database connected 
+[2020-01-21 19:20:19] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:20:19] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:20:22] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:20:25] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:20:29] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:20:29] [INFO   ] Sign parameters are set 
+[2020-01-21 19:20:29] [INFO   ] Verify parameters are set 
+[2020-01-21 19:20:29] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:20:29] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:20:29] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:20:31] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:20:31] [INFO   ] Sign parameters are set 
+[2020-01-21 19:20:31] [INFO   ] Verify parameters are set 
+[2020-01-21 19:20:31] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:20:31] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:20:31] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:20:34] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:20:34] [INFO   ] Sign parameters are set 
+[2020-01-21 19:20:34] [INFO   ] Verify parameters are set 
+[2020-01-21 19:20:34] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:20:34] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:20:34] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:21:02] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:21:06] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:21:09] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:21:09] [INFO   ] Sign parameters are set 
+[2020-01-21 19:21:09] [INFO   ] Verify parameters are set 
+[2020-01-21 19:21:09] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:21:09] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:21:09] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:21:12] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:21:12] [INFO   ] Sign parameters are set 
+[2020-01-21 19:21:12] [INFO   ] Verify parameters are set 
+[2020-01-21 19:21:12] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:21:12] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:21:12] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:21:14] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:21:14] [INFO   ] Sign parameters are set 
+[2020-01-21 19:21:14] [INFO   ] Verify parameters are set 
+[2020-01-21 19:21:14] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:21:14] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:21:14] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:21:40] [INFO   ] Programm started 
+[2020-01-21 19:21:41] [INFO   ] Database connected 
+[2020-01-21 19:21:43] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:21:43] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:21:46] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:21:49] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:21:53] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:21:53] [INFO   ] Sign parameters are set 
+[2020-01-21 19:21:53] [INFO   ] Verify parameters are set 
+[2020-01-21 19:21:53] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:21:53] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:21:53] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:21:55] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:21:55] [INFO   ] Sign parameters are set 
+[2020-01-21 19:21:55] [INFO   ] Verify parameters are set 
+[2020-01-21 19:21:55] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:21:55] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:21:55] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:21:59] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:21:59] [INFO   ] Sign parameters are set 
+[2020-01-21 19:21:59] [INFO   ] Verify parameters are set 
+[2020-01-21 19:21:59] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:21:59] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:21:59] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:24:20] [INFO   ] Programm started 
+[2020-01-21 19:24:21] [INFO   ] Database connected 
+[2020-01-21 19:24:23] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:24:23] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:25:07] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:25:27] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:26:23] [INFO   ] Programm started 
+[2020-01-21 19:26:24] [INFO   ] Database connected 
+[2020-01-21 19:26:26] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:26:26] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:26:30] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:26:34] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:27:54] [INFO   ] Programm started 
+[2020-01-21 19:27:55] [INFO   ] Database connected 
+[2020-01-21 19:27:57] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:27:57] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:28:00] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:28:03] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:28:39] [INFO   ] Programm started 
+[2020-01-21 19:28:40] [INFO   ] Database connected 
+[2020-01-21 19:28:42] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:28:42] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:28:45] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:28:47] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:30:10] [INFO   ] Programm started 
+[2020-01-21 19:30:11] [INFO   ] Database connected 
+[2020-01-21 19:30:13] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:30:13] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:30:27] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:30:29] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:42:05] [INFO   ] Programm started 
+[2020-01-21 19:42:05] [INFO   ] Database connected 
+[2020-01-21 19:42:07] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:42:07] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:42:10] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:42:13] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:42:57] [INFO   ] Programm started 
+[2020-01-21 19:42:57] [INFO   ] Database connected 
+[2020-01-21 19:43:00] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:43:00] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:43:02] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:43:05] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:44:01] [INFO   ] Programm started 
+[2020-01-21 19:44:02] [INFO   ] Database connected 
+[2020-01-21 19:44:04] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:44:04] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:44:07] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:44:09] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:45:45] [INFO   ] Programm started 
+[2020-01-21 19:45:46] [INFO   ] Database connected 
+[2020-01-21 19:45:47] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 19:45:48] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 19:45:51] [INFO   ] 440-П report has been choosen 
+[2020-01-21 19:45:53] [INFO   ] Local interface of signature is created 
+[2020-01-21 19:51:51] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:52:04] [INFO   ] Sign parameters are set 
+[2020-01-21 19:52:04] [INFO   ] Verify parameters are set 
+[2020-01-21 19:52:04] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:52:04] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:52:14] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:52:43] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:52:43] [INFO   ] Sign parameters are set 
+[2020-01-21 19:52:43] [INFO   ] Verify parameters are set 
+[2020-01-21 19:52:43] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:52:43] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:52:43] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 19:52:57] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 19:52:57] [INFO   ] Sign parameters are set 
+[2020-01-21 19:52:57] [INFO   ] Verify parameters are set 
+[2020-01-21 19:52:57] [INFO   ] Encrypt parameters are set 
+[2020-01-21 19:52:57] [INFO   ] Decrypt parameters are set 
+[2020-01-21 19:52:57] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:02:01] [INFO   ] Programm started 
+[2020-01-21 20:02:01] [INFO   ] Database connected 
+[2020-01-21 20:02:03] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 20:02:03] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 20:02:07] [INFO   ] 440-П report has been choosen 
+[2020-01-21 20:02:09] [INFO   ] Local interface of signature is created 
+[2020-01-21 20:02:26] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:02:26] [INFO   ] Sign parameters are set 
+[2020-01-21 20:02:26] [INFO   ] Verify parameters are set 
+[2020-01-21 20:02:26] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:02:26] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:02:26] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:02:36] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:02:36] [INFO   ] Sign parameters are set 
+[2020-01-21 20:02:36] [INFO   ] Verify parameters are set 
+[2020-01-21 20:02:36] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:02:36] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:02:36] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:02:39] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:02:39] [INFO   ] Sign parameters are set 
+[2020-01-21 20:02:39] [INFO   ] Verify parameters are set 
+[2020-01-21 20:02:39] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:02:39] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:02:39] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:03:50] [INFO   ] Programm started 
+[2020-01-21 20:03:51] [INFO   ] Database connected 
+[2020-01-21 20:03:52] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 20:03:53] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 20:04:11] [INFO   ] Programm started 
+[2020-01-21 20:04:12] [INFO   ] Database connected 
+[2020-01-21 20:04:14] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 20:04:14] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 20:04:18] [INFO   ] 440-П report has been choosen 
+[2020-01-21 20:04:41] [INFO   ] Local interface of signature is created 
+[2020-01-21 20:04:46] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:04:46] [INFO   ] Sign parameters are set 
+[2020-01-21 20:04:46] [INFO   ] Verify parameters are set 
+[2020-01-21 20:04:46] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:04:46] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:04:46] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:04:49] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:04:49] [INFO   ] Sign parameters are set 
+[2020-01-21 20:04:49] [INFO   ] Verify parameters are set 
+[2020-01-21 20:04:49] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:04:49] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:04:49] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:04:52] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:04:52] [INFO   ] Sign parameters are set 
+[2020-01-21 20:04:52] [INFO   ] Verify parameters are set 
+[2020-01-21 20:04:52] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:04:52] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:04:52] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:05:01] [INFO   ] 440-П report has been choosen 
+[2020-01-21 20:09:41] [INFO   ] Local interface of signature is created 
+[2020-01-21 20:09:44] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:09:44] [INFO   ] Sign parameters are set 
+[2020-01-21 20:09:44] [INFO   ] Verify parameters are set 
+[2020-01-21 20:09:44] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:09:44] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:09:44] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:09:47] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:09:47] [INFO   ] Sign parameters are set 
+[2020-01-21 20:09:47] [INFO   ] Verify parameters are set 
+[2020-01-21 20:09:47] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:09:47] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:09:47] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:09:50] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:09:50] [INFO   ] Sign parameters are set 
+[2020-01-21 20:09:50] [INFO   ] Verify parameters are set 
+[2020-01-21 20:09:50] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:09:50] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:09:50] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:13:00] [INFO   ] Programm started 
+[2020-01-21 20:13:01] [INFO   ] Database connected 
+[2020-01-21 20:13:03] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 20:13:03] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 20:13:08] [INFO   ] 440-П report has been choosen 
+[2020-01-21 20:13:11] [INFO   ] Local interface of signature is created 
+[2020-01-21 20:13:15] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:13:15] [INFO   ] Sign parameters are set 
+[2020-01-21 20:13:15] [INFO   ] Verify parameters are set 
+[2020-01-21 20:13:15] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:13:15] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:13:15] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:13:18] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:13:18] [INFO   ] Sign parameters are set 
+[2020-01-21 20:13:18] [INFO   ] Verify parameters are set 
+[2020-01-21 20:13:18] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:13:18] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:13:18] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:13:21] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-21 20:13:21] [INFO   ] Sign parameters are set 
+[2020-01-21 20:13:21] [INFO   ] Verify parameters are set 
+[2020-01-21 20:13:21] [INFO   ] Encrypt parameters are set 
+[2020-01-21 20:13:21] [INFO   ] Decrypt parameters are set 
+[2020-01-21 20:13:21] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-21 20:13:22] [INFO   ] 440-П report has been choosen 
+[2020-01-21 20:16:44] [INFO   ] Programm started 
+[2020-01-21 20:16:45] [INFO   ] Database connected 
+[2020-01-21 20:16:47] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-21 20:16:48] [INFO   ] 1459-П report has been choosen 
+[2020-01-21 20:16:52] [INFO   ] 440-П report has been choosen 
+[2020-01-22 09:05:03] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 09:05:10] [INFO   ] Local interface of signature is created 
+[2020-01-22 09:05:15] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-22 09:05:15] [INFO   ] Sign parameters are set 
+[2020-01-22 09:05:15] [INFO   ] Verify parameters are set 
+[2020-01-22 09:05:15] [INFO   ] Encrypt parameters are set 
+[2020-01-22 09:05:15] [INFO   ] Decrypt parameters are set 
+[2020-01-22 09:05:15] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ESDT_1637_0005_20200118_001.arj is unsigned in C:\workspace_photon\fc_reporting\tmp\ESDT_1637_0005_20200118_001.arj_unsign 
+[2020-01-22 09:05:15] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ESDT_1637_0005_20200121_001.arj is unsigned in C:\workspace_photon\fc_reporting\tmp\ESDT_1637_0005_20200121_001.arj_unsign 
+[2020-01-22 09:05:15] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ESDT_1637_0005_20200119_001.arj is unsigned in C:\workspace_photon\fc_reporting\tmp\ESDT_1637_0005_20200119_001.arj_unsign 
+[2020-01-22 09:05:15] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-22 09:05:29] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-22 09:05:29] [INFO   ] Sign parameters are set 
+[2020-01-22 09:05:29] [INFO   ] Verify parameters are set 
+[2020-01-22 09:05:29] [INFO   ] Encrypt parameters are set 
+[2020-01-22 09:05:29] [INFO   ] Decrypt parameters are set 
+[2020-01-22 09:05:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10216170_170120_0010585_1_1637_0005_200000000012.xml is decrypted in C:\workspace_photon\fc_reporting\tmp\DT10216170_170120_0010585_1_1637_0005_200000000012.xml_enc 
+[2020-01-22 09:05:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10216170_170120_0010585_1_1637_0005_200000000012.xml_enc is decompressed to tmp\DT10216170_170120_0010585_1_1637_0005_200000000012.xml 
+[2020-01-22 09:05:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10216170_301219_0255124_2_1637_0005_200000000013.xml is decrypted in C:\workspace_photon\fc_reporting\tmp\DT10216170_301219_0255124_2_1637_0005_200000000013.xml_enc 
+[2020-01-22 09:05:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10216170_301219_0255124_2_1637_0005_200000000013.xml_enc is decompressed to tmp\DT10216170_301219_0255124_2_1637_0005_200000000013.xml 
+[2020-01-22 09:05:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10113110_180120_0004523_1_1637_0005_200000000014.xml is decrypted in C:\workspace_photon\fc_reporting\tmp\DT10113110_180120_0004523_1_1637_0005_200000000014.xml_enc 
+[2020-01-22 09:05:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10113110_180120_0004523_1_1637_0005_200000000014.xml_enc is decompressed to tmp\DT10113110_180120_0004523_1_1637_0005_200000000014.xml 
+[2020-01-22 09:05:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10115070_110419_0024748_2_1637_0005_200000000015.xml is decrypted in C:\workspace_photon\fc_reporting\tmp\DT10115070_110419_0024748_2_1637_0005_200000000015.xml_enc 
+[2020-01-22 09:05:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10115070_110419_0024748_2_1637_0005_200000000015.xml_enc is decompressed to tmp\DT10115070_110419_0024748_2_1637_0005_200000000015.xml 
+[2020-01-22 09:05:29] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-22 09:05:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-22 09:05:35] [INFO   ] Sign parameters are set 
+[2020-01-22 09:05:35] [INFO   ] Verify parameters are set 
+[2020-01-22 09:05:35] [INFO   ] Encrypt parameters are set 
+[2020-01-22 09:05:35] [INFO   ] Decrypt parameters are set 
+[2020-01-22 09:05:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10216170_170120_0010585_1_1637_0005_200000000012.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\DT10216170_170120_0010585_1_1637_0005_200000000012.xml_unsign 
+[2020-01-22 09:05:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10216170_301219_0255124_2_1637_0005_200000000013.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\DT10216170_301219_0255124_2_1637_0005_200000000013.xml_unsign 
+[2020-01-22 09:05:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10113110_180120_0004523_1_1637_0005_200000000014.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\DT10113110_180120_0004523_1_1637_0005_200000000014.xml_unsign 
+[2020-01-22 09:05:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\DT10115070_110419_0024748_2_1637_0005_200000000015.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\DT10115070_110419_0024748_2_1637_0005_200000000015.xml_unsign 
+[2020-01-22 09:05:35] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-22 09:05:39] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 10:39:07] [INFO   ] Local interface of signature is created 
+[2020-01-22 10:39:10] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-22 10:39:13] [INFO   ] Encrypt parameters are set 
+[2020-01-22 10:39:15] [INFO   ] File D:\OUT\4512\DC07120005_1637_0005_4_0_1637_0005_0001_20200109_000001.pdf is encrypted in D:\OUT\4512\DC07120005_1637_0005_4_0_1637_0005_0001_20200109_000001.pdf_enc 
+[2020-01-22 10:39:16] [INFO   ] File D:\OUT\4512\DC16010001_1637_0005_2_1_1637_0005_0003_20191231_000001.pdf is encrypted in D:\OUT\4512\DC16010001_1637_0005_2_1_1637_0005_0003_20191231_000001.pdf_enc 
+[2020-01-22 10:39:16] [INFO   ] File D:\OUT\4512\DC18020004_1637_0005_2_1_1637_0005_0003_20191231_000001.pdf is encrypted in D:\OUT\4512\DC18020004_1637_0005_2_1_1637_0005_0003_20191231_000001.pdf_enc 
+[2020-01-22 10:39:24] [INFO   ] File D:\OUT\4512\DC20010002_1637_0005_2_1_1637_0005_0000_20200109_000001.pdf is encrypted in D:\OUT\4512\DC20010002_1637_0005_2_1_1637_0005_0000_20200109_000001.pdf_enc 
+[2020-01-22 10:39:24] [INFO   ] File D:\OUT\4512\PS07120005_1637_0005_4_0_1637_0005.xml is encrypted in D:\OUT\4512\PS07120005_1637_0005_4_0_1637_0005.xml_enc 
+[2020-01-22 10:39:24] [INFO   ] File D:\OUT\4512\PS16010001_1637_0005_2_1_1637_0005.xml is encrypted in D:\OUT\4512\PS16010001_1637_0005_2_1_1637_0005.xml_enc 
+[2020-01-22 10:39:25] [INFO   ] File D:\OUT\4512\PS18020004_1637_0005_2_1_1637_0005.xml is encrypted in D:\OUT\4512\PS18020004_1637_0005_2_1_1637_0005.xml_enc 
+[2020-01-22 10:39:25] [INFO   ] File D:\OUT\4512\PS20010002_1637_0005_2_1_1637_0005.xml is encrypted in D:\OUT\4512\PS20010002_1637_0005_2_1_1637_0005.xml_enc 
+[2020-01-22 10:39:33] [INFO   ] 311-П(фл) report has been choosen 
+[2020-01-22 10:39:38] [INFO   ] Local interface of signature is created 
+[2020-01-22 10:39:38] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-22 10:39:38] [INFO   ] Sign parameters are set 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005629_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005629_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005630_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005630_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005631_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005631_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005632_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005632_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005633_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005633_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005634_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005634_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005635_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005635_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005636_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005636_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005637_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005637_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005638_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005638_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005639_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005639_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005640_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005640_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005641_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005641_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005642_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005642_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005643_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005643_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005644_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005644_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005645_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005645_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005646_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005646_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005647_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005647_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005648_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005648_700.XML_sign 
+[2020-01-22 10:39:39] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-22 10:39:39] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-22 10:39:39] [INFO   ] Sign parameters are set 
+[2020-01-22 10:39:39] [INFO   ] Verify parameters are set 
+[2020-01-22 10:39:39] [INFO   ] Encrypt parameters are set 
+[2020-01-22 10:39:39] [INFO   ] Decrypt parameters are set 
+[2020-01-22 10:39:46] [INFO   ] Encrypt parameters are set 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005629_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005629_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005630_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005630_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005631_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005631_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005632_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005632_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005633_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005633_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005634_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005634_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005635_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005635_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005636_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005636_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005637_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005637_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005638_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005638_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005639_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005639_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005640_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005640_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005641_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005641_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005642_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005642_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005643_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005643_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005644_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005644_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005645_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005645_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005646_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005646_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005647_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005647_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005648_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200122_163700052000005648_700.XML_enc 
+[2020-01-22 10:39:46] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-22 10:39:54] [INFO   ] 311-П(фл) report has been choosen 
+[2020-01-22 10:59:33] [INFO   ] Programm started 
+[2020-01-22 10:59:34] [INFO   ] Database connected 
+[2020-01-22 10:59:37] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-22 10:59:37] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 10:59:40] [INFO   ] 311-П(фл) report has been choosen 
+[2020-01-22 11:09:08] [INFO   ] Programm started 
+[2020-01-22 11:09:09] [INFO   ] Database connected 
+[2020-01-22 11:09:11] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-22 11:09:11] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 11:10:09] [INFO   ] Local interface of signature is created 
+[2020-01-22 11:10:12] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-22 11:10:12] [INFO   ] Sign parameters are set 
+[2020-01-22 11:10:12] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\FT10216170_301219_0255124_2_1637_0005_200000000013.xml is signed in C:\workspace_photon\fc_reporting\tmp\FT10216170_301219_0255124_2_1637_0005_200000000013.xml_sign 
+[2020-01-22 11:10:12] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\FT10113110_180120_0004523_1_1637_0005_200000000014.xml is signed in C:\workspace_photon\fc_reporting\tmp\FT10113110_180120_0004523_1_1637_0005_200000000014.xml_sign 
+[2020-01-22 11:10:12] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\FT10115070_110419_0024748_2_1637_0005_200000000015.xml is signed in C:\workspace_photon\fc_reporting\tmp\FT10115070_110419_0024748_2_1637_0005_200000000015.xml_sign 
+[2020-01-22 11:10:12] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\FT10216170_170120_0010585_1_1637_0005_200000000012.xml is signed in C:\workspace_photon\fc_reporting\tmp\FT10216170_170120_0010585_1_1637_0005_200000000012.xml_sign 
+[2020-01-22 11:10:12] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-22 11:10:16] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-22 11:10:16] [INFO   ] Sign parameters are set 
+[2020-01-22 11:10:16] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KESDT_1637_0005_20200122_001.arj is signed in C:\workspace_photon\fc_reporting\tmp\KESDT_1637_0005_20200122_001.arj_sign 
+[2020-01-22 11:10:16] [INFO   ] Local interface Signatura unloads successfull 
+[2020-01-22 11:10:22] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 11:12:58] [INFO   ] Programm started 
+[2020-01-22 11:12:59] [INFO   ] Database connected 
+[2020-01-22 11:13:01] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-22 11:13:01] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 11:13:12] [INFO   ] 440-П report has been choosen 
+[2020-01-22 11:13:14] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 11:14:10] [INFO   ] Programm started 
+[2020-01-22 11:14:11] [INFO   ] Database connected 
+[2020-01-22 11:14:13] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-22 11:14:13] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 11:14:19] [INFO   ] 440-П report has been choosen 
+[2020-01-22 11:14:21] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 11:17:43] [INFO   ] Programm started 
+[2020-01-22 11:17:44] [INFO   ] Database connected 
+[2020-01-22 11:17:46] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-22 11:17:47] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 11:18:54] [INFO   ] 440-П report has been choosen 
+[2020-01-22 11:18:57] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 11:19:49] [INFO   ] 440-П report has been choosen 
+[2020-01-22 11:19:54] [INFO   ] 1459-П report has been choosen 
+[2020-01-22 11:19:58] [INFO   ] 440-П report has been choosen 
+[2020-01-22 11:21:28] [INFO   ] Local interface of signature is created 
+[2020-01-22 11:21:31] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-01-22 11:21:39] [INFO   ] File D:\OUT\4512\DCEI_1637_0005_20200122_001.arj is signed in D:\OUT\4512\DCEI_1637_0005_20200122_001.arj_sign 
+[2020-01-22 11:21:43] [INFO   ] File D:\OUT\4512\PSEI_1637_0005_20200122_001.arj is signed in D:\OUT\4512\PSEI_1637_0005_20200122_001.arj_sign 
+[2020-01-22 11:29:51] [INFO   ] Programm started 
+[2020-01-22 11:29:52] [INFO   ] Database connected 
+[2020-01-22 11:29:54] [INFO   ] Load main view EncriptOverviewController 
+[2020-01-22 11:29:54] [INFO   ] 1459-П report has been choosen 
