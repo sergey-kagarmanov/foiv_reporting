@@ -132,8 +132,10 @@ public class FileParser {
 						}
 					}
 
-					if ("".equals(attributeDescr.getAttr()) || attributeDescr.getAttr() == null) {
-						return node.getFirstChild().getNodeValue();
+					if ("".equals(attributeDescr.getAttr().getValue()) || attributeDescr.getAttr() == null) {
+						if (node !=null && node.getFirstChild()!=null)
+							return node.getFirstChild().getNodeValue();
+						else return null;
 					} else {
 						NamedNodeMap m = node.getAttributes();
 						if (m.getNamedItem(par[par.length - 1]) != null)// This
@@ -145,8 +147,12 @@ public class FileParser {
 																		// in
 																		// attributes
 							return m.getNamedItem(par[par.length - 1]).getNodeValue();
-						else
+						else {
+							if (node!=null && node.getFirstChild()!=null)
 							return node.getFirstChild().getNodeValue();
+							else
+								return null;
+						}
 					}
 				} catch (ParserConfigurationException | SAXException | IOException e) {
 					e.printStackTrace();

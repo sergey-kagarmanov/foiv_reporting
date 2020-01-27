@@ -247,6 +247,7 @@ public class Signatura {
 		File tmp = null;
 		for (FileTransforming f : files) {
 			if (f.getErrorCode() == 0) {
+				f.setSigned(f.getCurrentFile());
 				tmp = new File(f.getCurrentFile().getAbsolutePath() + "_unsign");
 				result = verifySign(f.getCurrentFile().getAbsolutePath(),
 						f.getCurrentFile().getAbsolutePath() + "_unsign");

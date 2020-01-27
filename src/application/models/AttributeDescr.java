@@ -27,6 +27,7 @@ public class AttributeDescr {
 	public static final String TIME = "time";
 	public static final String COMMENT = "comment";
 	public static final String PARENT = "parent";
+	public static final String ID = "id";
 
 	private IntegerProperty id;
 	private BooleanProperty inName;

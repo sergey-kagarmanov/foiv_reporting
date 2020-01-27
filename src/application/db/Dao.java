@@ -376,7 +376,7 @@ public class Dao {
 		Integer id = 0;
 		Map<String, ReportFile> listFiles = null;
 		try {
-			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL ORDER BY f.id ASC , f.datetime ASC";
+			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL ORDER BY f.id ASC , f.datetime DESC";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, report.getId());
 			ps.setInt(2, direction ? 1 : 0);
@@ -776,12 +776,35 @@ public class Dao {
 				ps.executeUpdate();
 				ps.close();
 
-				if (fattr.getValue().toLowerCase().contains(Constants.ACCEPT) || fattr.getValue().toLowerCase().contains(Constants.POSITIVE.toLowerCase())|| Constants.POSITIVE_CODE[0].equals(fattr.getValue())|| Constants.POSITIVE_CODE[1].equals(fattr.getValue())) {
-					PreparedStatement ps2 = connection
-							.prepareStatement("UPDATE files SET linked_id = ? WHERE name LIKE ?");
-					ps2.setInt(1, file.getId());
-					ps2.setString(2, file.getAttributes().get(AttributeDescr.PARENT).getValue()+".arj");
-					ps2.executeUpdate();
+				if (fattr.getValue().toLowerCase().contains(Constants.ACCEPT)
+						|| fattr.getValue().toLowerCase().contains(Constants.POSITIVE.toLowerCase())
+						|| Constants.POSITIVE_CODE[0].equals(fattr.getValue())
+						|| Constants.POSITIVE_CODE[1].equals(fattr.getValue())) {
+					Integer parentId = null;
+					PreparedStatement ps2 = connection.prepareStatement(
+							"SELECT file_id FROM file_attributes WHERE value = ? AND attribute_id = 8");
+					ps2.setString(1, file.getAttributes().get(AttributeDescr.ID).getValue());
+					ResultSet rs2 = ps.executeQuery();
+					if (rs2.next()) {
+						parentId = rs2.getInt("file_id");
+					}
+					rs2.close();
+					ps2.close();
+
+					if (parentId != null) {
+						ps2 = connection
+								.prepareStatement("UPDATE files SET linked_id = ? WHERE id = ?");
+						ps2.setInt(1, file.getId());
+						ps2.setInt(2, parentId);
+						ps2.executeUpdate();
+					} else {
+						ps2 = connection.prepareStatement(
+								"UPDATE files SET linked_id = ? WHERE name LIKE ?");
+						ps2.setInt(1, file.getId());
+						ps2.setString(2, file.getAttributes().get(AttributeDescr.PARENT).getValue()
+								+ ".arj");
+						ps2.executeUpdate();
+					}
 					ps2.close();
 				}
 			}
@@ -876,111 +899,37 @@ public class Dao {
 	}
 
 	public void deleteReport(Report report) {
-		
+
 		/**
 		 * Delete chains
 		 */
 		ObservableList<Chain> chains = getChains(report, Constants.IN);
 		chains.addAll(getChains(report, Constants.OUT));
-		for(Chain chain : chains) {
+		for (Chain chain : chains) {
 			deleteChain(chain);
 		}
-		
+
 		/**
 		 * Delete File types
 		 */
-		for(FileType fileType : getFileTypes(report)) {
+		for (FileType fileType : getFileTypes(report)) {
 			deleteFileType(fileType);
 		}
-		
+
 		/**
 		 * Delete Files
 		 */
 		deleteFiles(report);
-		
-		
+
 		String sql = "DELETE FROM reports WHERE id = ?";
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, report.getId());
 			ps.executeUpdate();
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void deleteFiles(Report report) {
-		String sql = "DELETE from transport_files where parent_id = (select id from files where report_id = ?)";
-		PreparedStatement ps = null;
-		try {
-			ps = connection.prepareStatement(sql);
-			ps.setInt(1, report.getId());
-			ps.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		sql = "DELETE FROM files WHERE report_id = ?";
-		try {
-			ps = connection.prepareStatement(sql);
-			ps.setInt(1, report.getId());
-			ps.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void deleteFileType(FileType fileType) {
-		for(TicketResults ticketResult : fileType.getResults()) {
-			deleteTicketResult(ticketResult);
-		}
-		
-		String sql = "DELETE FROM file_types WHERE id = ?";
-		PreparedStatement ps = null;
-		try {
-			ps = connection.prepareStatement(sql);
-			ps.setInt(1, fileType.getId());
-			ps.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void deleteTicketResult(TicketResults ticketResult) {
-		String sql = "DELETE FROM ticket_results WHERE id = ?";
-		PreparedStatement ps = null;
-		try {
-			ps = connection.prepareStatement(sql);
-			ps.setInt(1, ticketResult.getId());
-			ps.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
@@ -989,7 +938,79 @@ public class Dao {
 		}
 	}
 
-	
+	public void deleteFiles(Report report) {
+		String sql = "DELETE from transport_files where parent_id = (select id from files where report_id = ?)";
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, report.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		sql = "DELETE FROM files WHERE report_id = ?";
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, report.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void deleteFileType(FileType fileType) {
+		for (TicketResults ticketResult : fileType.getResults()) {
+			deleteTicketResult(ticketResult);
+		}
+
+		String sql = "DELETE FROM file_types WHERE id = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, fileType.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void deleteTicketResult(TicketResults ticketResult) {
+		String sql = "DELETE FROM ticket_results WHERE id = ?";
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, ticketResult.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public void deleteChain(Chain chain) {
 		String sql = "DELETE FROM chain_arm WHERE chain_id = ?";
 		PreparedStatement ps = null;
@@ -1010,7 +1031,7 @@ public class Dao {
 		for (ProcessStep step : chain.getSteps()) {
 			deleteChainStep(step);
 		}
-		
+
 		try {
 			sql = "DELETE FROM chain WHERE id = ?";
 			ps = connection.prepareStatement(sql);
@@ -1432,6 +1453,33 @@ public class Dao {
 		return list;
 	}
 
+	public ObservableList<AttributeDescr> getAttributesDescriptions(FileType type) {
+		String sql = "SELECT * FROM attribute_settings WHERE type_id = ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ObservableList<AttributeDescr> list = FXCollections.observableArrayList();
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, type.getId());
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new AttributeDescr(rs.getInt("id"), rs.getInt("in_name") == 1,
+						rs.getString("etc"), getFileAttribute(rs.getInt("attribute_id")),
+						rs.getString("place"), getFileType(rs.getInt("type_id"))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
 	public AttributeDescr getAttributeDescription(Integer id) {
 		String sql = "SELECT * FROM attribute_settings WHERE id = ?";
 		PreparedStatement ps = null;
@@ -1680,7 +1728,7 @@ public class Dao {
 	public ObservableList<FileType> getFileTypes() {
 		return getFileTypes(null);
 	}
-	
+
 	public ObservableList<FileType> getFileTypes(Report report) {
 		String sql = "";
 		PreparedStatement ps = null;
@@ -1688,12 +1736,12 @@ public class Dao {
 		ObservableList<FileType> ft = FXCollections.observableArrayList();
 		try {
 			sql = "SELECT * from file_types ";
-			if (report!=null) {
+			if (report != null) {
 				sql += "WHERE report_id = ? ";
 			}
 			sql += " ORDER BY direction ASC";
 			ps = connection.prepareStatement(sql);
-			if (report!=null)
+			if (report != null)
 				ps.setInt(1, report.getId());
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -1714,7 +1762,6 @@ public class Dao {
 		}
 		return ft;
 	}
-
 
 	public void saveAttribute(FileAttribute attr) {
 		String sql = "";

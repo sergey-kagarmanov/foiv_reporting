@@ -51,6 +51,7 @@ public class AttributeLocationDialogController {
 	TableColumn<AttributeDescr, FileType> fileColumn;
 
 	private ObservableList<AttributeDescr> attributes;
+	private FileType type;
 
 	public void initialize() {
 
@@ -108,9 +109,25 @@ public class AttributeLocationDialogController {
 				});
 	}
 
+	@Deprecated
 	public void setData() {
 		attributes = mainApp.getDb().getAttributesDescriptions();
 		attributeTable.setItems(attributes);
+	}
+	
+	public void setData(ObservableList<AttributeDescr> attributes) {
+		attributeTable.setItems(attributes);
+	}
+	
+	public void setFileType(FileType fType) {
+		this.type = fType;
+	}
+	
+	public void updateData() {
+		if (type!=null)
+			attributes = mainApp.getDb().getAttributesDescriptions(type);
+		else
+			attributes = mainApp.getDb().getAttributesDescriptions();
 	}
 
 	@FXML
