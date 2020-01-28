@@ -458,6 +458,8 @@ public class EncryptOverviewController {
 		outPathArch.setText(report.getPathArchiveOut());
 		inOutputPath.setText(report.getPathOutputIn());
 		outOutputPath.setText(report.getPathOutputOut());
+		int inIndex = inArchiveFileTable.getSelectionModel().getSelectedIndex();
+		int outIndex = outArchiveFileTable.getSelectionModel().getSelectedIndex();
 		outArchiveFileTable.setItems(FXCollections.emptyObservableList());
 		inArchiveFileTable.setItems(FXCollections.emptyObservableList());
 		outArchiveFileTable.refresh();
@@ -466,6 +468,8 @@ public class EncryptOverviewController {
 				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), false));
 		inArchiveFileTable
 				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), true));
+		outArchiveFileTable.getSelectionModel().select(outIndex);
+		inArchiveFileTable.getSelectionModel().select(inIndex);
 		try {
 			if (report.getPathOut() != null) {
 				outFileList.setItems(FileUtils.getDirContentByMask(report.getPathOut(),

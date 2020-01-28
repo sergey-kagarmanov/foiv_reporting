@@ -376,7 +376,7 @@ public class Dao {
 		Integer id = 0;
 		Map<String, ReportFile> listFiles = null;
 		try {
-			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL ORDER BY f.id ASC , f.datetime DESC";
+			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL ORDER BY f.datetime DESC";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, report.getId());
 			ps.setInt(2, direction ? 1 : 0);
