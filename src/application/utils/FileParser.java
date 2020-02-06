@@ -125,6 +125,15 @@ public class FileParser {
 						if (!flag) {
 							list = node.getChildNodes();
 							i++;
+							if (i<par.length && par[i].startsWith("@")) {
+								String parName = par[i].substring(1);
+								NamedNodeMap mapAttributes = node.getAttributes();
+								for (int k = 0; k<mapAttributes.getLength(); k++) {
+									if (mapAttributes.item(k).getNodeName().equals(parName)) {
+										return mapAttributes.item(k).getNodeValue();
+									}
+								}
+							}
 						} else if (node==null) {
 							throw new ReportError("Node not found");
 						} else {
@@ -136,7 +145,7 @@ public class FileParser {
 						if (node !=null && node.getFirstChild()!=null)
 							return node.getFirstChild().getNodeValue();
 						else return null;
-					} else {
+					} /*else {
 						NamedNodeMap m = node.getAttributes();
 						if (m.getNamedItem(par[par.length - 1]) != null)// This
 																		// is
@@ -153,7 +162,7 @@ public class FileParser {
 							else
 								return null;
 						}
-					}
+					}*/
 				} catch (ParserConfigurationException | SAXException | IOException e) {
 					e.printStackTrace();
 				}
@@ -210,7 +219,7 @@ public class FileParser {
 
 	}
 
-	private FileType getType(File file) {
+	public FileType getType(File file) {
 		ObservableList<FileType> list = direction ? report.getPatternIn() : report.getPatternOut();
 		if (direction)
 			list.addAll(report.getTickets());

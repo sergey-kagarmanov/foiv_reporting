@@ -1,5 +1,7 @@
 package application.view;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -12,9 +14,10 @@ import application.models.Report;
 import application.models.ReportFile;
 import application.models.TransportFile;
 import application.utils.Constants;
-import application.utils.DateUtils;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -23,7 +26,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.TreeTableRow;
@@ -57,13 +59,16 @@ public class ArchiveOverviewController {
 	Label dateTimeAnswer;
 	@FXML
 	Label dateTimeFile;
+	
+	private LocalDate startTime;
+	private LocalDate endTime;
 
 	@FXML
 	TreeTableView<FileEntity> fileView;
 	@FXML
 	TreeTableColumn<FileEntity, String> fileNameColumn;
 	@FXML
-	TreeTableColumn<FileEntity, String> fileDateColumn;
+	TreeTableColumn<FileEntity, LocalDateTime> fileDateColumn;
 	@FXML
 	TreeTableColumn<FileEntity, String> fileDirectionColumn;
 	@FXML
@@ -112,13 +117,13 @@ public class ArchiveOverviewController {
 		fileNameColumn
 				.setCellValueFactory(new TreeItemPropertyValueFactory<FileEntity, String>("name"));
 		fileDateColumn.setCellValueFactory(
-				new TreeItemPropertyValueFactory<FileEntity, String>("datetime") {
+				new TreeItemPropertyValueFactory<FileEntity, LocalDateTime>("datetime") {
 					@Override
-					public ObservableValue<String> call(
-							CellDataFeatures<FileEntity, String> param) {
-
-						return new SimpleStringProperty(
-								DateUtils.formatGUI(param.getValue().getValue().getDatetime()));
+					public ObservableValue<LocalDateTime> call(
+							CellDataFeatures<FileEntity, LocalDateTime> param) {
+						return new SimpleObjectProperty<LocalDateTime>(param.getValue().getValue().getDatetime());
+						/*return new SimpleStringProperty(
+								DateUtils.formatGUI(param.getValue().getValue().getDatetime()));*/
 					}
 				});
 		fileReportColumn.setCellValueFactory(
@@ -146,7 +151,7 @@ public class ArchiveOverviewController {
 										.isEmpty()) {
 									Map<String, FileAttribute> attr = ((ReportFile) param.getValue()
 											.getValue()).getAttributes();
-									if (attr.get(AttributeDescr.PARENT) != null) {
+									if (attr.get(AttributeDescr.PARENT) != null && attr.get(AttributeDescr.PARENT).getValue() != null && !"".equals(attr.get(AttributeDescr.PARENT).getValue())) {
 										if (attr != null && attr.get(AttributeDescr.CODE) != null) {
 											if ("0".equals(attr.get(AttributeDescr.CODE).getValue())
 													|| "00".equals(attr.get(AttributeDescr.CODE)
@@ -159,13 +164,35 @@ public class ArchiveOverviewController {
 													+ attr.get(AttributeDescr.PARENT).getValue();
 										}
 									} else {
-										tmp = "";
+										tmp = "Исходный файл не найден";
 									}
 								} else {
 									tmp = "Ответ не получен";
 								}
 							} else {
-								tmp = "Ответ не получен";
+								
+								if (param.getValue().getValue()!=null) {
+									ObservableList<ReportFile> list = mainApp.getDb().getFilesByTransport(param.getValue().getValue());
+									int status = 0;
+									
+									if (param.getValue().getValue().getDirection()) {
+										for(ReportFile file : list) {//This is only for incoming transport files, because we don't do tickets for them, we need check all files in transport file, if they have linked files or it is ticket we mark transport as 'good'(green), if not all have answers or be tickets, we mark transport yellow, if no one have answers we mark transport pink  
+											if (file.getLinkedFile()!=null || file.getFileType().getTicket()) {
+												status++;
+											}
+										}
+										if (status == 0) {
+											tmp = "Файлы не обработаны";
+										} else if (status == list.size()) {
+											tmp = "Все файлы обработаны";
+										} else {
+											tmp = "Файлы обработаны частично";
+										}
+									}else {
+										tmp = "Файлы не обработаны";
+									}
+									}
+
 							}
 						} else if (fe instanceof ReportFile) {
 							ReportFile rf = (ReportFile) fe;
@@ -175,8 +202,7 @@ public class ArchiveOverviewController {
 										.get(AttributeDescr.COMMENT);
 								if (((fa != null)
 										&& (fa.getValue().equals("00") || "0".equals(fa.getValue())
-												|| "01".equals(rf.getAttributes()
-														.get(AttributeDescr.CODE).getValue())))
+												|| "01".equals(fa.getValue())))
 										|| ((commentAttr != null) && (Constants.ACCEPT
 												.equals(commentAttr.getValue())))) {
 									tmp = "Успешно";
@@ -213,7 +239,7 @@ public class ArchiveOverviewController {
 									this.setBackground(new Background(
 											new BackgroundFill(Color.PINK, null, null)));
 								} else {
-									if (rf.getAttributes().get(AttributeDescr.PARENT) != null) {
+									if (rf.getAttributes().get(AttributeDescr.PARENT) != null && rf.getAttributes().get(AttributeDescr.PARENT).getValue()!=null) {
 										if ((rf.getAttributes().get(AttributeDescr.CODE) != null
 												&& ("00".equals(rf.getAttributes()
 														.get(AttributeDescr.CODE).getValue())
@@ -235,14 +261,38 @@ public class ArchiveOverviewController {
 													new BackgroundFill(Color.RED, null, null)));
 
 										}
-									} else {
+									} else if (rf.getAttributes().get(AttributeDescr.PARENT) != null && rf.getAttributes().get(AttributeDescr.PARENT).getValue() == null) {
+										this.setBackground(new Background(
+												new BackgroundFill(Color.YELLOW, null, null)));
+										
+									}else {
 										this.setBackground(new Background(
 												new BackgroundFill(Color.PINK, null, null)));
 									}
 								}
 							} else {
-								this.setBackground(
-										new Background(new BackgroundFill(Color.PINK, null, null)));
+								if (fe!=null) {
+								ObservableList<ReportFile> list = mainApp.getDb().getFilesByTransport(fe);
+								int status = 0;
+								
+								if (fe.getDirection()) {
+									for(ReportFile file : list) {//This is only for incoming transport files, because we don't do tickets for them, we need check all files in transport file, if they have linked files or it is ticket we mark transport as 'good'(green), if not all have answers or be tickets, we mark transport yellow, if no one have answers we mark transport pink  
+										if (file.getLinkedFile()!=null || file.getFileType().getTicket()) {
+											status++;
+										}
+									}
+									if (status == 0) {
+										this.setBackground(new Background(new BackgroundFill(Color.PINK, null, null)));
+									} else if (status == list.size()) {
+										this.setBackground(new Background(new BackgroundFill(Color.SPRINGGREEN, null, null)));
+									} else {
+										this.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
+									}
+								}else {
+									this.setBackground(
+											new Background(new BackgroundFill(Color.PINK, null, null)));
+								}
+								}
 							}
 						} else {
 							if (fe != null && fe.getLinkedFile() instanceof ReportFile) {
@@ -304,14 +354,17 @@ public class ArchiveOverviewController {
 	public void setReports(List reports) {
 		reportChooser.getItems().clear();
 		reportChooser.getItems().addAll(reports);
+		reportChooser.getItems().add(null);
 
 		// I don't understand why we added an empty report to the end of the
 		// list
+		// This is for all report filter and it should be null than new Report()
 		// reportChooser.getItems().add(new Report());
 	}
 
 	@FXML
 	public void handleUpdate() {
+		setData(mainApp.getDb().getArchiveFiles(startTime, endTime, reportChooser.getValue()));
 		fillData();
 	}
 
@@ -320,25 +373,7 @@ public class ArchiveOverviewController {
 		root.setExpanded(true);
 		fileView.setShowRoot(false);
 		for (FileEntity file : fileFiles.values()) {
-			boolean filterPassed = true;
-
-			if (startDate.getValue() != null) {
-				if (file.getDatetime().isBefore(startDate.getValue().atTime(0, 0)))
-					filterPassed = false;
-			}
-
-			if (endDate.getValue() != null) {
-				if (file.getDatetime().isAfter(endDate.getValue().atTime(0, 0)))
-					filterPassed = false;
-			}
-
-			if (reportChooser.getValue() != null) {
-				if (!file.getReport().equals(reportChooser.getValue()))
-					filterPassed = false;
-			}
-
-			if (filterPassed)
-				root.getChildren().add(createItem(file, 0));
+			root.getChildren().add(createItem(file, 0));
 		}
 		fileView.setRoot(root);
 	}
@@ -370,6 +405,16 @@ public class ArchiveOverviewController {
 		fillData();
 	}
 
+	public void setStartDate(LocalDate dateTime) {
+		this.startTime = dateTime;
+		startDate.setValue(startTime);
+	}
+	
+	public void setEndTime(LocalDate dateTime) {
+		this.endTime = dateTime;
+		endDate.setValue(endTime);
+	}
+	
 	@FXML
 	public void handleStartDateSelected() {
 		// checks that own date is correct
@@ -377,6 +422,7 @@ public class ArchiveOverviewController {
 			if (startDate.getValue().isAfter(endDate.getValue())) {
 				startDate.setValue(endDate.getValue());
 			}
+		startTime = startDate.getValue();
 	}
 
 	@FXML
@@ -386,6 +432,7 @@ public class ArchiveOverviewController {
 			if (endDate.getValue().isBefore(startDate.getValue())) {
 				endDate.setValue(startDate.getValue());
 			}
+		endTime = endDate.getValue();
 	}
 
 }

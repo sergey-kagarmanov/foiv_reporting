@@ -19,9 +19,11 @@ public class FileEntity {
 	private ObjectProperty<Report> report;
 	private BooleanProperty direction;
 	private ObjectProperty<FileEntity> linkedFile;
+	private ObjectProperty<FileType> fileType;
+
 
 	public FileEntity(Integer id, String name, LocalDateTime datetime, Report report,
-			Boolean direction, FileEntity linkedFile) {
+			Boolean direction, FileEntity linkedFile, FileType fileType) {
 		this.id = new SimpleIntegerProperty();
 		this.id.setValue(id);
 		this.name = new SimpleStringProperty(name);
@@ -30,10 +32,11 @@ public class FileEntity {
 		this.direction = new SimpleBooleanProperty();
 		this.direction.setValue(direction);
 		this.linkedFile = new SimpleObjectProperty<FileEntity>(linkedFile);
+		this.fileType = new SimpleObjectProperty<FileType>(fileType);
 	}
 
 	public FileEntity() {
-		this(null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null);
 	}
 
 	/**
@@ -214,6 +217,34 @@ public class FileEntity {
 	 */
 	public void setLinkedFileProperty(ObjectProperty<FileEntity> linkedFile) {
 		this.linkedFile = linkedFile;
+	}
+
+	/**
+	 * @return the fileType
+	 */
+	public FileType getFileType() {
+		return fileType.get();
+	}
+
+	/**
+	 * @param fileType the fileType to set
+	 */
+	public void setFileType(FileType fileType) {
+		this.fileType = new SimpleObjectProperty<FileType>(fileType);
+	}
+
+	/**
+	 * @return the fileType
+	 */
+	public ObjectProperty<FileType> getFileTypeProperty() {
+		return fileType;
+	}
+
+	/**
+	 * @param fileType the fileType to set
+	 */
+	public void setFileTypeProperty(ObjectProperty<FileType> fileType) {
+		this.fileType = fileType;
 	}
 
 }

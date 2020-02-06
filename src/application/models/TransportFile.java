@@ -11,8 +11,8 @@ public class TransportFile extends FileEntity {
 	private ObjectProperty<Map<String, ReportFile>> listFiles;
 
 	public TransportFile(Integer id, String name, LocalDateTime datetime, Report report,
-			Boolean direction, FileEntity linkedFile, Map<String, ReportFile> listFiles) {
-		super(id, name, datetime, report, direction, linkedFile);
+			Boolean direction, FileEntity linkedFile, Map<String, ReportFile> listFiles, FileType fileType) {
+		super(id, name, datetime, report, direction, linkedFile, fileType);
 		this.listFiles = new SimpleObjectProperty<>(listFiles);
 	}
 

@@ -314,7 +314,10 @@ public class MainApp extends Application {
 			ArchiveOverviewController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setReports(dao.getReports());
-			controller.setData(dao.getArchiveFiles());
+			LocalDate today = LocalDate.now();
+			controller.setStartDate(today);
+			controller.setEndTime(today);
+			controller.setData(dao.getArchiveFiles(today, today, null));
 			controller.setDialogStage(dialogStage);
 
 			// Show the dialog and wait until the user closes it

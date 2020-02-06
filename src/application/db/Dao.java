@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -376,7 +377,7 @@ public class Dao {
 		Integer id = 0;
 		Map<String, ReportFile> listFiles = null;
 		try {
-			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL ORDER BY f.datetime DESC";
+			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f.type_id as parent_type, f2.type_id as child_type FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL ORDER BY f.datetime DESC, f.id ASC";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, report.getId());
 			ps.setInt(2, direction ? 1 : 0);
@@ -387,13 +388,13 @@ public class Dao {
 					listFiles = new HashMap<String, ReportFile>();
 					tfile = new TransportFile(id, rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
-							listFiles);
+							listFiles, getFileType(rs.getInt("parent_type"))); 
 					files.add(tfile);
 				}
 				listFiles.put(rs.getString("cname"),
 						new ReportFile(rs.getInt("cid"), rs.getString("cname"),
 								DateUtils.fromSQLite(rs.getString("cdatetime")), report, direction,
-								null, null));
+								null, null, getFileType(rs.getInt("child_type"))));
 			}
 			rs.close();
 			ps.close();
@@ -419,7 +420,7 @@ public class Dao {
 		Integer id = 0;
 		Map<String, ReportFile> listFiles = null;
 		try {
-			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL AND f.datetime > ? ORDER BY f.id ASC , f.datetime ASC";
+			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f.type_id as parent_type, f2.type_id as child_type FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL AND f.datetime > ? ORDER BY f.id ASC , f.datetime ASC";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, report.getId());
 			ps.setInt(2, direction ? 1 : 0);
@@ -431,13 +432,13 @@ public class Dao {
 					listFiles = new HashMap<String, ReportFile>();
 					tfile = new TransportFile(id, rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
-							listFiles);
+							listFiles, getFileType(rs.getInt("parent_type"))); 
 					files.add(tfile);
 				}
 				listFiles.put(rs.getString("cname"),
 						new ReportFile(rs.getInt("cid"), rs.getString("cname"),
 								DateUtils.fromSQLite(rs.getString("cdatetime")), report, direction,
-								null, null));
+								null, null, getFileType(rs.getInt("child_type"))));
 			}
 			rs.close();
 			ps.close();
@@ -456,7 +457,7 @@ public class Dao {
 		try {
 			String sql = "SELECT f.id, f.name, f.datetime, f.linked_id, f2.id as cid, f2.name as cname, f2.datetime as cdatetime,"
 					+ " f.direction, f.report_id, f2.direction as cdir"
-					+ ", r.id as rid FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id LEFT JOIN reports r ON f.report_id = r.id WHERE tf.id IS NOT NULL ORDER BY f.id ASC , f.datetime ASC";
+					+ ", r.id as rid, f.type_id as parent_type, f2.type_id as child_type FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id LEFT JOIN reports r ON f.report_id = r.id WHERE tf.id IS NOT NULL ORDER BY f.id ASC , f.datetime ASC";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -469,7 +470,7 @@ public class Dao {
 							rs.getObject("linked_id") != null
 									? getReportFileById(rs.getInt("linked_id"))
 									: null,
-							listFiles);
+							listFiles, getFileType(rs.getInt("parent_type")));
 					files.put(tfile.getName(), tfile);
 				}
 				listFiles.put(rs.getString("cname"), getReportFileById(rs.getInt("cid")));
@@ -482,6 +483,69 @@ public class Dao {
 
 		return files;
 	}
+	
+	/**
+	 * Return file with filter, if it is null, this parameter will not be used
+	 * @param start
+	 * @param end
+	 * @param report
+	 * @return
+	 */
+	public Map<String, FileEntity> getArchiveFiles(LocalDate start, LocalDate end, Report report) {
+		Map<String, FileEntity> files = new HashMap<String, FileEntity>();
+		FileEntity tfile = null;
+		Integer id = 0;
+		Map<String, ReportFile> listFiles = null;
+		String sql = "SELECT f.id, f.name, f.datetime, f.linked_id, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f2.direction as cdir, r.id as rid, f.type_id as parent_type FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id LEFT JOIN reports r ON f.report_id = r.id WHERE tf.id IS NOT NULL";
+		String sqlEnd = " ORDER BY f.datetime ASC, f.id ASC";
+		try {
+			if (start != null) {
+				sql += " AND f.datetime > ?";
+			}
+			if (end!=null) {
+				sql += " AND f.datetime < ?";
+			}
+			if (report!=null)
+				sql += " AND f.report_id = ? ";
+
+			PreparedStatement ps = connection.prepareStatement(sql + sqlEnd);
+			int i = 1;
+			if (start != null) {
+				ps.setString(i, DateUtils.toSQLite(start.atStartOfDay()));
+				i++;
+			}
+			if (end!=null) {
+				ps.setString(i, DateUtils.toSQLite(end.atTime(23, 59, 59)));
+				i++;
+			}
+			if (report!=null)
+				ps.setInt(i, report.getId());
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				if (id != rs.getInt("id")) {
+					id = rs.getInt("id");
+					listFiles = new HashMap<String, ReportFile>();
+					tfile = new TransportFile(id, rs.getString("name"),
+							DateUtils.fromSQLite(rs.getString("datetime")),
+							getReportById(rs.getInt("rid")), rs.getInt("cdir") == 1,
+							rs.getObject("linked_id") != null
+									? getReportFileById(rs.getInt("linked_id"))
+									: null,
+							listFiles, getFileType(rs.getInt("parent_type")));
+					files.put(tfile.getName(), tfile);
+				}
+				listFiles.put(rs.getString("cname"), getReportFileById(rs.getInt("cid")));
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return files;
+	}	
 
 	public Report getReportById(Integer id) {
 		Report tmpReport = null;
@@ -530,7 +594,7 @@ public class Dao {
 		ReportFile rf = null;
 		try {
 
-			String sql = "SELECT f.id, f.datetime, f.direction, f.linked_id, f.name, f.report_id, a.name as aname, fa.value, fa.attribute_id FROM files f LEFT JOIN file_attributes fa  ON f.id = fa.file_id LEFT JOIN attributes a ON a.id = fa.attribute_id WHERE f.id=?";
+			String sql = "SELECT f.id, f.datetime, f.direction, f.linked_id, f.name, f.report_id, a.name as aname, fa.value, fa.attribute_id, f.type_id as file_type FROM files f LEFT JOIN file_attributes fa  ON f.id = fa.file_id LEFT JOIN attributes a ON a.id = fa.attribute_id WHERE f.id=?";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -545,7 +609,7 @@ public class Dao {
 					rf = new ReportFile(rs.getInt("id"), rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), rep,
 							rs.getInt("direction") == 1, rftmp,
-							new HashMap<String, FileAttribute>());
+							new HashMap<String, FileAttribute>(), getFileType(rs.getInt("file_type")));
 
 					newFile = false;
 				}
@@ -571,9 +635,9 @@ public class Dao {
 		ReportFile rf = null;
 		try {
 
-			String sql = "SELECT f.id, f.datetime, f.direction, f.linked_id, f.name, f.report_id, a.name as aname, fa.value, fa.attribute_id FROM files f LEFT JOIN file_attributes fa  ON f.id = fa.file_id LEFT JOIN attributes a ON a.id = fa.attribute_id WHERE f.name LIKE (?)";
+			String sql = "SELECT f.id, f.datetime, f.direction, f.linked_id, f.name, f.report_id, a.name as aname, fa.value, fa.attribute_id, f.type_id as file_type FROM files f LEFT JOIN file_attributes fa  ON f.id = fa.file_id LEFT JOIN attributes a ON a.id = fa.attribute_id WHERE f.name LIKE (?)";
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setString(1, name);
+			ps.setString(1, name + "%");
 			ResultSet rs = ps.executeQuery();
 			boolean newFile = true;
 			while (rs.next()) {
@@ -586,7 +650,7 @@ public class Dao {
 					rf = new ReportFile(rs.getInt("id"), rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), rep,
 							rs.getInt("direction") == 1, rftmp,
-							new HashMap<String, FileAttribute>());
+							new HashMap<String, FileAttribute>(), getFileType(rs.getInt("file_type")));
 
 					newFile = false;
 				}
@@ -613,7 +677,7 @@ public class Dao {
 		Integer id = 0;
 		Map<String, ReportFile> listFiles = null;
 		try {
-			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL ORDER BY f.id ASC , f.datetime ASC";
+			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f.type_id as parent_type, f2.type_id as child_type FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL ORDER BY f.id ASC , f.datetime ASC";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, report.getId());
 			ps.setInt(2, direction ? 1 : 0);
@@ -624,13 +688,13 @@ public class Dao {
 					listFiles = new HashMap<String, ReportFile>();
 					tfile = new TransportFile(id, rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
-							listFiles);
+							listFiles, getFileType(rs.getInt("parent_type"))); 
 
 				}
 				listFiles.put(rs.getString("cname"),
 						new ReportFile(rs.getInt("cid"), rs.getString("cname"),
 								DateUtils.fromSQLite(rs.getString("cdatetime")), report, direction,
-								null, null));
+								null, null, getFileType(rs.getInt("child_type")))); 
 			}
 			rs.close();
 			ps.close();
@@ -718,7 +782,7 @@ public class Dao {
 
 	public void saveReportFile(ReportFile file) {
 		try {
-			String sql = "INSERT INTO files(report_id, name, datetime, direction, linked_in) VALUES (?,?,?,?,?)";
+			String sql = "INSERT INTO files(report_id, name, datetime, direction, linked_in, type_id) VALUES (?,?,?,?,?,?)";
 			PreparedStatement ps = connection.prepareStatement(sql,
 					Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, file.getReport().getId());
@@ -728,8 +792,12 @@ public class Dao {
 			if (file.getLinkedFile() != null) {
 				ps.setInt(5, file.getLinkedFile().getId());
 			} else {
-				ps.setNull(6, Types.INTEGER);
+				ps.setNull(5, Types.INTEGER);
 			}
+			if (file.getFileType().getId()!=null)// this is just check and i hope it won't be null ever
+				ps.setInt(6, file.getFileType().getId());
+			else
+				ps.setNull(6, Types.INTEGER);
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
@@ -779,7 +847,8 @@ public class Dao {
 				if (fattr.getValue().toLowerCase().contains(Constants.ACCEPT)
 						|| fattr.getValue().toLowerCase().contains(Constants.POSITIVE.toLowerCase())
 						|| Constants.POSITIVE_CODE[0].equals(fattr.getValue())
-						|| Constants.POSITIVE_CODE[1].equals(fattr.getValue())) {
+						|| Constants.POSITIVE_CODE[1].equals(fattr.getValue())
+						|| Constants.POSITIVE_CODE[2].equals(fattr.getValue())) {
 					Integer parentId = null;
 					PreparedStatement ps2 = connection.prepareStatement(
 							"SELECT file_id FROM file_attributes WHERE value = ? AND attribute_id = 8");
@@ -824,7 +893,7 @@ public class Dao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			sql = "INSERT INTO files(report_id, name, datetime, direction, linked_id) VALUES (?,?,?,?,?)";
+			sql = "INSERT INTO files(report_id, name, datetime, direction, linked_id, type_id) VALUES (?,?,?,?,?,?)";
 			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, tfile.getReport().getId());
 			ps.setString(2, tfile.getName());
@@ -835,6 +904,7 @@ public class Dao {
 			} else {
 				ps.setNull(5, Types.INTEGER);
 			}
+			ps.setInt(6, tfile.getFileType().getId());
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
@@ -846,17 +916,18 @@ public class Dao {
 			Integer linkedFileId = null;
 			for (ReportFile rf : tfile.getListFiles().values()) {
 				linkedFileId = null;
-				sql = "INSERT INTO files(report_id, name, datetime, direction, linked_id) VALUES (?,?,?,?,?)";
+				sql = "INSERT INTO files(report_id, name, datetime, direction, type_id) VALUES (?,?,?,?,?)";
 				ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				ps.setInt(1, rf.getReport().getId());
 				ps.setString(2, rf.getName());
 				ps.setString(3, DateUtils.toSQLite(rf.getDatetime()));
 				ps.setInt(4, rf.getDirection() ? 1 : 0);
-				if (rf.getLinkedFile() != null) {
+				ps.setInt(5, rf.getFileType().getId());
+				/*if (rf.getLinkedFile() != null) {
 					ps.setInt(5, rf.getLinkedFile().getId());
 				} else {
 					ps.setNull(5, Types.INTEGER);
-				}
+				}*/
 				ps.executeUpdate();
 				rs = ps.getGeneratedKeys();
 				if (rs.next()) {
@@ -870,7 +941,7 @@ public class Dao {
 					sql = "UPDATE files SET linked_id = ? WHERE name LIKE ?";
 					ps = connection.prepareStatement(sql);
 					ps.setInt(1, rf.getId());
-					ps.setString(2, rf.getAttributes().get(AttributeDescr.PARENT).getValue());
+					ps.setString(2, rf.getAttributes().get(AttributeDescr.PARENT).getValue() + "%");
 					ps.executeUpdate();
 					ps.close();
 				}
@@ -2388,5 +2459,34 @@ public class Dao {
 				}
 			}
 		});
+	}
+	
+	public ObservableList<ReportFile> getFilesByTransport(FileEntity transportFile){
+		if (transportFile == null) {
+			return null;
+		}
+		ObservableList<ReportFile> list = FXCollections.observableArrayList();
+		String sql = "SELECT tf.child_id from transport_files tf WHERE tf.parent_id = ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+		ps = connection.prepareStatement(sql);
+		ps.setInt(1, transportFile.getId());
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			list.add(getReportFileById(rs.getInt("child_id")));
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return list;
 	}
 }

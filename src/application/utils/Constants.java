@@ -12,6 +12,7 @@ public class Constants {
 	public static final int IN_DB = 1;
 	public static final int TRANSPORT = 1;
 	public static final int SIMPLE = 0;
+	public static final String PARENT = "parent";
 	
 
 	/*public static final int P1459N = 1;
@@ -72,7 +73,7 @@ public class Constants {
 	}
 	
 	public static String ACCEPT = "принят";
-	public static String[] POSITIVE_CODE = new String[] {"0","01"};
+	public static String[] POSITIVE_CODE = new String[] {"0","01", "00"};
 	
 	/*public static boolean AUTO_KEY = true;
 	

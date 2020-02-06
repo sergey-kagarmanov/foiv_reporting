@@ -7,7 +7,6 @@ import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -36,7 +35,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import net.sf.saxon.om.CopyOptions;
 import net.sf.sevenzipjbinding.IInArchive;
 import net.sf.sevenzipjbinding.SevenZip;
 import net.sf.sevenzipjbinding.SevenZipException;
@@ -51,6 +49,7 @@ public class ProcessExecutor {
 	private List<String> filenames;
 
 	private ProcessStep currentStep;
+	private String currentKey;
 	private Chain chain;
 
 	private Dao dao;
@@ -91,13 +90,13 @@ public class ProcessExecutor {
 		this.direction = direction;
 		signatura = new Signatura();
 		errorFiles = FXCollections.observableArrayList();
-		
-		//Create archive path
-		File ap=new File(archivePath);
+
+		// Create archive path
+		File ap = new File(archivePath);
 		ap.mkdirs();
-		//Create output path
-		File op=new File(outputPath);
-		op.mkdirs();		
+		// Create output path
+		File op = new File(outputPath);
+		op.mkdirs();
 	}
 
 	public void start() throws ReportError {
@@ -122,7 +121,9 @@ public class ProcessExecutor {
 				 * This cycle doesn't check equal files so be careful
 				 */
 				boolean flag = true;
+				FileType fileType = null;
 				for (FileType tFile : report.getTickets()) {
+					fileType = tFile;
 					if (FileUtils.isType(currentFile.getCommonOriginal(), tFile)) {
 						Map<String, FileAttribute> attr = null;
 						try {
@@ -138,7 +139,7 @@ public class ProcessExecutor {
 							break;
 						}
 						ticketFiles.put(currentFile, new ReportFile(0, currentFile.getOriginal(),
-								LocalDateTime.now(), report, direction, null, attr));
+								LocalDateTime.now(), report, direction, null, attr, tFile));
 						flag = false;
 					}
 				}
@@ -148,12 +149,12 @@ public class ProcessExecutor {
 						if (!direction) {
 							ReportFile fileEntity = new ReportFile(0,
 									currentFile.getCommonOriginal(), LocalDateTime.now(), report,
-									direction, null, parser.parse(currentFile.getCurrentFile()));
+									direction, null, parser.parse(currentFile.getCurrentFile()), fileType);
 							mapFiles.put(currentFile, fileEntity);
 						} else {
 							transportFiles.put(currentFile,
 									new TransportFile(0, currentFile.getOriginal(),
-											LocalDateTime.now(), report, direction, null, null));
+											LocalDateTime.now(), report, direction, null, null, fileType));
 
 						}
 					} catch (ReportError e) {
@@ -190,7 +191,15 @@ public class ProcessExecutor {
 		}
 
 		// currentStep = dao.getActionForReport(report, direction);
-		chain = dao.getChains(report, direction ? Constants.IN : Constants.OUT).get(0);
+		ObservableList<Chain> chains = dao.getChains(report,
+				direction ? Constants.IN : Constants.OUT);
+		if (chains != null) {
+			chain = chains.get(0);
+		} else {
+			throw new ReportError("Для отчетности " + report.getName() + " направление "
+					+ (direction ? Constants.IN : Constants.OUT)
+					+ " не определена последовательность действий");
+		}
 		if (chain.getSteps() != null) {
 			currentStep = chain.getSteps().get(0);
 		} else {
@@ -223,6 +232,7 @@ public class ProcessExecutor {
 				breakFlag = msg.showAndWait().get() == ButtonType.YES;
 			}
 		}
+		signatura.unload();
 		if (breakFlag) {
 			if (!direction) {
 				for (FileTransforming tf : transportFiles.keySet()) {
@@ -244,11 +254,15 @@ public class ProcessExecutor {
 					for (TransportFile tf : transportFiles.values()) {
 						if (tf.getListFiles() != null) {
 							for (String rfName : tf.getListFiles().keySet()) {
-								int index = executedFiles.indexOf(new FileTransforming(rfName, FileUtils.tmpDir));
-								
+								int index = executedFiles
+										.indexOf(new FileTransforming(rfName, FileUtils.tmpDir));
+
 								((ReportFile) tf.getListFiles().get(rfName)).setAttributes(
 										parser.parse(executedFiles.get(index).getCurrentFile()));
 								executedFiles.get(index).copyCurrent(outputPath, false);
+								((ReportFile) tf.getListFiles().get(rfName)).setFileType(parser.getType(executedFiles.get(index).getCurrentFile()));
+								
+								((ReportFile) tf.getListFiles().get(rfName)).setLinkedFile(linkParent((ReportFile) tf.getListFiles().get(rfName)));
 							}
 						} else {
 
@@ -311,6 +325,17 @@ public class ProcessExecutor {
 		}
 	}
 
+	private ReportFile linkParent(ReportFile reportFile) {
+		if (reportFile.getAttributes()!=null) {
+			for(String attributeName : reportFile.getAttributes().keySet()) {
+				if (attributeName.equals(Constants.PARENT)) {
+					return dao.getReportFileByName(reportFile.getAttributes().get(attributeName).getValue());
+				}
+			}
+		}
+		return null;
+	}
+	
 	private void deleteSources(ObservableList<FileTransforming> col) {
 		col.forEach((file) -> {
 			/*
@@ -421,7 +446,12 @@ public class ProcessExecutor {
 			// Do nothing
 		} else if (Constants.ACTIONS[1].equals(step.getAction().getName())) {
 			// encrypt
-			result = signatura.initConfig(step.getKey().getData());
+			if (currentKey == null || "".equals(currentKey) || !currentKey.equals(step.getKey().getData())) {
+				result = signatura.initConfig(step.getKey().getData());
+				currentKey = step.getKey().getData();
+			}else {
+				result = 0;
+			}
 			if (result == 0) {
 				signatura.setParameters();
 
@@ -436,19 +466,24 @@ public class ProcessExecutor {
 									return t.getOriginal().matches(step.getData());
 							}
 						}), step.getKey().getData());
-				signatura.unload();
+				//signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
 			}
 		} else if (Constants.ACTIONS[2].equals(step.getAction().getName())) {
 			// sign
-			result = signatura.initConfig(step.getKey().getData());
+			if (currentKey == null || "".equals(currentKey) || !currentKey.equals(step.getKey().getData())) {
+				result = signatura.initConfig(step.getKey().getData());
+				currentKey = step.getKey().getData();
+			}else {
+				result = 0;
+			}
 			if (result == 0) {
 				signatura.setSignParameters();
 				errorFiles = signatura
 						.signFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
 
-	@Override
+							@Override
 							public boolean test(FileTransforming t) {
 								if (t.getCurrent() != null)
 									return t.getCurrent().matches(step.getData());
@@ -456,13 +491,18 @@ public class ProcessExecutor {
 									return t.getOriginal().matches(step.getData());
 							}
 						}));
-				signatura.unload();
+				//signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
 			}
 		} else if (Constants.ACTIONS[3].equals(step.getAction().getName())) {
 			// decrypt
-			result = signatura.initConfig(step.getKey().getData());
+			if (currentKey == null || "".equals(currentKey) || !currentKey.equals(step.getKey().getData())) {
+				result = signatura.initConfig(step.getKey().getData());
+				currentKey = step.getKey().getData();
+			}else {
+				result = 0;
+			}
 			if (result == 0) {
 				signatura.setParameters();
 				errorFiles = signatura.decryptFilesInPath(
@@ -476,19 +516,24 @@ public class ProcessExecutor {
 									return t.getOriginal().matches(step.getData());
 							}
 						}));
-				signatura.unload();
+				//signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
 			}
 		} else if (Constants.ACTIONS[4].equals(step.getAction().getName())) {
 			// verify and unsign
-			result = signatura.initConfig(step.getKey().getData());
+			if (currentKey == null || "".equals(currentKey) || !currentKey.equals(step.getKey().getData())) {
+				result = signatura.initConfig(step.getKey().getData());
+				currentKey = step.getKey().getData();
+			}else {
+				result = 0;
+			}
 			if (result == 0) {
 				signatura.setParameters();
 				errorFiles = signatura.verifyAndUnsignFilesInPath(
 						executedFiles.filtered(new Predicate<FileTransforming>() {
 
-	@Override
+							@Override
 							public boolean test(FileTransforming t) {
 								if (t.getCurrent() != null)
 									return t.getCurrent().matches(step.getData());
@@ -496,7 +541,7 @@ public class ProcessExecutor {
 									return t.getOriginal().matches(step.getData());
 							}
 						}));
-				signatura.unload();
+				//signatura.unload();
 			} else {
 				throw new ReportError("Ошибка инициализации криптосистемы");
 			}
@@ -509,9 +554,9 @@ public class ProcessExecutor {
 			/**
 			 * Tmp dir for create archive, cause arj have only 64 params
 			 */
-			File tmpDir = new File(FileUtils.tmpDir+"arj\\");
+			File tmpDir = new File(FileUtils.tmpDir + "arj\\");
 			tmpDir.mkdirs();
-			
+
 			boolean loop = true;
 			int i = 0;
 			ObservableList<TransportFile> archiveTransportFiles = dao.getArchiveFiles(report,
@@ -560,8 +605,8 @@ public class ProcessExecutor {
 					} else {
 						pattern = pattern.replaceAll("%%%n", i + "").replaceAll("%", "0");
 					}
-					command += FileUtils.tmpDir+"arj\\" + pattern;
-					multiCommand += FileUtils.tmpDir+"arj\\" + pattern;
+					command += FileUtils.tmpDir + "arj\\" + pattern;
+					multiCommand += FileUtils.tmpDir + "arj\\" + pattern;
 
 					// Add files to transport arch, if summary filesize doesn't
 					// greater than constant
@@ -582,8 +627,10 @@ public class ProcessExecutor {
 
 							fileSize += currentFile.getCurrentFile().length();
 							if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
-								//command += " " + currentFile.getCurrentFile().getAbsolutePath();
-								FileUtils.copyFile(currentFile.getCurrentFile(), FileUtils.tmpDir + "arj\\");
+								// command += " " +
+								// currentFile.getCurrentFile().getAbsolutePath();
+								FileUtils.copyFile(currentFile.getCurrentFile(),
+										FileUtils.tmpDir + "arj\\");
 								doneList.add(currentFile);
 								partialFileMap.put(currentFile.getOriginal(),
 										mapFiles.get(currentFile));
@@ -594,10 +641,14 @@ public class ProcessExecutor {
 								if (currentFile.getCurrentFile().length() > Settings.FILE_SIZE
 										&& checkCount == 0) {
 									multiVolumes = true;
-									/*multiCommand += " "
-											+ currentFile.getCurrentFile().getAbsolutePath();*/
-									FileUtils.copyFile(currentFile.getCurrentFile(), FileUtils.tmpDir + "arj\\");
-									
+									/*
+									 * multiCommand += " " +
+									 * currentFile.getCurrentFile().
+									 * getAbsolutePath();
+									 */
+									FileUtils.copyFile(currentFile.getCurrentFile(),
+											FileUtils.tmpDir + "arj\\");
+
 									doneList.add(currentFile);
 									partialFileMap.put(currentFile.getOriginal(),
 											mapFiles.get(currentFile));
@@ -625,7 +676,7 @@ public class ProcessExecutor {
 							checkCount++;
 							transportFiles.put(new FileTransforming(pattern, FileUtils.tmpDir),
 									new TransportFile(0, pattern, LocalDateTime.now(), report,
-											direction, null, partialFileMap));
+											direction, null, partialFileMap, dao.getFileType(report.getId(), direction ? 1 : 0, 1))); 
 							doneList.add(new FileTransforming(pattern, FileUtils.tmpDir));
 							if (multiVolumes) {
 								for (int k = 1; k < numberPart; k++) {
@@ -636,15 +687,15 @@ public class ProcessExecutor {
 									doneList.add(tmpFile);
 									transportFiles.put(tmpFile,
 											new TransportFile(0, localPattern, LocalDateTime.now(),
-													report, direction, null, partialFileMap));
+													report, direction, null, partialFileMap, dao.getFileType(report.getId(), direction ? 1 : 0, 1))); 
 								}
 							}
 						}
 					else {
 						loop = false;
 					}
-					command += " "+ FileUtils.tmpDir+"arj\\*";
-					multiCommand += " "+ FileUtils.tmpDir+"arj\\*";
+					command += " " + FileUtils.tmpDir + "arj\\*";
+					multiCommand += " " + FileUtils.tmpDir + "arj\\*";
 					try {
 						if (multiVolumes) {
 							p = r.exec(multiCommand);
@@ -658,9 +709,11 @@ public class ProcessExecutor {
 							System.out.print((char) w);
 						}
 						System.out.println(p.waitFor());
-						//Copy archive from arj dir to tmp, cause all handlers are in this dir
-						FileUtils.copyFile(new File(FileUtils.tmpDir+"arj\\"+pattern), FileUtils.tmpDir);
-						for(File f:tmpDir.listFiles()) {
+						// Copy archive from arj dir to tmp, cause all handlers
+						// are in this dir
+						FileUtils.copyFile(new File(FileUtils.tmpDir + "arj\\" + pattern),
+								FileUtils.tmpDir);
+						for (File f : tmpDir.listFiles()) {
 							f.delete();
 						}
 						executedFiles.addAll(transportFiles.keySet());
@@ -687,7 +740,7 @@ public class ProcessExecutor {
 			renameFiles[2] = ReplaceText.substring(ReplaceText.indexOf("|") + 1,
 					ReplaceText.length());
 
-//			FileFilter filter = new FileFilter(renameFiles[0]);
+			// FileFilter filter = new FileFilter(renameFiles[0]);
 
 			for (FileTransforming file : executedFiles.filtered(new Predicate<FileTransforming>() {
 
@@ -700,56 +753,58 @@ public class ProcessExecutor {
 				}
 			})) {
 				if (file.getErrorCode() == 0) {
-//					if (filter.accept(new File(FileUtils.tmpDir), file.getCurrent())) {
-						file.setCurrent(file.getCurrentFile().getParentFile().getAbsolutePath()
-								+ "\\"
-								+ file.getCurrent().replaceAll(renameFiles[1], renameFiles[2]));// new
-																								// File(FileUtils.tmpDir
-																								// +
-																								// file.getName().toLowerCase()
-						// .replaceAll(renameFiles[1], renameFiles[2]));
-						// file.renameTo(rFile);
-					}
-				//}
+					// if (filter.accept(new File(FileUtils.tmpDir),
+					// file.getCurrent())) {
+					file.setCurrent(file.getCurrentFile().getParentFile().getAbsolutePath() + "\\"
+							+ file.getCurrent().replaceAll(renameFiles[1], renameFiles[2]));// new
+																							// File(FileUtils.tmpDir
+																							// +
+																							// file.getName().toLowerCase()
+					// .replaceAll(renameFiles[1], renameFiles[2]));
+					// file.renameTo(rFile);
+				}
+				// }
 			}
 
-	/*
-	 * for (String f : filenames) { if (filter.accept(null, f)) {
-	 * f.replaceAll(renameFiles[1], renameFiles[2]); } }
-	 */
+			/*
+			 * for (String f : filenames) { if (filter.accept(null, f)) {
+			 * f.replaceAll(renameFiles[1], renameFiles[2]); } }
+			 */
 
-	}else if(Constants.ACTIONS[8].equals(step.getAction().getName())){
-	// UNPACK
-	// Runtime r = Runtime.getRuntime();
-	// Process p = null;
-	for(
-	String filename:FileUtils.getDirContentByMask(FileUtils.tmpDir,step.getData())){
+		} else if (Constants.ACTIONS[8].equals(step.getAction().getName())) {
+			// UNPACK
+			// Runtime r = Runtime.getRuntime();
+			// Process p = null;
+			for (String filename : FileUtils.getDirContentByMask(FileUtils.tmpDir,
+					step.getData())) {
 
-	List<File> tmpFiles = unrar(FileUtils.tmpDir + filename);for(
-	File f:tmpFiles)
-	{
-		TransportFile tmpTransportFile = transportFiles
-				.get(new FileTransforming(filename, FileUtils.tmpDir));
-		if (tmpTransportFile.getListFiles() == null) {
-			tmpTransportFile.setListFiles(new HashMap<String, ReportFile>());
+				List<File> tmpFiles = unrar(FileUtils.tmpDir + filename);
+				for (File f : tmpFiles) {
+					TransportFile tmpTransportFile = transportFiles
+							.get(new FileTransforming(filename, FileUtils.tmpDir));
+					if (tmpTransportFile.getListFiles() == null) {
+						tmpTransportFile.setListFiles(new HashMap<String, ReportFile>());
+					}
+					tmpTransportFile.getListFiles().put(f.getName(), new ReportFile(0, f.getName(),
+							LocalDateTime.now(), report, direction, null, null, null)); //is set below near attribute parse
+					executedFiles
+							.add(new FileTransforming(f.getName(), f.getName(), FileUtils.tmpDir));
+				}
+			}
+
+		} else if (Constants.ACTIONS[9].equals(step.getAction().getName())) {
+			// COPY
+			for (FileTransforming fTransforming : executedFiles) {
+				fTransforming.copyCurrent(step.getData(), false);
+			}
 		}
-		tmpTransportFile.getListFiles().put(f.getName(),
-				new ReportFile(0, f.getName(), LocalDateTime.now(), report, direction, null, null));
-		executedFiles.add(new FileTransforming(f.getName(), f.getName(), FileUtils.tmpDir));
-	}}
 
-	}else if(Constants.ACTIONS[9].equals(step.getAction().getName())){
-	// COPY
-	for(
-	FileTransforming fTransforming:executedFiles)
-	{
-		fTransforming.copyCurrent(step.getData(), false);
+		if (errorFiles.size() > 0) {
+			excludeErrorFiles(errorFiles);
+		}
+
+		return errorFiles;
 	}
-	}
-
-	if(errorFiles.size()>0){excludeErrorFiles(errorFiles);}
-
-	return errorFiles;}
 
 	private List<File> unrar(String file) {
 		List<File> files = new ArrayList<File>();
