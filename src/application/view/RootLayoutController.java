@@ -38,7 +38,7 @@ public class RootLayoutController {
 	
 	@FXML
 	public void handleAttributeSettings(){
-		mainApp.showAttributeSettingsDialog();
+		mainApp.showAttributeSettingsDialog(null);
 	}
 	
 	@FXML

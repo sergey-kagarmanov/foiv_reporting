@@ -178,5 +178,10 @@ public class FileTypeDialogController {
 		}
 
 	}
+	
+	@FXML
+	public void handleAttributesFile() {
+		mainApp.showAttributeSettingsDialog(type);
+	}
 
 }

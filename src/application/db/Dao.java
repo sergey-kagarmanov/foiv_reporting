@@ -388,7 +388,7 @@ public class Dao {
 					listFiles = new HashMap<String, ReportFile>();
 					tfile = new TransportFile(id, rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
-							listFiles, getFileType(rs.getInt("parent_type"))); 
+							listFiles, getFileType(rs.getInt("parent_type")));
 					files.add(tfile);
 				}
 				listFiles.put(rs.getString("cname"),
@@ -432,7 +432,7 @@ public class Dao {
 					listFiles = new HashMap<String, ReportFile>();
 					tfile = new TransportFile(id, rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
-							listFiles, getFileType(rs.getInt("parent_type"))); 
+							listFiles, getFileType(rs.getInt("parent_type")));
 					files.add(tfile);
 				}
 				listFiles.put(rs.getString("cname"),
@@ -483,9 +483,10 @@ public class Dao {
 
 		return files;
 	}
-	
+
 	/**
 	 * Return file with filter, if it is null, this parameter will not be used
+	 * 
 	 * @param start
 	 * @param end
 	 * @param report
@@ -502,10 +503,10 @@ public class Dao {
 			if (start != null) {
 				sql += " AND f.datetime > ?";
 			}
-			if (end!=null) {
+			if (end != null) {
 				sql += " AND f.datetime < ?";
 			}
-			if (report!=null)
+			if (report != null)
 				sql += " AND f.report_id = ? ";
 
 			PreparedStatement ps = connection.prepareStatement(sql + sqlEnd);
@@ -514,15 +515,15 @@ public class Dao {
 				ps.setString(i, DateUtils.toSQLite(start.atStartOfDay()));
 				i++;
 			}
-			if (end!=null) {
+			if (end != null) {
 				ps.setString(i, DateUtils.toSQLite(end.atTime(23, 59, 59)));
 				i++;
 			}
-			if (report!=null)
+			if (report != null)
 				ps.setInt(i, report.getId());
-			
+
 			ResultSet rs = ps.executeQuery();
-			
+
 			while (rs.next()) {
 				if (id != rs.getInt("id")) {
 					id = rs.getInt("id");
@@ -545,7 +546,7 @@ public class Dao {
 		}
 
 		return files;
-	}	
+	}
 
 	public Report getReportById(Integer id) {
 		Report tmpReport = null;
@@ -609,7 +610,8 @@ public class Dao {
 					rf = new ReportFile(rs.getInt("id"), rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), rep,
 							rs.getInt("direction") == 1, rftmp,
-							new HashMap<String, FileAttribute>(), getFileType(rs.getInt("file_type")));
+							new HashMap<String, FileAttribute>(),
+							getFileType(rs.getInt("file_type")));
 
 					newFile = false;
 				}
@@ -650,7 +652,8 @@ public class Dao {
 					rf = new ReportFile(rs.getInt("id"), rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), rep,
 							rs.getInt("direction") == 1, rftmp,
-							new HashMap<String, FileAttribute>(), getFileType(rs.getInt("file_type")));
+							new HashMap<String, FileAttribute>(),
+							getFileType(rs.getInt("file_type")));
 
 					newFile = false;
 				}
@@ -688,13 +691,13 @@ public class Dao {
 					listFiles = new HashMap<String, ReportFile>();
 					tfile = new TransportFile(id, rs.getString("name"),
 							DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
-							listFiles, getFileType(rs.getInt("parent_type"))); 
+							listFiles, getFileType(rs.getInt("parent_type")));
 
 				}
 				listFiles.put(rs.getString("cname"),
 						new ReportFile(rs.getInt("cid"), rs.getString("cname"),
 								DateUtils.fromSQLite(rs.getString("cdatetime")), report, direction,
-								null, null, getFileType(rs.getInt("child_type")))); 
+								null, null, getFileType(rs.getInt("child_type"))));
 			}
 			rs.close();
 			ps.close();
@@ -794,7 +797,9 @@ public class Dao {
 			} else {
 				ps.setNull(5, Types.INTEGER);
 			}
-			if (file.getFileType().getId()!=null)// this is just check and i hope it won't be null ever
+			if (file.getFileType().getId() != null)// this is just check and i
+													// hope it won't be null
+													// ever
 				ps.setInt(6, file.getFileType().getId());
 			else
 				ps.setNull(6, Types.INTEGER);
@@ -923,11 +928,11 @@ public class Dao {
 				ps.setString(3, DateUtils.toSQLite(rf.getDatetime()));
 				ps.setInt(4, rf.getDirection() ? 1 : 0);
 				ps.setInt(5, rf.getFileType().getId());
-				/*if (rf.getLinkedFile() != null) {
-					ps.setInt(5, rf.getLinkedFile().getId());
-				} else {
-					ps.setNull(5, Types.INTEGER);
-				}*/
+				/*
+				 * if (rf.getLinkedFile() != null) { ps.setInt(5,
+				 * rf.getLinkedFile().getId()); } else { ps.setNull(5,
+				 * Types.INTEGER); }
+				 */
 				ps.executeUpdate();
 				rs = ps.getGeneratedKeys();
 				if (rs.next()) {
@@ -1526,12 +1531,17 @@ public class Dao {
 
 	public ObservableList<AttributeDescr> getAttributesDescriptions(FileType type) {
 		String sql = "SELECT * FROM attribute_settings WHERE type_id = ?";
+		String sqlNull = "SELECT * FROM attribute_settings";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ObservableList<AttributeDescr> list = FXCollections.observableArrayList();
 		try {
-			ps = connection.prepareStatement(sql);
-			ps.setInt(1, type.getId());
+			if (type != null) {
+				ps = connection.prepareStatement(sql);
+				ps.setInt(1, type.getId());
+			} else {
+				ps = connection.prepareStatement(sqlNull);
+			}
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(new AttributeDescr(rs.getInt("id"), rs.getInt("in_name") == 1,
@@ -2460,8 +2470,8 @@ public class Dao {
 			}
 		});
 	}
-	
-	public ObservableList<ReportFile> getFilesByTransport(FileEntity transportFile){
+
+	public ObservableList<ReportFile> getFilesByTransport(FileEntity transportFile) {
 		if (transportFile == null) {
 			return null;
 		}
@@ -2470,22 +2480,22 @@ public class Dao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-		ps = connection.prepareStatement(sql);
-		ps.setInt(1, transportFile.getId());
-		rs = ps.executeQuery();
-		while(rs.next()) {
-			list.add(getReportFileById(rs.getInt("child_id")));
-		}
-		}catch (Exception e) {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, transportFile.getId());
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(getReportFileById(rs.getInt("child_id")));
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 		return list;
 	}

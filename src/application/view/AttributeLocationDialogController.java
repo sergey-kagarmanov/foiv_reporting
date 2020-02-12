@@ -1,5 +1,7 @@
 package application.view;
 
+import java.util.function.Predicate;
+
 import application.MainApp;
 import application.models.AttributeDescr;
 import application.models.FileAttribute;
@@ -10,7 +12,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -50,10 +55,36 @@ public class AttributeLocationDialogController {
 	@FXML
 	TableColumn<AttributeDescr, FileType> fileColumn;
 
+	@FXML
+	ComboBox<FileType> fileTypeCombo;
+
 	private ObservableList<AttributeDescr> attributes;
 	private FileType type;
 
 	public void initialize() {
+
+		fileTypeCombo.setCellFactory(new Callback<ListView<FileType>, ListCell<FileType>>() {
+			@Override
+			public ListCell<FileType> call(ListView<FileType> param) {
+				final ListCell<FileType> cell = new ListCell<FileType>() {
+					{
+						super.setPrefWidth(100);
+					}
+
+					@Override
+					public void updateItem(FileType item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item != null) {
+							setText(item.getName());
+						} else {
+							setText(null);
+						}
+					}
+				};
+				return cell;
+			}
+
+		});
 
 		attrColumn.setCellValueFactory((cellData) -> cellData.getValue().getAttrProperty());
 		inNameColumn.setCellValueFactory((cellData) -> cellData.getValue().getInNameProperty());
@@ -86,7 +117,7 @@ public class AttributeLocationDialogController {
 							public void handle(ActionEvent event) {
 								AttributeDescr obj = row.getItem();
 								mainApp.getDb().remove(obj);
-								setData();
+								handleSelectType();
 							}
 						});
 						contextMnu.getItems().add(removeMenuItem);
@@ -114,17 +145,17 @@ public class AttributeLocationDialogController {
 		attributes = mainApp.getDb().getAttributesDescriptions();
 		attributeTable.setItems(attributes);
 	}
-	
+
 	public void setData(ObservableList<AttributeDescr> attributes) {
 		attributeTable.setItems(attributes);
 	}
-	
+
 	public void setFileType(FileType fType) {
 		this.type = fType;
 	}
-	
+
 	public void updateData() {
-		if (type!=null)
+		if (type != null)
 			attributes = mainApp.getDb().getAttributesDescriptions(type);
 		else
 			attributes = mainApp.getDb().getAttributesDescriptions();
@@ -134,7 +165,7 @@ public class AttributeLocationDialogController {
 	private void editItem() {
 		AttributeDescr attr = attributeTable.getSelectionModel().getSelectedItem();
 		if (attr != null) {
-			mainApp.showAttributeSettingsEditDialog(attr);
+			mainApp.showAttributeSettingsEditDialog(attr, fileTypeCombo.selectionModelProperty().getValue().getSelectedItem());
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Ошибка");
@@ -142,18 +173,18 @@ public class AttributeLocationDialogController {
 			alert.setContentText("Не выбрана строчка для редактирования");
 			alert.showAndWait();
 		}
-		setData();
+		handleSelectType();
 	}
 
 	private void editItem(AttributeDescr attr) {
-		mainApp.showAttributeSettingsEditDialog(attr);
-		setData();
+		mainApp.showAttributeSettingsEditDialog(attr, fileTypeCombo.selectionModelProperty().getValue().getSelectedItem());
+		handleSelectType();
 	}
 
 	@FXML
 	private void insertItem() {
-		mainApp.showAttributeSettingsEditDialog(new AttributeDescr());
-		setData();
+		mainApp.showAttributeSettingsEditDialog(new AttributeDescr(), fileTypeCombo.selectionModelProperty().getValue().getSelectedItem());
+		handleSelectType();
 	}
 
 	@FXML
@@ -168,7 +199,25 @@ public class AttributeLocationDialogController {
 			alert.setContentText("Не выбрана строчка для удаления");
 			alert.showAndWait();
 		}
-		setData();
+		handleSelectType();
 
+	}
+
+	public void fillCombo(ObservableList<FileType> types, FileType type) {
+		fileTypeCombo.setItems(types);
+		fileTypeCombo.getSelectionModel().select(type);
+		handleSelectType();
+	}
+
+	public void setSelectedType(FileType type) {
+		fileTypeCombo.getSelectionModel().select(type);
+		handleSelectType();
+	}
+	
+	@FXML
+	public void handleSelectType() {
+		attributes = mainApp.getDb().getAttributesDescriptions(fileTypeCombo.selectionModelProperty().getValue().getSelectedItem());
+		attributeTable.setItems(attributes);
+		attributeTable.refresh();
 	}
 }

@@ -251,6 +251,7 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
 			controller.setData(type, reportId);
+			
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
@@ -490,7 +491,11 @@ public class MainApp extends Application {
 		return null;
 	}
 
-	public void showAttributeSettingsDialog() {
+	/**
+	 * If type is null dialog shows all
+	 * @param type
+	 */
+	public void showAttributeSettingsDialog(FileType type) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/AttributeLocationDialog.fxml"));
@@ -508,8 +513,10 @@ public class MainApp extends Application {
 			// Set the company into the controller.
 			AttributeLocationDialogController controller = loader.getController();
 			controller.setMainApp(this);
-			controller.setData();
+//			controller.setData(dao.getAttributesDescriptions());
 			controller.setDialogStage(dialogStage);
+			controller.fillCombo(dao.getFileTypes(), type);
+			
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
@@ -554,7 +561,7 @@ public class MainApp extends Application {
 
 	}
 
-	public void showAttributeSettingsEditDialog(AttributeDescr attr) {
+	public void showAttributeSettingsEditDialog(AttributeDescr attr, FileType type) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/AddEditAttributeDescr.fxml"));
@@ -578,6 +585,7 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			controller.setData(attr);
 			controller.setDialogStage(dialogStage);
+			controller.setFileType(type);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();

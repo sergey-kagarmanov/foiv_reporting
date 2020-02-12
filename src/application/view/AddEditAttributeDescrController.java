@@ -123,4 +123,8 @@ public class AddEditAttributeDescrController {
 	public void handleCancel(){
 		dialogStage.close();
 	}
+	
+	public void setFileType(FileType type) {
+		typeChooser.getSelectionModel().select(type);
+	}
 }

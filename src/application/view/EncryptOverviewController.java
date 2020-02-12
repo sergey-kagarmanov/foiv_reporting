@@ -88,15 +88,18 @@ public class EncryptOverviewController {
 	private TableColumn<FileEntity, String> inFileTableColumn;
 	@FXML
 	private TableColumn<FileEntity, LocalDateTime> inDateTableColumn;
+
 	@FXML
 	private TableColumn<FileEntity, String> outFileTableColumn;
 	@FXML
 	private TableColumn<FileEntity, LocalDateTime> outDateTableColumn;
-
+	
 	@FXML
 	private TableColumn<FileEntity, String> inArchiveFileTableColumn;
 	@FXML
 	private TableColumn<TransportFile, LocalDateTime> inArchiveDateTableColumn;
+	@FXML
+	private TableColumn<FileEntity, Integer> inArchiveCountColumn;
 	@FXML
 	private TableColumn<FileEntity, String> outArchiveFileTableColumn;
 	@FXML

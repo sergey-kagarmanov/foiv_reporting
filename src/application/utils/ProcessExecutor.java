@@ -154,7 +154,7 @@ public class ProcessExecutor {
 						} else {
 							transportFiles.put(currentFile,
 									new TransportFile(0, currentFile.getOriginal(),
-											LocalDateTime.now(), report, direction, null, null, fileType));
+											LocalDateTime.now(), report, direction, null, null, dao.getFileType(report.getId(), direction ? 1 : 0, 1)));
 
 						}
 					} catch (ReportError e) {
