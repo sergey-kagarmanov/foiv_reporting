@@ -11,7 +11,7 @@ public class ReportError extends Exception {
 	
 	public ReportError(String text){
 		super();
-		this.message = text;
+		this.message = "ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: "+ text;
 	}
 	
 	/**

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import application.MainApp;
 import application.db.Dao;
 import application.errors.ReportError;
 import application.models.Chain;
@@ -278,6 +279,7 @@ public class ProcessExecutor {
 						throw new ReportError("Прервать обработку");
 					} else {
 						System.out.println(e.getMessage());
+						MainApp.error(e.getLocalizedMessage());
 						e.printStackTrace();
 					}
 				}
@@ -363,6 +365,10 @@ public class ProcessExecutor {
 				// Map<String, ReportFile> mf = tf.getListFiles();
 				// Collection<ReportFile> fc = mf.values();
 
+				if (transportFiles == null || transportFiles.get(tf) == null || transportFiles.get(tf).getListFiles() == null) {
+					throw new ReportError("Неверные настройки отчетности!");
+				}
+				
 				for (String rf : transportFiles.get(tf).getListFiles().keySet()) {
 					int index = executedFiles.indexOf(new FileTransforming(rf,
 							direction ? report.getPathIn() : report.getPathOut()));
@@ -417,6 +423,7 @@ public class ProcessExecutor {
 				if (i != 0)
 					throw new ReportError("Ключ " + key.getName() + " не был загружен");
 			} catch (InterruptedException | IOException ie) {
+				MainApp.error(ie.getLocalizedMessage());
 				ie.printStackTrace();
 			}
 		}
@@ -434,6 +441,7 @@ public class ProcessExecutor {
 					throw new ReportError("Ключи не были выгружены");
 
 			} catch (InterruptedException | IOException ie) {
+				MainApp.error(ie.getLocalizedMessage());
 				ie.printStackTrace();
 			}
 		}
@@ -718,12 +726,14 @@ public class ProcessExecutor {
 						}
 						executedFiles.addAll(transportFiles.keySet());
 					} catch (InterruptedException | IOException ie) {
+						MainApp.error(ie.getLocalizedMessage());
 						ie.printStackTrace();
 						throw new ReportError("Ошибка создания транспортного файла");
 					}
 
 				}
 			} catch (Exception e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 				System.out.println("Error!!!");
 				throw new ReportError("Ошибка создания транспортного файла");
@@ -823,6 +833,7 @@ public class ProcessExecutor {
 				}
 			}
 		} catch (Exception e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 			// System.exit(1);
 		} finally {
@@ -852,6 +863,7 @@ public class ProcessExecutor {
 						Paths.get(Configuration.get("error_path").toString()),
 						StandardCopyOption.REPLACE_EXISTING);
 			} catch (IOException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}

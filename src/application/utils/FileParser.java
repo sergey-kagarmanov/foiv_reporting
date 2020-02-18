@@ -91,6 +91,7 @@ public class FileParser {
 			return file.getName().replace(attributeDescr.getLocation(), "");// TODO:
 																			// Something
 																			// strange...
+			//attributeDescr.getLocation()
 		} else {
 			if (fType.getFileType() == 0) {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -98,14 +99,14 @@ public class FileParser {
 				try {
 					dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(file);
-					String[] par = attributeDescr.getLocation().split("\\|");// TODO:think
+					String[] par = attributeDescr.getLocation().split("\\|");// think
 																				// about
 																				// use
 																				// only
 																				// node
 																				// name,
 																				// not
-																				// work..
+																				// work.. this change, if @ is first letter value is took from attribute with name after @ 
 					int i = 0;
 					Node node = null;
 					NodeList list = doc.getChildNodes();

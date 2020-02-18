@@ -49,8 +49,10 @@ public class Dao {
 			MainApp.info("Database connected");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			MainApp.error(e.getLocalizedMessage());
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
+			MainApp.error(e1.getLocalizedMessage());
 		}
 	}
 
@@ -72,6 +74,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (Exception e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		return id;
@@ -114,6 +117,7 @@ public class Dao {
 				ps.close();
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		return id;
@@ -146,6 +150,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 
@@ -172,6 +177,7 @@ public class Dao {
 			ps.close();
 
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 	}
@@ -199,11 +205,13 @@ public class Dao {
 			ps.setInt(2, report.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -225,6 +233,7 @@ public class Dao {
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 	}
@@ -270,6 +279,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		return FXCollections.observableArrayList(reports);
@@ -292,12 +302,14 @@ public class Dao {
 						rs.getInt("file_type"), getResults(rs.getInt("id"))));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -319,12 +331,14 @@ public class Dao {
 						rs.getInt("accept") == 1));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -358,6 +372,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		return step;
@@ -399,6 +414,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 
@@ -443,6 +459,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 
@@ -478,6 +495,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 
@@ -542,6 +560,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 
@@ -586,6 +605,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		return tmpReport;
@@ -625,9 +645,8 @@ public class Dao {
 
 			rs.close();
 			ps.close();
-		} catch (
-
-		SQLException e) {
+		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		return rf;
@@ -667,9 +686,8 @@ public class Dao {
 
 			rs.close();
 			ps.close();
-		} catch (
-
-		SQLException e) {
+		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		return rf;
@@ -702,6 +720,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 
@@ -735,6 +754,7 @@ public class Dao {
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 	}
@@ -772,10 +792,12 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 			try {
 				ps.close();
 			} catch (SQLException e1) {
+				MainApp.error(e.getLocalizedMessage());
 				e1.printStackTrace();
 			}
 		}
@@ -811,6 +833,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 
@@ -884,10 +907,12 @@ public class Dao {
 			}
 
 		} catch (Exception e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 			try {
 				ps.close();
 			} catch (SQLException e1) {
+				MainApp.error(e.getLocalizedMessage());
 				e1.printStackTrace();
 			}
 		}
@@ -970,6 +995,7 @@ public class Dao {
 			}
 
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 	}
@@ -1004,11 +1030,13 @@ public class Dao {
 			ps.setInt(1, report.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1022,11 +1050,13 @@ public class Dao {
 			ps.setInt(1, report.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1037,11 +1067,13 @@ public class Dao {
 			ps.setInt(1, report.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1059,11 +1091,13 @@ public class Dao {
 			ps.setInt(1, fileType.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1077,11 +1111,13 @@ public class Dao {
 			ps.setInt(1, ticketResult.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1095,11 +1131,13 @@ public class Dao {
 			ps.setInt(1, chain.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1114,11 +1152,13 @@ public class Dao {
 			ps.setInt(1, chain.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1132,11 +1172,13 @@ public class Dao {
 			ps.setInt(1, step.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1167,11 +1209,13 @@ public class Dao {
 
 			saveFileTypes(report);
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1199,12 +1243,14 @@ public class Dao {
 			saveFileTypes(report);
 
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1273,11 +1319,13 @@ public class Dao {
 			ps.setInt(3, transport);
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1307,11 +1355,13 @@ public class Dao {
 				fType.setId(rs.getInt(1));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1337,11 +1387,13 @@ public class Dao {
 			ps.setInt(9, fType.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1356,11 +1408,13 @@ public class Dao {
 			ps.setInt(1, type.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1374,11 +1428,13 @@ public class Dao {
 			ps.setInt(1, key.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1393,11 +1449,13 @@ public class Dao {
 			ps.setInt(1, fa.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1415,12 +1473,14 @@ public class Dao {
 				list.add(rs.getString("name"));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 
@@ -1440,12 +1500,14 @@ public class Dao {
 				list.add(new FileAttribute(rs.getInt("id"), rs.getString("name"), null));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 
@@ -1466,12 +1528,14 @@ public class Dao {
 				tmp = new FileAttribute(rs.getInt("id"), rs.getString("name"), "");
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1491,12 +1555,14 @@ public class Dao {
 				tmp = new FileAttribute(rs.getInt("id"), rs.getString("name"), "");
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1517,12 +1583,14 @@ public class Dao {
 						rs.getString("place"), getFileType(rs.getInt("type_id"))));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1549,12 +1617,14 @@ public class Dao {
 						rs.getString("place"), getFileType(rs.getInt("type_id"))));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1576,12 +1646,14 @@ public class Dao {
 						rs.getString("place"), getFileType(rs.getInt("type_id")));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1604,12 +1676,14 @@ public class Dao {
 						rs.getInt("file_type"), getResults(id));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1624,11 +1698,13 @@ public class Dao {
 			ps.setInt(1, fileType.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1642,11 +1718,13 @@ public class Dao {
 			ps.setInt(1, attribute.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1666,11 +1744,13 @@ public class Dao {
 			ps.setInt(1, step.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1685,11 +1765,13 @@ public class Dao {
 			ps.setInt(1, chain.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1729,6 +1811,7 @@ public class Dao {
 					fileType.setId(rs.getInt(1));
 				}
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 				throw new ReportError("Не удалось сохранить маску для файла");
 			} finally {
@@ -1736,6 +1819,7 @@ public class Dao {
 					rs.close();
 					ps.close();
 				} catch (SQLException e) {
+					MainApp.error(e.getLocalizedMessage());
 					e.printStackTrace();
 				}
 			}
@@ -1762,12 +1846,14 @@ public class Dao {
 						rs.getInt("file_type"), getResults(rs.getInt("id")));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1794,12 +1880,14 @@ public class Dao {
 						rs.getInt("file_type"), getResults(rs.getInt("id"))));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1832,12 +1920,14 @@ public class Dao {
 						rs.getInt("file_type"), getResults(rs.getInt("id"))));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1872,12 +1962,14 @@ public class Dao {
 			}
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1931,11 +2023,13 @@ public class Dao {
 			ps.setInt(6, attr.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1953,11 +2047,13 @@ public class Dao {
 			ps.setInt(5, attr.getAttr().getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1974,11 +2070,13 @@ public class Dao {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -1999,12 +2097,14 @@ public class Dao {
 				chain.setId(rs.getInt(1));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2029,11 +2129,13 @@ public class Dao {
 			ps.setInt(3, chain.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2068,11 +2170,13 @@ public class Dao {
 			ps.setInt(3, step.getPosition());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2090,12 +2194,14 @@ public class Dao {
 				list.add(new Key(rs.getInt("id"), rs.getString("name"), rs.getString("data")));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e2) {
+				MainApp.error(e2.getLocalizedMessage());
 				e2.printStackTrace();
 			}
 		}
@@ -2115,12 +2221,14 @@ public class Dao {
 				key = new Key(rs.getInt("id"), rs.getString("name"), rs.getString("data"));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e2) {
+				MainApp.error(e2.getLocalizedMessage());
 				e2.printStackTrace();
 			}
 		}
@@ -2142,12 +2250,14 @@ public class Dao {
 				key = new Key(rs.getInt(1), name, path);
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e2) {
+				MainApp.error(e2.getLocalizedMessage());
 				e2.printStackTrace();
 			}
 		}
@@ -2164,11 +2274,13 @@ public class Dao {
 			ps.setInt(3, key.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
 			} catch (SQLException e2) {
+				MainApp.error(e2.getLocalizedMessage());
 				e2.printStackTrace();
 			}
 		}
@@ -2189,12 +2301,14 @@ public class Dao {
 						getSteps(rs.getInt("id"))));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2237,12 +2351,14 @@ public class Dao {
 						getSteps(rs.getInt("id"))));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2264,12 +2380,14 @@ public class Dao {
 						getSteps(rs.getInt("id")));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2296,12 +2414,14 @@ public class Dao {
 				tmp = step;
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 
@@ -2322,12 +2442,14 @@ public class Dao {
 			}
 
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2349,6 +2471,7 @@ public class Dao {
 						rs.getInt("position"));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		return step;
@@ -2367,12 +2490,14 @@ public class Dao {
 				action = new Action(rs.getInt("id"), rs.getString("name"));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2392,12 +2517,14 @@ public class Dao {
 				action = new Action(rs.getInt("id"), rs.getString("name"));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2420,6 +2547,7 @@ public class Dao {
 			ps.close();
 			return getChain(chainId);
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 		return null;
@@ -2437,12 +2565,14 @@ public class Dao {
 				list.add(new Pair<String, String>(rs.getString("name"), rs.getString("value")));
 			}
 		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		}
@@ -2461,10 +2591,12 @@ public class Dao {
 				ps.executeUpdate();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 				try {
 					ps.close();
 				} catch (SQLException e1) {
+					MainApp.error(e1.getLocalizedMessage());
 					e1.printStackTrace();
 				}
 			}
@@ -2487,12 +2619,14 @@ public class Dao {
 				list.add(getReportFileById(rs.getInt("child_id")));
 			}
 		} catch (Exception e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 

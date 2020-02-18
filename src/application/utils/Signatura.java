@@ -181,6 +181,7 @@ public class Signatura {
 			FileUtils.copy(file, new File(in));
 			file.delete();
 		} catch (IOException e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 			result = -1;
 		}
@@ -379,6 +380,7 @@ public class Signatura {
 						result = decompressGzip(tmp, f.getCurrentFile());
 						tmp.delete();
 					} catch (IOException e) {
+						MainApp.error(e.getLocalizedMessage());
 						e.printStackTrace();
 						result = -1;
 					}

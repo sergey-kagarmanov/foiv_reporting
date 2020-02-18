@@ -540,7 +540,13 @@ public class EncryptOverviewController {
 			alert.setContentText("Транспортный файл обработан!");
 			alert.showAndWait();
 		} catch (Exception e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
+			Alert msg = new Alert(AlertType.ERROR);
+			msg.setContentText(e.getMessage());
+			msg.setTitle("Ошибка выполнения");
+			msg.setHeaderText("Выполнение прервано");
+			msg.show();
 		}
 		fillData(reportChooser.getSelectionModel().selectedItemProperty().getValue().getName());
 	}
@@ -559,6 +565,7 @@ public class EncryptOverviewController {
 			alert.setContentText("Транспортный файл сформирован!");
 			alert.showAndWait();
 		} catch (ReportError e) {
+			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 			Alert msg = new Alert(AlertType.ERROR);
 			msg.setContentText(e.getMessage());
