@@ -100,7 +100,8 @@ public class ProcessExecutor {
 		op.mkdirs();
 	}
 
-	public void start() throws ReportError {
+	public int start() throws ReportError {
+		Integer result = 0;
 		FileUtils.clearTmp();
 		executedFiles = FXCollections.observableArrayList();
 		FileTransforming currentFile = null;
@@ -168,6 +169,7 @@ public class ProcessExecutor {
 						}
 
 					}
+				result++;
 			} else {
 				// TODO: Error, warning etc.
 			}
@@ -184,11 +186,12 @@ public class ProcessExecutor {
 			});
 			text += "Продолжить обработку?";
 			alert.setContentText(text);
+			result = result - parser.getExceptions().size();
 			breakFlag = alert.showAndWait().get() == ButtonType.OK;
 		}
 
 		if (breakFlag) {
-			return;
+			return -1;
 		}
 
 		// currentStep = dao.getActionForReport(report, direction);
@@ -207,7 +210,7 @@ public class ProcessExecutor {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Пустой список обработки");
 			alert.show();
-			return;
+			return 0;
 		}
 
 		/**
@@ -325,6 +328,7 @@ public class ProcessExecutor {
 																// executed
 																// files
 		}
+		return result;
 	}
 
 	private ReportFile linkParent(ReportFile reportFile) {

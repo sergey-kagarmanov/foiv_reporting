@@ -338,8 +338,13 @@ public class EncryptOverviewController {
 
 	}
 
-	private int timer = 5000;
+	private int timer = 60000;
 
+	@FXML
+	private void refreshData() {
+		calculateData();
+	}
+	
 	private void fillData() {
 
 		reportChooser.setItems(mainApp.getDb().getReports());
@@ -531,8 +536,9 @@ public class EncryptOverviewController {
 		ProcessExecutor executor = new ProcessExecutor(inFileList.getItems(),
 				reportChooser.getValue(), mainApp.getDb(), inPath.getText(), inOutputPath.getText(),
 				inPathArch.getText(), true);
+		Integer count = 0;
 		try {
-			executor.start();
+			count = executor.start();
 
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Информация");

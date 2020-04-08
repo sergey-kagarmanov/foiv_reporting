@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -20,7 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.EncryptOverviewController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.EncryptOverviewController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -73,6 +69,7 @@
                                                          </padding>
                                                       </Label>
                                                       <Button mnemonicParsing="false" onAction="#recieveFiles" text="Обработать" />
+                                                      <Button mnemonicParsing="false" onAction="#calculateData" text="Обновить" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -184,6 +181,7 @@
                                                          </padding>
                                                       </Label>
                                                       <Button mnemonicParsing="false" onAction="#sendFiles" text="Обработать" />
+                                                      <Button mnemonicParsing="false" onAction="#calculateData" text="Обновить" />
                                                    </children>
                                                 </HBox>
                                              </children>
