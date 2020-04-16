@@ -1,8 +1,473 @@
-[2020-04-07 08:49:03] [INFO   ] Programm started 
-[2020-04-07 08:49:04] [INFO   ] Database connected 
-[2020-04-07 08:49:07] [INFO   ] Load main view EncriptOverviewController 
-[2020-04-07 08:49:08] [INFO   ] 1459-П report has been choosen 
-[2020-04-07 08:51:10] [INFO   ] Programm started 
-[2020-04-07 08:51:11] [INFO   ] Database connected 
-[2020-04-07 08:51:13] [INFO   ] Load main view EncriptOverviewController 
-[2020-04-07 08:51:13] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 10:04:12] [INFO   ] Programm started 
+[2020-04-16 10:04:13] [INFO   ] Database connected 
+[2020-04-16 10:04:14] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 10:04:14] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 10:17:58] [INFO   ] Programm started 
+[2020-04-16 10:17:59] [INFO   ] Database connected 
+[2020-04-16 10:18:00] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 10:18:00] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 10:18:39] [INFO   ] Programm started 
+[2020-04-16 10:18:40] [INFO   ] Database connected 
+[2020-04-16 10:18:41] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 10:18:41] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 10:19:19] [INFO   ] Programm started 
+[2020-04-16 10:19:20] [INFO   ] Database connected 
+[2020-04-16 10:19:21] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 10:19:21] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 10:23:29] [INFO   ] Programm started 
+[2020-04-16 10:23:30] [INFO   ] Database connected 
+[2020-04-16 10:23:31] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 10:23:31] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 10:25:11] [INFO   ] 440-П report has been choosen 
+[2020-04-16 10:26:06] [INFO   ] Local interface of signature is created 
+[2020-04-16 10:26:25] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-04-16 10:26:25] [INFO   ] Sign parameters are set 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml_sign 
+[2020-04-16 10:26:25] [INFO   ] Sign parameters are set 
+[2020-04-16 10:26:25] [INFO   ] Verify parameters are set 
+[2020-04-16 10:26:25] [INFO   ] Encrypt parameters are set 
+[2020-04-16 10:26:25] [INFO   ] Decrypt parameters are set 
+[2020-04-16 10:26:28] [INFO   ] Encrypt parameters are set 
+[2020-04-16 10:26:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 10:26:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 10:26:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_enc 
+[2020-04-16 10:26:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_enc 
+[2020-04-16 10:26:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_enc 
+[2020-04-16 10:26:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_enc 
+[2020-04-16 10:26:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_enc 
+[2020-04-16 10:26:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_enc 
+[2020-04-16 10:26:28] [INFO   ] Sign parameters are set 
+[2020-04-16 10:26:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00001.arj is signed in C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00001.arj_sign 
+[2020-04-16 10:26:29] [INFO   ] Local interface Signatura unloads successfull 
+[2020-04-16 10:26:40] [INFO   ] 440-П report has been choosen 
+[2020-04-16 10:26:53] [INFO   ] Local interface of signature is created 
+[2020-04-16 10:27:08] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-04-16 10:27:08] [INFO   ] Sign parameters are set 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml_sign 
+[2020-04-16 10:27:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml_sign 
+[2020-04-16 10:27:09] [INFO   ] Sign parameters are set 
+[2020-04-16 10:27:09] [INFO   ] Verify parameters are set 
+[2020-04-16 10:27:09] [INFO   ] Encrypt parameters are set 
+[2020-04-16 10:27:09] [INFO   ] Decrypt parameters are set 
+[2020-04-16 10:27:11] [INFO   ] Encrypt parameters are set 
+[2020-04-16 10:27:11] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 10:27:11] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 10:27:11] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_enc 
+[2020-04-16 10:27:11] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_enc 
+[2020-04-16 10:27:11] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_enc 
+[2020-04-16 10:27:11] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_enc 
+[2020-04-16 10:27:11] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_enc 
+[2020-04-16 10:27:11] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_enc 
+[2020-04-16 10:27:12] [INFO   ] Sign parameters are set 
+[2020-04-16 10:27:12] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00002.arj is signed in C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00002.arj_sign 
+[2020-04-16 10:27:12] [INFO   ] Local interface Signatura unloads successfull 
+[2020-04-16 10:27:32] [INFO   ] 440-П report has been choosen 
+[2020-04-16 10:50:06] [INFO   ] Programm started 
+[2020-04-16 10:50:06] [INFO   ] Database connected 
+[2020-04-16 10:50:09] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 10:50:09] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 10:50:33] [INFO   ] 440-П report has been choosen 
+[2020-04-16 10:50:46] [INFO   ] Local interface of signature is created 
+[2020-04-16 10:50:53] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-04-16 10:50:53] [INFO   ] Sign parameters are set 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml_sign 
+[2020-04-16 10:50:53] [INFO   ] Sign parameters are set 
+[2020-04-16 10:50:53] [INFO   ] Verify parameters are set 
+[2020-04-16 10:50:53] [INFO   ] Encrypt parameters are set 
+[2020-04-16 10:50:53] [INFO   ] Decrypt parameters are set 
+[2020-04-16 10:50:55] [INFO   ] Encrypt parameters are set 
+[2020-04-16 10:50:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 10:50:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 10:50:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_enc 
+[2020-04-16 10:50:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_enc 
+[2020-04-16 10:50:56] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_enc 
+[2020-04-16 10:50:56] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_enc 
+[2020-04-16 10:50:56] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_enc 
+[2020-04-16 10:50:56] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_enc 
+[2020-04-16 10:50:56] [INFO   ] Sign parameters are set 
+[2020-04-16 10:50:56] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00003.arj is signed in C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00003.arj_sign 
+[2020-04-16 10:50:56] [INFO   ] Local interface Signatura unloads successfull 
+[2020-04-16 10:50:58] [INFO   ] 440-П report has been choosen 
+[2020-04-16 10:51:34] [INFO   ] Local interface of signature is created 
+[2020-04-16 10:51:42] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-04-16 10:51:42] [INFO   ] Sign parameters are set 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml_sign 
+[2020-04-16 10:51:42] [INFO   ] Sign parameters are set 
+[2020-04-16 10:51:42] [INFO   ] Verify parameters are set 
+[2020-04-16 10:51:42] [INFO   ] Encrypt parameters are set 
+[2020-04-16 10:51:42] [INFO   ] Decrypt parameters are set 
+[2020-04-16 10:51:44] [INFO   ] Encrypt parameters are set 
+[2020-04-16 10:51:44] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 10:51:44] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 10:51:44] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_enc 
+[2020-04-16 10:51:44] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_enc 
+[2020-04-16 10:51:44] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_enc 
+[2020-04-16 10:51:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_enc 
+[2020-04-16 10:51:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_enc 
+[2020-04-16 10:51:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_enc 
+[2020-04-16 10:51:45] [INFO   ] Sign parameters are set 
+[2020-04-16 10:51:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00004.arj is signed in C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00004.arj_sign 
+[2020-04-16 10:51:45] [INFO   ] Local interface Signatura unloads successfull 
+[2020-04-16 10:51:47] [INFO   ] 440-П report has been choosen 
+[2020-04-16 11:50:48] [INFO   ] Programm started 
+[2020-04-16 11:50:48] [INFO   ] Database connected 
+[2020-04-16 11:50:51] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 11:50:51] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 11:51:05] [INFO   ] 440-П report has been choosen 
+[2020-04-16 11:51:42] [INFO   ] Programm started 
+[2020-04-16 11:51:42] [INFO   ] Database connected 
+[2020-04-16 11:51:45] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 11:51:45] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 11:51:55] [INFO   ] 440-П report has been choosen 
+[2020-04-16 11:55:17] [INFO   ] Programm started 
+[2020-04-16 11:55:18] [INFO   ] Database connected 
+[2020-04-16 11:55:20] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 11:55:20] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 11:55:27] [INFO   ] 440-П report has been choosen 
+[2020-04-16 11:56:10] [INFO   ] Programm started 
+[2020-04-16 11:56:11] [INFO   ] Database connected 
+[2020-04-16 11:56:12] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 11:56:12] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 11:57:46] [INFO   ] Programm started 
+[2020-04-16 11:57:46] [INFO   ] Database connected 
+[2020-04-16 11:57:49] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 11:57:49] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 11:57:49] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:57:49] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:57:49] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:57:49] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:57:53] [INFO   ] 440-П report has been choosen 
+[2020-04-16 11:57:53] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:57:53] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:57:54] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:57:54] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:57:59] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:57:59] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:58:04] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:58:04] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (near "<": syntax error) 
+[2020-04-16 11:58:31] [INFO   ] Programm started 
+[2020-04-16 11:58:31] [INFO   ] Database connected 
+[2020-04-16 11:58:33] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 11:58:33] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 12:03:42] [INFO   ] Programm started 
+[2020-04-16 12:03:43] [INFO   ] Database connected 
+[2020-04-16 12:03:45] [INFO   ] Load main view EncriptOverviewController 
+[2020-04-16 12:03:45] [INFO   ] 1459-П report has been choosen 
+[2020-04-16 12:03:49] [INFO   ] 440-П report has been choosen 
+[2020-04-16 12:04:13] [INFO   ] Local interface of signature is created 
+[2020-04-16 12:04:28] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-04-16 12:04:28] [INFO   ] Sign parameters are set 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml_sign 
+[2020-04-16 12:04:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml_sign 
+[2020-04-16 12:04:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml_sign 
+[2020-04-16 12:04:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml_sign 
+[2020-04-16 12:04:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml_sign 
+[2020-04-16 12:04:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml_sign 
+[2020-04-16 12:04:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml_sign 
+[2020-04-16 12:04:29] [INFO   ] Sign parameters are set 
+[2020-04-16 12:04:29] [INFO   ] Verify parameters are set 
+[2020-04-16 12:04:29] [INFO   ] Encrypt parameters are set 
+[2020-04-16 12:04:29] [INFO   ] Decrypt parameters are set 
+[2020-04-16 12:04:31] [INFO   ] Encrypt parameters are set 
+[2020-04-16 12:04:31] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 12:04:31] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 12:04:31] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_enc 
+[2020-04-16 12:04:31] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_enc 
+[2020-04-16 12:04:31] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_enc 
+[2020-04-16 12:04:31] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_enc 
+[2020-04-16 12:04:31] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_enc 
+[2020-04-16 12:04:31] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_enc 
+[2020-04-16 12:04:32] [INFO   ] Sign parameters are set 
+[2020-04-16 12:04:32] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00009.arj is signed in C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00009.arj_sign 
+[2020-04-16 12:04:32] [INFO   ] Local interface Signatura unloads successfull 
+[2020-04-16 12:04:34] [INFO   ] 440-П report has been choosen 
+[2020-04-16 12:04:48] [INFO   ] Local interface of signature is created 
+[2020-04-16 12:04:54] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-04-16 12:04:54] [INFO   ] Sign parameters are set 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_470320200327_502580.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545142.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545155.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545214.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545312.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_545853.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_546544.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548417.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548513.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_780120200326_548592.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_781320200326_510578.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_APZ14030878_784320200326_521461.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_470320200327_501052.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_508540.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_545040.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780120200326_546398.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_780220200326_526620.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_781320200326_508691.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ROO14030878_784320200326_520053.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_780220200326_115490.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781320200326_131852.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_781420200326_122316.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136100.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_784220200326_136109.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_470320200327_502580_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545142_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545155_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545214_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545312_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_545853_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_546544_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548417_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548513_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_780120200326_548592_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_781320200326_510578_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_APZ14030878_784320200326_521461_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_470320200327_501052_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ROO14030878_784320200326_520053_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml is signed in C:\workspace_photon\fc_reporting\tmp\PB2_ZSV14030878_780220200326_115490_0500.xml_sign 
+[2020-04-16 12:04:54] [INFO   ] Sign parameters are set 
+[2020-04-16 12:04:54] [INFO   ] Verify parameters are set 
+[2020-04-16 12:04:54] [INFO   ] Encrypt parameters are set 
+[2020-04-16 12:04:54] [INFO   ] Decrypt parameters are set 
+[2020-04-16 12:04:57] [INFO   ] Encrypt parameters are set 
+[2020-04-16 12:04:57] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781320200326_131852_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 12:04:57] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000001_000001.xml_enc 
+[2020-04-16 12:04:57] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000002_000001.xml_enc 
+[2020-04-16 12:04:57] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVD1_ZSV14030878_781420200326_122316_20200327_0500_000003_000001.xml_enc 
+[2020-04-16 12:04:57] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781320200326_131852_20200327_0500.xml_enc 
+[2020-04-16 12:04:57] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_781420200326_122316_20200327_0500.xml_enc 
+[2020-04-16 12:04:57] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136100_20200327_0500.xml_enc 
+[2020-04-16 12:04:57] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BVS1_ZSV14030878_784220200326_136109_20200327_0500.xml_enc 
+[2020-04-16 12:04:58] [INFO   ] Sign parameters are set 
+[2020-04-16 12:04:58] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00010.arj is signed in C:\workspace_photon\fc_reporting\tmp\AFN_4030878_MIFNS00_20200416_00010.arj_sign 
+[2020-04-16 12:04:58] [INFO   ] Local interface Signatura unloads successfull 
+[2020-04-16 12:05:00] [INFO   ] 440-П report has been choosen 

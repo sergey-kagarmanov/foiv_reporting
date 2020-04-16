@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import application.MainApp;
@@ -339,6 +340,8 @@ public class EncryptOverviewController {
 	}
 
 	private int timer = 60000;
+	
+	private final static int TIMER = 5000;
 
 	@FXML
 	private void refreshData() {
@@ -356,7 +359,7 @@ public class EncryptOverviewController {
 
 		calculateData();
 		Timeline timeline = new Timeline(
-				new KeyFrame(Duration.millis(timer), ae -> calculateData()));
+				new KeyFrame(Duration.millis(TIMER), ae -> calculateData()));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
@@ -377,7 +380,7 @@ public class EncryptOverviewController {
 
 		calculateData();
 		Timeline timeline = new Timeline(
-				new KeyFrame(Duration.millis(timer), ae -> calculateData()));
+				new KeyFrame(Duration.millis(TIMER), ae -> calculateData()));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
@@ -473,9 +476,9 @@ public class EncryptOverviewController {
 		outArchiveFileTable.refresh();
 		inArchiveFileTable.refresh();
 		outArchiveFileTable
-				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), false));
+				.setItems(mainApp.getDb().getArchiveFilesPerDay(reportChooser.getValue(), false, LocalDate.now()));
 		inArchiveFileTable
-				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), true));
+				.setItems(mainApp.getDb().getArchiveFilesPerDay(reportChooser.getValue(), true, LocalDate.now()));
 		outArchiveFileTable.getSelectionModel().select(outIndex);
 		inArchiveFileTable.getSelectionModel().select(inIndex);
 		try {
@@ -504,7 +507,7 @@ public class EncryptOverviewController {
 				// MainApp.info("Data for "+reportChooser.getValue().getName()+"
 				// was loaded. Count in files is "+inFileCount.getText()+".
 				// Count out files is "+ outFileCount.getText());
-				if (timer > 5000) {// if error appears timer to check will be
+				if (timer > 600000) {// if error appears timer to check will be
 									// 50000
 									// or greater
 					timer = timer / 10;
@@ -517,6 +520,8 @@ public class EncryptOverviewController {
 					"При загрузке данных возникла ошибка проверьте настройки фильтрации");
 			alert.show();
 			timer = timer * 10;
+		}finally {
+			System.gc();
 		}
 	}
 

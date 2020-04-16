@@ -421,6 +421,53 @@ public class Dao {
 		return FXCollections.observableArrayList(files);
 	}
 
+	
+	/**
+	 * Return files without linked files and attributes, but transport files
+	 * with list it contains
+	 * 
+	 * @param report
+	 * @param direction
+	 * @return
+	 */
+	public ObservableList<TransportFile> getArchiveFilesPerDay(Report report, Boolean direction,
+			LocalDate date) {
+		List<TransportFile> files = new ArrayList<TransportFile>();
+		TransportFile tfile = null;
+		Integer id = 0;
+		Map<String, ReportFile> listFiles = null;
+		try {
+			String sql = "SELECT f.id, f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f.type_id as parent_type, f2.type_id as child_type FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL AND f.datetime >= ?  ORDER BY f.id ASC , f.datetime ASC";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, report.getId());
+			ps.setInt(2, direction ? 1 : 0);
+			ps.setString(3, DateUtils.toSQLite(date.minusDays(1).atStartOfDay()));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				if (id != rs.getInt("id")) {
+					id = rs.getInt("id");
+					listFiles = new HashMap<String, ReportFile>();
+					tfile = new TransportFile(id, rs.getString("name"),
+							DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
+							listFiles, getFileType(rs.getInt("parent_type")));
+					files.add(tfile);
+				}
+				listFiles.put(rs.getString("cname"),
+						new ReportFile(rs.getInt("cid"), rs.getString("cname"),
+								DateUtils.fromSQLite(rs.getString("cdatetime")), report, direction,
+								null, null, getFileType(rs.getInt("child_type"))));
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			MainApp.error(e.getLocalizedMessage());
+			e.printStackTrace();
+		}
+
+		return FXCollections.observableArrayList(files);
+	}
+
+	
 	/**
 	 * Return files without linked files and attributes, but transport files
 	 * with list it contains
