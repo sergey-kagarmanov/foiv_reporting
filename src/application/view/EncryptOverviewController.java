@@ -462,6 +462,14 @@ public class EncryptOverviewController {
 	@FXML
 	public void calculateData() {
 		// path = mainApp.getDb().getPathForReport(reportChooser.getValue());
+		/**
+		 * save selection
+		 */
+		FileEntity inFile = inFileTable.getSelectionModel().getSelectedItem();
+		FileEntity outFile = outFileTable.getSelectionModel().getSelectedItem();
+		TransportFile inArchiveFile = inArchiveFileTable.getSelectionModel().getSelectedItem();
+		TransportFile outArchiveFile = outArchiveFileTable.getSelectionModel().getSelectedItem();
+		
 		report = mainApp.getDb().getReportById(reportChooser.getValue().getId());
 		inPath.setText(report.getPathIn());
 		outPath.setText(report.getPathOut());
@@ -469,18 +477,18 @@ public class EncryptOverviewController {
 		outPathArch.setText(report.getPathArchiveOut());
 		inOutputPath.setText(report.getPathOutputIn());
 		outOutputPath.setText(report.getPathOutputOut());
-		int inIndex = inArchiveFileTable.getSelectionModel().getSelectedIndex();
-		int outIndex = outArchiveFileTable.getSelectionModel().getSelectedIndex();
-		outArchiveFileTable.setItems(FXCollections.emptyObservableList());
-		inArchiveFileTable.setItems(FXCollections.emptyObservableList());
+		/*int inIndex = inArchiveFileTable.getSelectionModel().getSelectedIndex();
+		int outIndex = outArchiveFileTable.getSelectionModel().getSelectedIndex();*/
+		outArchiveFileTable.setItems(FXCollections.observableArrayList());
+		inArchiveFileTable.setItems(FXCollections.observableArrayList());
 		outArchiveFileTable.refresh();
 		inArchiveFileTable.refresh();
 		outArchiveFileTable
 				.setItems(mainApp.getDb().getArchiveFilesPerDay(reportChooser.getValue(), false, LocalDate.now()));
 		inArchiveFileTable
 				.setItems(mainApp.getDb().getArchiveFilesPerDay(reportChooser.getValue(), true, LocalDate.now()));
-		outArchiveFileTable.getSelectionModel().select(outIndex);
-		inArchiveFileTable.getSelectionModel().select(inIndex);
+		/*outArchiveFileTable.getSelectionModel().select(outIndex);
+		inArchiveFileTable.getSelectionModel().select(inIndex);*/
 		try {
 			if (report.getPathOut() != null) {
 				outFileList.setItems(FileUtils.getDirContentByMask(report.getPathOut(),
@@ -503,7 +511,7 @@ public class EncryptOverviewController {
 				inFileCount.setText(
 						FileUtils.getDirContentByMask(report.getPathIn(), list).size() + "");
 			}
-			if (!"0".equals(inFileCount.getText()) || !"0".equals(outFileCount.getText()))
+			/*if (!"0".equals(inFileCount.getText()) || !"0".equals(outFileCount.getText()))
 				// MainApp.info("Data for "+reportChooser.getValue().getName()+"
 				// was loaded. Count in files is "+inFileCount.getText()+".
 				// Count out files is "+ outFileCount.getText());
@@ -511,7 +519,11 @@ public class EncryptOverviewController {
 									// 50000
 									// or greater
 					timer = timer / 10;
-				}
+				}*/
+			outFileTable.getSelectionModel().select(outFile);
+			inFileTable.getSelectionModel().select(inFile);
+			outArchiveFileTable.getSelectionModel().select(outArchiveFile);
+			inArchiveFileTable.getSelectionModel().select(inArchiveFile);
 		} catch (ReportError e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Ошибка");

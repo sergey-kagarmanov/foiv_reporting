@@ -73,7 +73,17 @@ public class Constants {
 	}
 	
 	public static String ACCEPT = "принят";
-	public static String[] POSITIVE_CODE = new String[] {"0","01", "00"};
+	public static String[] POSITIVE_CODE = new String[] {"0","01", "00", "1"};
+	
+	public static boolean isPositive(String code) {
+		boolean result = false;
+		for(String tmp : POSITIVE_CODE) {
+			if (tmp.equals(code)) {
+				result = true;
+			}
+		}
+		return result;
+	}
 	
 	/*public static boolean AUTO_KEY = true;
 	

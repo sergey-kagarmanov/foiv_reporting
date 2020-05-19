@@ -585,7 +585,10 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			controller.setData(attr);
 			controller.setDialogStage(dialogStage);
-			controller.setFileType(type);
+			if (type!=null)
+				controller.setFileType(type);
+			else
+				controller.setFileType(attr.getFile());
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();

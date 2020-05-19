@@ -14,6 +14,7 @@ import application.models.Report;
 import application.models.ReportFile;
 import application.models.TransportFile;
 import application.utils.Constants;
+import application.utils.DateUtils;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -26,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.TreeTableRow;
@@ -59,7 +61,7 @@ public class ArchiveOverviewController {
 	Label dateTimeAnswer;
 	@FXML
 	Label dateTimeFile;
-	
+
 	private LocalDate startTime;
 	private LocalDate endTime;
 
@@ -121,11 +123,33 @@ public class ArchiveOverviewController {
 					@Override
 					public ObservableValue<LocalDateTime> call(
 							CellDataFeatures<FileEntity, LocalDateTime> param) {
-						return new SimpleObjectProperty<LocalDateTime>(param.getValue().getValue().getDatetime());
-						/*return new SimpleStringProperty(
-								DateUtils.formatGUI(param.getValue().getValue().getDatetime()));*/
+						return new SimpleObjectProperty<LocalDateTime>(
+								param.getValue().getValue().getDatetime());
+						/*
+						 * return new SimpleStringProperty(
+						 * DateUtils.formatGUI(param.getValue().getValue().
+						 * getDatetime()));
+						 */
 					}
 				});
+		fileDateColumn.setCellFactory(column -> {
+			TreeTableCell<FileEntity, LocalDateTime> cell = new TreeTableCell<FileEntity, LocalDateTime>() {
+
+				@Override
+				protected void updateItem(LocalDateTime item, boolean empty) {
+					super.updateItem(item, empty);
+					if (empty) {
+						setText(null);
+					} else {
+						this.setText(DateUtils.tableFormatter.format(item));
+
+					}
+				}
+			};
+
+			return cell;
+		});
+
 		fileReportColumn.setCellValueFactory(
 				new TreeItemPropertyValueFactory<FileEntity, String>("report"));
 		fileDirectionColumn.setCellValueFactory(
@@ -151,17 +175,39 @@ public class ArchiveOverviewController {
 										.isEmpty()) {
 									Map<String, FileAttribute> attr = ((ReportFile) param.getValue()
 											.getValue()).getAttributes();
-									if (attr.get(AttributeDescr.PARENT) != null && attr.get(AttributeDescr.PARENT).getValue() != null && !"".equals(attr.get(AttributeDescr.PARENT).getValue())) {
+									if ((attr.get(AttributeDescr.PARENT) != null
+											&& attr.get(AttributeDescr.PARENT).getValue() != null
+											&& !"".equals(
+													attr.get(AttributeDescr.PARENT).getValue()))
+											|| (attr.get(AttributeDescr.PARENT_ID) != null
+													&& attr.get(AttributeDescr.PARENT_ID)
+															.getValue() != null
+													&& !"".equals(attr.get(AttributeDescr.PARENT_ID)
+															.getValue()))) {
 										if (attr != null && attr.get(AttributeDescr.CODE) != null) {
-											if ("0".equals(attr.get(AttributeDescr.CODE).getValue())
-													|| "00".equals(attr.get(AttributeDescr.CODE)
-															.getValue())
-													|| "01".equals(attr.get(AttributeDescr.CODE).getValue()))
+											if (Constants.isPositive(
+													attr.get(AttributeDescr.CODE).getValue()))
 												tmp += Constants.POSITIVE + " ";
 											else
 												tmp += Constants.NEGATIVE + " ";
-											tmp += Constants.ANSWER_ON
-													+ attr.get(AttributeDescr.PARENT).getValue();
+											if (attr.get(AttributeDescr.PARENT) != null)
+												tmp += Constants.ANSWER_ON + attr
+														.get(AttributeDescr.PARENT).getValue();
+											else
+												tmp += Constants.ANSWER_ON + attr
+														.get(AttributeDescr.PARENT_ID).getValue();
+										} else {
+											tmp = "Ответ на ";
+											if (attr.get(AttributeDescr.PARENT) != null
+													&& attr.get(AttributeDescr.PARENT)
+															.getValue() != null
+													&& !"".equals(attr.get(AttributeDescr.PARENT)
+															.getValue())) {
+												tmp += attr.get(AttributeDescr.PARENT).getValue();
+											} else {
+												tmp += attr.get(AttributeDescr.PARENT_ID)
+														.getValue();
+											}
 										}
 									} else {
 										tmp = "Исходный файл не найден";
@@ -170,14 +216,68 @@ public class ArchiveOverviewController {
 									tmp = "Ответ не получен";
 								}
 							} else {
-								
-								if (param.getValue().getValue()!=null) {
-									ObservableList<ReportFile> list = mainApp.getDb().getFilesByTransport(param.getValue().getValue());
+
+								if (param.getValue().getValue() != null) {
+									ObservableList<ReportFile> list = mainApp.getDb()
+											.getFilesByTransport(param.getValue().getValue());
 									int status = 0;
-									
+
 									if (param.getValue().getValue().getDirection()) {
-										for(ReportFile file : list) {//This is only for incoming transport files, because we don't do tickets for them, we need check all files in transport file, if they have linked files or it is ticket we mark transport as 'good'(green), if not all have answers or be tickets, we mark transport yellow, if no one have answers we mark transport pink  
-											if (file.getLinkedFile()!=null || file.getFileType().getTicket()) {
+										for (ReportFile file : list) {// This is
+																		// only
+																		// for
+																		// incoming
+																		// transport
+																		// files,
+																		// because
+																		// we
+																		// don't
+																		// do
+																		// tickets
+																		// for
+																		// them,
+																		// we
+																		// need
+																		// check
+																		// all
+																		// files
+																		// in
+																		// transport
+																		// file,
+																		// if
+																		// they
+																		// have
+																		// linked
+																		// files
+																		// or it
+																		// is
+																		// ticket
+																		// we
+																		// mark
+																		// transport
+																		// as
+																		// 'good'(green),
+																		// if
+																		// not
+																		// all
+																		// have
+																		// answers
+																		// or be
+																		// tickets,
+																		// we
+																		// mark
+																		// transport
+																		// yellow,
+																		// if no
+																		// one
+																		// have
+																		// answers
+																		// we
+																		// mark
+																		// transport
+																		// pink
+											if (file.getLinkedFile() != null
+													|| file.getFileType().getTicket()) {
 												status++;
 											}
 										}
@@ -188,10 +288,10 @@ public class ArchiveOverviewController {
 										} else {
 											tmp = "Файлы обработаны частично";
 										}
-									}else {
+									} else {
 										tmp = "Файлы не обработаны";
 									}
-									}
+								}
 
 							}
 						} else if (fe instanceof ReportFile) {
@@ -200,12 +300,16 @@ public class ArchiveOverviewController {
 								FileAttribute fa = rf.getAttributes().get(AttributeDescr.CODE);
 								FileAttribute commentAttr = rf.getAttributes()
 										.get(AttributeDescr.COMMENT);
-								if (((fa != null)
-										&& (fa.getValue().equals("00") || "0".equals(fa.getValue())
-												|| "01".equals(fa.getValue())))
+								if (((fa != null) && (Constants.isPositive(fa.getValue())))
 										|| ((commentAttr != null) && (Constants.ACCEPT
 												.equals(commentAttr.getValue())))) {
-									tmp = "Успешно";
+									tmp = "Успешный";
+									if (rf.getAttributes().get(AttributeDescr.PARENT) != null) {
+										tmp += " ответ " + rf.getName();
+									} else if (rf.getAttributes()
+											.get(AttributeDescr.PARENT_ID) != null) {
+										tmp += " ответ " + rf.getName();
+									}
 								} else if (fa != null
 										&& rf.getAttributes().get(AttributeDescr.COMMENT) != null) {
 									tmp = rf.getAttributes().get(AttributeDescr.COMMENT).getValue();
@@ -239,21 +343,23 @@ public class ArchiveOverviewController {
 									this.setBackground(new Background(
 											new BackgroundFill(Color.PINK, null, null)));
 								} else {
-									if (rf.getAttributes().get(AttributeDescr.PARENT) != null && rf.getAttributes().get(AttributeDescr.PARENT).getValue()!=null) {
+									if ((rf.getAttributes().get(AttributeDescr.PARENT) != null
+											&& rf.getAttributes().get(AttributeDescr.PARENT)
+													.getValue() != null)
+											|| (rf.getAttributes()
+													.get(AttributeDescr.PARENT_ID) != null
+													&& rf.getAttributes()
+															.get(AttributeDescr.PARENT_ID)
+															.getValue() != null)) {
 										if ((rf.getAttributes().get(AttributeDescr.CODE) != null
-												&& ("00".equals(rf.getAttributes()
-														.get(AttributeDescr.CODE).getValue())
-														|| "0".equals(rf.getAttributes()
-																.get(AttributeDescr.CODE)
-																.getValue()))
-												|| "01".equals(rf.getAttributes()
+												&& (Constants.isPositive(rf.getAttributes()
 														.get(AttributeDescr.CODE).getValue()))
 												|| (rf.getAttributes()
 														.get(AttributeDescr.COMMENT) != null
 														&& (Constants.ACCEPT
 																.equals(rf.getAttributes()
 																		.get(AttributeDescr.COMMENT)
-																		.getValue())))) {
+																		.getValue()))))) {
 											this.setBackground(new Background(new BackgroundFill(
 													Color.SPRINGGREEN, null, null)));
 										} else {
@@ -261,37 +367,96 @@ public class ArchiveOverviewController {
 													new BackgroundFill(Color.RED, null, null)));
 
 										}
-									} else if (rf.getAttributes().get(AttributeDescr.PARENT) != null && rf.getAttributes().get(AttributeDescr.PARENT).getValue() == null) {
+									} else if (rf.getAttributes().get(AttributeDescr.PARENT) != null
+											&& rf.getAttributes().get(AttributeDescr.PARENT)
+													.getValue() == null) {
 										this.setBackground(new Background(
 												new BackgroundFill(Color.YELLOW, null, null)));
-										
-									}else {
+
+									} else {
 										this.setBackground(new Background(
 												new BackgroundFill(Color.PINK, null, null)));
 									}
 								}
 							} else {
-								if (fe!=null) {
-								ObservableList<ReportFile> list = mainApp.getDb().getFilesByTransport(fe);
-								int status = 0;
-								
-								if (fe.getDirection()) {
-									for(ReportFile file : list) {//This is only for incoming transport files, because we don't do tickets for them, we need check all files in transport file, if they have linked files or it is ticket we mark transport as 'good'(green), if not all have answers or be tickets, we mark transport yellow, if no one have answers we mark transport pink  
-										if (file.getLinkedFile()!=null || file.getFileType().getTicket()) {
-											status++;
+								if (fe != null) {
+									ObservableList<ReportFile> list = mainApp.getDb()
+											.getFilesByTransport(fe);
+									int status = 0;
+
+									if (fe.getDirection()) {
+										for (ReportFile file : list) {// This is
+																		// only
+																		// for
+																		// incoming
+																		// transport
+																		// files,
+																		// because
+																		// we
+																		// don't
+																		// do
+																		// tickets
+																		// for
+																		// them,
+																		// we
+																		// need
+																		// check
+																		// all
+																		// files
+																		// in
+																		// transport
+																		// file,
+																		// if
+																		// they
+																		// have
+																		// linked
+																		// files
+																		// or it
+																		// is
+																		// ticket
+																		// we
+																		// mark
+																		// transport
+																		// as
+																		// 'good'(green),
+																		// if
+																		// not
+																		// all
+																		// have
+																		// answers
+																		// or be
+																		// tickets,
+																		// we
+																		// mark
+																		// transport
+																		// yellow,
+																		// if no
+																		// one
+																		// have
+																		// answers
+																		// we
+																		// mark
+																		// transport
+																		// pink
+											if (file.getLinkedFile() != null
+													|| file.getFileType().getTicket()) {
+												status++;
+											}
 										}
-									}
-									if (status == 0) {
-										this.setBackground(new Background(new BackgroundFill(Color.PINK, null, null)));
-									} else if (status == list.size()) {
-										this.setBackground(new Background(new BackgroundFill(Color.SPRINGGREEN, null, null)));
+										if (status == 0) {
+											this.setBackground(new Background(
+													new BackgroundFill(Color.PINK, null, null)));
+										} else if (status == list.size()) {
+											this.setBackground(new Background(new BackgroundFill(
+													Color.SPRINGGREEN, null, null)));
+										} else {
+											this.setBackground(new Background(
+													new BackgroundFill(Color.YELLOW, null, null)));
+										}
 									} else {
-										this.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
+										this.setBackground(new Background(
+												new BackgroundFill(Color.PINK, null, null)));
 									}
-								}else {
-									this.setBackground(
-											new Background(new BackgroundFill(Color.PINK, null, null)));
-								}
 								}
 							}
 						} else {
@@ -300,12 +465,8 @@ public class ArchiveOverviewController {
 								if (lrf.getAttributes() != null) {
 									if (lrf.getAttributes() != null)
 										if (lrf.getAttributes().get(AttributeDescr.CODE) != null) {
-											if ("0".equals(lrf.getAttributes()
-													.get(AttributeDescr.CODE).getValue())
-													|| "00".equals(lrf.getAttributes()
-															.get(AttributeDescr.CODE).getValue())
-													|| "01".equals(lrf.getAttributes()
-															.get(AttributeDescr.CODE).getValue())) {
+											if (Constants.isPositive(lrf.getAttributes()
+													.get(AttributeDescr.CODE).getValue())) {
 												this.setBackground(
 														new Background(new BackgroundFill(
 																Color.SPRINGGREEN, null, null)));
@@ -409,12 +570,12 @@ public class ArchiveOverviewController {
 		this.startTime = dateTime;
 		startDate.setValue(startTime);
 	}
-	
+
 	public void setEndTime(LocalDate dateTime) {
 		this.endTime = dateTime;
 		endDate.setValue(endTime);
 	}
-	
+
 	@FXML
 	public void handleStartDateSelected() {
 		// checks that own date is correct

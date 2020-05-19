@@ -165,7 +165,7 @@ public class AttributeLocationDialogController {
 	private void editItem() {
 		AttributeDescr attr = attributeTable.getSelectionModel().getSelectedItem();
 		if (attr != null) {
-			mainApp.showAttributeSettingsEditDialog(attr, fileTypeCombo.selectionModelProperty().getValue().getSelectedItem());
+			mainApp.showAttributeSettingsEditDialog(attr, fileTypeCombo.getSelectionModel().getSelectedItem());
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Ошибка");

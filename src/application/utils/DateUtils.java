@@ -118,4 +118,9 @@ public class DateUtils {
     		return "";
     }
     
+	public static String tableDateTimeFormat = "dd.MM.yyyy HH:mm:ss";
+	
+	public static DateTimeFormatter tableFormatter = DateTimeFormatter.ofPattern(tableDateTimeFormat);
+
+    
 }

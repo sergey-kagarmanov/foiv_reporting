@@ -45,7 +45,9 @@ public class FileTransforming {
 	}
 	
 	public void setSigned(File file) {
-		this.signed = file;
+		File sFile = new File(file.getAbsolutePath()+"_sgn");
+		FileUtils.copy(file, sFile);
+		this.signed = sFile;
 	}
 	
 	public boolean copySigned(String dir) {

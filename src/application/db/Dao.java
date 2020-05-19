@@ -891,7 +891,7 @@ public class Dao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			sql = "INSERT INTO files(report_id, name, datetime, direction, linked_id) VALUES (?,?,?,?,?)";
+			sql = "INSERT INTO files(report_id, name, datetime, direction, linked_id, type_id) VALUES (?,?,?,?,?,?)";
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, file.getReport().getId());
 			ps.setString(2, file.getName());
@@ -902,6 +902,7 @@ public class Dao {
 			} else {
 				ps.setNull(5, Types.INTEGER);
 			}
+			ps.setInt(6, file.getFileType().getId());
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
@@ -919,22 +920,29 @@ public class Dao {
 				ps.executeUpdate();
 				ps.close();
 
-				if (fattr.getValue().toLowerCase().contains(Constants.ACCEPT)
-						|| fattr.getValue().toLowerCase().contains(Constants.POSITIVE.toLowerCase())
-						|| Constants.POSITIVE_CODE[0].equals(fattr.getValue())
-						|| Constants.POSITIVE_CODE[1].equals(fattr.getValue())
-						|| Constants.POSITIVE_CODE[2].equals(fattr.getValue())) {
+				if (fattr.getValue()!=null && (fattr.getValue().toLowerCase().contains(Constants.ACCEPT) || fattr.getValue().toLowerCase().contains(Constants.POSITIVE.toLowerCase())||Constants.isPositive(fattr.getValue()))) {
 					Integer parentId = null;
-					PreparedStatement ps2 = connection.prepareStatement(
-							"SELECT file_id FROM file_attributes WHERE value = ? AND attribute_id = 8");
-					ps2.setString(1, file.getAttributes().get(AttributeDescr.ID).getValue());
-					ResultSet rs2 = ps.executeQuery();
-					if (rs2.next()) {
-						parentId = rs2.getInt("file_id");
+					PreparedStatement ps2 = null;
+					if (file.getAttributes().get(AttributeDescr.PARENT_ID)!=null) {
+						ps2 = connection.prepareStatement("select file_id from file_attributes where attribute_id = 8 and value = ?");
+						ps2.setString(1, file.getAttributes().get(AttributeDescr.PARENT_ID).getValue());
+						ResultSet rs2 = ps2.executeQuery();
+						if (rs2.next()) {
+							parentId = rs2.getInt("file_id");
+						}
+						rs2.close();
+						ps2.close();
+					}else {
+						ps2 = connection.prepareStatement(
+								"SELECT id FROM files WHERE name = ?");
+						ps2.setString(1, file.getAttributes().get(AttributeDescr.PARENT).getValue());
+						ResultSet rs2 = ps2.executeQuery();
+						if (rs2.next()) {
+							parentId = rs2.getInt("id");
+						}
+						rs2.close();
+						ps2.close();
 					}
-					rs2.close();
-					ps2.close();
-
 					if (parentId != null) {
 						ps2 = connection
 								.prepareStatement("UPDATE files SET linked_id = ? WHERE id = ?");
@@ -992,7 +1000,7 @@ public class Dao {
 
 			Integer linkedFileId = null;
 			for (ReportFile rf : tfile.getListFiles().values()) {
-				linkedFileId = null;
+				/*linkedFileId = null;
 				sql = "INSERT INTO files(report_id, name, datetime, direction, type_id) VALUES (?,?,?,?,?)";
 				ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				ps.setInt(1, rf.getReport().getId());
@@ -1000,11 +1008,7 @@ public class Dao {
 				ps.setString(3, DateUtils.toSQLite(rf.getDatetime()));
 				ps.setInt(4, rf.getDirection() ? 1 : 0);
 				ps.setInt(5, rf.getFileType().getId());
-				/*
-				 * if (rf.getLinkedFile() != null) { ps.setInt(5,
-				 * rf.getLinkedFile().getId()); } else { ps.setNull(5,
-				 * Types.INTEGER); }
-				 */
+				
 				ps.executeUpdate();
 				rs = ps.getGeneratedKeys();
 				if (rs.next()) {
@@ -1022,14 +1026,15 @@ public class Dao {
 					ps.executeUpdate();
 					ps.close();
 				}
-
+*/
+				save(rf);
 				sql = "INSERT INTO transport_files(parent_id, child_id)VALUES(?,?)";
 				ps = connection.prepareStatement(sql);
 				ps.setInt(1, tfile.getId());
 				ps.setInt(2, rf.getId());
 				ps.executeUpdate();
 				ps.close();
-
+/*
 				for (FileAttribute fattr : rf.getAttributes().values()) {
 					sql = "INSERT INTO file_attributes(file_id, attribute_id, value)VALUES(?,?,?)";
 					ps = connection.prepareStatement(sql);
@@ -1038,7 +1043,7 @@ public class Dao {
 					ps.setString(3, fattr.getValue());
 					ps.executeUpdate();
 					ps.close();
-				}
+				}*/
 			}
 
 		} catch (SQLException e) {
