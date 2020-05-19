@@ -667,8 +667,7 @@ public class EncryptOverviewController {
 			String file_name = file.getReport().getPathArchiveIn() + "\\"
 					+ DateUtils.toPath(file.getDatetime()) + "\\" + file.getName();
 			try {
-				String file_content = new String(Files.readAllBytes(Paths.get(file_name)),
-						("Windows-1251"));
+				byte[] file_content = Files.readAllBytes(Paths.get(file_name));
 				Printing.printFormattedXML(file.getName(), file_content);
 			} catch (IOException e) {
 				System.out.println(e.toString());
