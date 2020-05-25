@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -45,6 +46,7 @@ public class FileParser {
 
 	/**
 	 * Parse exist file in temp directory
+	 * 
 	 * @param file
 	 * @return
 	 * @throws ReportError
@@ -53,7 +55,7 @@ public class FileParser {
 		Map<String, FileAttribute> attr = new HashMap<>();
 
 		fType = getType(file);
-		if (fType==null) {
+		if (fType == null) {
 			throw new ReportError("Неизвестный тип файла");
 		}
 		if (fType.getValidationSchema() != null && !"".equals(fType.getValidationSchema())) {
@@ -62,7 +64,7 @@ public class FileParser {
 			if (list.size() > 0)
 				schemaExceptions.addAll(list);
 		}
-		
+
 		if (fType != null) {
 			Map<String, AttributeDescr> map = dao.getAttributes(fType);
 			try {
@@ -82,16 +84,23 @@ public class FileParser {
 		}
 	}
 
-	public List<Exception> getExceptions(){
+	public List<Exception> getExceptions() {
 		return schemaExceptions;
 	}
-	
+
 	private String getValue(File file, AttributeDescr attributeDescr) throws ReportError {
 		if (attributeDescr.getInName()) {
-			return file.getName().replace(attributeDescr.getLocation(), "");// TODO:
-																			// Something
-																			// strange...
-			//attributeDescr.getLocation()
+			// return file.getName().replace(attributeDescr.getLocation(),
+			// "");// TODO:
+			// Something
+			// strange...
+			// attributeDescr.getLocation()
+			Pattern p = Pattern.compile(attributeDescr.getLocation());
+			Matcher m = p.matcher(file.getName());
+			if (m.find())
+				return m.group(1);//First group is whole expression, 
+			else
+				return null;
 		} else {
 			if (fType.getFileType() == 0) {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -106,7 +115,23 @@ public class FileParser {
 																				// node
 																				// name,
 																				// not
-																				// work.. this change, if @ is first letter value is took from attribute with name after @ 
+																				// work..
+																				// this
+																				// change,
+																				// if
+																				// @
+																				// is
+																				// first
+																				// letter
+																				// value
+																				// is
+																				// took
+																				// from
+																				// attribute
+																				// with
+																				// name
+																				// after
+																				// @
 					int i = 0;
 					Node node = null;
 					NodeList list = doc.getChildNodes();
@@ -126,44 +151,38 @@ public class FileParser {
 						if (!flag) {
 							list = node.getChildNodes();
 							i++;
-							if (i<par.length && par[i].startsWith("@")) {
+							if (i < par.length && par[i].startsWith("@")) {
 								String parName = par[i].substring(1);
 								NamedNodeMap mapAttributes = node.getAttributes();
-								for (int k = 0; k<mapAttributes.getLength(); k++) {
+								for (int k = 0; k < mapAttributes.getLength(); k++) {
 									if (mapAttributes.item(k).getNodeName().equals(parName)) {
 										return mapAttributes.item(k).getNodeValue();
 									}
 								}
 							}
-						} else if (node==null) {
+						} else if (node == null) {
 							throw new ReportError("Node not found");
 						} else {
 							i++;
 						}
 					}
 
-					if ("".equals(attributeDescr.getAttr().getValue()) || attributeDescr.getAttr() == null) {
-						if (node !=null && node.getFirstChild()!=null)
+					if ("".equals(attributeDescr.getAttr().getValue())
+							|| attributeDescr.getAttr() == null) {
+						if (node != null && node.getFirstChild() != null)
 							return node.getFirstChild().getNodeValue();
-						else return null;
-					} /*else {
-						NamedNodeMap m = node.getAttributes();
-						if (m.getNamedItem(par[par.length - 1]) != null)// This
-																		// is
-																		// for
-																		// if
-																		// data
-																		// not
-																		// in
-																		// attributes
-							return m.getNamedItem(par[par.length - 1]).getNodeValue();
-						else {
-							if (node!=null && node.getFirstChild()!=null)
-							return node.getFirstChild().getNodeValue();
-							else
-								return null;
-						}
-					}*/
+						else
+							return null;
+					} /*
+						 * else { NamedNodeMap m = node.getAttributes(); if
+						 * (m.getNamedItem(par[par.length - 1]) != null)// This
+						 * // is // for // if // data // not // in // attributes
+						 * return m.getNamedItem(par[par.length -
+						 * 1]).getNodeValue(); else { if (node!=null &&
+						 * node.getFirstChild()!=null) return
+						 * node.getFirstChild().getNodeValue(); else return
+						 * null; } }
+						 */
 				} catch (ParserConfigurationException | SAXException | IOException e) {
 					e.printStackTrace();
 				}

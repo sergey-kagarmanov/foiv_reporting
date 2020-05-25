@@ -1,718 +1,86 @@
-[2020-05-18 10:07:50] [INFO   ] Programm started 
-[2020-05-18 10:07:52] [INFO   ] Database connected 
-[2020-05-18 10:07:54] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 10:07:54] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 10:07:59] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 10:08:29] [INFO   ] Local interface of signature is created 
-[2020-05-18 10:08:36] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 10:08:36] [INFO   ] Sign parameters are set 
-[2020-05-18 10:08:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026399_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026399_700.XML_sign 
-[2020-05-18 10:08:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026400_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026400_700.XML_sign 
-[2020-05-18 10:08:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026401_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026401_700.XML_sign 
-[2020-05-18 10:08:37] [INFO   ] Sign parameters are set 
-[2020-05-18 10:08:37] [INFO   ] Verify parameters are set 
-[2020-05-18 10:08:37] [INFO   ] Encrypt parameters are set 
-[2020-05-18 10:08:37] [INFO   ] Decrypt parameters are set 
-[2020-05-18 10:08:39] [INFO   ] Encrypt parameters are set 
-[2020-05-18 10:08:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026399_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026399_700.XML_enc 
-[2020-05-18 10:08:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026400_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026400_700.XML_enc 
-[2020-05-18 10:08:39] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026401_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200410_163700052000026401_700.XML_enc 
-[2020-05-18 10:08:40] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 10:08:43] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 10:21:00] [INFO   ] Programm started 
-[2020-05-18 10:21:01] [INFO   ] Database connected 
-[2020-05-18 10:21:03] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 10:21:03] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 10:21:14] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 10:22:00] [INFO   ] 440-П report has been choosen 
-[2020-05-18 10:22:36] [INFO   ] Local interface of signature is created 
-[2020-05-18 10:22:40] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 10:22:40] [INFO   ] Sign parameters are set 
-[2020-05-18 10:22:40] [INFO   ] Verify parameters are set 
-[2020-05-18 10:22:40] [INFO   ] Encrypt parameters are set 
-[2020-05-18 10:22:40] [INFO   ] Decrypt parameters are set 
-[2020-05-18 10:22:40] [SEVERE ] File C:\workspace_photon\fc_reporting\tmp\AFN_MIFNS00_4030878_20200413_00001.arj isn't unsigned. Result code - e070001a 
-[2020-05-18 10:22:43] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 10:22:44] [INFO   ] 440-П report has been choosen 
-[2020-05-18 10:24:36] [INFO   ] Local interface of signature is created 
-[2020-05-18 10:24:40] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 10:24:40] [INFO   ] Sign parameters are set 
-[2020-05-18 10:24:40] [INFO   ] Verify parameters are set 
-[2020-05-18 10:24:40] [INFO   ] Encrypt parameters are set 
-[2020-05-18 10:24:40] [INFO   ] Decrypt parameters are set 
-[2020-05-18 10:24:40] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\AFN_MIFNS00_4030878_20200507_00005.arj is unsigned in C:\workspace_photon\fc_reporting\tmp\AFN_MIFNS00_4030878_20200507_00005.arj_unsign 
-[2020-05-18 10:24:40] [INFO   ] Sign parameters are set 
-[2020-05-18 10:24:40] [INFO   ] Verify parameters are set 
-[2020-05-18 10:24:40] [INFO   ] Encrypt parameters are set 
-[2020-05-18 10:24:40] [INFO   ] Decrypt parameters are set 
-[2020-05-18 10:24:40] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_181768.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_181768.vrb_enc 
-[2020-05-18 10:24:40] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_181768.vrb_enc is decompressed to tmp\ZSV14030878_781320200507_181768.vrb 
-[2020-05-18 10:24:40] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780220200507_192794.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780220200507_192794.vrb_enc 
-[2020-05-18 10:24:40] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780220200507_192794.vrb_enc is decompressed to tmp\ZSV14030878_780220200507_192794.vrb 
-[2020-05-18 10:24:40] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_183497.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_183497.vrb_enc 
-[2020-05-18 10:24:40] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_183497.vrb_enc is decompressed to tmp\ZSV14030878_781320200507_183497.vrb 
-[2020-05-18 10:24:40] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_198146.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_198146.vrb_enc 
-[2020-05-18 10:24:40] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_198146.vrb_enc is decompressed to tmp\ZSV14030878_781320200507_198146.vrb 
-[2020-05-18 10:24:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780120200507_173620.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780120200507_173620.vrb_enc 
-[2020-05-18 10:24:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780120200507_173620.vrb_enc is decompressed to tmp\ZSV14030878_780120200507_173620.vrb 
-[2020-05-18 10:24:41] [INFO   ] Sign parameters are set 
-[2020-05-18 10:24:41] [INFO   ] Verify parameters are set 
-[2020-05-18 10:24:41] [INFO   ] Encrypt parameters are set 
-[2020-05-18 10:24:41] [INFO   ] Decrypt parameters are set 
-[2020-05-18 10:24:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_181768.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_181768.xml_unsign 
-[2020-05-18 10:24:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780220200507_192794.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780220200507_192794.xml_unsign 
-[2020-05-18 10:24:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_183497.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_183497.xml_unsign 
-[2020-05-18 10:24:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_198146.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_781320200507_198146.xml_unsign 
-[2020-05-18 10:24:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780120200507_173620.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_780120200507_173620.xml_unsign 
-[2020-05-18 10:24:41] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 10:24:43] [INFO   ] 440-П report has been choosen 
-[2020-05-18 12:25:13] [INFO   ] Programm started 
-[2020-05-18 12:25:14] [INFO   ] Database connected 
-[2020-05-18 12:25:17] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 12:25:17] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 12:25:22] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:25:54] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:25:59] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:25:59] [INFO   ] Sign parameters are set 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030066_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030066_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030069_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030069_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030067_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030067_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030068_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030068_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030070_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030070_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030071_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030071_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030072_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030072_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030073_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030073_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030074_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030074_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030075_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030075_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030076_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030076_700.XML_sign 
-[2020-05-18 12:25:59] [INFO   ] Sign parameters are set 
-[2020-05-18 12:25:59] [INFO   ] Verify parameters are set 
-[2020-05-18 12:25:59] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:25:59] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:26:02] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030066_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030066_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030069_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030069_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030067_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030067_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030068_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030068_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030070_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030070_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030071_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030071_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030072_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030072_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030073_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030073_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030074_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030074_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030075_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030075_700.XML_enc 
-[2020-05-18 12:26:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030076_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030076_700.XML_enc 
-[2020-05-18 12:26:03] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 12:26:06] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:27:02] [INFO   ] Programm started 
-[2020-05-18 12:27:03] [INFO   ] Database connected 
-[2020-05-18 12:27:06] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 12:27:06] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 12:27:10] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:28:28] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:28:33] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:28:33] [INFO   ] Sign parameters are set 
-[2020-05-18 12:28:33] [INFO   ] Verify parameters are set 
-[2020-05-18 12:28:33] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:28:33] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:28:33] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 12:28:33] [SEVERE ] null 
-[2020-05-18 12:28:35] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:29:41] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:29:45] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:29:45] [INFO   ] Sign parameters are set 
-[2020-05-18 12:29:45] [INFO   ] Verify parameters are set 
-[2020-05-18 12:29:45] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:29:45] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:29:45] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 12:33:06] [SEVERE ] null 
-[2020-05-18 12:33:15] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:38:06] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:38:11] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:38:11] [INFO   ] Sign parameters are set 
-[2020-05-18 12:38:11] [INFO   ] Verify parameters are set 
-[2020-05-18 12:38:11] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:38:11] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:38:11] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 12:38:22] [SEVERE ] statement is not executing 
-[2020-05-18 12:39:09] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:39:26] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:39:30] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:39:30] [INFO   ] Sign parameters are set 
-[2020-05-18 12:39:30] [INFO   ] Verify parameters are set 
-[2020-05-18 12:39:30] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:39:30] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:39:30] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 12:44:35] [INFO   ] Programm started 
-[2020-05-18 12:44:36] [INFO   ] Database connected 
-[2020-05-18 12:44:39] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 12:44:39] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 12:44:47] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:44:50] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:44:55] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:44:55] [INFO   ] Sign parameters are set 
-[2020-05-18 12:44:55] [INFO   ] Verify parameters are set 
-[2020-05-18 12:44:55] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:44:55] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:44:55] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 12:44:55] [SEVERE ] statement is not executing 
-[2020-05-18 12:44:57] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:45:33] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:45:37] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:45:37] [INFO   ] Sign parameters are set 
-[2020-05-18 12:45:37] [INFO   ] Verify parameters are set 
-[2020-05-18 12:45:37] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:45:37] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:45:37] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 12:47:54] [INFO   ] Programm started 
-[2020-05-18 12:47:55] [INFO   ] Database connected 
-[2020-05-18 12:47:58] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 12:47:58] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 12:48:05] [INFO   ] 440-П report has been choosen 
-[2020-05-18 12:48:07] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:48:10] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:48:14] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:48:14] [INFO   ] Sign parameters are set 
-[2020-05-18 12:48:14] [INFO   ] Verify parameters are set 
-[2020-05-18 12:48:14] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:48:14] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:48:14] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 12:48:15] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:49:01] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:49:05] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:49:05] [INFO   ] Sign parameters are set 
-[2020-05-18 12:49:05] [INFO   ] Verify parameters are set 
-[2020-05-18 12:49:05] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:49:05] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:49:05] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 12:50:15] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 12:51:45] [INFO   ] Local interface of signature is created 
-[2020-05-18 12:51:49] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 12:51:49] [INFO   ] Sign parameters are set 
-[2020-05-18 12:51:49] [INFO   ] Verify parameters are set 
-[2020-05-18 12:51:49] [INFO   ] Encrypt parameters are set 
-[2020-05-18 12:51:49] [INFO   ] Decrypt parameters are set 
-[2020-05-18 12:51:49] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:08:28] [INFO   ] Programm started 
-[2020-05-18 13:08:29] [INFO   ] Database connected 
-[2020-05-18 13:08:31] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 13:08:31] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 13:09:53] [INFO   ] Programm started 
-[2020-05-18 13:09:54] [INFO   ] Database connected 
-[2020-05-18 13:09:56] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 13:09:56] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 13:09:59] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:10:02] [INFO   ] Local interface of signature is created 
-[2020-05-18 13:10:06] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 13:10:06] [INFO   ] Sign parameters are set 
-[2020-05-18 13:10:06] [INFO   ] Verify parameters are set 
-[2020-05-18 13:10:06] [INFO   ] Encrypt parameters are set 
-[2020-05-18 13:10:06] [INFO   ] Decrypt parameters are set 
-[2020-05-18 13:10:06] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:10:06] [SEVERE ] [SQLITE_ERROR] SQL error or missing database (no such column: file_id) 
-[2020-05-18 13:10:08] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:10:35] [INFO   ] Programm started 
-[2020-05-18 13:10:36] [INFO   ] Database connected 
-[2020-05-18 13:10:39] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 13:10:39] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 13:11:54] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:11:58] [INFO   ] Local interface of signature is created 
-[2020-05-18 13:12:02] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 13:12:02] [INFO   ] Sign parameters are set 
-[2020-05-18 13:12:02] [INFO   ] Verify parameters are set 
-[2020-05-18 13:12:02] [INFO   ] Encrypt parameters are set 
-[2020-05-18 13:12:02] [INFO   ] Decrypt parameters are set 
-[2020-05-18 13:12:02] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:12:04] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:21:45] [INFO   ] Programm started 
-[2020-05-18 13:21:46] [INFO   ] Database connected 
-[2020-05-18 13:21:48] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 13:21:48] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 13:37:10] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:37:12] [INFO   ] Local interface of signature is created 
-[2020-05-18 13:37:17] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 13:37:17] [INFO   ] Sign parameters are set 
-[2020-05-18 13:37:17] [INFO   ] Verify parameters are set 
-[2020-05-18 13:37:17] [INFO   ] Encrypt parameters are set 
-[2020-05-18 13:37:17] [INFO   ] Decrypt parameters are set 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 13:37:17] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:37:20] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:49:16] [INFO   ] Programm started 
-[2020-05-18 13:49:18] [INFO   ] Database connected 
-[2020-05-18 13:49:19] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 13:49:19] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 13:49:36] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:49:41] [INFO   ] Local interface of signature is created 
-[2020-05-18 13:49:45] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 13:49:45] [INFO   ] Sign parameters are set 
-[2020-05-18 13:49:45] [INFO   ] Verify parameters are set 
-[2020-05-18 13:49:45] [INFO   ] Encrypt parameters are set 
-[2020-05-18 13:49:45] [INFO   ] Decrypt parameters are set 
-[2020-05-18 13:49:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 13:49:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 13:49:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 13:49:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 13:49:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 13:49:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 13:49:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 13:49:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 13:49:45] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 13:49:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 13:49:46] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 13:49:46] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:49:48] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:50:29] [INFO   ] Local interface of signature is created 
-[2020-05-18 13:50:32] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 13:50:32] [INFO   ] Sign parameters are set 
-[2020-05-18 13:50:32] [INFO   ] Verify parameters are set 
-[2020-05-18 13:50:32] [INFO   ] Encrypt parameters are set 
-[2020-05-18 13:50:32] [INFO   ] Decrypt parameters are set 
-[2020-05-18 13:50:32] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 13:50:32] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 13:50:32] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 13:50:32] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 13:50:32] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 13:50:32] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 13:50:32] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 13:50:32] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 13:50:33] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 13:50:33] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 13:50:33] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 13:50:33] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:50:35] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:50:48] [INFO   ] Local interface of signature is created 
-[2020-05-18 13:50:51] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 13:50:51] [INFO   ] Sign parameters are set 
-[2020-05-18 13:50:51] [INFO   ] Verify parameters are set 
-[2020-05-18 13:50:51] [INFO   ] Encrypt parameters are set 
-[2020-05-18 13:50:51] [INFO   ] Decrypt parameters are set 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 13:50:51] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:50:53] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:51:12] [INFO   ] Programm started 
-[2020-05-18 13:51:14] [INFO   ] Database connected 
-[2020-05-18 13:51:16] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 13:51:16] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 13:51:21] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:51:23] [INFO   ] Local interface of signature is created 
-[2020-05-18 13:51:27] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 13:51:27] [INFO   ] Sign parameters are set 
-[2020-05-18 13:51:27] [INFO   ] Verify parameters are set 
-[2020-05-18 13:51:27] [INFO   ] Encrypt parameters are set 
-[2020-05-18 13:51:27] [INFO   ] Decrypt parameters are set 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 13:51:27] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:51:30] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:52:32] [INFO   ] Local interface of signature is created 
-[2020-05-18 13:52:36] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 13:52:36] [INFO   ] Sign parameters are set 
-[2020-05-18 13:52:36] [INFO   ] Verify parameters are set 
-[2020-05-18 13:52:36] [INFO   ] Encrypt parameters are set 
-[2020-05-18 13:52:36] [INFO   ] Decrypt parameters are set 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 13:52:36] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:59:28] [INFO   ] Programm started 
-[2020-05-18 13:59:29] [INFO   ] Database connected 
-[2020-05-18 13:59:31] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 13:59:31] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 13:59:34] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 13:59:37] [INFO   ] Local interface of signature is created 
-[2020-05-18 13:59:41] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 13:59:41] [INFO   ] Sign parameters are set 
-[2020-05-18 13:59:41] [INFO   ] Verify parameters are set 
-[2020-05-18 13:59:41] [INFO   ] Encrypt parameters are set 
-[2020-05-18 13:59:41] [INFO   ] Decrypt parameters are set 
-[2020-05-18 13:59:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 13:59:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 13:59:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 13:59:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 13:59:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 13:59:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 13:59:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 13:59:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 13:59:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 13:59:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 13:59:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 13:59:42] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 13:59:48] [SEVERE ] null 
-[2020-05-18 14:05:41] [INFO   ] Programm started 
-[2020-05-18 14:05:42] [INFO   ] Database connected 
-[2020-05-18 14:05:44] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 14:05:44] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 14:05:47] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 14:05:50] [INFO   ] Local interface of signature is created 
-[2020-05-18 14:05:55] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 14:05:55] [INFO   ] Sign parameters are set 
-[2020-05-18 14:05:55] [INFO   ] Verify parameters are set 
-[2020-05-18 14:05:55] [INFO   ] Encrypt parameters are set 
-[2020-05-18 14:05:55] [INFO   ] Decrypt parameters are set 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 14:05:55] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 14:05:59] [SEVERE ] null 
-[2020-05-18 14:06:21] [INFO   ] Programm started 
-[2020-05-18 14:06:23] [INFO   ] Database connected 
-[2020-05-18 14:06:25] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 14:06:25] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 14:06:28] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 14:06:30] [INFO   ] Local interface of signature is created 
-[2020-05-18 14:06:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 14:06:35] [INFO   ] Sign parameters are set 
-[2020-05-18 14:06:35] [INFO   ] Verify parameters are set 
-[2020-05-18 14:06:35] [INFO   ] Encrypt parameters are set 
-[2020-05-18 14:06:35] [INFO   ] Decrypt parameters are set 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 14:06:35] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 14:07:58] [INFO   ] Programm started 
-[2020-05-18 14:07:59] [INFO   ] Database connected 
-[2020-05-18 14:08:01] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 14:08:01] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 14:08:16] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 14:08:18] [INFO   ] Local interface of signature is created 
-[2020-05-18 14:08:22] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 14:08:22] [INFO   ] Sign parameters are set 
-[2020-05-18 14:08:22] [INFO   ] Verify parameters are set 
-[2020-05-18 14:08:22] [INFO   ] Encrypt parameters are set 
-[2020-05-18 14:08:22] [INFO   ] Decrypt parameters are set 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 14:08:22] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 14:08:23] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 14:08:23] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 14:09:41] [INFO   ] Programm started 
-[2020-05-18 14:09:43] [INFO   ] Database connected 
-[2020-05-18 14:09:45] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 14:09:45] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 14:24:15] [INFO   ] Programm started 
-[2020-05-18 14:24:23] [INFO   ] Programm started 
-[2020-05-18 14:24:24] [INFO   ] Database connected 
-[2020-05-18 14:24:26] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 14:24:26] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 14:24:43] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 14:24:46] [INFO   ] Local interface of signature is created 
-[2020-05-18 14:24:50] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 14:24:50] [INFO   ] Sign parameters are set 
-[2020-05-18 14:24:50] [INFO   ] Verify parameters are set 
-[2020-05-18 14:24:50] [INFO   ] Encrypt parameters are set 
-[2020-05-18 14:24:50] [INFO   ] Decrypt parameters are set 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 14:24:50] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 14:25:04] [SEVERE ] null 
-[2020-05-18 14:25:04] [SEVERE ] null 
-[2020-05-18 14:25:04] [SEVERE ] null 
-[2020-05-18 14:25:04] [SEVERE ] null 
-[2020-05-18 14:25:04] [SEVERE ] null 
-[2020-05-18 14:25:05] [SEVERE ] null 
-[2020-05-18 14:25:05] [SEVERE ] null 
-[2020-05-18 14:25:05] [SEVERE ] null 
-[2020-05-18 14:25:05] [SEVERE ] null 
-[2020-05-18 14:25:05] [SEVERE ] null 
-[2020-05-18 14:25:05] [SEVERE ] null 
-[2020-05-18 14:25:17] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 14:25:37] [INFO   ] Local interface of signature is created 
-[2020-05-18 14:25:41] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 14:25:41] [INFO   ] Sign parameters are set 
-[2020-05-18 14:25:41] [INFO   ] Verify parameters are set 
-[2020-05-18 14:25:41] [INFO   ] Encrypt parameters are set 
-[2020-05-18 14:25:41] [INFO   ] Decrypt parameters are set 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 14:25:41] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 14:26:09] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:14] [SEVERE ] null 
-[2020-05-18 14:26:18] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 14:27:22] [INFO   ] Local interface of signature is created 
-[2020-05-18 14:27:26] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 14:27:26] [INFO   ] Sign parameters are set 
-[2020-05-18 14:27:26] [INFO   ] Verify parameters are set 
-[2020-05-18 14:27:26] [INFO   ] Encrypt parameters are set 
-[2020-05-18 14:27:26] [INFO   ] Decrypt parameters are set 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 14:27:26] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 14:27:28] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 14:41:39] [INFO   ] Programm started 
-[2020-05-18 14:41:41] [INFO   ] Database connected 
-[2020-05-18 14:41:43] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 14:41:43] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 16:14:45] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 16:14:50] [INFO   ] Local interface of signature is created 
-[2020-05-18 16:14:54] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 16:14:54] [INFO   ] Sign parameters are set 
-[2020-05-18 16:14:54] [INFO   ] Verify parameters are set 
-[2020-05-18 16:14:54] [INFO   ] Encrypt parameters are set 
-[2020-05-18 16:14:54] [INFO   ] Decrypt parameters are set 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 16:14:54] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 16:26:01] [INFO   ] Programm started 
-[2020-05-18 16:26:03] [INFO   ] Database connected 
-[2020-05-18 16:26:05] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 16:26:05] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 16:33:23] [INFO   ] Programm started 
-[2020-05-18 16:33:25] [INFO   ] Database connected 
-[2020-05-18 16:33:27] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 16:33:27] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 16:34:02] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 16:34:05] [INFO   ] Local interface of signature is created 
-[2020-05-18 16:34:09] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 16:34:09] [INFO   ] Sign parameters are set 
-[2020-05-18 16:34:09] [INFO   ] Verify parameters are set 
-[2020-05-18 16:34:09] [INFO   ] Encrypt parameters are set 
-[2020-05-18 16:34:09] [INFO   ] Decrypt parameters are set 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 16:34:09] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 16:34:20] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 16:35:44] [INFO   ] Programm started 
-[2020-05-18 16:35:46] [INFO   ] Database connected 
-[2020-05-18 16:35:48] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 16:35:48] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 16:38:00] [INFO   ] Programm started 
-[2020-05-18 16:38:01] [INFO   ] Database connected 
-[2020-05-18 16:38:03] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 16:38:03] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 16:41:59] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 16:42:02] [INFO   ] Local interface of signature is created 
-[2020-05-18 16:42:07] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 16:42:07] [INFO   ] Sign parameters are set 
-[2020-05-18 16:42:07] [INFO   ] Verify parameters are set 
-[2020-05-18 16:42:07] [INFO   ] Encrypt parameters are set 
-[2020-05-18 16:42:07] [INFO   ] Decrypt parameters are set 
-[2020-05-18 16:42:07] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 16:42:08] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 16:48:19] [INFO   ] Programm started 
-[2020-05-18 16:48:21] [INFO   ] Database connected 
-[2020-05-18 16:48:23] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 16:48:23] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 16:48:55] [INFO   ] Programm started 
-[2020-05-18 16:48:57] [INFO   ] Database connected 
-[2020-05-18 16:48:59] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 16:48:59] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 17:04:28] [INFO   ] Programm started 
-[2020-05-18 17:04:29] [INFO   ] Database connected 
-[2020-05-18 17:04:31] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 17:04:31] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 17:04:56] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 17:04:58] [INFO   ] Local interface of signature is created 
-[2020-05-18 17:05:02] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 17:05:02] [INFO   ] Sign parameters are set 
-[2020-05-18 17:05:02] [INFO   ] Verify parameters are set 
-[2020-05-18 17:05:02] [INFO   ] Encrypt parameters are set 
-[2020-05-18 17:05:02] [INFO   ] Decrypt parameters are set 
-[2020-05-18 17:05:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 17:05:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 17:05:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 17:05:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 17:05:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 17:05:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 17:05:02] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 17:05:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 17:05:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 17:05:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 17:05:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 17:05:03] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 17:05:05] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 17:05:59] [INFO   ] Local interface of signature is created 
-[2020-05-18 17:06:03] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 17:06:03] [INFO   ] Sign parameters are set 
-[2020-05-18 17:06:03] [INFO   ] Verify parameters are set 
-[2020-05-18 17:06:03] [INFO   ] Encrypt parameters are set 
-[2020-05-18 17:06:03] [INFO   ] Decrypt parameters are set 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 17:06:03] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 17:10:01] [INFO   ] Programm started 
-[2020-05-18 17:10:03] [INFO   ] Database connected 
-[2020-05-18 17:10:05] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 17:10:05] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 17:10:34] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 17:12:30] [INFO   ] Local interface of signature is created 
-[2020-05-18 17:12:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 17:12:35] [INFO   ] Sign parameters are set 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030066_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030066_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030069_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030069_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030067_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030067_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030068_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030068_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030070_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030070_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030071_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030071_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030072_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030072_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030073_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030073_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030074_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030074_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030075_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030075_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030076_700.XML is signed in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030076_700.XML_sign 
-[2020-05-18 17:12:35] [INFO   ] Sign parameters are set 
-[2020-05-18 17:12:35] [INFO   ] Verify parameters are set 
-[2020-05-18 17:12:35] [INFO   ] Encrypt parameters are set 
-[2020-05-18 17:12:35] [INFO   ] Decrypt parameters are set 
-[2020-05-18 17:12:37] [INFO   ] Encrypt parameters are set 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030066_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030066_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030069_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC014030878_781320200515_163700052000030069_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030067_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030067_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030068_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC114030878_781320200515_163700052000030068_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030070_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030070_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030071_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030071_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030072_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030072_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030073_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030073_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030074_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030074_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030075_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030075_700.XML_enc 
-[2020-05-18 17:12:37] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030076_700.XML is encrypted in C:\workspace_photon\fc_reporting\tmp\SFC214030878_781320200515_163700052000030076_700.XML_enc 
-[2020-05-18 17:12:38] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 17:12:40] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 17:12:44] [INFO   ] Local interface of signature is created 
-[2020-05-18 17:12:47] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-18 17:12:47] [INFO   ] Sign parameters are set 
-[2020-05-18 17:12:47] [INFO   ] Verify parameters are set 
-[2020-05-18 17:12:47] [INFO   ] Encrypt parameters are set 
-[2020-05-18 17:12:47] [INFO   ] Decrypt parameters are set 
-[2020-05-18 17:12:47] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030074_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030075_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030076_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030070_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030071_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030072_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF214030878_781320200515_163700052000030073_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030066_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF014030878_781320200515_163700052000030069_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030067_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML is unsigned in C:\workspace_photon\fc_reporting\tmp\SFF114030878_781320200515_163700052000030068_700.XML_unsign 
-[2020-05-18 17:12:48] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-18 17:12:49] [INFO   ] 311-П(фл) report has been choosen 
-[2020-05-18 17:15:57] [INFO   ] Programm started 
-[2020-05-18 17:15:59] [INFO   ] Database connected 
-[2020-05-18 17:16:01] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 17:16:01] [INFO   ] 1459-П report has been choosen 
-[2020-05-18 17:21:46] [INFO   ] Programm started 
-[2020-05-18 17:21:47] [INFO   ] Database connected 
-[2020-05-18 17:21:49] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-18 17:21:49] [INFO   ] 1459-П report has been choosen 
+[2020-05-25 08:49:59] [INFO   ] Programm started 
+[2020-05-25 08:50:01] [INFO   ] Database connected 
+[2020-05-25 08:50:04] [INFO   ] Load main view EncriptOverviewController 
+[2020-05-25 08:50:04] [INFO   ] 1459-П report has been choosen 
+[2020-05-25 08:50:58] [INFO   ] 440-П report has been choosen 
+[2020-05-25 08:51:00] [INFO   ] Local interface of signature is created 
+[2020-05-25 08:51:07] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-05-25 08:51:07] [INFO   ] Sign parameters are set 
+[2020-05-25 08:51:07] [INFO   ] Verify parameters are set 
+[2020-05-25 08:51:07] [INFO   ] Encrypt parameters are set 
+[2020-05-25 08:51:07] [INFO   ] Decrypt parameters are set 
+[2020-05-25 08:51:07] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\AFN_MIFNS00_4030878_20200513_00001.arj is unsigned in C:\workspace_photon\fc_reporting\tmp\AFN_MIFNS00_4030878_20200513_00001.arj_unsign 
+[2020-05-25 08:51:08] [INFO   ] Sign parameters are set 
+[2020-05-25 08:51:08] [INFO   ] Verify parameters are set 
+[2020-05-25 08:51:08] [INFO   ] Encrypt parameters are set 
+[2020-05-25 08:51:08] [INFO   ] Decrypt parameters are set 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.vrb_enc 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.vrb_enc is decompressed to tmp\ROO14030878_780420200513_502589.vrb 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.vrb_enc 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.vrb_enc is decompressed to tmp\APZ14030878_780420200513_511554.vrb 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.vrb_enc 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.vrb_enc is decompressed to tmp\APZ14030878_780420200513_511553.vrb 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.vrb_enc 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.vrb_enc is decompressed to tmp\ZSV14030878_784220200513_125918.vrb 
+[2020-05-25 08:51:08] [INFO   ] Sign parameters are set 
+[2020-05-25 08:51:08] [INFO   ] Verify parameters are set 
+[2020-05-25 08:51:08] [INFO   ] Encrypt parameters are set 
+[2020-05-25 08:51:08] [INFO   ] Decrypt parameters are set 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_181768.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_181768.xml_unsign 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_780120200507_173620.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_780120200507_173620.xml_unsign 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_165020200508_106839.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_165020200508_106839.xml_unsign 
+[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_780220200507_192794.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_780220200507_192794.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ROO14030878_780120200508_506610.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ROO14030878_780120200508_506610.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781620200508_124903.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781620200508_124903.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ZSV14030878_781320200507_183497_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ZSV14030878_781320200507_183497_0500.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ZSV14030878_165020200508_106839_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ZSV14030878_165020200508_106839_0500.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_183497.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_183497.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ROO14030878_780120200508_506610_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ROO14030878_780120200508_506610_0500.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_198146.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_198146.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_165020200508_106839_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_165020200508_106839_20200512_0500_000001_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_165020200508_106839_20200512_0500_000002_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_165020200508_106839_20200512_0500_000002_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000001_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000002.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000002.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000003.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000003.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000003_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000003_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000004_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000004_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780220200507_192794_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780220200507_192794_20200512_0500_000001_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_181768_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_181768_20200512_0500_000001_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_181768_20200512_0500_000001_000002.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_181768_20200512_0500_000001_000002.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000002.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000002.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000003.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000003.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000002_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000002_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000003_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000003_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_198146_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_198146_20200512_0500_000001_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_198146_20200512_0500_000002_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_198146_20200512_0500_000002_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000001.xml_unsign 
+[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000002.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000002.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000003.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000003.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000004.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000004.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_165020200508_106839_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_165020200508_106839_20200512_0500.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_780120200507_173620_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_780120200507_173620_20200512_0500.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_780220200507_192794_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_780220200507_192794_20200512_0500.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_181768_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_181768_20200512_0500.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_183497_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_183497_20200512_0500.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_198146_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_198146_20200512_0500.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781620200508_124903_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781620200508_124903_20200512_0500.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.xml_unsign 
+[2020-05-25 08:51:10] [INFO   ] Local interface Signatura unloads successfull 
+[2020-05-25 08:51:15] [INFO   ] 440-П report has been choosen 
+[2020-05-25 09:19:56] [INFO   ] Programm started 
+[2020-05-25 09:19:57] [INFO   ] Database connected 
+[2020-05-25 09:20:00] [INFO   ] Load main view EncriptOverviewController 
+[2020-05-25 09:20:00] [INFO   ] 1459-П report has been choosen 
+[2020-05-25 09:21:13] [INFO   ] Programm started 
+[2020-05-25 09:21:15] [INFO   ] Database connected 
+[2020-05-25 09:21:17] [INFO   ] Load main view EncriptOverviewController 
+[2020-05-25 09:21:17] [INFO   ] 1459-П report has been choosen 
+[2020-05-25 11:53:41] [INFO   ] Programm started 
+[2020-05-25 11:53:43] [INFO   ] Database connected 
+[2020-05-25 11:53:45] [INFO   ] Load main view EncriptOverviewController 
+[2020-05-25 11:53:45] [INFO   ] 1459-П report has been choosen 

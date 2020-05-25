@@ -73,7 +73,7 @@ public class Constants {
 	}
 	
 	public static String ACCEPT = "принят";
-	public static String[] POSITIVE_CODE = new String[] {"0","01", "00", "1"};
+	public static String[] POSITIVE_CODE = new String[] {"0","01", "00", "1", "000"};
 	
 	public static boolean isPositive(String code) {
 		boolean result = false;

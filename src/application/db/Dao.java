@@ -421,7 +421,6 @@ public class Dao {
 		return FXCollections.observableArrayList(files);
 	}
 
-	
 	/**
 	 * Return files without linked files and attributes, but transport files
 	 * with list it contains
@@ -467,7 +466,6 @@ public class Dao {
 		return FXCollections.observableArrayList(files);
 	}
 
-	
 	/**
 	 * Return files without linked files and attributes, but transport files
 	 * with list it contains
@@ -919,46 +917,53 @@ public class Dao {
 				ps.setString(3, fattr.getValue());
 				ps.executeUpdate();
 				ps.close();
-
-				if (fattr.getValue()!=null && (fattr.getValue().toLowerCase().contains(Constants.ACCEPT) || fattr.getValue().toLowerCase().contains(Constants.POSITIVE.toLowerCase())||Constants.isPositive(fattr.getValue()))) {
-					Integer parentId = null;
-					PreparedStatement ps2 = null;
-					if (file.getAttributes().get(AttributeDescr.PARENT_ID)!=null) {
-						ps2 = connection.prepareStatement("select file_id from file_attributes where attribute_id = 8 and value = ?");
-						ps2.setString(1, file.getAttributes().get(AttributeDescr.PARENT_ID).getValue());
-						ResultSet rs2 = ps2.executeQuery();
-						if (rs2.next()) {
-							parentId = rs2.getInt("file_id");
-						}
-						rs2.close();
-						ps2.close();
-					}else {
-						ps2 = connection.prepareStatement(
-								"SELECT id FROM files WHERE name = ?");
-						ps2.setString(1, file.getAttributes().get(AttributeDescr.PARENT).getValue());
-						ResultSet rs2 = ps2.executeQuery();
-						if (rs2.next()) {
-							parentId = rs2.getInt("id");
-						}
-						rs2.close();
-						ps2.close();
+			}
+			// if (fattr.getValue()!=null &&
+			// (fattr.getValue().toLowerCase().contains(Constants.ACCEPT) ||
+			// fattr.getValue().toLowerCase().contains(Constants.POSITIVE.toLowerCase())||Constants.isPositive(fattr.getValue())))
+			// {
+			// have parent
+			if (file.getAttributes().get(AttributeDescr.PARENT) != null
+					|| file.getAttributes().get(AttributeDescr.PARENT_ID) != null) {
+				Integer parentId = null;
+				PreparedStatement ps2 = null;
+				if (file.getAttributes().get(AttributeDescr.PARENT_ID) != null) {
+					ps2 = connection.prepareStatement(
+							"select file_id from file_attributes where attribute_id = 8 and value = ?");
+					ps2.setString(1, file.getAttributes().get(AttributeDescr.PARENT_ID).getValue());
+					ResultSet rs2 = ps2.executeQuery();
+					if (rs2.next()) {
+						parentId = rs2.getInt("file_id");
 					}
-					if (parentId != null) {
-						ps2 = connection
-								.prepareStatement("UPDATE files SET linked_id = ? WHERE id = ?");
-						ps2.setInt(1, file.getId());
-						ps2.setInt(2, parentId);
-						ps2.executeUpdate();
-					} else {
-						ps2 = connection.prepareStatement(
-								"UPDATE files SET linked_id = ? WHERE name LIKE ?");
-						ps2.setInt(1, file.getId());
-						ps2.setString(2, file.getAttributes().get(AttributeDescr.PARENT).getValue()
-								+ ".arj");
-						ps2.executeUpdate();
+					rs2.close();
+					ps2.close();
+				} else {
+					ps2 = connection.prepareStatement("SELECT id FROM files WHERE name LIKE ?");
+					ps2.setString(1, file.getAttributes().get(AttributeDescr.PARENT).getValue()+"%");
+					ResultSet rs2 = ps2.executeQuery();
+					if (rs2.next()) {
+						parentId = rs2.getInt("id");
 					}
+					rs2.close();
 					ps2.close();
 				}
+				
+				if (parentId != null) {
+					ps2 = connection
+							.prepareStatement("UPDATE files SET linked_id = ? WHERE id = ?");
+					ps2.setInt(1, file.getId());
+					ps2.setInt(2, parentId);
+					ps2.executeUpdate();
+				} else if (file.getAttributes() != null
+						&& file.getAttributes().get(AttributeDescr.PARENT) != null) {
+					ps2 = connection
+							.prepareStatement("UPDATE files SET linked_id = ? WHERE name LIKE ?");
+					ps2.setInt(1, file.getId());
+					ps2.setString(2,
+							file.getAttributes().get(AttributeDescr.PARENT).getValue() + ".arj");
+					ps2.executeUpdate();
+				}
+				ps2.close();
 			}
 
 		} catch (Exception e) {
@@ -1000,33 +1005,28 @@ public class Dao {
 
 			Integer linkedFileId = null;
 			for (ReportFile rf : tfile.getListFiles().values()) {
-				/*linkedFileId = null;
-				sql = "INSERT INTO files(report_id, name, datetime, direction, type_id) VALUES (?,?,?,?,?)";
-				ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				ps.setInt(1, rf.getReport().getId());
-				ps.setString(2, rf.getName());
-				ps.setString(3, DateUtils.toSQLite(rf.getDatetime()));
-				ps.setInt(4, rf.getDirection() ? 1 : 0);
-				ps.setInt(5, rf.getFileType().getId());
-				
-				ps.executeUpdate();
-				rs = ps.getGeneratedKeys();
-				if (rs.next()) {
-					rf.setId(rs.getInt(1));
-				}
-				rs.close();
-				ps.close();
-
-				if ((rf.getAttributes() != null)
-						&& (rf.getAttributes().get(AttributeDescr.PARENT) != null)) {
-					sql = "UPDATE files SET linked_id = ? WHERE name LIKE ?";
-					ps = connection.prepareStatement(sql);
-					ps.setInt(1, rf.getId());
-					ps.setString(2, rf.getAttributes().get(AttributeDescr.PARENT).getValue() + "%");
-					ps.executeUpdate();
-					ps.close();
-				}
-*/
+				/*
+				 * linkedFileId = null; sql =
+				 * "INSERT INTO files(report_id, name, datetime, direction, type_id) VALUES (?,?,?,?,?)"
+				 * ; ps = connection.prepareStatement(sql,
+				 * Statement.RETURN_GENERATED_KEYS); ps.setInt(1,
+				 * rf.getReport().getId()); ps.setString(2, rf.getName());
+				 * ps.setString(3, DateUtils.toSQLite(rf.getDatetime()));
+				 * ps.setInt(4, rf.getDirection() ? 1 : 0); ps.setInt(5,
+				 * rf.getFileType().getId());
+				 * 
+				 * ps.executeUpdate(); rs = ps.getGeneratedKeys(); if
+				 * (rs.next()) { rf.setId(rs.getInt(1)); } rs.close();
+				 * ps.close();
+				 * 
+				 * if ((rf.getAttributes() != null) &&
+				 * (rf.getAttributes().get(AttributeDescr.PARENT) != null)) {
+				 * sql = "UPDATE files SET linked_id = ? WHERE name LIKE ?"; ps
+				 * = connection.prepareStatement(sql); ps.setInt(1, rf.getId());
+				 * ps.setString(2,
+				 * rf.getAttributes().get(AttributeDescr.PARENT).getValue() +
+				 * "%"); ps.executeUpdate(); ps.close(); }
+				 */
 				save(rf);
 				sql = "INSERT INTO transport_files(parent_id, child_id)VALUES(?,?)";
 				ps = connection.prepareStatement(sql);
@@ -1034,16 +1034,14 @@ public class Dao {
 				ps.setInt(2, rf.getId());
 				ps.executeUpdate();
 				ps.close();
-/*
-				for (FileAttribute fattr : rf.getAttributes().values()) {
-					sql = "INSERT INTO file_attributes(file_id, attribute_id, value)VALUES(?,?,?)";
-					ps = connection.prepareStatement(sql);
-					ps.setInt(1, rf.getId());
-					ps.setInt(2, fattr.getId());
-					ps.setString(3, fattr.getValue());
-					ps.executeUpdate();
-					ps.close();
-				}*/
+				/*
+				 * for (FileAttribute fattr : rf.getAttributes().values()) { sql
+				 * =
+				 * "INSERT INTO file_attributes(file_id, attribute_id, value)VALUES(?,?,?)"
+				 * ; ps = connection.prepareStatement(sql); ps.setInt(1,
+				 * rf.getId()); ps.setInt(2, fattr.getId()); ps.setString(3,
+				 * fattr.getValue()); ps.executeUpdate(); ps.close(); }
+				 */
 			}
 
 		} catch (SQLException e) {
@@ -2684,5 +2682,32 @@ public class Dao {
 
 		}
 		return list;
+	}
+	
+	public String getMessageByCode(String code) {
+		String result = "";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = connection.prepareStatement("SELECT result FROM result_codes WHERE code = ?");
+			ps.setString(1, code);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				result = rs.getString("result");
+			}
+		} catch (Exception e) {
+			MainApp.error(e.getLocalizedMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				MainApp.error(e.getLocalizedMessage());
+				e.printStackTrace();
+			}
+
+		}
+		return result;
 	}
 }

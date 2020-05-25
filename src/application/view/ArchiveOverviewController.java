@@ -314,7 +314,12 @@ public class ArchiveOverviewController {
 										&& rf.getAttributes().get(AttributeDescr.COMMENT) != null) {
 									tmp = rf.getAttributes().get(AttributeDescr.COMMENT).getValue();
 								} else {
-									tmp = "Ответ обработан некорректно";
+									// tmp = "Ответ обработан некорректно";
+									if (rf.getAttributes().get(AttributeDescr.CODE) != null)
+										tmp = mainApp.getDb().getMessageByCode(rf.getAttributes()
+												.get(AttributeDescr.CODE).getValue());
+									else
+										tmp = "Ответ обработан некорректно";
 								}
 
 							} else {
@@ -385,59 +390,18 @@ public class ArchiveOverviewController {
 									int status = 0;
 
 									if (fe.getDirection()) {
-										for (ReportFile file : list) {// This is
-																		// only
-																		// for
-																		// incoming
-																		// transport
-																		// files,
-																		// because
-																		// we
-																		// don't
-																		// do
-																		// tickets
-																		// for
-																		// them,
-																		// we
-																		// need
-																		// check
-																		// all
-																		// files
-																		// in
-																		// transport
-																		// file,
-																		// if
-																		// they
-																		// have
-																		// linked
-																		// files
-																		// or it
-																		// is
-																		// ticket
-																		// we
-																		// mark
-																		// transport
-																		// as
-																		// 'good'(green),
-																		// if
-																		// not
-																		// all
-																		// have
-																		// answers
-																		// or be
-																		// tickets,
-																		// we
-																		// mark
-																		// transport
-																		// yellow,
-																		// if no
-																		// one
-																		// have
-																		// answers
-																		// we
-																		// mark
-																		// transport
-																		// pink
+										/**
+										 * This is only for incoming transport
+										 * files, because we don't do tickets
+										 * for them, we need check all files in
+										 * transport file, if they have linked
+										 * files or it is ticket we mark
+										 * transport as 'good'(green), if not
+										 * all have answers or be tickets, we
+										 * mark transport yellow, if no one have
+										 * answers we mark transport pink
+										 */
+										for (ReportFile file : list) {
 											if (file.getLinkedFile() != null
 													|| file.getFileType().getTicket()) {
 												status++;

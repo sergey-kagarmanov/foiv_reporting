@@ -17,7 +17,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Настройки">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleSettings" text="Общие" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSettings" text="Общие" visible="false" />
                   <MenuItem mnemonicParsing="false" onAction="#handleAddReportOpen" text="Отчеты" />
                   <MenuItem mnemonicParsing="false" onAction="#handleActions" text="Обработка" />
                   <MenuItem mnemonicParsing="false" onAction="#handleKeys" text="Ключи" />

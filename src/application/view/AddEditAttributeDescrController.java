@@ -81,10 +81,10 @@ public class AddEditAttributeDescrController {
 		if (typeChooser.getValue()==null){
 			error += " тип файла,";
 		}
-		if ("".equals(locationField.getText())){
+		if (locationField.getText()==null || "".equals(locationField.getText())){
 			error += " расположение,";
 		}
-		if ("".equals(etcField.getText())){
+		if (etcField.getText() == null || "".equals(etcField.getText())){
 			warning += " дополнительно,";
 		}
 		if (attributeChooser.getValue()==null){
@@ -95,7 +95,7 @@ public class AddEditAttributeDescrController {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Ошибка");
 			alert.setHeaderText("Ошибка");
-			alert.setContentText("Необходимо заполнить следуюшие поля:"+error.substring(0, error.indexOf(error.length())));
+			alert.setContentText("Необходимо заполнить следуюшие поля:"+error.substring(0, error.length()-2));
 			alert.showAndWait();
 			save = false;
 		}
@@ -104,7 +104,7 @@ public class AddEditAttributeDescrController {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Предупреждение");
 			alert.setHeaderText("Предупреждение");
-			alert.setContentText("Необходимо заполнить следуюшие поля:"+error.substring(0, error.indexOf(error.length())));
+			alert.setContentText("Необходимо заполнить следуюшие поля:"+warning.substring(0, warning.length()-2));
 			save = ButtonType.OK == alert.showAndWait().get();
 		}
 		if (save){

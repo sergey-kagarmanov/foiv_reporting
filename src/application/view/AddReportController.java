@@ -156,6 +156,7 @@ public class AddReportController {
 						editTicket(obj);
 					}
 				});
+				contextMenu.getItems().add(editItem);
 
 				// Set context menu on row, but use a binding to make it only
 				// show for non-empty rows:
@@ -216,7 +217,7 @@ public class AddReportController {
 						editTicket(obj);
 					}
 				});
-
+				contextMenu.getItems().add(editItem);
 				// Set context menu on row, but use a binding to make it only
 				// show for non-empty rows:
 				row.contextMenuProperty().bind(Bindings.when(row.emptyProperty())
