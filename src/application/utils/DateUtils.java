@@ -122,5 +122,12 @@ public class DateUtils {
 	
 	public static DateTimeFormatter tableFormatter = DateTimeFormatter.ofPattern(tableDateTimeFormat);
 
+	public static String folderPattern = "yyyy\\MM\\dd";
+	
+	public static DateTimeFormatter folderFormatter = DateTimeFormatter.ofPattern(folderPattern);
+	
+	public static String toFolderString(LocalDate date) {
+		return folderFormatter.format(date);
+	}
     
 }

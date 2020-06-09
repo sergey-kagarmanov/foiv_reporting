@@ -3,6 +3,7 @@ package application.view;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.xml.sax.SAXException;
@@ -11,6 +12,7 @@ import application.MainApp;
 import application.models.ErrorFile;
 import application.models.FileTransforming;
 import application.utils.Constants;
+import application.utils.DateUtils;
 import application.utils.FileUtils;
 import application.utils.Signatura;
 import application.utils.XMLValidator;
@@ -122,7 +124,7 @@ public class SingleActionController {
 	public void chooseFiles() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Выберите файлы для обработки");
-		String pathOut = "c:\\sdm\\reporting";
+		String pathOut = "c:\\";
 		fileChooser.setInitialDirectory(new File(pathOut));
 		List<File> selectedFiles = fileChooser.showOpenMultipleDialog(null);
 		files.setItems(FXCollections.observableList(selectedFiles));
@@ -131,10 +133,21 @@ public class SingleActionController {
 	@FXML
 	public void chooseOutput() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		String pathOut = "c:\\sdm\\reporting\\common_out";
+		String pathOut = files.getItems().size() > 0 ? files.getItems().get(0).getParent()
+				: "c:\\";
 		directoryChooser.setInitialDirectory(new File(pathOut));
 		File selectedDirectory = directoryChooser.showDialog(null);
 		outPath.setText(selectedDirectory.getAbsolutePath());
+	}
+
+	private ObservableList<File> copyFiles() {
+		File archive = new File(
+				"arch\\" + actionChooser.getSelectionModel().getSelectedItem().getKey()
+						+"\\"+ DateUtils.toFolderString(LocalDate.now()));
+		archive.mkdirs();
+		FileUtils.copyFiles(files.getItems(), archive.getAbsolutePath());
+		FileUtils.clearTmp();
+		return FileUtils.copyFilesReturn(files.getItems(), FileUtils.tmpDir);
 	}
 
 	@FXML
@@ -146,11 +159,12 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
+				ObservableList<File> tmp = copyFiles();
 				signatura.initConfig(mainApp.getCurrentKey().getData());
-				ObservableList<ErrorFile> errorFiles = signatura.encryptFilesInPath(FileTransforming.toFileTransforming(files.getItems()),
-						"");
-				FileUtils.copyFiles(files.getItems(), outPath.getText());
-				if (errorFiles.size()==0) {
+				ObservableList<ErrorFile> errorFiles = signatura
+						.encryptFilesInPath(FileTransforming.toFileTransforming(tmp), "");
+				if (errorFiles.size() == 0) {
+					FileUtils.copyFiles(tmp, outPath.getText());
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Зашифрование");
 					alert.setContentText("Обработка выполнена успешно");
@@ -163,10 +177,13 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
+				ObservableList<File> tmp = copyFiles();
 				signatura.initConfig(mainApp.getCurrentKey().getData());
-				ObservableList<ErrorFile> errorFiles = signatura.signFilesInPath(FileTransforming.toFileTransforming(files.getItems()));
-				FileUtils.copyFiles(files.getItems(), outPath.getText());
-				if (errorFiles.size()==0) {
+				ObservableList<ErrorFile> errorFiles = signatura
+						.signFilesInPath(FileTransforming.toFileTransforming(tmp));
+				
+				if (errorFiles.size() == 0) {
+					FileUtils.copyFiles(tmp, outPath.getText());
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Подпись");
 					alert.setContentText("Обработка выполнена успешно");
@@ -179,10 +196,12 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
+				ObservableList<File> tmp = copyFiles();
 				signatura.initConfig(mainApp.getCurrentKey().getData());
-				ObservableList<ErrorFile> errorFiles = signatura.decryptFilesInPath(FileTransforming.toFileTransforming(files.getItems()));
-				FileUtils.copyFiles(files.getItems(), outPath.getText());
-				if (errorFiles.size()==0) {
+				ObservableList<ErrorFile> errorFiles = signatura
+						.decryptFilesInPath(FileTransforming.toFileTransforming(tmp));
+				if (errorFiles.size() == 0) {
+					FileUtils.copyFiles(tmp, outPath.getText());
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Расшифрование");
 					alert.setContentText("Обработка выполнена успешно");
@@ -195,12 +214,13 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
+				ObservableList<File> tmp = copyFiles();
 				signatura.initConfig(mainApp.getCurrentKey().getData());
 				signatura.setVerifyParamaters();
 				ObservableList<ErrorFile> errorFiles = signatura.verifyAndUnsignFilesInPath(
-						FileTransforming.toFileTransforming(files.getItems()));
-				FileUtils.copyFiles(files.getItems(), outPath.getText());
-				if (errorFiles.size()==0) {
+						FileTransforming.toFileTransforming(tmp));
+				if (errorFiles.size() == 0) {
+					FileUtils.copyFiles(tmp, outPath.getText());
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Поверка и снятие подписи");
 					alert.setContentText("Обработка выполнена успешно");
@@ -208,11 +228,12 @@ public class SingleActionController {
 				}
 			}
 		} else if (action.getKey().equals(Constants.ACTIONS[6])) {
+			ObservableList<File> tmp = copyFiles();
 			mainApp.showChooseArchiveDialog(files.getItems());
 			String archiveName = mainApp.getCurrentArchiveName();
 			String command = FileUtils.exeDir + "arj.exe A -V5000k -Y -E ";
 			command += outPath.getText() + "\\" + archiveName + " ";
-			for (File file : files.getItems()) {
+			for (File file : tmp) {
 				command += file.getAbsolutePath() + " ";
 			}
 
@@ -226,10 +247,10 @@ public class SingleActionController {
 					System.out.print((char) w);
 				}
 				System.out.println(p.waitFor());
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Архивация");
-					alert.setContentText("Обработка выполнена успешно");
-					alert.show();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Архивация");
+				alert.setContentText("Обработка выполнена успешно");
+				alert.show();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -239,10 +260,11 @@ public class SingleActionController {
 		} else if (action.getKey().equals(Constants.ACTIONS[8])) {
 			ObservableList<File> resultFiles = FXCollections.observableArrayList();
 			try {
-				for (File f : files.getItems()) {
+				ObservableList<File> tmp = copyFiles();
+				for (File f : tmp) {
 					resultFiles.addAll(FileUtils.getFrom7z(f));
 				}
-				if (resultFiles.size()>0) {
+				if (resultFiles.size() > 0) {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Разархивирование");
 					alert.setContentText("Обработка выполнена успешно");
@@ -257,21 +279,22 @@ public class SingleActionController {
 			FileUtils.copyFiles(files.getItems(), outPath.getText());
 		} else if ("CHECK".equals(action.getKey())) {
 			ObservableMap<File, String> exceptions = FXCollections.observableHashMap();
-			/*FileChooser schemaChooser = new FileChooser();
-			schemaChooser.setTitle("Выберите схему проверки");
-			String pathOut = "c:\\sdm\\reporting";
-			schemaChooser.setInitialDirectory(new File(pathOut));
-			File schema = schemaChooser.showOpenDialog(null);*/
+			/*
+			 * FileChooser schemaChooser = new FileChooser();
+			 * schemaChooser.setTitle("Выберите схему проверки"); String pathOut
+			 * = "c:\\sdm\\reporting"; schemaChooser.setInitialDirectory(new
+			 * File(pathOut)); File schema = schemaChooser.showOpenDialog(null);
+			 */
 			mainApp.showChooseSchemaDialog(files.getItems());
 			ObservableList<Pair<File, String>> schemaPairs = mainApp.getSchemaPairs();
 			for (Pair<File, String> f : schemaPairs) {
 				List<Exception> tmpList = XMLValidator.validate(f.getKey(), new File(f.getValue()));
-				if (tmpList.size()>0) {
-				String errors = "В файле " + f.getKey().getName();
-				for(Exception ex : tmpList) {
-					errors += " " + ((SAXException) ex).getMessage() + "\r\n";
-				}
-				exceptions.put(f.getKey(), errors);
+				if (tmpList.size() > 0) {
+					String errors = "В файле " + f.getKey().getName();
+					for (Exception ex : tmpList) {
+						errors += " " + ((SAXException) ex).getMessage() + "\r\n";
+					}
+					exceptions.put(f.getKey(), errors);
 				}
 			}
 			if (exceptions.size() > 0) {

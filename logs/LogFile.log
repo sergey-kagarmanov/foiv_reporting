@@ -1,90 +1,37 @@
-[2020-05-25 08:49:59] [INFO   ] Programm started 
-[2020-05-25 08:50:01] [INFO   ] Database connected 
-[2020-05-25 08:50:04] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-25 08:50:04] [INFO   ] 1459-П report has been choosen 
-[2020-05-25 08:50:58] [INFO   ] 440-П report has been choosen 
-[2020-05-25 08:51:00] [INFO   ] Local interface of signature is created 
-[2020-05-25 08:51:07] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2020-05-25 08:51:07] [INFO   ] Sign parameters are set 
-[2020-05-25 08:51:07] [INFO   ] Verify parameters are set 
-[2020-05-25 08:51:07] [INFO   ] Encrypt parameters are set 
-[2020-05-25 08:51:07] [INFO   ] Decrypt parameters are set 
-[2020-05-25 08:51:07] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\AFN_MIFNS00_4030878_20200513_00001.arj is unsigned in C:\workspace_photon\fc_reporting\tmp\AFN_MIFNS00_4030878_20200513_00001.arj_unsign 
-[2020-05-25 08:51:08] [INFO   ] Sign parameters are set 
-[2020-05-25 08:51:08] [INFO   ] Verify parameters are set 
-[2020-05-25 08:51:08] [INFO   ] Encrypt parameters are set 
-[2020-05-25 08:51:08] [INFO   ] Decrypt parameters are set 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.vrb_enc 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.vrb_enc is decompressed to tmp\ROO14030878_780420200513_502589.vrb 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.vrb_enc 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.vrb_enc is decompressed to tmp\APZ14030878_780420200513_511554.vrb 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.vrb_enc 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.vrb_enc is decompressed to tmp\APZ14030878_780420200513_511553.vrb 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.vrb is decrypted in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.vrb_enc 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.vrb_enc is decompressed to tmp\ZSV14030878_784220200513_125918.vrb 
-[2020-05-25 08:51:08] [INFO   ] Sign parameters are set 
-[2020-05-25 08:51:08] [INFO   ] Verify parameters are set 
-[2020-05-25 08:51:08] [INFO   ] Encrypt parameters are set 
-[2020-05-25 08:51:08] [INFO   ] Decrypt parameters are set 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_181768.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_181768.xml_unsign 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_780120200507_173620.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_780120200507_173620.xml_unsign 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_165020200508_106839.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_165020200508_106839.xml_unsign 
-[2020-05-25 08:51:08] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_780220200507_192794.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_780220200507_192794.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ROO14030878_780120200508_506610.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ROO14030878_780120200508_506610.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781620200508_124903.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781620200508_124903.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ZSV14030878_781320200507_183497_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ZSV14030878_781320200507_183497_0500.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ZSV14030878_165020200508_106839_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ZSV14030878_165020200508_106839_0500.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_183497.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_183497.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ROO14030878_780120200508_506610_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB2_ROO14030878_780120200508_506610_0500.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_198146.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_PB1_ZSV14030878_781320200507_198146.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\ROO14030878_780420200513_502589.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511554.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\APZ14030878_780420200513_511553.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_165020200508_106839_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_165020200508_106839_20200512_0500_000001_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_165020200508_106839_20200512_0500_000002_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_165020200508_106839_20200512_0500_000002_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000001_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000002.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000002.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000003.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000002_000003.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000003_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000003_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000004_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780120200507_173620_20200512_0500_000004_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780220200507_192794_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_780220200507_192794_20200512_0500_000001_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_181768_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_181768_20200512_0500_000001_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_181768_20200512_0500_000001_000002.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_181768_20200512_0500_000001_000002.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000002.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000002.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000003.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000001_000003.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000002_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000002_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000003_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_183497_20200512_0500_000003_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_198146_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_198146_20200512_0500_000001_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_198146_20200512_0500_000002_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781320200507_198146_20200512_0500_000002_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000001.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000001.xml_unsign 
-[2020-05-25 08:51:09] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000002.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000002.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000003.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000003.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000004.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVD1_ZSV14030878_781620200508_124903_20200512_0500_000001_000004.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_165020200508_106839_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_165020200508_106839_20200512_0500.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_780120200507_173620_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_780120200507_173620_20200512_0500.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_780220200507_192794_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_780220200507_192794_20200512_0500.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_181768_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_181768_20200512_0500.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_183497_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_183497_20200512_0500.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_198146_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781320200507_198146_20200512_0500.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781620200508_124903_20200512_0500.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\KWTFCB_BVS1_ZSV14030878_781620200508_124903_20200512_0500.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.xml is unsigned in C:\workspace_photon\fc_reporting\tmp\ZSV14030878_784220200513_125918.xml_unsign 
-[2020-05-25 08:51:10] [INFO   ] Local interface Signatura unloads successfull 
-[2020-05-25 08:51:15] [INFO   ] 440-П report has been choosen 
-[2020-05-25 09:19:56] [INFO   ] Programm started 
-[2020-05-25 09:19:57] [INFO   ] Database connected 
-[2020-05-25 09:20:00] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-25 09:20:00] [INFO   ] 1459-П report has been choosen 
-[2020-05-25 09:21:13] [INFO   ] Programm started 
-[2020-05-25 09:21:15] [INFO   ] Database connected 
-[2020-05-25 09:21:17] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-25 09:21:17] [INFO   ] 1459-П report has been choosen 
-[2020-05-25 11:53:41] [INFO   ] Programm started 
-[2020-05-25 11:53:43] [INFO   ] Database connected 
-[2020-05-25 11:53:45] [INFO   ] Load main view EncriptOverviewController 
-[2020-05-25 11:53:45] [INFO   ] 1459-П report has been choosen 
-[2020-06-09 12:38:31] [INFO   ] Programm started 
-[2020-06-09 12:38:33] [INFO   ] Database connected 
-[2020-06-09 12:38:34] [INFO   ] Load main view EncriptOverviewController 
-[2020-06-09 12:38:34] [INFO   ] 1459-П report has been choosen 
+[2020-06-09 09:50:50] [INFO   ] Programm started 
+[2020-06-09 09:50:51] [INFO   ] Database connected 
+[2020-06-09 09:50:53] [INFO   ] Load main view EncriptOverviewController 
+[2020-06-09 09:50:53] [INFO   ] 1459-П report has been choosen 
+[2020-06-09 09:59:42] [INFO   ] Local interface of signature is created 
+[2020-06-09 09:59:47] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-06-09 09:59:51] [INFO   ] Encrypt parameters are set 
+[2020-06-09 09:59:51] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BOS1_RPO14030878_781020190704_555817_20190705_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BOS1_RPO14030878_781020190704_555817_20190705_0500.xml_enc 
+[2020-06-09 10:01:56] [INFO   ] Programm started 
+[2020-06-09 10:01:58] [INFO   ] Database connected 
+[2020-06-09 10:02:00] [INFO   ] Load main view EncriptOverviewController 
+[2020-06-09 10:02:00] [INFO   ] 1459-П report has been choosen 
+[2020-06-09 10:03:32] [INFO   ] Programm started 
+[2020-06-09 10:03:33] [INFO   ] Database connected 
+[2020-06-09 10:03:35] [INFO   ] Load main view EncriptOverviewController 
+[2020-06-09 10:03:35] [INFO   ] 1459-П report has been choosen 
+[2020-06-09 10:04:23] [INFO   ] Local interface of signature is created 
+[2020-06-09 10:04:27] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-06-09 10:04:29] [INFO   ] Encrypt parameters are set 
+[2020-06-09 10:04:29] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_771720190704_108469.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\PB1_ZSV14030878_771720190704_108469.xml_enc 
+[2020-06-09 10:05:56] [INFO   ] Programm started 
+[2020-06-09 10:05:57] [INFO   ] Database connected 
+[2020-06-09 10:05:59] [INFO   ] Load main view EncriptOverviewController 
+[2020-06-09 10:05:59] [INFO   ] 1459-П report has been choosen 
+[2020-06-09 10:06:22] [INFO   ] Local interface of signature is created 
+[2020-06-09 10:06:26] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-06-09 10:06:28] [INFO   ] Encrypt parameters are set 
+[2020-06-09 10:06:28] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\BOS1_RPO14030878_781020190704_555817_20190705_0500.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\BOS1_RPO14030878_781020190704_555817_20190705_0500.xml_enc 
+[2020-06-09 10:07:11] [INFO   ] Programm started 
+[2020-06-09 10:07:12] [INFO   ] Database connected 
+[2020-06-09 10:07:14] [INFO   ] Load main view EncriptOverviewController 
+[2020-06-09 10:07:14] [INFO   ] 1459-П report has been choosen 
+[2020-06-09 10:07:36] [INFO   ] Local interface of signature is created 
+[2020-06-09 10:07:40] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2020-06-09 10:07:42] [INFO   ] Encrypt parameters are set 
+[2020-06-09 10:07:42] [INFO   ] File C:\workspace_photon\fc_reporting\tmp\FT10113110_120917_0120213_1_1637_0005_170000000476.xml is encrypted in C:\workspace_photon\fc_reporting\tmp\FT10113110_120917_0120213_1_1637_0005_170000000476.xml_enc 
+>>>>>>> Stashed changes

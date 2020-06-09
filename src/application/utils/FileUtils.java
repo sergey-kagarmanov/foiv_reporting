@@ -350,6 +350,26 @@ public class FileUtils {
 		}
 
 	}
+	
+	public static ObservableList<File> copyFilesReturn(ObservableList<File> files, String where) {
+		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
+				StandardCopyOption.COPY_ATTRIBUTES };
+		ObservableList<File> tmp = FXCollections.observableArrayList();
+		try {
+			if (where != null && !"".equals(where)) {
+				for (File f : files) {
+					File tmpFile = new File(where + "\\" + f.getName());
+					Files.copy(f.toPath(), tmpFile.toPath(), options);
+					tmp.add(tmpFile);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return tmp;
+	}
+	
 
 	public static void moveFiles(ObservableList<File> files, String where) {
 		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
