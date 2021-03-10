@@ -15,7 +15,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -23,17 +22,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import application.db.Dao;
+import application.models.Action;
 import application.models.AttributeDescr;
 import application.models.Chain;
+import application.models.FileAttribute;
 import application.models.FileType;
-import application.models.Key;
 import application.models.ProcessStep;
 import application.models.Report;
-import application.models.FileAttribute;
-import application.models.AttributeDescr;
-import application.models.Action;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 

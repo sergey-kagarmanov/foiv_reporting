@@ -5,7 +5,6 @@ import application.models.Action;
 import application.models.Chain;
 import application.models.Key;
 import application.models.ProcessStep;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

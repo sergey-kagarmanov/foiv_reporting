@@ -4,8 +4,6 @@ package application.models;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import application.utils.Constants;
-
 public class ReportFile extends FileEntity {
 
 	private Map<String, FileAttribute> attributes;

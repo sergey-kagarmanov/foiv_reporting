@@ -29,9 +29,6 @@ public class ArchiveNameDialogController {
 		this.mainApp = mainApp;
 	}
 
-	private String archiveName;
-	private ObservableList<File> files;
-
 	@FXML
 	TextField reportField;
 
@@ -43,7 +40,6 @@ public class ArchiveNameDialogController {
 	}
 
 	public void setFiles(ObservableList<File> files) {
-		this.files = files;
 		Report currentReport = null;
 		boolean breakFlag = false;
 		List<Report> reports = mainApp.getDb().getReports();

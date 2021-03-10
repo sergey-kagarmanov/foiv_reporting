@@ -1,7 +1,5 @@
 package application.view;
 
-import java.util.function.Predicate;
-
 import application.MainApp;
 import application.models.AttributeDescr;
 import application.models.FileAttribute;

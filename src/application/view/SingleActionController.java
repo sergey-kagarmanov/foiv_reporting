@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.xml.sax.SAXException;
 
@@ -15,6 +16,8 @@ import application.utils.Constants;
 import application.utils.DateUtils;
 import application.utils.FileUtils;
 import application.utils.Signatura;
+import application.utils.SignaturaService;
+import application.utils.SignaturaServiceAbstract;
 import application.utils.XMLValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,49 +60,49 @@ public class SingleActionController {
 
 	private void initActions() {
 		actions = FXCollections.observableArrayList();
-		actions.add(new Pair<String, String>(Constants.ACTIONS[1], "Зашифровать") {
+		actions.add(new Pair<String, String>(Constants.ENCRYPT, "Зашифровать") {
 			@Override
 			public String toString() {
 				return getValue();
 			}
 		});
-		actions.add(new Pair<String, String>(Constants.ACTIONS[2], "Подписать") {
+		actions.add(new Pair<String, String>(Constants.SIGN, "Подписать") {
 			@Override
 			public String toString() {
 				return getValue();
 			}
 		});
-		actions.add(new Pair<String, String>(Constants.ACTIONS[3], "Расшифровать") {
+		actions.add(new Pair<String, String>(Constants.DECRYPT, "Расшифровать") {
 			@Override
 			public String toString() {
 				return getValue();
 			}
 		});
-		actions.add(new Pair<String, String>(Constants.ACTIONS[4], "Проверить и снять подпись") {
+		actions.add(new Pair<String, String>(Constants.UNSIGN, "Проверить и снять подпись") {
 			@Override
 			public String toString() {
 				return getValue();
 			}
 		});
-		actions.add(new Pair<String, String>(Constants.ACTIONS[6], "Заархивировать") {
+		actions.add(new Pair<String, String>(Constants.PACK, "Заархивировать") {
 			@Override
 			public String toString() {
 				return getValue();
 			}
 		});
-		actions.add(new Pair<String, String>(Constants.ACTIONS[7], "Переименовать") {
+		actions.add(new Pair<String, String>(Constants.RENAME, "Переименовать") {
 			@Override
 			public String toString() {
 				return getValue();
 			}
 		});
-		actions.add(new Pair<String, String>(Constants.ACTIONS[8], "Распаковать") {
+		actions.add(new Pair<String, String>(Constants.UNPACK, "Распаковать") {
 			@Override
 			public String toString() {
 				return getValue();
 			}
 		});
-		actions.add(new Pair<String, String>(Constants.ACTIONS[9], "Скопировать") {
+		actions.add(new Pair<String, String>(Constants.COPY, "Скопировать") {
 			@Override
 			public String toString() {
 				return getValue();
@@ -117,14 +120,14 @@ public class SingleActionController {
 	private void initialize() {
 		initActions();
 		actionChooser.setItems(actions);
-		actionChooser.setValue(new Pair<String, String>(Constants.ACTIONS[1], "Зашифровать"));
+		actionChooser.setValue(new Pair<String, String>(Constants.ENCRYPT, "Зашифровать"));
 	}
 
 	@FXML
 	public void chooseFiles() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Выберите файлы для обработки");
-		String pathOut = "c:\\";
+		String pathOut = System.getProperty("user.dir");
 		fileChooser.setInitialDirectory(new File(pathOut));
 		List<File> selectedFiles = fileChooser.showOpenMultipleDialog(null);
 		files.setItems(FXCollections.observableList(selectedFiles));
@@ -134,7 +137,7 @@ public class SingleActionController {
 	public void chooseOutput() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		String pathOut = files.getItems().size() > 0 ? files.getItems().get(0).getParent()
-				: "c:\\";
+				: System.getProperty("user.dir");
 		directoryChooser.setInitialDirectory(new File(pathOut));
 		File selectedDirectory = directoryChooser.showDialog(null);
 		outPath.setText(selectedDirectory.getAbsolutePath());
@@ -153,7 +156,7 @@ public class SingleActionController {
 	@FXML
 	public void startAction() {
 		Pair<String, String> action = actionChooser.getSelectionModel().getSelectedItem();
-		if (action.getKey().equals(Constants.ACTIONS[1])) {
+		if (action.getKey().equals(Constants.ENCRYPT)) {
 			mainApp.showChooseKeyDialog();
 			Signatura signatura = new Signatura();
 			if (mainApp.getCurrentKey() == null) {
@@ -161,8 +164,21 @@ public class SingleActionController {
 			} else {
 				ObservableList<File> tmp = copyFiles();
 				signatura.initConfig(mainApp.getCurrentKey().getData());
-				ObservableList<ErrorFile> errorFiles = signatura
-						.encryptFilesInPath(FileTransforming.toFileTransforming(tmp), "");
+				ObservableList<ErrorFile> errorFiles = null;
+				try {
+					SignaturaServiceAbstract service = new SignaturaServiceAbstract() {
+						
+					
+						@Override
+						public int action(String source, String target) {
+							return signatura.encrypt(source, target);
+						}
+					};
+					errorFiles = service.execute(FileTransforming.toFileTransforming(tmp));
+				} catch (InterruptedException | ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if (errorFiles.size() == 0) {
 					FileUtils.copyFiles(tmp, outPath.getText());
 					Alert alert = new Alert(AlertType.INFORMATION);
@@ -171,16 +187,15 @@ public class SingleActionController {
 					alert.show();
 				}
 			}
-		} else if (action.getKey().equals(Constants.ACTIONS[2])) {
+		} else if (action.getKey().equals(Constants.SIGN)) {
 			mainApp.showChooseKeyDialog();
-			Signatura signatura = new Signatura();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
 				ObservableList<File> tmp = copyFiles();
-				signatura.initConfig(mainApp.getCurrentKey().getData());
-				ObservableList<ErrorFile> errorFiles = signatura
-						.signFilesInPath(FileTransforming.toFileTransforming(tmp));
+				SignaturaService service = new SignaturaService(mainApp.getCurrentKey());
+				ObservableList<ErrorFile> errorFiles = service
+						.sign(FileTransforming.toFileTransforming(tmp));
 				
 				if (errorFiles.size() == 0) {
 					FileUtils.copyFiles(tmp, outPath.getText());
@@ -190,16 +205,15 @@ public class SingleActionController {
 					alert.show();
 				}
 			}
-		} else if (action.getKey().equals(Constants.ACTIONS[3])) {
+		} else if (action.getKey().equals(Constants.DECRYPT)) {
 			mainApp.showChooseKeyDialog();
-			Signatura signatura = new Signatura();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
+				SignaturaService service = new SignaturaService(mainApp.getCurrentKey());
 				ObservableList<File> tmp = copyFiles();
-				signatura.initConfig(mainApp.getCurrentKey().getData());
-				ObservableList<ErrorFile> errorFiles = signatura
-						.decryptFilesInPath(FileTransforming.toFileTransforming(tmp));
+				
+				ObservableList<ErrorFile> errorFiles = service.decrypt(FileTransforming.toFileTransforming(tmp));
 				if (errorFiles.size() == 0) {
 					FileUtils.copyFiles(tmp, outPath.getText());
 					Alert alert = new Alert(AlertType.INFORMATION);
@@ -207,17 +221,16 @@ public class SingleActionController {
 					alert.setContentText("Обработка выполнена успешно");
 					alert.show();
 				}
+				service.unload();
 			}
-		} else if (action.getKey().equals(Constants.ACTIONS[4])) {
+		} else if (action.getKey().equals(Constants.UNSIGN)) {
 			mainApp.showChooseKeyDialog();
-			Signatura signatura = new Signatura();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
+				SignaturaService service = new SignaturaService(mainApp.getCurrentKey());
 				ObservableList<File> tmp = copyFiles();
-				signatura.initConfig(mainApp.getCurrentKey().getData());
-				signatura.setVerifyParamaters();
-				ObservableList<ErrorFile> errorFiles = signatura.verifyAndUnsignFilesInPath(
+				ObservableList<ErrorFile> errorFiles = service.unsign(
 						FileTransforming.toFileTransforming(tmp));
 				if (errorFiles.size() == 0) {
 					FileUtils.copyFiles(tmp, outPath.getText());
@@ -226,8 +239,9 @@ public class SingleActionController {
 					alert.setContentText("Обработка выполнена успешно");
 					alert.show();
 				}
+				service.unload();
 			}
-		} else if (action.getKey().equals(Constants.ACTIONS[6])) {
+		} else if (action.getKey().equals(Constants.PACK)) {
 			ObservableList<File> tmp = copyFiles();
 			mainApp.showChooseArchiveDialog(files.getItems());
 			String archiveName = mainApp.getCurrentArchiveName();
@@ -255,9 +269,9 @@ public class SingleActionController {
 				e.printStackTrace();
 			}
 
-		} else if (action.getKey().equals(Constants.ACTIONS[7])) {
+		} else if (action.getKey().equals(Constants.RENAME)) {
 
-		} else if (action.getKey().equals(Constants.ACTIONS[8])) {
+		} else if (action.getKey().equals(Constants.UNPACK)) {
 			ObservableList<File> resultFiles = FXCollections.observableArrayList();
 			try {
 				ObservableList<File> tmp = copyFiles();
@@ -275,7 +289,7 @@ public class SingleActionController {
 				e.printStackTrace();
 			}
 			FileUtils.moveFiles(resultFiles, outPath.getText());
-		} else if (action.getKey().equals(Constants.ACTIONS[9])) {
+		} else if (action.getKey().equals(Constants.COPY)) {
 			FileUtils.copyFiles(files.getItems(), outPath.getText());
 		} else if ("CHECK".equals(action.getKey())) {
 			ObservableMap<File, String> exceptions = FXCollections.observableHashMap();

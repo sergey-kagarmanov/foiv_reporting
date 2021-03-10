@@ -1,7 +1,6 @@
 package application.view;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,6 +29,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -43,7 +43,6 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
 import javafx.util.Duration;
@@ -256,7 +255,6 @@ public class EncryptOverviewController {
 									if (currentRow != null && currentRow.getItem() != null) {
 										String path = DateUtils.toPath(
 												((FileEntity) currentRow.getItem()).getDatetime());
-										String dateString = "";
 										if (obj != null) {
 
 										}
@@ -553,9 +551,8 @@ public class EncryptOverviewController {
 		ProcessExecutor executor = new ProcessExecutor(inFileList.getItems(),
 				reportChooser.getValue(), mainApp.getDb(), inPath.getText(), inOutputPath.getText(),
 				inPathArch.getText(), true);
-		Integer count = 0;
 		try {
-			count = executor.start();
+			executor.start();
 
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Информация");

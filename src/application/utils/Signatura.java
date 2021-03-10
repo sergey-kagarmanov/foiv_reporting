@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -19,10 +18,6 @@ import Pki1.LocalIface.sign_param_t;
 import Pki1.LocalIface.verify_param_t;
 import application.MainApp;
 import application.models.ErrorFile;
-import application.models.FileTransforming;
-import application.models.ProcessStep;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class Signatura {
 
@@ -38,18 +33,6 @@ public class Signatura {
 	public Signatura() {
 		iFace = new LocalIface();
 		MainApp.info("Local interface of signature is created");
-	}
-
-	public int initConfig() {
-		String profile = "FOIV";
-		int flag = LocalIface.FLAG_INIT_REGISTRY;
-
-		result = iFace.VCERT_Initialize(profile, flag);
-		if (result == LocalIface.VCERT_OK) {
-			System.out.println("Init success");
-			MainApp.info("Local interface of signature is initialized");
-		}
-		return result;
 	}
 
 	public int initConfig(String profile) {
@@ -219,7 +202,7 @@ public class Signatura {
 		return result;
 	}
 
-	public ObservableList<ErrorFile> signFilesInPath(Collection<FileTransforming> files) {
+	/*public ObservableList<ErrorFile> signFilesInPath(Collection<FileTransforming> files) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;
 		for (FileTransforming f : files) {
@@ -240,9 +223,9 @@ public class Signatura {
 			}
 		}
 		return errorFiles;
-	}
+	}*/
 
-	public ObservableList<ErrorFile> verifyAndUnsignFilesInPath(
+	/*public ObservableList<ErrorFile> verifyAndUnsignFilesInPath(
 			Collection<FileTransforming> files) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;
@@ -266,7 +249,7 @@ public class Signatura {
 			}
 		}
 		return errorFiles;
-	}
+	}*/
 
 	public int encrypt(String in, String out, String to) {
 		setEncryptParameters(to);
@@ -297,7 +280,6 @@ public class Signatura {
 		find_param_t findParameters = new find_param_t();
 		findParameters.flag = LocalIface.FLAG_FIND_PARTIAL_SUBJECT | LocalIface.FLAG_FIND_SELECTUI;
 		findParameters.certTemplate = new certificate_t();
-		// findParameters.certTemplate.subject = "CN="+string;
 		findParameters.certTemplate.keyId = string;
 		find_result_t findResult_t = new find_result_t();
 		result = iFace.VCERT_FindCert(findParameters, findResult_t);
@@ -307,67 +289,40 @@ public class Signatura {
 		return cert;
 	}
 
-	public ObservableList<ErrorFile> encryptFilesInPath(String path) {
-		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
-		File fPath = new File(path);
-		File[] files = fPath.listFiles();
-		File tmp = null;
-		for (File f : files) {
-			tmp = new File(f.getAbsolutePath() + "_enc");
-			result = encrypt(f.getAbsolutePath(), f.getAbsolutePath() + "_enc");
-			if (result == 0) {
-				if (f.delete())
-					tmp.renameTo(f);
-			} else {
-				errorFiles.add(new ErrorFile(f.getName(), result));
-			}
-
-		}
-		return errorFiles;
-	}
-
-	public ObservableList<ErrorFile> encryptFilesInPath(String path, String to, ProcessStep step) {
+	/*public ObservableList<ErrorFile> encryptFilesInPath(Collection<FileTransforming> files,
+			String to) throws InterruptedException, ExecutionException {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		setEncryptParameters(to);
-		File fPath = new File(path);
-		File[] files = fPath.listFiles(new FileFilter(step.getData()));
-		File tmp = null;
-		for (File f : files) {
-			tmp = new File(f.getAbsolutePath() + "_enc");
-			result = encrypt(f.getAbsolutePath(), f.getAbsolutePath() + "_enc");
-			if (result != 0) {
-				errorFiles.add(new ErrorFile(f.getName(), result));
-			} else {
-				if (f.delete())
-					tmp.renameTo(f);
-			}
-		}
-		return errorFiles;
-	}
+		ExecutorService service = Executors.newWorkStealingPool();
 
-	public ObservableList<ErrorFile> encryptFilesInPath(Collection<FileTransforming> files,
-			String to) {
-		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
-		setEncryptParameters(to);
-		File tmp = null;
+		OperationHandler handler = null;
+		List<OperationHandler> handlers = new ArrayList<>();
 		for (FileTransforming f : files) {
-			if (f.getErrorCode() == 0) {
-				tmp = new File(f.getCurrentFile().getAbsolutePath() + "_enc");
-				result = encrypt(f.getCurrentFile().getAbsolutePath(),
-						f.getCurrentFile().getAbsolutePath() + "_enc");
-				if (result != 0) {
-					f.setErrorCode(result);
-					errorFiles.add(new ErrorFile(f.getCurrent(), result));
-				} else {
-					if (f.getCurrentFile().delete())
-						tmp.renameTo(f.getCurrentFile());
-				}
-			}
-		}
-		return errorFiles;
-	}
+			handler = new OperationHandler(f) {
 
-	public ObservableList<ErrorFile> decryptFilesInPath(Collection<FileTransforming> files) {
+				@Override
+				Integer operation(String source, String target) {
+					return encrypt(source, target);
+				}
+			};
+			handlers.add(handler);
+		}
+		List<Future<ErrorFile>> futures = service.invokeAll(handlers);
+		futures.forEach(future -> {
+			try {
+				if (future.get() != null)
+					errorFiles.add(future.get());
+			} catch (InterruptedException | ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		});
+		service.shutdown();
+		return errorFiles;
+	}	*/
+
+	/*public ObservableList<ErrorFile> decryptFilesInPath(Collection<FileTransforming> files) {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		File tmp = null;
 		for (FileTransforming f : files) {
@@ -392,7 +347,7 @@ public class Signatura {
 			}
 		}
 		return errorFiles;
-	}
+	}*/
 
 	public List<ErrorFile> getErrorFiles() {
 		return errorFiles;

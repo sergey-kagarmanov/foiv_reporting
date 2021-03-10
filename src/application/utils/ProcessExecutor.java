@@ -15,7 +15,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Predicate;
+
+import org.xml.sax.SAXParseException;
 
 import application.MainApp;
 import application.db.Dao;
@@ -26,7 +29,6 @@ import application.models.FileAttribute;
 import application.models.FileEntity;
 import application.models.FileTransforming;
 import application.models.FileType;
-import application.models.Key;
 import application.models.ProcessStep;
 import application.models.Report;
 import application.models.ReportFile;
@@ -36,6 +38,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 import net.sf.sevenzipjbinding.IInArchive;
 import net.sf.sevenzipjbinding.SevenZip;
 import net.sf.sevenzipjbinding.SevenZipException;
@@ -46,16 +49,11 @@ import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
 public class ProcessExecutor {
 
 	private Report report;
-	// private List<File> files;
 	private List<String> filenames;
-
 	private ProcessStep currentStep;
-	private String currentKey;
 	private Chain chain;
 
 	private Dao dao;
-
-	private Signatura signatura;
 
 	private String path = "";
 	private String outputPath = "";
@@ -64,7 +62,6 @@ public class ProcessExecutor {
 	private Map<FileTransforming, ReportFile> mapFiles;
 	private Logger logger;
 	private Boolean direction;
-	// private Boolean parse = true;
 	private FileParser parser;
 	private String[] renameFiles = null;
 	private Map<FileTransforming, ReportFile> ticketFiles;
@@ -89,7 +86,6 @@ public class ProcessExecutor {
 		parser = new FileParser(dao, report, direction);
 		ticketFiles = new HashMap<FileTransforming, ReportFile>();
 		this.direction = direction;
-		signatura = new Signatura();
 		errorFiles = FXCollections.observableArrayList();
 
 		// Create archive path
@@ -98,6 +94,7 @@ public class ProcessExecutor {
 		// Create output path
 		File op = new File(outputPath);
 		op.mkdirs();
+
 	}
 
 	public int start() throws ReportError {
@@ -105,6 +102,9 @@ public class ProcessExecutor {
 		FileUtils.clearTmp();
 		executedFiles = FXCollections.observableArrayList();
 		FileTransforming currentFile = null;
+		/**
+		 * File parsing start
+		 */
 		for (String filename : filenames) {
 			currentFile = new FileTransforming(filename,
 					direction ? report.getPathIn() : report.getPathOut());
@@ -151,12 +151,14 @@ public class ProcessExecutor {
 						if (!direction) {
 							ReportFile fileEntity = new ReportFile(0,
 									currentFile.getCommonOriginal(), LocalDateTime.now(), report,
-									direction, null, parser.parse(currentFile.getCurrentFile()), fileType);
+									direction, null, parser.parse(currentFile.getCurrentFile()),
+									fileType);
 							mapFiles.put(currentFile, fileEntity);
 						} else {
 							transportFiles.put(currentFile,
 									new TransportFile(0, currentFile.getOriginal(),
-											LocalDateTime.now(), report, direction, null, null, dao.getFileType(report.getId(), direction ? 1 : 0, 1)));
+											LocalDateTime.now(), report, direction, null, null,
+											dao.getFileType(report.getId(), direction ? 1 : 0, 1)));
 
 						}
 					} catch (ReportError e) {
@@ -175,14 +177,24 @@ public class ProcessExecutor {
 			}
 		}
 
+		/**
+		 * File parsing end
+		 */
+
 		// Check parser exceptions
 		if (parser.getExceptions().size() > 0) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Ошибки валидации");
+			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 			alert.setHeaderText("При проверки валидации по схеме возникли ошибки");
 
 			parser.getExceptions().forEach(error -> {
-				text += error.getMessage() + "\r\n";
+				SAXParseException e = (SAXParseException) error;
+				text += "В файле " + e.getSystemId().substring(e.getSystemId().lastIndexOf("/") + 1)
+						+ System.lineSeparator();
+				text += "В строке " + e.getLineNumber();
+				text += " колонка " + e.getColumnNumber() + System.lineSeparator();
+				text += error.getMessage() + System.lineSeparator();
 			});
 			text += "Продолжить обработку?";
 			alert.setContentText(text);
@@ -219,7 +231,14 @@ public class ProcessExecutor {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		boolean breakFlag = true;
 		while (currentStep != null && breakFlag) {
-			errorFiles = executeStepSignatura(currentStep);
+
+			try {
+				errorFiles = executeStepSignatura(currentStep);
+			} catch (ReportError | InterruptedException | ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			if (errorFiles.size() == 0) {
 				currentStep = currentStep.getNext();
 			} else {
@@ -236,7 +255,7 @@ public class ProcessExecutor {
 				breakFlag = msg.showAndWait().get() == ButtonType.YES;
 			}
 		}
-		signatura.unload();
+
 		if (breakFlag) {
 			if (!direction) {
 				for (FileTransforming tf : transportFiles.keySet()) {
@@ -264,9 +283,11 @@ public class ProcessExecutor {
 								((ReportFile) tf.getListFiles().get(rfName)).setAttributes(
 										parser.parse(executedFiles.get(index).getCurrentFile()));
 								executedFiles.get(index).copyCurrent(outputPath, false);
-								((ReportFile) tf.getListFiles().get(rfName)).setFileType(parser.getType(executedFiles.get(index).getCurrentFile()));
-								
-								((ReportFile) tf.getListFiles().get(rfName)).setLinkedFile(linkParent((ReportFile) tf.getListFiles().get(rfName)));
+								((ReportFile) tf.getListFiles().get(rfName)).setFileType(
+										parser.getType(executedFiles.get(index).getCurrentFile()));
+
+								((ReportFile) tf.getListFiles().get(rfName)).setLinkedFile(
+										linkParent((ReportFile) tf.getListFiles().get(rfName)));
 							}
 						} else {
 
@@ -332,16 +353,17 @@ public class ProcessExecutor {
 	}
 
 	private ReportFile linkParent(ReportFile reportFile) {
-		if (reportFile.getAttributes()!=null) {
-			for(String attributeName : reportFile.getAttributes().keySet()) {
+		if (reportFile.getAttributes() != null) {
+			for (String attributeName : reportFile.getAttributes().keySet()) {
 				if (attributeName.equals(Constants.PARENT)) {
-					return dao.getReportFileByName(reportFile.getAttributes().get(attributeName).getValue());
+					return dao.getReportFileByName(
+							reportFile.getAttributes().get(attributeName).getValue());
 				}
 			}
 		}
 		return null;
 	}
-	
+
 	private void deleteSources(ObservableList<FileTransforming> col) {
 		col.forEach((file) -> {
 			/*
@@ -369,10 +391,11 @@ public class ProcessExecutor {
 				// Map<String, ReportFile> mf = tf.getListFiles();
 				// Collection<ReportFile> fc = mf.values();
 
-				if (transportFiles == null || transportFiles.get(tf) == null || transportFiles.get(tf).getListFiles() == null) {
+				if (transportFiles == null || transportFiles.get(tf) == null
+						|| transportFiles.get(tf).getListFiles() == null) {
 					throw new ReportError("Неверные настройки отчетности!");
 				}
-				
+
 				for (String rf : transportFiles.get(tf).getListFiles().keySet()) {
 					int index = executedFiles.indexOf(new FileTransforming(rf,
 							direction ? report.getPathIn() : report.getPathOut()));
@@ -387,48 +410,6 @@ public class ProcessExecutor {
 				}
 			} else {
 				// TODO: Error, warning etc.
-			}
-		}
-	}
-	/*
-	 * public void putFilesIntoArch() throws ReportError { try { File f = null;
-	 * for (TransportFile tf : transportFiles.values()) { if ((f = new
-	 * File(FileUtils.tmpDir + tf.getName())).exists()) {
-	 * 
-	 * // Copy files to tmp directory for work File tmpFile = new
-	 * File(archivePath + "\\" + tf.getName()); tmpFile.mkdirs(); if
-	 * (tmpFile.exists()) { tmpFile.delete(); } tmpFile.createNewFile();
-	 * FileUtils.copy(f, tmpFile); f.delete(); Map<String, ReportFile> mf =
-	 * tf.getListFiles(); Collection<ReportFile> fc = mf.values();
-	 * 
-	 * for (ReportFile rf : tf.getListFiles().values()) { String fileName =
-	 * rf.getName(); if (renameFiles != null && renameFiles.length > 0) { if
-	 * (FileFilter.maskFilter(renameFiles[0], fileName.toLowerCase())) {
-	 * fileName = fileName.toLowerCase().replaceAll(renameFiles[1],
-	 * renameFiles[2]); } } File rfFile = new File(report.getPathIn() + "\\" +
-	 * fileName.replaceAll(renameFiles[2], renameFiles[1])); tmpFile = new
-	 * File(archivePath + "\\" + fileName); tmpFile.mkdirs(); if
-	 * (tmpFile.exists()) { tmpFile.delete(); } tmpFile.createNewFile();
-	 * FileUtils.copy(rfFile, tmpFile); rfFile.delete(); } } else { // TODO:
-	 * Error, warning etc. } }
-	 * 
-	 * } catch (IOException e) { e.printStackTrace(); throw new
-	 * ReportError("Ошибка при копировании исходных файлов в архив"); } }
-	 */
-
-	private void loadKey(Key key) throws ReportError {
-		Runtime r = Runtime.getRuntime();
-		Process p = null;
-		if (Settings.AUTO_KEY) {
-			try {
-				String q = Settings.LOAD_KEY + key.getData();
-				p = r.exec(q);
-				int i = p.waitFor();
-				if (i != 0)
-					throw new ReportError("Ключ " + key.getName() + " не был загружен");
-			} catch (InterruptedException | IOException ie) {
-				MainApp.error(ie.getLocalizedMessage());
-				ie.printStackTrace();
 			}
 		}
 	}
@@ -451,366 +432,295 @@ public class ProcessExecutor {
 		}
 	}
 
-	public ObservableList<ErrorFile> executeStepSignatura(ProcessStep step) throws ReportError {
-		int result = 0;
-		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
-		if (Constants.ACTIONS[0].equals(step.getAction().getName())) {
-			// Do nothing
-		} else if (Constants.ACTIONS[1].equals(step.getAction().getName())) {
-			// encrypt
-			if (currentKey == null || "".equals(currentKey) || !currentKey.equals(step.getKey().getData())) {
-				result = signatura.initConfig(step.getKey().getData());
-				currentKey = step.getKey().getData();
-			}else {
-				result = 0;
-			}
-			if (result == 0) {
-				signatura.setParameters();
+	/*
+	 * private int initSignatura(Key key) { int result = 0; if (currentKey ==
+	 * null || "".equals(currentKey) || !currentKey.equals(key.getData())) {
+	 * result = signatura.initConfig(key.getData()); currentKey = key.getData();
+	 * } else { result = 0; }
+	 * 
+	 * if (result == 0) { signatura.setParameters(); } return result; }
+	 */
 
-				errorFiles = signatura.encryptFilesInPath(
-						executedFiles.filtered(new Predicate<FileTransforming>() {
+	/**
+	 * create archive - transport file
+	 * 
+	 * @throws ReportError
+	 */
+	private void createArchive() throws ReportError {
+		Runtime r = Runtime.getRuntime();
+		Process p = null;
+		/**
+		 * Tmp dir for create archive, cause arj have only 64 params
+		 */
+		File tmpDir = new File(FileUtils.tmpDir + "arj\\");
+		tmpDir.mkdirs();
 
-							@Override
-							public boolean test(FileTransforming t) {
-								if (t.getCurrent() != null)
-									return t.getCurrent().matches(step.getData());
-								else
-									return t.getOriginal().matches(step.getData());
-							}
-						}), step.getKey().getData());
-				//signatura.unload();
-			} else {
-				throw new ReportError("Ошибка инициализации криптосистемы");
-			}
-		} else if (Constants.ACTIONS[2].equals(step.getAction().getName())) {
-			// sign
-			if (currentKey == null || "".equals(currentKey) || !currentKey.equals(step.getKey().getData())) {
-				result = signatura.initConfig(step.getKey().getData());
-				currentKey = step.getKey().getData();
-			}else {
-				result = 0;
-			}
-			if (result == 0) {
-				signatura.setSignParameters();
-				errorFiles = signatura
-						.signFilesInPath(executedFiles.filtered(new Predicate<FileTransforming>() {
-
-							@Override
-							public boolean test(FileTransforming t) {
-								if (t.getCurrent() != null)
-									return t.getCurrent().matches(step.getData());
-								else
-									return t.getOriginal().matches(step.getData());
-							}
-						}));
-				//signatura.unload();
-			} else {
-				throw new ReportError("Ошибка инициализации криптосистемы");
-			}
-		} else if (Constants.ACTIONS[3].equals(step.getAction().getName())) {
-			// decrypt
-			if (currentKey == null || "".equals(currentKey) || !currentKey.equals(step.getKey().getData())) {
-				result = signatura.initConfig(step.getKey().getData());
-				currentKey = step.getKey().getData();
-			}else {
-				result = 0;
-			}
-			if (result == 0) {
-				signatura.setParameters();
-				errorFiles = signatura.decryptFilesInPath(
-						executedFiles.filtered(new Predicate<FileTransforming>() {
-
-							@Override
-							public boolean test(FileTransforming t) {
-								if (t.getCurrent() != null)
-									return t.getCurrent().matches(step.getData());
-								else
-									return t.getOriginal().matches(step.getData());
-							}
-						}));
-				//signatura.unload();
-			} else {
-				throw new ReportError("Ошибка инициализации криптосистемы");
-			}
-		} else if (Constants.ACTIONS[4].equals(step.getAction().getName())) {
-			// verify and unsign
-			if (currentKey == null || "".equals(currentKey) || !currentKey.equals(step.getKey().getData())) {
-				result = signatura.initConfig(step.getKey().getData());
-				currentKey = step.getKey().getData();
-			}else {
-				result = 0;
-			}
-			if (result == 0) {
-				signatura.setParameters();
-				errorFiles = signatura.verifyAndUnsignFilesInPath(
-						executedFiles.filtered(new Predicate<FileTransforming>() {
-
-							@Override
-							public boolean test(FileTransforming t) {
-								if (t.getCurrent() != null)
-									return t.getCurrent().matches(step.getData());
-								else
-									return t.getOriginal().matches(step.getData());
-							}
-						}));
-				//signatura.unload();
-			} else {
-				throw new ReportError("Ошибка инициализации криптосистемы");
-			}
-		} else if (Constants.ACTIONS[5].equals(step.getAction().getName())) {
-			// post??
-		} else if (Constants.ACTIONS[6].equals(step.getAction().getName())) {
-			// create archive - transport file
-			Runtime r = Runtime.getRuntime();
-			Process p = null;
-			/**
-			 * Tmp dir for create archive, cause arj have only 64 params
-			 */
-			File tmpDir = new File(FileUtils.tmpDir + "arj\\");
-			tmpDir.mkdirs();
-
-			boolean loop = true;
-			int i = 0;
-			ObservableList<TransportFile> archiveTransportFiles = dao.getArchiveFiles(report,
-					direction, LocalDate.now());
-			if (archiveTransportFiles != null)
-				for (TransportFile f : archiveTransportFiles) {
-					if (f.getDatetime().toLocalDate().isEqual(LocalDate.now())) {
-						i++;
-					}
-				}
-			/*
-			 * ObservableList<String> fileList =
-			 * FileUtils.getDirContentByMask(FileUtils.tmpDir, step.getData());
-			 */
-			ObservableList<FileTransforming> doneList = FXCollections.observableArrayList();
-			try {
-				boolean multiVolumes = false;
-				while (loop) {
+		boolean loop = true;
+		int i = 0;
+		ObservableList<TransportFile> archiveTransportFiles = dao.getArchiveFiles(report, direction,
+				LocalDate.now());
+		if (archiveTransportFiles != null)
+			for (TransportFile f : archiveTransportFiles) {
+				if (f.getDatetime().toLocalDate().isEqual(LocalDate.now())) {
 					i++;
-					ObservableList<FileTransforming> fileListTmp = FXCollections
-							.observableArrayList();
-					for (FileTransforming f : executedFiles) {
-						if (f.getErrorCode() == 0 && !doneList.contains(f))
-							fileListTmp.add(f);
-					}
-					long fileSize = 0;
-					String command = FileUtils.exeDir + "arj.exe a -e ";// +
-																		// FileUtils.tmpDir+step.getAction().getData();
+				}
+			}
 
-					String multiCommand = FileUtils.exeDir + "arj.exe A -V5000k -Y -E ";
-					String pattern = direction ? report.getTransportInPattern().getMask()
-							: report.getTransportOutPattern().getMask();
+		ObservableList<FileTransforming> doneList = FXCollections.observableArrayList();
+		try {
+			boolean multiVolumes = false;
+			while (loop) {
+				i++;
+				ObservableList<FileTransforming> fileListTmp = FXCollections.observableArrayList();
+				for (FileTransforming f : executedFiles) {
+					if (f.getErrorCode() == 0 && !doneList.contains(f))
+						fileListTmp.add(f);
+				}
+				long fileSize = 0;
+				String command = FileUtils.exeDir + "arj.exe a -e ";// +
+																	// FileUtils.tmpDir+step.getAction().getData();
 
-					pattern = pattern.replaceAll("%date", DateUtils.formatReport(LocalDate.now()));
-					pattern = pattern.replaceAll("%dd",
-							LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
-					pattern = pattern.replaceAll("%MM",
-							LocalDate.now().format(DateTimeFormatter.ofPattern("MM")));
-					pattern = pattern.replaceAll("%yy",
-							LocalDate.now().format(DateTimeFormatter.ofPattern("yy")));
+				String multiCommand = FileUtils.exeDir + "arj.exe A -V5000k -Y -E ";
+				String pattern = direction ? report.getTransportInPattern().getMask()
+						: report.getTransportOutPattern().getMask();
 
-					if (i < 10) {
-						pattern = pattern.replaceAll("%n", i + "").replaceAll("%", "0");
-					} else if (i < 100) {
-						pattern = pattern.replaceAll("%%n", i + "").replaceAll("%", "0");
-					} else {
-						pattern = pattern.replaceAll("%%%n", i + "").replaceAll("%", "0");
-					}
-					command += FileUtils.tmpDir + "arj\\" + pattern;
-					multiCommand += FileUtils.tmpDir + "arj\\" + pattern;
+				pattern = pattern.replaceAll("%date", DateUtils.formatReport(LocalDate.now()));
+				pattern = pattern.replaceAll("%dd",
+						LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
+				pattern = pattern.replaceAll("%MM",
+						LocalDate.now().format(DateTimeFormatter.ofPattern("MM")));
+				pattern = pattern.replaceAll("%yy",
+						LocalDate.now().format(DateTimeFormatter.ofPattern("yy")));
 
-					// Add files to transport arch, if summary filesize doesn't
-					// greater than constant
-					int col = 0;
+				if (i < 10) {
+					pattern = pattern.replaceAll("%n", i + "").replaceAll("%", "0");
+				} else if (i < 100) {
+					pattern = pattern.replaceAll("%%n", i + "").replaceAll("%", "0");
+				} else {
+					pattern = pattern.replaceAll("%%%n", i + "").replaceAll("%", "0");
+				}
+				command += FileUtils.tmpDir + "arj\\" + pattern;
+				multiCommand += FileUtils.tmpDir + "arj\\" + pattern;
 
-					// HashMap<FileTransforming, ReportFile> toLog = new
-					// HashMap<FileTransforming, ReportFile>();
-					// This map is needed if we have in one cycle of processing
-					// several transport files, it is a part of global mapFiles
-					HashMap<String, ReportFile> partialFileMap = new HashMap<String, ReportFile>();
+				// Add files to transport arch, if summary filesize doesn't
+				// greater than constant
+				int col = 0;
 
-					int checkCount = 0; // This check count needs to create one
-										// large file in one multiple volume
-					int numberPart = 1; // If filesize more than limit, this is
-										// numbers of multivolume archive
-					if (fileListTmp.size() > 0)
-						for (FileTransforming currentFile : fileListTmp) {
+				// This map is needed if we have in one cycle of processing
+				// several transport files, it is a part of global mapFiles
+				HashMap<String, ReportFile> partialFileMap = new HashMap<String, ReportFile>();
 
-							fileSize += currentFile.getCurrentFile().length();
-							if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
-								// command += " " +
-								// currentFile.getCurrentFile().getAbsolutePath();
+				int checkCount = 0; // This check count needs to create one
+									// large file in one multiple volume
+				int numberPart = 1; // If filesize more than limit, this is
+									// numbers of multivolume archive
+				if (fileListTmp.size() > 0)
+					for (FileTransforming currentFile : fileListTmp) {
+
+						fileSize += currentFile.getCurrentFile().length();
+						if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
+							// command += " " +
+							// currentFile.getCurrentFile().getAbsolutePath();
+							FileUtils.copyFile(currentFile.getCurrentFile(),
+									FileUtils.tmpDir + "arj\\");
+							doneList.add(currentFile);
+							partialFileMap.put(currentFile.getOriginal(),
+									mapFiles.get(currentFile));
+							loop = false;
+							multiVolumes = false;
+							col++;
+						} else {
+							if (currentFile.getCurrentFile().length() > Settings.FILE_SIZE
+									&& checkCount == 0) {
+								multiVolumes = true;
 								FileUtils.copyFile(currentFile.getCurrentFile(),
 										FileUtils.tmpDir + "arj\\");
+
 								doneList.add(currentFile);
 								partialFileMap.put(currentFile.getOriginal(),
 										mapFiles.get(currentFile));
-								loop = false;
-								multiVolumes = false;
 								col++;
+								// each are int, so result would be int, but for
+								// round we need float
+								numberPart = (int) Math
+										.ceil((currentFile.getCurrentFile().length() * 10)
+												/ Settings.FILE_SIZE / 10.0);
 							} else {
-								if (currentFile.getCurrentFile().length() > Settings.FILE_SIZE
-										&& checkCount == 0) {
-									multiVolumes = true;
-									/*
-									 * multiCommand += " " +
-									 * currentFile.getCurrentFile().
-									 * getAbsolutePath();
-									 */
-									FileUtils.copyFile(currentFile.getCurrentFile(),
-											FileUtils.tmpDir + "arj\\");
-
-									doneList.add(currentFile);
-									partialFileMap.put(currentFile.getOriginal(),
-											mapFiles.get(currentFile));
-									col++;
-									numberPart = (int) Math
-											.ceil((currentFile.getCurrentFile().length() * 10)
-													/ Settings.FILE_SIZE / 10.0); // each
-																					// are
-																					// int,
-																					// so
-																					// result
-																					// would
-																					// be
-																					// int,
-																					// but
-																					// for
-																					// round
-																					// we
-																					// need
-																					// float
-								} else {
-									loop = true;
-								}
-							}
-							checkCount++;
-							transportFiles.put(new FileTransforming(pattern, FileUtils.tmpDir),
-									new TransportFile(0, pattern, LocalDateTime.now(), report,
-											direction, null, partialFileMap, dao.getFileType(report.getId(), direction ? 1 : 0, 1))); 
-							doneList.add(new FileTransforming(pattern, FileUtils.tmpDir));
-							if (multiVolumes) {
-								for (int k = 1; k < numberPart; k++) {
-									String localPattern = pattern.replaceAll("\\.(arj|ARJ)",
-											".a0" + k);
-									FileTransforming tmpFile = new FileTransforming(localPattern,
-											FileUtils.tmpDir);
-									doneList.add(tmpFile);
-									transportFiles.put(tmpFile,
-											new TransportFile(0, localPattern, LocalDateTime.now(),
-													report, direction, null, partialFileMap, dao.getFileType(report.getId(), direction ? 1 : 0, 1))); 
-								}
+								loop = true;
 							}
 						}
-					else {
-						loop = false;
-					}
-					command += " " + FileUtils.tmpDir + "arj\\*";
-					multiCommand += " " + FileUtils.tmpDir + "arj\\*";
-					try {
+						checkCount++;
+						transportFiles.put(new FileTransforming(pattern, FileUtils.tmpDir),
+								new TransportFile(0, pattern, LocalDateTime.now(), report,
+										direction, null, partialFileMap,
+										dao.getFileType(report.getId(), direction ? 1 : 0, 1)));
+						doneList.add(new FileTransforming(pattern, FileUtils.tmpDir));
 						if (multiVolumes) {
-							p = r.exec(multiCommand);
-						} else {
-							p = r.exec(command);
+							for (int k = 1; k < numberPart; k++) {
+								String localPattern = pattern.replaceAll("\\.(arj|ARJ)", ".a0" + k);
+								FileTransforming tmpFile = new FileTransforming(localPattern,
+										FileUtils.tmpDir);
+								doneList.add(tmpFile);
+								transportFiles.put(tmpFile, new TransportFile(0, localPattern,
+										LocalDateTime.now(), report, direction, null,
+										partialFileMap,
+										dao.getFileType(report.getId(), direction ? 1 : 0, 1)));
+							}
 						}
-
-						InputStream is = p.getInputStream();
-						int w = 0;
-						while ((w = is.read()) != -1) {
-							System.out.print((char) w);
-						}
-						System.out.println(p.waitFor());
-						// Copy archive from arj dir to tmp, cause all handlers
-						// are in this dir
-						FileUtils.copyFile(new File(FileUtils.tmpDir + "arj\\" + pattern),
-								FileUtils.tmpDir);
-						for (File f : tmpDir.listFiles()) {
-							f.delete();
-						}
-						executedFiles.addAll(transportFiles.keySet());
-					} catch (InterruptedException | IOException ie) {
-						MainApp.error(ie.getLocalizedMessage());
-						ie.printStackTrace();
-						throw new ReportError("Ошибка создания транспортного файла");
+					}
+				else {
+					loop = false;
+				}
+				command += " " + FileUtils.tmpDir + "arj\\*";
+				multiCommand += " " + FileUtils.tmpDir + "arj\\*";
+				try {
+					if (multiVolumes) {
+						p = r.exec(multiCommand);
+					} else {
+						p = r.exec(command);
 					}
 
-				}
-			} catch (Exception e) {
-				MainApp.error(e.getLocalizedMessage());
-				e.printStackTrace();
-				System.out.println("Error!!!");
-				throw new ReportError("Ошибка создания транспортного файла");
-			}
-			System.out.println("ARJ returned " + p.exitValue());
-
-		} else if (Constants.ACTIONS[7].equals(step.getAction().getName())) {
-			// REPLACE 0 - ? , 1 - substring to replace, 2 - replacement
-			renameFiles = new String[3];
-			renameFiles[0] = step.getData().substring(0, step.getData().indexOf(" > "));
-			String ReplaceText = step.getData().substring(step.getData().indexOf(" > (") + 4,
-					step.getData().lastIndexOf(")"));
-			renameFiles[1] = ReplaceText.substring(0, ReplaceText.indexOf("|"));
-			renameFiles[2] = ReplaceText.substring(ReplaceText.indexOf("|") + 1,
-					ReplaceText.length());
-
-			// FileFilter filter = new FileFilter(renameFiles[0]);
-
-			for (FileTransforming file : executedFiles.filtered(new Predicate<FileTransforming>() {
-
-				@Override
-				public boolean test(FileTransforming t) {
-					if (t.getCurrent() != null)
-						return t.getCurrent().matches(renameFiles[0]);
-					else
-						return t.getOriginal().matches(renameFiles[0]);
-				}
-			})) {
-				if (file.getErrorCode() == 0) {
-					// if (filter.accept(new File(FileUtils.tmpDir),
-					// file.getCurrent())) {
-					file.setCurrent(file.getCurrentFile().getParentFile().getAbsolutePath() + "\\"
-							+ file.getCurrent().replaceAll(renameFiles[1], renameFiles[2]));// new
-																							// File(FileUtils.tmpDir
-																							// +
-																							// file.getName().toLowerCase()
-					// .replaceAll(renameFiles[1], renameFiles[2]));
-					// file.renameTo(rFile);
-				}
-				// }
-			}
-
-			/*
-			 * for (String f : filenames) { if (filter.accept(null, f)) {
-			 * f.replaceAll(renameFiles[1], renameFiles[2]); } }
-			 */
-
-		} else if (Constants.ACTIONS[8].equals(step.getAction().getName())) {
-			// UNPACK
-			// Runtime r = Runtime.getRuntime();
-			// Process p = null;
-			for (String filename : FileUtils.getDirContentByMask(FileUtils.tmpDir,
-					step.getData())) {
-
-				List<File> tmpFiles = unrar(FileUtils.tmpDir + filename);
-				for (File f : tmpFiles) {
-					TransportFile tmpTransportFile = transportFiles
-							.get(new FileTransforming(filename, FileUtils.tmpDir));
-					if (tmpTransportFile.getListFiles() == null) {
-						tmpTransportFile.setListFiles(new HashMap<String, ReportFile>());
+					InputStream is = p.getInputStream();
+					int w = 0;
+					while ((w = is.read()) != -1) {
+						System.out.print((char) w);
 					}
-					tmpTransportFile.getListFiles().put(f.getName(), new ReportFile(0, f.getName(),
-							LocalDateTime.now(), report, direction, null, null, null)); //is set below near attribute parse
-					executedFiles
-							.add(new FileTransforming(f.getName(), f.getName(), FileUtils.tmpDir));
+					System.out.println(p.waitFor());
+					// Copy archive from arj dir to tmp, cause all handlers
+					// are in this dir
+					FileUtils.copyFile(new File(FileUtils.tmpDir + "arj\\" + pattern),
+							FileUtils.tmpDir);
+					for (File f : tmpDir.listFiles()) {
+						f.delete();
+					}
+					executedFiles.addAll(transportFiles.keySet());
+				} catch (InterruptedException | IOException ie) {
+					MainApp.error(ie.getLocalizedMessage());
+					ie.printStackTrace();
+					throw new ReportError("Ошибка создания транспортного файла");
 				}
-			}
 
-		} else if (Constants.ACTIONS[9].equals(step.getAction().getName())) {
-			// COPY
-			for (FileTransforming fTransforming : executedFiles) {
-				fTransforming.copyCurrent(step.getData(), false);
 			}
+		} catch (Exception e) {
+			MainApp.error(e.getLocalizedMessage());
+			e.printStackTrace();
+			System.out.println("Error!!!");
+			throw new ReportError("Ошибка создания транспортного файла");
+		}
+		System.out.println("ARJ returned " + p.exitValue());
+
+	}
+
+	/**
+	 * REPLACE 0 - ? , 1 - substring to replace, 2 - replacement
+	 * 
+	 * @param data
+	 */
+	private void replace(String data) {
+		renameFiles = new String[3];
+		renameFiles[0] = data.substring(0, data.indexOf(" > "));
+		String ReplaceText = data.substring(data.indexOf(" > (") + 4, data.lastIndexOf(")"));
+		renameFiles[1] = ReplaceText.substring(0, ReplaceText.indexOf("|"));
+		renameFiles[2] = ReplaceText.substring(ReplaceText.indexOf("|") + 1, ReplaceText.length());
+
+		for (FileTransforming file : executedFiles.filtered(new Predicate<FileTransforming>() {
+
+			@Override
+			public boolean test(FileTransforming t) {
+				if (t.getCurrent() != null)
+					return t.getCurrent().matches(renameFiles[0]);
+				else
+					return t.getOriginal().matches(renameFiles[0]);
+			}
+		})) {
+			if (file.getErrorCode() == 0) {
+				file.setCurrent(file.getCurrentFile().getParentFile().getAbsolutePath() + "\\"
+						+ file.getCurrent().replaceAll(renameFiles[1], renameFiles[2]));
+			}
+		}
+
+	}
+
+	private void unpack(String data) {
+		for (String filename : FileUtils.getDirContentByMask(FileUtils.tmpDir, data)) {
+
+			List<File> tmpFiles = unrar(FileUtils.tmpDir + filename);
+			for (File f : tmpFiles) {
+				TransportFile tmpTransportFile = transportFiles
+						.get(new FileTransforming(filename, FileUtils.tmpDir));
+				if (tmpTransportFile.getListFiles() == null) {
+					tmpTransportFile.setListFiles(new HashMap<String, ReportFile>());
+				}
+				tmpTransportFile.getListFiles().put(f.getName(), new ReportFile(0, f.getName(),
+						LocalDateTime.now(), report, direction, null, null, null)); // is
+																					// set
+																					// below
+																					// near
+																					// attribute
+																					// parse
+				executedFiles.add(new FileTransforming(f.getName(), f.getName(), FileUtils.tmpDir));
+			}
+		}
+
+	}
+
+	private void copy(String data) {
+		for (FileTransforming fTransforming : executedFiles) {
+			fTransforming.copyCurrent(data, false);
+		}
+
+	}
+
+	public ObservableList<ErrorFile> executeStepSignatura(ProcessStep step)
+			throws ReportError, InterruptedException, ExecutionException {
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
+		SignaturaService service = new SignaturaService(step.getKey());
+		switch (step.getAction().getName()) {
+		case Constants.ENCRYPT:
+			errorFiles = service.encrypt(executedFiles.filtered(t -> {
+				if (t.getCurrent() != null)
+					return t.getCurrent().matches(step.getData());
+				else
+					return t.getOriginal().matches(step.getData());
+			}));
+
+			break;
+		case Constants.SIGN:
+			errorFiles = service.sign(executedFiles.filtered(t -> {
+				if (t.getCurrent() != null)
+					return t.getCurrent().matches(step.getData());
+				else
+					return t.getOriginal().matches(step.getData());
+			}));
+			break;
+		case Constants.DECRYPT:
+			errorFiles = service.decrypt(executedFiles.filtered(t -> {
+				if (t.getCurrent() != null)
+					return t.getCurrent().matches(step.getData());
+				else
+					return t.getOriginal().matches(step.getData());
+			}));
+			break;
+		case Constants.UNSIGN:
+			errorFiles = service.unsign(executedFiles.filtered(t -> {
+				if (t.getCurrent() != null)
+					return t.getCurrent().matches(step.getData());
+				else
+					return t.getOriginal().matches(step.getData());
+			}));
+			break;
+		case Constants.PACK:
+			createArchive();
+			break;
+		case Constants.RENAME:
+			replace(step.getData());
+			break;
+		case Constants.UNPACK:
+			unpack(step.getData());
+			break;
+		case Constants.COPY:
+			copy(step.getData());
+			break;
 		}
 
 		if (errorFiles.size() > 0) {

@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -884,6 +883,7 @@ public class Dao {
 
 	}
 
+	@SuppressWarnings("resource")
 	public void save(ReportFile file) {
 		String sql = "";
 		PreparedStatement ps = null;
@@ -918,10 +918,6 @@ public class Dao {
 				ps.executeUpdate();
 				ps.close();
 			}
-			// if (fattr.getValue()!=null &&
-			// (fattr.getValue().toLowerCase().contains(Constants.ACCEPT) ||
-			// fattr.getValue().toLowerCase().contains(Constants.POSITIVE.toLowerCase())||Constants.isPositive(fattr.getValue())))
-			// {
 			// have parent
 			if (file.getAttributes().get(AttributeDescr.PARENT) != null
 					|| file.getAttributes().get(AttributeDescr.PARENT_ID) != null) {
@@ -1003,30 +999,7 @@ public class Dao {
 			rs.close();
 			ps.close();
 
-			Integer linkedFileId = null;
 			for (ReportFile rf : tfile.getListFiles().values()) {
-				/*
-				 * linkedFileId = null; sql =
-				 * "INSERT INTO files(report_id, name, datetime, direction, type_id) VALUES (?,?,?,?,?)"
-				 * ; ps = connection.prepareStatement(sql,
-				 * Statement.RETURN_GENERATED_KEYS); ps.setInt(1,
-				 * rf.getReport().getId()); ps.setString(2, rf.getName());
-				 * ps.setString(3, DateUtils.toSQLite(rf.getDatetime()));
-				 * ps.setInt(4, rf.getDirection() ? 1 : 0); ps.setInt(5,
-				 * rf.getFileType().getId());
-				 * 
-				 * ps.executeUpdate(); rs = ps.getGeneratedKeys(); if
-				 * (rs.next()) { rf.setId(rs.getInt(1)); } rs.close();
-				 * ps.close();
-				 * 
-				 * if ((rf.getAttributes() != null) &&
-				 * (rf.getAttributes().get(AttributeDescr.PARENT) != null)) {
-				 * sql = "UPDATE files SET linked_id = ? WHERE name LIKE ?"; ps
-				 * = connection.prepareStatement(sql); ps.setInt(1, rf.getId());
-				 * ps.setString(2,
-				 * rf.getAttributes().get(AttributeDescr.PARENT).getValue() +
-				 * "%"); ps.executeUpdate(); ps.close(); }
-				 */
 				save(rf);
 				sql = "INSERT INTO transport_files(parent_id, child_id)VALUES(?,?)";
 				ps = connection.prepareStatement(sql);
@@ -1034,14 +1007,6 @@ public class Dao {
 				ps.setInt(2, rf.getId());
 				ps.executeUpdate();
 				ps.close();
-				/*
-				 * for (FileAttribute fattr : rf.getAttributes().values()) { sql
-				 * =
-				 * "INSERT INTO file_attributes(file_id, attribute_id, value)VALUES(?,?,?)"
-				 * ; ps = connection.prepareStatement(sql); ps.setInt(1,
-				 * rf.getId()); ps.setInt(2, fattr.getId()); ps.setString(3,
-				 * fattr.getValue()); ps.executeUpdate(); ps.close(); }
-				 */
 			}
 
 		} catch (SQLException e) {

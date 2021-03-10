@@ -30,7 +30,7 @@ public class Constants {
 
 	public static final String P364E_PATTERN = ".+\\.(x|X)(m|M)(l|L)";*/
 
-	public static final String[] ACTIONS = new String[] { "TO", // 0
+	/*public static final String[] ACTIONS = new String[] { "TO", // 0
 			"ENCRYPT", // 1
 			"SIGN", // 2
 			"DECRYPT", // 3
@@ -41,7 +41,17 @@ public class Constants {
 			"UNPACK", // 8
 			"COPY" //9
 
-	};
+	};*/
+	
+	public static final String ENCRYPT = "ENCRYPT";
+	public static final String SIGN ="SIGN";
+	public static final String DECRYPT = "DECRYPT";
+	public static final String UNSIGN = "UNSIGN";
+	public static final String POST = "POST";
+	public static final String PACK = "PACK";
+	public static final String RENAME = "RENAME";
+	public static final String UNPACK = "UNPACK";
+	public static final String COPY = "COPY";
 
 	//public static String VERBA_EXE = "\"c:\\Program Files (x86)\\MDPREI\\РМП Верба-OW\\FColseOW.exe\"";
 
