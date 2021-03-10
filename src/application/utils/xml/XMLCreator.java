@@ -1,4 +1,4 @@
-package application.utils;
+package application.utils.xml;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -29,6 +29,7 @@ import application.models.FileAttribute;
 import application.models.FileType;
 import application.models.ProcessStep;
 import application.models.Report;
+import application.utils.DateUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 

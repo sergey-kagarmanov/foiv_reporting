@@ -27,6 +27,7 @@ import application.models.AttributeDescr;
 import application.models.FileAttribute;
 import application.models.FileType;
 import application.models.Report;
+import application.utils.xml.XMLValidator;
 import javafx.collections.ObservableList;
 
 public class FileParser {

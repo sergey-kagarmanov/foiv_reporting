@@ -1,4 +1,4 @@
-package application.view;
+package application.view.dialogs;
 
 import application.MainApp;
 import application.models.Key;

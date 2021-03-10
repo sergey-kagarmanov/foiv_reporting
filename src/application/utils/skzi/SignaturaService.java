@@ -1,4 +1,4 @@
-package application.utils;
+package application.utils.skzi;
 
 import java.util.Collection;
 import java.util.concurrent.ExecutionException;

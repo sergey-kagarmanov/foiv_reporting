@@ -1,4 +1,4 @@
-package application.utils;
+package application.utils.skzi;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +18,7 @@ import Pki1.LocalIface.sign_param_t;
 import Pki1.LocalIface.verify_param_t;
 import application.MainApp;
 import application.models.ErrorFile;
+import application.utils.FileUtils;
 
 public class Signatura {
 

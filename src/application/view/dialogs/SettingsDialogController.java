@@ -1,4 +1,4 @@
-package application.view;
+package application.view.dialogs;
 
 import java.util.ArrayList;
 import java.util.List;

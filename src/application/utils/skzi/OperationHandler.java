@@ -1,4 +1,4 @@
-package application.utils;
+package application.utils.skzi;
 
 import java.io.File;
 import java.util.concurrent.Callable;

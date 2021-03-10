@@ -1,4 +1,4 @@
-package application.utils;
+package application.utils.print;
 
 import java.awt.Font;
 import java.awt.FontMetrics;

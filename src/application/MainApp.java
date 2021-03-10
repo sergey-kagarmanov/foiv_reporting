@@ -26,22 +26,22 @@ import application.models.Report;
 import application.utils.FileUtils;
 import application.view.ActionViewController;
 import application.view.AddEditAttributeDescrController;
-import application.view.AddEditChainDialogController;
 import application.view.AddReportController;
-import application.view.AddeditActionDialogController;
-import application.view.ArchiveNameDialogController;
 import application.view.ArchiveOverviewController;
 import application.view.AttributeEditController;
-import application.view.AttributeLocationDialogController;
-import application.view.CheckScemaDialogController;
-import application.view.ChooseKeyDialogController;
 import application.view.EncryptOverviewController;
-import application.view.FileTypeDialogController;
 import application.view.KeyViewController;
-import application.view.ReportChooserDialogController;
 import application.view.RootLayoutController;
-import application.view.SettingsDialogController;
 import application.view.SingleActionController;
+import application.view.dialogs.AddEditChainDialogController;
+import application.view.dialogs.AddeditActionDialogController;
+import application.view.dialogs.ArchiveNameDialogController;
+import application.view.dialogs.AttributeLocationDialogController;
+import application.view.dialogs.CheckScemaDialogController;
+import application.view.dialogs.ChooseKeyDialogController;
+import application.view.dialogs.FileTypeDialogController;
+import application.view.dialogs.ReportChooserDialogController;
+import application.view.dialogs.SettingsDialogController;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -201,7 +201,7 @@ public class MainApp extends Application {
 	public void showProcessStepDialog(ProcessStep step, Chain chain) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/AddeditActionDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/dialogs/AddEditActionDialog.fxml"));
 			AnchorPane editOverview = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -233,7 +233,7 @@ public class MainApp extends Application {
 	public void showFileTypeDialog(FileType type, Integer reportId) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/FileTypeDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/dialogs/FileTypeDialog.fxml"));
 			AnchorPane editOverview = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -266,7 +266,7 @@ public class MainApp extends Application {
 	public void showChainDialog(Chain chain) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/AddeditChainDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/dialogs/AddeditChainDialog.fxml"));
 			AnchorPane editOverview = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -461,7 +461,7 @@ public class MainApp extends Application {
 	public Report showReportChooserDialog() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ReportChooserDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/dialogs/ReportChooserDialog.fxml"));
 			AnchorPane reportDialog = (AnchorPane) loader.load();
 			Stage dialogStage = new Stage();
 
@@ -497,7 +497,7 @@ public class MainApp extends Application {
 	public void showAttributeSettingsDialog(FileType type) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/AttributeLocationDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/dialogs/AttributeLocationDialog.fxml"));
 			AnchorPane reportDialog = (AnchorPane) loader.load();
 			Stage dialogStage = new Stage();
 
@@ -531,7 +531,7 @@ public class MainApp extends Application {
 	public void showSettingsDialog() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/SettingsDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/dialogs/SettingsDialog.fxml"));
 			AnchorPane reportDialog = (AnchorPane) loader.load();
 			Stage dialogStage = new Stage();
 
@@ -633,7 +633,7 @@ public class MainApp extends Application {
 	public void showChooseKeyDialog() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ChooseKeyDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/dialogs/ChooseKeyDialog.fxml"));
 			AnchorPane editOverview = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -666,7 +666,7 @@ public class MainApp extends Application {
 	public void showChooseArchiveDialog(ObservableList<File> files) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ArchiveNameDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/dialogs/ArchiveNameDialog.fxml"));
 			AnchorPane editOverview = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -699,7 +699,7 @@ public class MainApp extends Application {
 	public void showChooseSchemaDialog(ObservableList<File> files) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/CheckSchemaDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/dialogs/CheckSchemaDialog.fxml"));
 			AnchorPane editOverview = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.

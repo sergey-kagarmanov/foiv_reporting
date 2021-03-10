@@ -7,7 +7,7 @@ import application.errors.ReportError;
 import application.models.FileType;
 import application.models.Report;
 import application.utils.Constants;
-import application.utils.XMLCreator;
+import application.utils.xml.XMLCreator;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;

@@ -1,4 +1,4 @@
-package application.utils;
+package application.utils.print;
 
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
