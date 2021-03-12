@@ -3,21 +3,29 @@ package application.view;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.xml.sax.SAXException;
 
 import application.MainApp;
 import application.models.ErrorFile;
 import application.models.FileTransforming;
+import application.models.Key;
+import application.utils.AlertWindow;
 import application.utils.Constants;
 import application.utils.DateUtils;
 import application.utils.FileUtils;
-import application.utils.skzi.Signatura;
+import application.utils.skzi.DecryptorHandler;
+import application.utils.skzi.EncryptorHandler;
+import application.utils.skzi.HashHandler;
+import application.utils.skzi.SignHandler;
+import application.utils.skzi.SignaturaHandler;
 import application.utils.skzi.SignaturaService;
-import application.utils.skzi.SignaturaServiceAbstract;
+import application.utils.skzi.SignaturaTheadingExecutor;
+import application.utils.skzi.UnsignHandler;
 import application.utils.xml.XMLValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -127,7 +135,7 @@ public class SingleActionController {
 	public void chooseFiles() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Выберите файлы для обработки");
-		String pathOut = System.getProperty("user.dir");
+		String pathOut = "c:\\";
 		fileChooser.setInitialDirectory(new File(pathOut));
 		List<File> selectedFiles = fileChooser.showOpenMultipleDialog(null);
 		files.setItems(FXCollections.observableList(selectedFiles));
@@ -137,7 +145,7 @@ public class SingleActionController {
 	public void chooseOutput() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		String pathOut = files.getItems().size() > 0 ? files.getItems().get(0).getParent()
-				: System.getProperty("user.dir");
+				: "c:\\";
 		directoryChooser.setInitialDirectory(new File(pathOut));
 		File selectedDirectory = directoryChooser.showDialog(null);
 		outPath.setText(selectedDirectory.getAbsolutePath());
@@ -156,90 +164,87 @@ public class SingleActionController {
 	@FXML
 	public void startAction() {
 		Pair<String, String> action = actionChooser.getSelectionModel().getSelectedItem();
+		ObservableList<ErrorFile> errorFiles = null;
 		if (action.getKey().equals(Constants.ENCRYPT)) {
 			mainApp.showChooseKeyDialog();
-			Signatura signatura = new Signatura();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				ObservableList<File> tmp = copyFiles();
-				signatura.initConfig(mainApp.getCurrentKey().getData());
-				ObservableList<ErrorFile> errorFiles = null;
-				try {
-					SignaturaServiceAbstract service = new SignaturaServiceAbstract() {
-						
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+
+					@Override
+					public SignaturaHandler getHandler(Key key) {
+						return new EncryptorHandler(key);
+					}
 					
-						@Override
-						public int action(String source, String target) {
-							return signatura.encrypt(source, target);
-						}
-					};
-					errorFiles = service.execute(FileTransforming.toFileTransforming(tmp));
-				} catch (InterruptedException | ExecutionException e) {
-					// TODO Auto-generated catch block
+				};
+				try {
+					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				if (errorFiles.size() == 0) {
-					FileUtils.copyFiles(tmp, outPath.getText());
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Зашифрование");
-					alert.setContentText("Обработка выполнена успешно");
-					alert.show();
-				}
+				AlertWindow.show(Constants.ENCRYPT_RUS, errorFiles);
 			}
 		} else if (action.getKey().equals(Constants.SIGN)) {
 			mainApp.showChooseKeyDialog();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				ObservableList<File> tmp = copyFiles();
-				SignaturaService service = new SignaturaService(mainApp.getCurrentKey());
-				ObservableList<ErrorFile> errorFiles = service
-						.sign(FileTransforming.toFileTransforming(tmp));
-				
-				if (errorFiles.size() == 0) {
-					FileUtils.copyFiles(tmp, outPath.getText());
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Подпись");
-					alert.setContentText("Обработка выполнена успешно");
-					alert.show();
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+					
+					@Override
+					public SignaturaHandler getHandler(Key key) {
+						return new SignHandler(key);
+					}
+				};
+				try {
+					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+				
+				AlertWindow.show(Constants.SIGN_RUS, errorFiles);
 			}
 		} else if (action.getKey().equals(Constants.DECRYPT)) {
 			mainApp.showChooseKeyDialog();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				SignaturaService service = new SignaturaService(mainApp.getCurrentKey());
-				ObservableList<File> tmp = copyFiles();
-				
-				ObservableList<ErrorFile> errorFiles = service.decrypt(FileTransforming.toFileTransforming(tmp));
-				if (errorFiles.size() == 0) {
-					FileUtils.copyFiles(tmp, outPath.getText());
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Расшифрование");
-					alert.setContentText("Обработка выполнена успешно");
-					alert.show();
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+
+					@Override
+					public SignaturaHandler getHandler(Key key) {
+						return new DecryptorHandler(key);
+					}
+				};
+				try {
+					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				service.unload();
+				AlertWindow.show(Constants.DECRYPT_RUS, errorFiles);
 			}
 		} else if (action.getKey().equals(Constants.UNSIGN)) {
 			mainApp.showChooseKeyDialog();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
-			} else {
-				SignaturaService service = new SignaturaService(mainApp.getCurrentKey());
-				ObservableList<File> tmp = copyFiles();
-				ObservableList<ErrorFile> errorFiles = service.unsign(
-						FileTransforming.toFileTransforming(tmp));
-				if (errorFiles.size() == 0) {
-					FileUtils.copyFiles(tmp, outPath.getText());
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Поверка и снятие подписи");
-					alert.setContentText("Обработка выполнена успешно");
-					alert.show();
+			}else {
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+
+					@Override
+					public SignaturaHandler getHandler(Key key) {
+						return new UnsignHandler(key);
+					}
+				};
+				try {
+					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				service.unload();
+				AlertWindow.show(Constants.UNSIGN_RUS, errorFiles);
 			}
 		} else if (action.getKey().equals(Constants.PACK)) {
 			ObservableList<File> tmp = copyFiles();
@@ -261,15 +266,32 @@ public class SingleActionController {
 					System.out.print((char) w);
 				}
 				System.out.println(p.waitFor());
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Архивация");
-				alert.setContentText("Обработка выполнена успешно");
-				alert.show();
+				
+				AlertWindow.show(Constants.PACK_RUS, errorFiles);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		} else if (action.getKey().equals(Constants.RENAME)) {
+			mainApp.showChooseKeyDialog();
+			if (mainApp.getCurrentKey() == null) {
+				showAlert("Ключ не выбран");
+			} else {
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+
+					@Override
+					public SignaturaHandler getHandler(Key key) {
+						return new HashHandler(key);
+					}
+				};
+				try {
+					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				AlertWindow.show(Constants.DECRYPT_RUS, errorFiles);
+			}
 
 		} else if (action.getKey().equals(Constants.UNPACK)) {
 			ObservableList<File> resultFiles = FXCollections.observableArrayList();
@@ -279,10 +301,7 @@ public class SingleActionController {
 					resultFiles.addAll(FileUtils.getFrom7z(f));
 				}
 				if (resultFiles.size() > 0) {
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Разархивирование");
-					alert.setContentText("Обработка выполнена успешно");
-					alert.show();
+					AlertWindow.show(Constants.UNPACK_RUS, errorFiles);
 				}
 
 			} catch (IOException e) {
@@ -291,6 +310,7 @@ public class SingleActionController {
 			FileUtils.moveFiles(resultFiles, outPath.getText());
 		} else if (action.getKey().equals(Constants.COPY)) {
 			FileUtils.copyFiles(files.getItems(), outPath.getText());
+			AlertWindow.show(Constants.COPY_RUS, errorFiles);
 		} else if ("CHECK".equals(action.getKey())) {
 			ObservableMap<File, String> exceptions = FXCollections.observableHashMap();
 			/*
@@ -301,31 +321,22 @@ public class SingleActionController {
 			 */
 			mainApp.showChooseSchemaDialog(files.getItems());
 			ObservableList<Pair<File, String>> schemaPairs = mainApp.getSchemaPairs();
+			//StringBuilder errors = new StringBuilder();
+			List<String> testList = new ArrayList<>();
 			for (Pair<File, String> f : schemaPairs) {
 				List<Exception> tmpList = XMLValidator.validate(f.getKey(), new File(f.getValue()));
 				if (tmpList.size() > 0) {
-					String errors = "В файле " + f.getKey().getName();
+						//errors.append("В файле " + f.getKey().getName());
 					for (Exception ex : tmpList) {
-						errors += " " + ((SAXException) ex).getMessage() + "\r\n";
+						//errors .append(" " + ((SAXException) ex).getMessage() + System.lineSeparator());
+						testList.add("Файл - "+ f.getKey().getName()+" " + ((SAXException) ex).getMessage());
 					}
-					exceptions.put(f.getKey(), errors);
+					//exceptions.put(f.getKey(), errors.toString());
 				}
 			}
-			if (exceptions.size() > 0) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Результат проверки");
-				String errors = "";
-				for (String e : exceptions.values()) {
-					errors += " " + e;
-				}
-				alert.setContentText(errors);
-				alert.show();
-			} else {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setContentText("Ошибок нет");
-				alert.setTitle("Результат проверки");
-				alert.show();
-			}
+			AlertWindow.show(Constants.COPY_RUS, errorFiles);
+
+
 		}
 	}
 

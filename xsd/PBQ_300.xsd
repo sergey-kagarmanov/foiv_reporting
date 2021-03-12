@@ -1,234 +1,73 @@
 <?xml version="1.0" encoding="windows-1251"?>
-<!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by SAN (FGUP GNIVC FNS Russia) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:altova="http://www.altova.com/xml-schema-extensions" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.00">
-	<xs:element name="Файл">
-		<xs:annotation>
-			<xs:documentation>Файл электронного документа</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="ПОДБНПРИНТ">
-					<xs:annotation>
-						<xs:documentation>Подтверждение о получении электронного документа налогового органа</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="Результат" maxOccurs="unbounded">
-								<xs:annotation>
-									<xs:documentation>Результаты проверки</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:attribute name="КодРезПроверки" use="required">
-										<xs:annotation>
-											<xs:documentation>Код в соответствии с перечнем кодов результатов проверки, допустимых для подтверждения</xs:documentation>
-											<xs:appinfo>
-												<altova:exampleValues>
-													<altova:example value="33"/>
-													<altova:example value="32"/>
-												</altova:exampleValues>
-											</xs:appinfo>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:length value="2"/>
-												<xs:pattern value="\d{2}"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:attribute>
-									<xs:attribute name="Пояснение" use="optional">
-										<xs:annotation>
-											<xs:documentation>Текст, уточняющий причины отрицательного результата проверки</xs:documentation>
-											<xs:appinfo>
-												<altova:exampleValues>
-													<altova:example value="ИНН клиента не соответствует номеру счета"/>
-													<altova:example value="в банке отсутствует номер счета, указанный в электронном документе"/>
-												</altova:exampleValues>
-											</xs:appinfo>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:minLength value="1"/>
-												<xs:maxLength value="512"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:attribute>
-									<xs:attribute name="КодРекв" use="optional">
-										<xs:annotation>
-											<xs:documentation>Код ошибочного реквизита</xs:documentation>
-											<xs:appinfo>
-												<altova:exampleValues>
-													<altova:example value="ИНННП"/>
-													<altova:example value="НомСч"/>
-												</altova:exampleValues>
-											</xs:appinfo>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:minLength value="1"/>
-												<xs:maxLength value="50"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:attribute>
-									<xs:attribute name="ЗначРекв" use="optional">
-										<xs:annotation>
-											<xs:documentation>Значение ошибочного реквизита</xs:documentation>
-											<xs:appinfo>
-												<altova:exampleValues>
-													<altova:example value="5208000760"/>
-													<altova:example value="40702810100000002456"/>
-												</altova:exampleValues>
-											</xs:appinfo>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:minLength value="1"/>
-												<xs:maxLength value="1000"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:attribute>
-								</xs:complexType>
-							</xs:element>
-						</xs:sequence>
-						<xs:attribute name="ИмяФайла" use="required">
-							<xs:annotation>
-								<xs:documentation>Наименование полученного файла без расширения</xs:documentation>
-								<xs:appinfo>
-									<altova:exampleValues>
-										<altova:example value="RPO14525787_525220111108_000009"/>
-									</altova:exampleValues>
-								</xs:appinfo>
-							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="xs:string">
-									<xs:minLength value="1"/>
-									<xs:maxLength value="1000"/>
-								</xs:restriction>
-							</xs:simpleType>
-						</xs:attribute>
-						<xs:attribute name="ДатаВремяПроверки" type="xs:dateTime" use="required">
-							<xs:annotation>
-								<xs:documentation>Дата и время завершения проверки по местному времени</xs:documentation>
-								<xs:appinfo>
-									<altova:exampleValues>
-										<altova:example value="2015-06-17T09:30:47"/>
-									</altova:exampleValues>
-								</xs:appinfo>
-							</xs:annotation>
-						</xs:attribute>
-					</xs:complexType>
-				</xs:element>
-			</xs:sequence>
-			<xs:attribute name="ИдЭС" type="GUIDТип" use="required">
-				<xs:annotation>
-					<xs:documentation>Уникальный идентификатор сообщения (GUID)</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			<xs:attribute name="ТипИнф" use="required">
-				<xs:annotation>
-					<xs:documentation>Тип информации</xs:documentation>
-					<xs:appinfo>
-						<altova:exampleValues>
-							<altova:example value="ПОДБНПРИНТ"/>
-						</altova:exampleValues>
-					</xs:appinfo>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:length value="10"/>
-						<xs:enumeration value="ПОДБНПРИНТ"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-			<xs:attribute name="ВерсПрог" use="required">
-				<xs:annotation>
-					<xs:documentation>Версия передающей программы: &lt;наименование&gt;&lt;пробел&gt;&lt;версия&gt;</xs:documentation>
-					<xs:appinfo>
-						<altova:exampleValues>
-							<altova:example value="БИНГО 3.12.01"/>
-						</altova:exampleValues>
-					</xs:appinfo>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="40"/>
-						<xs:minLength value="1"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-			<xs:attribute name="ТелОтпр" use="required">
-				<xs:annotation>
-					<xs:documentation>Телефон отправителя</xs:documentation>
-					<xs:appinfo>
-						<altova:exampleValues>
-							<altova:example value="(495) 223-33-44"/>
-						</altova:exampleValues>
-					</xs:appinfo>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:minLength value="1"/>
-						<xs:maxLength value="20"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-			<xs:attribute name="ДолжнОтпр" use="required">
-				<xs:annotation>
-					<xs:documentation>Должность отправителя</xs:documentation>
-					<xs:appinfo>
-						<altova:exampleValues>
-							<altova:example value="оператор"/>
-						</altova:exampleValues>
-					</xs:appinfo>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:minLength value="1"/>
-						<xs:maxLength value="100" fixed="false"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-			<xs:attribute name="ФамОтпр" use="required">
-				<xs:annotation>
-					<xs:documentation>Фамилия отправителя</xs:documentation>
-					<xs:appinfo>
-						<altova:exampleValues>
-							<altova:example value="Сичкин"/>
-						</altova:exampleValues>
-					</xs:appinfo>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:minLength value="1"/>
-						<xs:maxLength value="60"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-			<xs:attribute name="ВерсФорм" use="required">
-				<xs:annotation>
-					<xs:documentation>Версия формата</xs:documentation>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:decimal">
-						<xs:totalDigits value="4"/>
-						<xs:fractionDigits value="2"/>
-						<xs:enumeration value="3.00"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-		</xs:complexType>
-	</xs:element>
-	<xs:simpleType name="GUIDТип">
-		<xs:annotation>
-			<xs:documentation>Идентификатор GUID</xs:documentation>
-			<xs:appinfo>
-				<altova:exampleValues>
-					<altova:example value="6F9619FF-8B86-D011-B42D-00CF4FC994FF"/>
-				</altova:exampleValues>
-			</xs:appinfo>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:length value="36"/>
-			<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
-		</xs:restriction>
-	</xs:simpleType>
-</xs:schema>
+<!--
+******************************************************************
+XML-СХЕМА для формы отчетности Файл
+СГЕНЕРИРОВАНА XSLT-ПРЕОБРАЗОВАНИЕМ GenSchema.xsl
+******************************************************************-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:cbr-440P:pod4:v4.00..3" xmlns="urn:cbr-440P:pod4:v4.00..3"><xs:element name="Файл" type="Файл" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+	<xs:complexType name="Файл" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:element name="ПОДБНПРИНТ" type="ФайлПОДБНПРИНТ" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="ИдЭС" type="GUIDтип" use="required"/>
+		<xs:attribute name="ТипИнф" type="ТипИнфТип-лок" use="required"/>
+		<xs:attribute name="ВерсПрог" type="ВерсПрогТип-лок" use="required"/>
+		<xs:attribute name="ТелОтпр" type="Строка20" use="required"/>
+		<xs:attribute name="ДолжнОтпр" type="Строка100" use="required"/>
+		<xs:attribute name="ФамОтпр" type="Строка60" use="optional"/>
+		<xs:attribute name="ВерсФорм" type="ВерсФормТип-лок" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ФайлПОДБНПРИНТ" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="ДОКНО" type="ФайлПОДБНПРИНТДОКНО" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="СведЗапрРеш" type="ФайлПОДБНПРИНТСведЗапрРеш" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
+			<xs:element name="Результат" type="ФайлПОДБНПРИНТРезультат" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ФайлПОДБНПРИНТДОКНО" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="ИмяФайла" type="ИмяФайлТип-лок" use="required"/>
+		<xs:attribute name="ДатаВремяПроверки" type="ДатаВремя" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ФайлПОДБНПРИНТСведЗапрРеш" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="СведЗапр" type="ФайлПОДБНПРИНТСведЗапрРешСведЗапр" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="СведРеш" type="ФайлПОДБНПРИНТСведЗапрРешСведРеш" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ФайлПОДБНПРИНТСведЗапрРешСведЗапр" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="НомЗапр" type="Строка20" use="required"/>
+		<xs:attribute name="ДатаЗапр" type="Дата" use="required"/>
+		<xs:attribute name="КодНОЗапр" type="КодНОТип-лок" use="required"/>
+		<xs:attribute name="ИндЗапр" type="ИндЗапрТип-лок" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ФайлПОДБНПРИНТСведЗапрРешСведРеш" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="НомРеш" type="Строка20" use="required"/>
+		<xs:attribute name="ДатаРеш" type="Дата" use="required"/>
+		<xs:attribute name="КодНОРеш" type="КодНОТип-лок" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ФайлПОДБНПРИНТРезультат" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="КодРезПроверки" type="КодРезТип-лок" use="required"/>
+		<xs:attribute name="Пояснение" type="ДопСведенТип-лок" use="optional"/>
+		<xs:attribute name="КодРекв" type="КодРеквТип-лок" use="optional"/>
+		<xs:attribute name="ЗначРекв" type="ЗначРеквТип-лок" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="КодНОТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="4412"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{4}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ДопСведенТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="512"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ИмяФайлТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0…1000"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="1000"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="КодРезТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="01"/><xs:ЗначениеТипа ЗначТипа="27"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{2}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="КодРеквТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="50"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ЗначРеквТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0…1000"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="1000"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ВерсПрогТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="40"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ВерсФормТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="4.00"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:decimal"><xs:totalDigits value="4"/><xs:fractionDigits value="2"/><xs:enumeration value="4.00"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ИндЗапрТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="3216549870123654789753"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:nonNegativeInteger"><xs:totalDigits value="22"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ТипИнфТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="ПОДБНПРИНТ"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:length value="10"/><xs:enumeration value="ПОДБНПРИНТ"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Дата" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="2014-11-02"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:date"><xs:pattern value="\d{4}-\d{2}-\d{2}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ДатаВремя" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="2014-11-30T13:20:45"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:dateTime"><xs:pattern value="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка20" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..20 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="20"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка60" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..60 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="60"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка100" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..100 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="100"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="GUIDтип" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="6F9619FF-8B86-D011-B42D-00CF4FC994FF"/><xs:ЗначениеТипа ЗначТипа="A57E17DF-8B86-B711-A42D-00CF4FC994AC"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/></xs:restriction></xs:simpleType></xs:schema>

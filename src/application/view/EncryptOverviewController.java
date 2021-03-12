@@ -43,6 +43,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
 import javafx.util.Duration;
@@ -112,6 +114,8 @@ public class EncryptOverviewController {
 
 	private MainApp mainApp;
 
+	ContextMenu contextMenu;
+	
 	public EncryptOverviewController() {
 
 	}
@@ -237,7 +241,7 @@ public class EncryptOverviewController {
 						};
 					}
 				});
-
+				
 		inArchiveFileTableColumn.setCellFactory(
 				new Callback<TableColumn<FileEntity, String>, TableCell<FileEntity, String>>() {
 					public TableCell<FileEntity, String> call(
@@ -642,7 +646,7 @@ public class EncryptOverviewController {
 
 	@FXML
 	public void contextMenu(ContextMenuEvent contextMenuEvent) {
-		ContextMenu contextMenu = new ContextMenu();
+		contextMenu = new ContextMenu();
 		MenuItem printItem = new MenuItem("Печатать выбранные");
 		printItem.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -657,7 +661,14 @@ public class EncryptOverviewController {
 		contextMenu.show((Node) contextMenuEvent.getSource(), contextMenuEvent.getScreenX(),
 				contextMenuEvent.getScreenY());
 	}
-
+	
+	@FXML
+	public void onMousePressed(MouseEvent mouseEvent) {
+		if (contextMenu!=null) {
+			contextMenu.hide();
+		}
+	}
+	
 	public void printSelected() {
 		ObservableList<FileEntity> items = inFileTable.getSelectionModel().getSelectedItems();
 		for (FileEntity file : items) {

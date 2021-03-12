@@ -34,6 +34,7 @@ import application.models.Report;
 import application.models.ReportFile;
 import application.models.TransportFile;
 import application.utils.skzi.SignaturaService;
+import application.view.controls.ArchiveNameDialogBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -55,6 +56,7 @@ public class ProcessExecutor {
 	private Chain chain;
 
 	private Dao dao;
+	private MainApp main;
 
 	private String path = "";
 	private String outputPath = "";
@@ -478,8 +480,7 @@ public class ProcessExecutor {
 						fileListTmp.add(f);
 				}
 				long fileSize = 0;
-				String command = FileUtils.exeDir + "arj.exe a -e ";// +
-																	// FileUtils.tmpDir+step.getAction().getData();
+				String command = FileUtils.exeDir + "arj.exe a -e ";
 
 				String multiCommand = FileUtils.exeDir + "arj.exe A -V5000k -Y -E ";
 				String pattern = direction ? report.getTransportInPattern().getMask()
@@ -500,6 +501,9 @@ public class ProcessExecutor {
 				} else {
 					pattern = pattern.replaceAll("%%%n", i + "").replaceAll("%", "0");
 				}
+				
+				pattern = ArchiveNameDialogBox.display(pattern);
+				
 				command += FileUtils.tmpDir + "arj\\" + pattern;
 				multiCommand += FileUtils.tmpDir + "arj\\" + pattern;
 
@@ -520,8 +524,6 @@ public class ProcessExecutor {
 
 						fileSize += currentFile.getCurrentFile().length();
 						if (fileSize < Settings.FILE_SIZE && col < Settings.FILE_COUNT) {
-							// command += " " +
-							// currentFile.getCurrentFile().getAbsolutePath();
 							FileUtils.copyFile(currentFile.getCurrentFile(),
 									FileUtils.tmpDir + "arj\\");
 							doneList.add(currentFile);

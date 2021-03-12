@@ -1,283 +1,303 @@
-[2021-03-10 10:18:16] [INFO   ] Programm started 
-[2021-03-10 10:18:17] [INFO   ] Database connected 
-[2021-03-10 10:18:18] [INFO   ] Load main view EncriptOverviewController 
-[2021-03-10 10:18:18] [INFO   ] 1459-П report has been choosen 
-[2021-03-10 10:18:24] [INFO   ] 440-П report has been choosen 
-[2021-03-10 10:18:55] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:18:58] [INFO   ] Sign parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Verify parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:18:58] [INFO   ] Sign parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Verify parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:18:58] [INFO   ] Sign parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Verify parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:18:58] [INFO   ] Sign parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Verify parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:18:58] [INFO   ] Sign parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Verify parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:18:58] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:18:58] [INFO   ] Sign parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Verify parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:18:58] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:19:03] [INFO   ] 440-П report has been choosen 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:20:04] [INFO   ] Sign parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Verify parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:20:04] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:20:04] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is signed in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:20:04] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:20:04] [INFO   ] Sign parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Verify parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:20:04] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is encrypted in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:20:04] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:20:04] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:20:04] [INFO   ] Sign parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Verify parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:20:04] [INFO   ] Sign parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Verify parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:20:04] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:20:04] [INFO   ] Sign parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Verify parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:20:04] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:20:14] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:20:14] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:20:14] [INFO   ] Sign parameters are set 
-[2021-03-10 10:20:14] [INFO   ] Verify parameters are set 
-[2021-03-10 10:20:14] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:20:14] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:20:14] [INFO   ] File C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00001.arj is signed in C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00001.arj_enc 
-[2021-03-10 10:20:17] [INFO   ] 440-П report has been choosen 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:21:35] [INFO   ] Sign parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Verify parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:21:35] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:21:35] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is signed in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:21:35] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:21:35] [INFO   ] Sign parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Verify parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:21:35] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is encrypted in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:21:35] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:21:35] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:21:35] [INFO   ] Sign parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Verify parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:21:35] [INFO   ] Sign parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Verify parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:21:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:21:35] [INFO   ] Sign parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Verify parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:21:35] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:21:43] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:21:43] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:21:43] [INFO   ] Sign parameters are set 
-[2021-03-10 10:21:43] [INFO   ] Verify parameters are set 
-[2021-03-10 10:21:43] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:21:43] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:21:43] [INFO   ] File C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00002.arj is signed in C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00002.arj_enc 
-[2021-03-10 10:21:47] [INFO   ] 440-П report has been choosen 
-[2021-03-10 10:22:15] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:15] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:15] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:15] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:15] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:15] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:15] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:22:15] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:22:15] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is signed in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:22:15] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:15] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:15] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:15] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:15] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:15] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:15] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:22:15] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is encrypted in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:22:15] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:22:16] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:16] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:16] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:16] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:16] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:16] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:16] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:16] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:16] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:16] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:16] [INFO   ] File C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00003.arj is signed in C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00003.arj_enc 
-[2021-03-10 10:22:17] [INFO   ] 440-П report has been choosen 
-[2021-03-10 10:22:30] [INFO   ] Programm started 
-[2021-03-10 10:22:30] [INFO   ] Database connected 
-[2021-03-10 10:22:31] [INFO   ] Load main view EncriptOverviewController 
-[2021-03-10 10:22:31] [INFO   ] 1459-П report has been choosen 
-[2021-03-10 10:22:34] [INFO   ] 440-П report has been choosen 
-[2021-03-10 10:22:41] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:42] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:22:42] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is signed in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:22:42] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:42] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is encrypted in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:22:42] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:22:42] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:42] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:42] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:42] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:22:42] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:22:42] [INFO   ] Sign parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Verify parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:22:42] [INFO   ] File C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00004.arj is signed in C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00004.arj_enc 
-[2021-03-10 10:22:43] [INFO   ] 440-П report has been choosen 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:23:29] [INFO   ] Sign parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Verify parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:23:29] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is signed in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:23:29] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is signed in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:23:29] [INFO   ] Sign parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Verify parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:23:29] [INFO   ] File C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml is encrypted in C:\workspace\fc_reporting\tmp\BVD1_ZSV14030878_781620210120_232006_20210121_0500_000001_000001.xml_enc 
-[2021-03-10 10:23:29] [INFO   ] File C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml is encrypted in C:\workspace\fc_reporting\tmp\BVS1_ZSV14030878_780620210120_218075_20210121_0500.xml_enc 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:23:29] [INFO   ] Sign parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Verify parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:23:29] [INFO   ] Sign parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Verify parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:23:29] [INFO   ] Sign parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Verify parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is created 
-[2021-03-10 10:23:29] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-03-10 10:23:29] [INFO   ] Sign parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Verify parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Encrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] Decrypt parameters are set 
-[2021-03-10 10:23:29] [INFO   ] File C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00005.arj is signed in C:\workspace\fc_reporting\tmp\AFN_4030878_MIFNS00_20210310_00005.arj_enc 
-[2021-03-10 10:23:31] [INFO   ] 440-П report has been choosen 
-[2021-03-10 10:58:17] [INFO   ] Programm started 
-[2021-03-10 10:58:17] [INFO   ] Database connected 
-[2021-03-10 10:58:18] [INFO   ] Load main view EncriptOverviewController 
-[2021-03-10 10:58:18] [INFO   ] 1459-П report has been choosen 
-[2021-03-10 11:00:31] [INFO   ] Programm started 
-[2021-03-10 11:00:31] [INFO   ] Database connected 
-[2021-03-10 11:00:32] [INFO   ] Load main view EncriptOverviewController 
-[2021-03-10 11:00:32] [INFO   ] 1459-П report has been choosen 
-[2021-03-10 11:09:09] [INFO   ] Programm started 
-[2021-03-10 11:09:10] [INFO   ] Database connected 
-[2021-03-10 11:09:11] [INFO   ] Load main view EncriptOverviewController 
-[2021-03-10 11:09:11] [INFO   ] 1459-П report has been choosen 
-[2021-03-10 11:12:34] [INFO   ] Programm started 
-[2021-03-10 11:12:34] [INFO   ] Database connected 
-[2021-03-10 11:12:35] [INFO   ] Load main view EncriptOverviewController 
-[2021-03-10 11:12:35] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:29:33] [INFO   ] Programm started 
+[2021-03-12 10:29:34] [INFO   ] Database connected 
+[2021-03-12 10:29:36] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:29:36] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:31:01] [INFO   ] Programm started 
+[2021-03-12 10:31:02] [INFO   ] Database connected 
+[2021-03-12 10:31:03] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:31:03] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:31:25] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:31:26] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:31:26] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:31:26] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:31:26] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:31:26] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:34:00] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:34:00] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:34:19] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:34:19] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:34:26] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:34:26] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:35:46] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:35:47] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:35:47] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:35:47] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:35:47] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:35:47] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:37:14] [INFO   ] Programm started 
+[2021-03-12 10:37:14] [INFO   ] Database connected 
+[2021-03-12 10:37:15] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:37:15] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:38:15] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:38:16] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:38:16] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:38:16] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:38:16] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:38:16] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:40:04] [INFO   ] Programm started 
+[2021-03-12 10:40:04] [INFO   ] Database connected 
+[2021-03-12 10:40:05] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:40:05] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:41:53] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:41:53] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:42:50] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:42:50] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:42:50] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:42:50] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:44:18] [INFO   ] Programm started 
+[2021-03-12 10:44:18] [INFO   ] Database connected 
+[2021-03-12 10:44:19] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:44:19] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:44:50] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:44:50] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:44:50] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:44:50] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:44:50] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:44:50] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:45:59] [INFO   ] Programm started 
+[2021-03-12 10:46:00] [INFO   ] Database connected 
+[2021-03-12 10:46:01] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:46:01] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:46:24] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:46:24] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:46:24] [INFO   ] Encrypt parameters are set 
+[2021-03-12 10:46:24] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:46:24] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:46:24] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:46:24] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:46:25] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:46:25] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:46:25] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:48:30] [INFO   ] Programm started 
+[2021-03-12 10:48:30] [INFO   ] Database connected 
+[2021-03-12 10:48:31] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:48:31] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:49:12] [INFO   ] Programm started 
+[2021-03-12 10:49:12] [INFO   ] Database connected 
+[2021-03-12 10:49:13] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:49:13] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:49:39] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:49:40] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:49:42] [INFO   ] Encrypt parameters are set 
+[2021-03-12 10:49:42] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:49:42] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:49:42] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:49:42] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:49:42] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:49:42] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:49:42] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:50:44] [INFO   ] Programm started 
+[2021-03-12 10:50:45] [INFO   ] Database connected 
+[2021-03-12 10:50:46] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:50:46] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:51:05] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:51:05] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:51:07] [INFO   ] Encrypt parameters are set 
+[2021-03-12 10:51:07] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:51:07] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:51:07] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:51:07] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:51:07] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:51:07] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:51:07] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:53:11] [INFO   ] Programm started 
+[2021-03-12 10:53:11] [INFO   ] Database connected 
+[2021-03-12 10:53:13] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 10:53:13] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 10:53:37] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:53:38] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:53:38] [INFO   ] Decrypt parameters are set 
+[2021-03-12 10:53:38] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:53:38] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:53:38] [INFO   ] Decrypt parameters are set 
+[2021-03-12 10:53:38] [INFO   ] Local interface of signature is created 
+[2021-03-12 10:53:38] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 10:53:38] [INFO   ] Decrypt parameters are set 
+[2021-03-12 10:53:38] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:53:38] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 10:53:38] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:05:43] [INFO   ] Programm started 
+[2021-03-12 12:05:44] [INFO   ] Database connected 
+[2021-03-12 12:05:45] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 12:05:45] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 12:08:47] [INFO   ] Programm started 
+[2021-03-12 12:08:47] [INFO   ] Database connected 
+[2021-03-12 12:08:49] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 12:08:49] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 12:11:48] [INFO   ] Programm started 
+[2021-03-12 12:11:49] [INFO   ] Database connected 
+[2021-03-12 12:11:50] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 12:11:50] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 12:12:22] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:12:30] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:12:30] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:12:30] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:12:30] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:12:30] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:12:30] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:12:30] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:12:30] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:15:23] [INFO   ] Programm started 
+[2021-03-12 12:15:24] [INFO   ] Database connected 
+[2021-03-12 12:15:25] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 12:15:25] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 12:15:58] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:15:58] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:15:58] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:15:58] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:15:58] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:15:58] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:15:58] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:15:58] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:15:58] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:15:58] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:15:58] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:15:58] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:20:12] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:20:12] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:20:14] [INFO   ] Encrypt parameters are set 
+[2021-03-12 12:20:14] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:20:14] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:20:14] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:20:14] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:20:14] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:20:14] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:20:14] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:26:09] [INFO   ] Programm started 
+[2021-03-12 12:26:09] [INFO   ] Database connected 
+[2021-03-12 12:26:10] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 12:26:10] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 12:26:30] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:26:32] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:26:33] [INFO   ] Encrypt parameters are set 
+[2021-03-12 12:26:33] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:26:33] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:26:33] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:26:33] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:26:33] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:26:33] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:26:33] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:28:24] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:28:25] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:28:25] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:28:25] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:28:25] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:28:25] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:28:25] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:28:25] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:28:25] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:28:26] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:28:26] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:28:26] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:31:44] [INFO   ] Programm started 
+[2021-03-12 12:31:45] [INFO   ] Database connected 
+[2021-03-12 12:31:46] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 12:31:46] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 12:32:07] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:32:08] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:32:08] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:32:08] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:32:08] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:32:08] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:32:08] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:32:08] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:32:08] [INFO   ] Decrypt parameters are set 
+[2021-03-12 12:32:08] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:32:08] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:32:08] [INFO   ] Local interface Signatura unloads successfull 
+[2021-03-12 12:48:01] [INFO   ] Programm started 
+[2021-03-12 12:48:01] [INFO   ] Database connected 
+[2021-03-12 12:48:02] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 12:48:02] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 12:48:31] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:48:31] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:48:31] [INFO   ] Sign parameters are set 
+[2021-03-12 12:48:31] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:48:31] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:48:31] [INFO   ] Sign parameters are set 
+[2021-03-12 12:48:31] [INFO   ] Local interface of signature is created 
+[2021-03-12 12:48:31] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 12:48:31] [INFO   ] Sign parameters are set 
+[2021-03-12 13:05:31] [INFO   ] Programm started 
+[2021-03-12 13:05:31] [INFO   ] Database connected 
+[2021-03-12 13:05:32] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 13:05:32] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 13:05:54] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:05:54] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:05:54] [INFO   ] Sign parameters are set 
+[2021-03-12 13:05:54] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:05:54] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:05:54] [INFO   ] Sign parameters are set 
+[2021-03-12 13:05:54] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:05:54] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:05:54] [INFO   ] Sign parameters are set 
+[2021-03-12 13:06:50] [INFO   ] Programm started 
+[2021-03-12 13:06:51] [INFO   ] Database connected 
+[2021-03-12 13:06:52] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 13:06:52] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 13:07:19] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:07:19] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:07:19] [INFO   ] Sign parameters are set 
+[2021-03-12 13:07:19] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:07:19] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:07:19] [INFO   ] Sign parameters are set 
+[2021-03-12 13:07:19] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:07:19] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:07:19] [INFO   ] Sign parameters are set 
+[2021-03-12 13:26:41] [INFO   ] Programm started 
+[2021-03-12 13:26:41] [INFO   ] Database connected 
+[2021-03-12 13:26:42] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 13:26:43] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 13:31:01] [INFO   ] Programm started 
+[2021-03-12 13:31:02] [INFO   ] Database connected 
+[2021-03-12 13:31:03] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 13:31:03] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 13:31:44] [INFO   ] Programm started 
+[2021-03-12 13:31:44] [INFO   ] Database connected 
+[2021-03-12 13:31:45] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 13:31:45] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 13:32:45] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:32:45] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:32:45] [INFO   ] Verify parameters are set 
+[2021-03-12 13:32:45] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:32:45] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:32:45] [INFO   ] Verify parameters are set 
+[2021-03-12 13:32:45] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:32:45] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:32:45] [INFO   ] Verify parameters are set 
+[2021-03-12 13:32:48] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:32:48] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:32:48] [INFO   ] Verify parameters are set 
+[2021-03-12 13:32:48] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:32:48] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:32:48] [INFO   ] Verify parameters are set 
+[2021-03-12 13:32:48] [INFO   ] Local interface of signature is created 
+[2021-03-12 13:32:48] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 13:32:48] [INFO   ] Verify parameters are set 
+[2021-03-12 13:54:31] [INFO   ] Programm started 
+[2021-03-12 13:54:32] [INFO   ] Database connected 
+[2021-03-12 13:54:33] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 13:54:33] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 13:58:19] [INFO   ] Programm started 
+[2021-03-12 13:58:19] [INFO   ] Database connected 
+[2021-03-12 13:58:20] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 13:58:20] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 14:28:06] [INFO   ] Programm started 
+[2021-03-12 14:28:07] [INFO   ] Database connected 
+[2021-03-12 14:28:08] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 14:28:08] [INFO   ] 1459-П report has been choosen 
+[2021-03-12 14:28:35] [INFO   ] Local interface of signature is created 
+[2021-03-12 14:28:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 14:28:35] [INFO   ] Local interface of signature is created 
+[2021-03-12 14:28:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 14:28:35] [INFO   ] Local interface of signature is created 
+[2021-03-12 14:28:35] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 14:30:02] [INFO   ] Local interface of signature is created 
+[2021-03-12 14:30:02] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 14:30:02] [INFO   ] Sign parameters are set 
+[2021-03-12 14:30:02] [INFO   ] Local interface of signature is created 
+[2021-03-12 14:30:02] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 14:30:02] [INFO   ] Sign parameters are set 
+[2021-03-12 14:30:02] [INFO   ] Local interface of signature is created 
+[2021-03-12 14:30:02] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-03-12 14:30:02] [INFO   ] Sign parameters are set 

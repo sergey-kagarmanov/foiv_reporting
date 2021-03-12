@@ -1,11 +1,16 @@
 package application.utils.skzi;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 
 import application.models.ErrorFile;
 import application.models.FileTransforming;
 import application.models.Key;
+import application.utils.FileUtils;
 import javafx.collections.ObservableList;
 
 public class SignaturaService {
@@ -49,7 +54,7 @@ public class SignaturaService {
 			return null;
 		}
 	}
-	
+
 	public ObservableList<ErrorFile> sign(Collection<FileTransforming> files) {
 		SignaturaServiceAbstract service = new SignaturaServiceAbstract() {
 			
@@ -71,7 +76,28 @@ public class SignaturaService {
 			
 			@Override
 			public int action(String source, String target) {
-				return signatura.decrypt(source, target);
+				File tmp = new File(target+"tmp");
+				int result = -1;
+				try {
+					result = signatura.decrypt(new FileInputStream(new File(source)), new FileOutputStream(tmp));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				try {
+					FileUtils.decompressGzip(tmp, new File(target));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//int result = signatura.decrypt(source, tmp.getAbsolutePath());
+				/*if (result == 0) {
+						try {
+							result = decompressGzip(tmp, new File(target));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+				}*/
+				return result;
 			}
 		};
 		try {
@@ -101,4 +127,6 @@ public class SignaturaService {
 	public void unload() {
 		signatura.unload();
 	}
+	
+
 }

@@ -183,10 +183,10 @@ public class MainApp extends Application {
 			// Загружаем сведения об адресатах.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/ReportDetails.fxml"));
-			AnchorPane personOverview = (AnchorPane) loader.load();
+			AnchorPane mainOverview = (AnchorPane) loader.load();
 
 			// Помещаем сведения об адресатах в центр корневого макета.
-			rootLayout.setCenter(personOverview);
+			rootLayout.setCenter(mainOverview);
 
 			EncryptOverviewController controller = loader.getController();
 			controller.setMainApp(this);
@@ -263,6 +263,39 @@ public class MainApp extends Application {
 
 	}
 
+	public String showArchiveNameDialog(String name) {
+		String result = name;
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/dialogs/AddeditChainDialog.fxml"));
+			AnchorPane editOverview = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Имя архива");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.setMaximized(false);
+			Scene scene = new Scene(editOverview);
+			dialogStage.setScene(scene);
+
+			// Set the company into the controller.
+			AddEditChainDialogController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setDialogStage(dialogStage);
+			
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			// return controller.isOkClicked();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	public void showChainDialog(Chain chain) {
 		try {
 			FXMLLoader loader = new FXMLLoader();

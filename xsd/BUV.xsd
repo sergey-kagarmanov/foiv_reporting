@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!--
+******************************************************************
+XML-СХЕМА для формы отчетности Файл
+СГЕНЕРИРОВАНА XSLT-ПРЕОБРАЗОВАНИЕМ GenSchema.xsl
+******************************************************************-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:cbr-440P:UVB4:v4.00..3" xmlns="urn:cbr-440P:UVB4:v4.00..3"><xs:element name="Файл" type="Файл" xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+	<xs:complexType name="Файл" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:element name="УВЕБНОБМЕН" type="ФайлУВЕБНОБМЕН" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="ИдЭС" type="GUIDтип" use="required"/>
+		<xs:attribute name="ТипИнф" type="ТипИнфТип-лок" use="required"/>
+		<xs:attribute name="ВерсПрог" type="ВерсПрогТип-лок" use="required"/>
+		<xs:attribute name="ТелОтпр" type="Строка20" use="required"/>
+		<xs:attribute name="ДолжнОтпр" type="Строка100" use="required"/>
+		<xs:attribute name="ФамОтпр" type="Строка60" use="required"/>
+		<xs:attribute name="ВерсФорм" type="ВерсФормТип-лок" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ФайлУВЕБНОБМЕН" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:sequence>
+			<xs:element name="СведБанк" type="ФайлУВЕБНОБМЕНСведБанк" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="СведБанкНов" type="ФайлУВЕБНОБМЕНСведБанкНов" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Филиалы" type="ФайлУВЕБНОБМЕНФилиалы" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="ДатаУвед" type="Дата" use="required"/>
+		<xs:attribute name="ДатаЗаклДог" type="Дата" use="optional"/>
+		<xs:attribute name="ДатаДопСогл" type="Дата" use="optional"/>
+		<xs:attribute name="ДатаСоб" type="Дата" use="required"/>
+		<xs:attribute name="КодУсл" type="КодУслТип-лок" use="optional"/>
+		<xs:attribute name="КодСоб" type="КодСобТип-лок" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ФайлУВЕБНОБМЕНСведБанк" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="РегНом" type="РегНомТип-лок" use="required"/>
+		<xs:attribute name="НомФил" type="РегНомТип-лок" use="required"/>
+		<xs:attribute name="БИК" type="БИКтип" use="required"/>
+		<xs:attribute name="НаимБанк" type="НаимТип-лок" use="required"/>
+		<xs:attribute name="ИННБанк" type="ИННЮЛТип-лок" use="required"/>
+		<xs:attribute name="КППБанк" type="КППТип-лок" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ФайлУВЕБНОБМЕНСведБанкНов" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="РегНом" type="РегНомТип-лок" use="required"/>
+		<xs:attribute name="НомФил" type="РегНомТип-лок" use="required"/>
+		<xs:attribute name="БИК" type="БИКтип" use="required"/>
+		<xs:attribute name="НаимБанк" type="НаимТип-лок" use="required"/>
+		<xs:attribute name="ИННБанк" type="ИННЮЛТип-лок" use="required"/>
+		<xs:attribute name="КППБанк" type="КППТип-лок" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ФайлУВЕБНОБМЕНФилиалы" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:attribute name="НомФил" type="РегНомТип-лок" use="required"/>
+		<xs:attribute name="БИК" type="БИКтип" use="required"/>
+		<xs:attribute name="НаимФил" type="НаимТип-лок" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="РегНомТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0123"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:nonNegativeInteger"><xs:totalDigits value="4"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ИННЮЛТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="1234567890"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:minLength value="5"/><xs:maxLength value="10"/><xs:pattern value="([0-9]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{8}"/><xs:pattern value="\d{5}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="КППТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="616301001"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:length value="9"/><xs:pattern value="([0-9]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{7}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="КодУслТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="RPZ"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="3"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="КодСобТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="11"/><xs:ЗначениеТипа ЗначТипа="12"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{2}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ВерсПрогТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="40"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ВерсФормТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="4.00"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:decimal"><xs:totalDigits value="4"/><xs:fractionDigits value="2"/><xs:enumeration value="4.00"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="НаимТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="ПАО Волна"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="160"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="ТипИнфТип-лок" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="УВЕБНОБМЕН"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:length value="10"/><xs:enumeration value="УВЕБНОБМЕН"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Дата" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="2014-11-02"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:date"><xs:pattern value="\d{4}-\d{2}-\d{2}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка20" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..20 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="20"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка60" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..60 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="60"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="Строка100" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="0..100 символов"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:maxLength value="100"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="БИКтип" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="040125003"/><xs:ЗначениеТипа ЗначТипа="123456789"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="\d{9}"/></xs:restriction></xs:simpleType>
+	<xs:simpleType name="GUIDтип" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation><xs:appinfo><xs:ПримерыЗначений><xs:ЗначениеТипа ЗначТипа="6F9619FF-8B86-D011-B42D-00CF4FC994FF"/><xs:ЗначениеТипа ЗначТипа="A57E17DF-8B86-B711-A42D-00CF4FC994AC"/></xs:ПримерыЗначений></xs:appinfo></xs:annotation><xs:restriction base="xs:string"><xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/></xs:restriction></xs:simpleType></xs:schema>
