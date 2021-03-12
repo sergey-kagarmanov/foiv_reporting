@@ -21,6 +21,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import application.MainApp;
 import application.db.Dao;
 import application.models.Action;
 import application.models.AttributeDescr;
@@ -37,7 +38,7 @@ public class XMLCreator {
 
 	
 	
-	private static Element createChainElement(Chain chain,Document doc,Dao dao)	{
+	private static Element createChainElement(Chain chain,Document doc)	{
 		Element out_element=doc.createElement("chain");
 		
 		out_element.setAttribute("name", chain.getName());
@@ -73,7 +74,7 @@ public class XMLCreator {
 		return out_element;
 	}
 	
-	private static Element createPatternElement(FileType pattern,Document doc,Dao dao)
+	private static Element createPatternElement(FileType pattern,Document doc)
 	{		
 		
 		final Element out_element=doc.createElement("pattern");;
@@ -103,7 +104,7 @@ public class XMLCreator {
 		out_element.setAttribute("mask", pattern.getMask());
 		out_element.setAttribute("name", pattern.getName());		
 		
-		Map<String, AttributeDescr> attributes_map=dao.getAttributes(pattern);
+		Map<String, AttributeDescr> attributes_map=MainApp.getDb().getAttributes(pattern);
 		
 		attributes_map.forEach((name,descriptor)->out_element.appendChild(createAttributeElement(descriptor,doc)));
 		
@@ -113,7 +114,7 @@ public class XMLCreator {
 		}
 	}
 	
-	public static String create(Report report, Dao dao, File file) {
+	public static String create(Report report, File file) {
 		String content = "";
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -141,7 +142,7 @@ public class XMLCreator {
 			ft_list.add(report.getTransportInPattern());
 			ft_list.add(report.getTransportOutPattern());
 			for(FileType currentPattern:ft_list){
-				Element patternElement=createPatternElement(currentPattern,doc,dao);
+				Element patternElement=createPatternElement(currentPattern,doc);
 				if (patternElement!=null)
 					file_types.appendChild(patternElement);
 			}
@@ -150,10 +151,10 @@ public class XMLCreator {
 			//export chains table data
 			Element chains=doc.createElement("chains");	
 			List<Chain> chains_list=new ArrayList<Chain>();
-			chains_list.addAll(dao.getChains(report, null));
+			chains_list.addAll(MainApp.getDb().getChains(report, null));
 			
 			for(Chain chain:chains_list) {
-				Element chain_element=createChainElement(chain,doc,dao);
+				Element chain_element=createChainElement(chain,doc);
 				chains.appendChild(chain_element);
 			}
 			rootElement.appendChild(chains);

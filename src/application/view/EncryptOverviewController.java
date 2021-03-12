@@ -43,7 +43,6 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
@@ -352,12 +351,12 @@ public class EncryptOverviewController {
 	
 	private void fillData() {
 
-		reportChooser.setItems(mainApp.getDb().getReports());
+		reportChooser.setItems(MainApp.getDb().getReports());
 		reportChooser.setValue(reportChooser.getItems().get(0));
 		outArchiveFileTable
-				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), false));
+				.setItems(MainApp.getDb().getArchiveFiles(reportChooser.getValue(), false));
 		inArchiveFileTable
-				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), true));
+				.setItems(MainApp.getDb().getArchiveFiles(reportChooser.getValue(), true));
 
 		calculateData();
 		Timeline timeline = new Timeline(
@@ -368,7 +367,7 @@ public class EncryptOverviewController {
 
 	private void fillData(String form) {
 		Report tmp = null;
-		reportChooser.setItems(mainApp.getDb().getReports());
+		reportChooser.setItems(MainApp.getDb().getReports());
 		for (Report current : reportChooser.getItems()) {
 			if (current.getName().equals(form)) {
 				tmp = current;
@@ -376,9 +375,9 @@ public class EncryptOverviewController {
 		}
 		reportChooser.setValue(tmp);
 		outArchiveFileTable
-				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), false));
+				.setItems(MainApp.getDb().getArchiveFiles(reportChooser.getValue(), false));
 		inArchiveFileTable
-				.setItems(mainApp.getDb().getArchiveFiles(reportChooser.getValue(), true));
+				.setItems(MainApp.getDb().getArchiveFiles(reportChooser.getValue(), true));
 
 		calculateData();
 		Timeline timeline = new Timeline(
@@ -398,7 +397,7 @@ public class EncryptOverviewController {
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
-			mainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), false, false,
+			MainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), false, false,
 					false);
 			report.setPathOut(selectedDirectory.getAbsolutePath());
 			outPath.setText(selectedDirectory.getAbsolutePath());
@@ -417,7 +416,7 @@ public class EncryptOverviewController {
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
-			mainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), true, false,
+			MainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), true, false,
 					false);
 			report.setPathIn(selectedDirectory.getAbsolutePath());
 			inPath.setText(selectedDirectory.getAbsolutePath());
@@ -436,7 +435,7 @@ public class EncryptOverviewController {
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
-			mainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), true, true,
+			MainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), true, true,
 					false);
 			report.setPathArchiveIn(selectedDirectory.getAbsolutePath());
 			inPathArch.setText(selectedDirectory.getAbsolutePath());
@@ -454,7 +453,7 @@ public class EncryptOverviewController {
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
-			mainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), false, true,
+			MainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), false, true,
 					false);
 			report.setPathArchiveOut(selectedDirectory.getAbsolutePath());
 			outPathArch.setText(selectedDirectory.getAbsolutePath());
@@ -472,7 +471,7 @@ public class EncryptOverviewController {
 		TransportFile inArchiveFile = inArchiveFileTable.getSelectionModel().getSelectedItem();
 		TransportFile outArchiveFile = outArchiveFileTable.getSelectionModel().getSelectedItem();
 		
-		report = mainApp.getDb().getReportById(reportChooser.getValue().getId());
+		report = MainApp.getDb().getReportById(reportChooser.getValue().getId());
 		inPath.setText(report.getPathIn());
 		outPath.setText(report.getPathOut());
 		inPathArch.setText(report.getPathArchiveIn());
@@ -486,9 +485,9 @@ public class EncryptOverviewController {
 		outArchiveFileTable.refresh();
 		inArchiveFileTable.refresh();
 		outArchiveFileTable
-				.setItems(mainApp.getDb().getArchiveFilesPerDay(reportChooser.getValue(), false, LocalDate.now()));
+				.setItems(MainApp.getDb().getArchiveFilesPerDay(reportChooser.getValue(), false, LocalDate.now()));
 		inArchiveFileTable
-				.setItems(mainApp.getDb().getArchiveFilesPerDay(reportChooser.getValue(), true, LocalDate.now()));
+				.setItems(MainApp.getDb().getArchiveFilesPerDay(reportChooser.getValue(), true, LocalDate.now()));
 		/*outArchiveFileTable.getSelectionModel().select(outIndex);
 		inArchiveFileTable.getSelectionModel().select(inIndex);*/
 		try {
@@ -553,7 +552,7 @@ public class EncryptOverviewController {
 	@FXML
 	public void recieveFiles() {
 		ProcessExecutor executor = new ProcessExecutor(inFileList.getItems(),
-				reportChooser.getValue(), mainApp.getDb(), inPath.getText(), inOutputPath.getText(),
+				reportChooser.getValue(), inPath.getText(), inOutputPath.getText(),
 				inPathArch.getText(), true);
 		try {
 			executor.start();
@@ -578,7 +577,7 @@ public class EncryptOverviewController {
 	@FXML
 	public void sendFiles() {
 		ProcessExecutor executor = new ProcessExecutor(outFileList.getItems(),
-				reportChooser.getValue(), mainApp.getDb(), outPath.getText(),
+				reportChooser.getValue(), outPath.getText(),
 				outOutputPath.getText(), outPathArch.getText(), false);
 		try {
 			executor.start();
@@ -613,7 +612,7 @@ public class EncryptOverviewController {
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
-			mainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), false, false,
+			MainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), false, false,
 					true);
 			report.setPathOutputOut(selectedDirectory.getAbsolutePath());
 			outOutputPath.setText(selectedDirectory.getAbsolutePath());
@@ -631,7 +630,7 @@ public class EncryptOverviewController {
 		File selectedDirectory = directoryChooser.showDialog(null);
 
 		if (selectedDirectory != null) {
-			mainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), true, false,
+			MainApp.getDb().savePath(report, selectedDirectory.getAbsolutePath(), true, false,
 					true);
 			report.setPathOutputIn(selectedDirectory.getAbsolutePath());
 			inOutputPath.setText(selectedDirectory.getAbsolutePath());

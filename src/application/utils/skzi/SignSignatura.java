@@ -2,7 +2,6 @@ package application.utils.skzi;
 
 import Pki1.LocalIface;
 import Pki1.LocalIface.sign_param_t;
-import Pki1.LocalIface.strsign_handle_t;
 import application.MainApp;
 import application.errors.ReportError;
 import application.models.Key;
@@ -10,7 +9,6 @@ import application.models.Key;
 public class SignSignatura extends CommonSignatura {
 
 	private static volatile sign_param_t signParameters;
-	private strsign_handle_t handler;
 	
 	public SignSignatura(Key key) {
 		super(key);
@@ -26,7 +24,6 @@ public class SignSignatura extends CommonSignatura {
 	@Override
 	public void init() {
 		setSignParameters();
-		handler = new strsign_handle_t();
 	}
 
 	/**

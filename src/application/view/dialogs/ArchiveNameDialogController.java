@@ -42,9 +42,9 @@ public class ArchiveNameDialogController {
 	public void setFiles(ObservableList<File> files) {
 		Report currentReport = null;
 		boolean breakFlag = false;
-		List<Report> reports = mainApp.getDb().getReports();
+		List<Report> reports = MainApp.getDb().getReports();
 		for(Report report : reports) {
-			ObservableList<FileType> fTypes = mainApp.getDb().getFileTypeAsList(report.getId(), Constants.OUT_DB, 0);
+			ObservableList<FileType> fTypes = MainApp.getDb().getFileTypeAsList(report.getId(), Constants.OUT_DB, 0);
 			for(FileType fType : fTypes) {
 				Pattern p = Pattern.compile(fType.getMask());
 				for(File file : files) {

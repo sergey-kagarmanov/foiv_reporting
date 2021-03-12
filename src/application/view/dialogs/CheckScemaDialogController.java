@@ -104,11 +104,11 @@ public class CheckScemaDialogController {
 		fails = FXCollections.observableArrayList();
 		Report currentReport = null;
 		boolean breakFlag = false;
-		List<Report> reports = mainApp.getDb().getReports();
+		List<Report> reports = MainApp.getDb().getReports();
 		ObservableList<File> checkList = FXCollections.observableArrayList();
 		checkList.addAll(files);
 		for (Report report : reports) {
-			ObservableList<FileType> fTypes = mainApp.getDb().getFileTypeAsList(report.getId(),
+			ObservableList<FileType> fTypes = MainApp.getDb().getFileTypeAsList(report.getId(),
 					Constants.OUT_DB, 0);
 			for (FileType fType : fTypes) {
 				Pattern p = Pattern.compile(fType.getMask());

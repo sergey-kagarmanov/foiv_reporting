@@ -3,7 +3,6 @@ package application.view;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +22,11 @@ import application.utils.skzi.EncryptorHandler;
 import application.utils.skzi.HashHandler;
 import application.utils.skzi.SignHandler;
 import application.utils.skzi.SignaturaHandler;
-import application.utils.skzi.SignaturaService;
 import application.utils.skzi.SignaturaTheadingExecutor;
 import application.utils.skzi.UnsignHandler;
 import application.utils.xml.XMLValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -287,7 +284,6 @@ public class SingleActionController {
 				try {
 					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				AlertWindow.show(Constants.DECRYPT_RUS, errorFiles);
@@ -312,13 +308,6 @@ public class SingleActionController {
 			FileUtils.copyFiles(files.getItems(), outPath.getText());
 			AlertWindow.show(Constants.COPY_RUS, errorFiles);
 		} else if ("CHECK".equals(action.getKey())) {
-			ObservableMap<File, String> exceptions = FXCollections.observableHashMap();
-			/*
-			 * FileChooser schemaChooser = new FileChooser();
-			 * schemaChooser.setTitle("Выберите схему проверки"); String pathOut
-			 * = "c:\\sdm\\reporting"; schemaChooser.setInitialDirectory(new
-			 * File(pathOut)); File schema = schemaChooser.showOpenDialog(null);
-			 */
 			mainApp.showChooseSchemaDialog(files.getItems());
 			ObservableList<Pair<File, String>> schemaPairs = mainApp.getSchemaPairs();
 			//StringBuilder errors = new StringBuilder();

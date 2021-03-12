@@ -21,7 +21,6 @@ import java.util.function.Predicate;
 import org.xml.sax.SAXParseException;
 
 import application.MainApp;
-import application.db.Dao;
 import application.errors.ReportError;
 import application.models.Chain;
 import application.models.ErrorFile;
@@ -55,9 +54,6 @@ public class ProcessExecutor {
 	private ProcessStep currentStep;
 	private Chain chain;
 
-	private Dao dao;
-	private MainApp main;
-
 	private String path = "";
 	private String outputPath = "";
 	private String archivePath = "";
@@ -75,18 +71,17 @@ public class ProcessExecutor {
 
 	private ObservableList<ErrorFile> errorFiles;
 
-	public ProcessExecutor(List<String> filenames, Report report, Dao dao, String path,
-			String outputPath, String archivePath, Boolean direction) {
+	public ProcessExecutor(List<String> filenames, Report report, String path,
+			String outputPath, String archivePath, Boolean direction){
 		this.report = report;
 		this.filenames = filenames;
 		this.path = path;
 		this.outputPath = outputPath;
-		this.dao = dao;
 		transportFiles = new HashMap<FileTransforming, TransportFile>();
 		this.archivePath = archivePath;
-		logger = new Logger(dao);
+		logger = new Logger();
 		mapFiles = new HashMap<FileTransforming, ReportFile>();
-		parser = new FileParser(dao, report, direction);
+		parser = new FileParser(report, direction);
 		ticketFiles = new HashMap<FileTransforming, ReportFile>();
 		this.direction = direction;
 		errorFiles = FXCollections.observableArrayList();
@@ -161,7 +156,7 @@ public class ProcessExecutor {
 							transportFiles.put(currentFile,
 									new TransportFile(0, currentFile.getOriginal(),
 											LocalDateTime.now(), report, direction, null, null,
-											dao.getFileType(report.getId(), direction ? 1 : 0, 1)));
+											MainApp.getDb().getFileType(report.getId(), direction ? 1 : 0, 1)));
 
 						}
 					} catch (ReportError e) {
@@ -210,7 +205,7 @@ public class ProcessExecutor {
 		}
 
 		// currentStep = dao.getActionForReport(report, direction);
-		ObservableList<Chain> chains = dao.getChains(report,
+		ObservableList<Chain> chains = MainApp.getDb().getChains(report,
 				direction ? Constants.IN : Constants.OUT);
 		if (chains != null) {
 			chain = chains.get(0);
@@ -359,7 +354,7 @@ public class ProcessExecutor {
 		if (reportFile.getAttributes() != null) {
 			for (String attributeName : reportFile.getAttributes().keySet()) {
 				if (attributeName.equals(Constants.PARENT)) {
-					return dao.getReportFileByName(
+					return MainApp.getDb().getReportFileByName(
 							reportFile.getAttributes().get(attributeName).getValue());
 				}
 			}
@@ -460,7 +455,7 @@ public class ProcessExecutor {
 
 		boolean loop = true;
 		int i = 0;
-		ObservableList<TransportFile> archiveTransportFiles = dao.getArchiveFiles(report, direction,
+		ObservableList<TransportFile> archiveTransportFiles = MainApp.getDb().getArchiveFiles(report, direction,
 				LocalDate.now());
 		if (archiveTransportFiles != null)
 			for (TransportFile f : archiveTransportFiles) {
@@ -556,7 +551,7 @@ public class ProcessExecutor {
 						transportFiles.put(new FileTransforming(pattern, FileUtils.tmpDir),
 								new TransportFile(0, pattern, LocalDateTime.now(), report,
 										direction, null, partialFileMap,
-										dao.getFileType(report.getId(), direction ? 1 : 0, 1)));
+										MainApp.getDb().getFileType(report.getId(), direction ? 1 : 0, 1)));
 						doneList.add(new FileTransforming(pattern, FileUtils.tmpDir));
 						if (multiVolumes) {
 							for (int k = 1; k < numberPart; k++) {
@@ -567,7 +562,7 @@ public class ProcessExecutor {
 								transportFiles.put(tmpFile, new TransportFile(0, localPattern,
 										LocalDateTime.now(), report, direction, null,
 										partialFileMap,
-										dao.getFileType(report.getId(), direction ? 1 : 0, 1)));
+										MainApp.getDb().getFileType(report.getId(), direction ? 1 : 0, 1)));
 							}
 						}
 					}

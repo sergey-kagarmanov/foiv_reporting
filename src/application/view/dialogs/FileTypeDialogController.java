@@ -93,7 +93,7 @@ public class FileTypeDialogController {
 	}
 
 	private void fillChoosers() {
-		reportChooser.setItems(mainApp.getDb().getReports());
+		reportChooser.setItems(MainApp.getDb().getReports());
 		directionChooser.setItems(FXCollections.observableArrayList(Constants.IN, Constants.OUT));
 		fileTypeChooser.setItems(FXCollections.observableArrayList(Constants.FILETYPE));
 		directionChooser.getSelectionModel().select(0);
@@ -101,7 +101,7 @@ public class FileTypeDialogController {
 	}
 
 	private void fillData() {
-		reportChooser.getSelectionModel().select(mainApp.getDb().getReportById(reportId));
+		reportChooser.getSelectionModel().select(MainApp.getDb().getReportById(reportId));
 		directionChooser.getSelectionModel().select(type.getDirection() ? Constants.IN : Constants.OUT);
 		fileTypeChooser.getSelectionModel().select(Constants.FILETYPE[type.getFileType()]);
 		nameField.setText(type.getName());
@@ -146,9 +146,9 @@ public class FileTypeDialogController {
 				type.setTransport(transportCheck.isSelected());
 				type.setValidationSchema(validSchemaField.getText());
 				if (type.getId()==0){
-					mainApp.getDb().insertFileType(type, reportId);
+					MainApp.getDb().insertFileType(type, reportId);
 				}else{
-					mainApp.getDb().updateFileType(type, reportId);
+					MainApp.getDb().updateFileType(type, reportId);
 				}
 				dialogStage.close();
 			}

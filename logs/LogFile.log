@@ -301,3 +301,7 @@
 [2021-03-12 14:30:02] [INFO   ] Local interface of signature is created 
 [2021-03-12 14:30:02] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
 [2021-03-12 14:30:02] [INFO   ] Sign parameters are set 
+[2021-03-12 15:04:30] [INFO   ] Programm started 
+[2021-03-12 15:04:30] [INFO   ] Database connected 
+[2021-03-12 15:04:31] [INFO   ] Load main view EncriptOverviewController 
+[2021-03-12 15:04:31] [INFO   ] 1459-П report has been choosen 

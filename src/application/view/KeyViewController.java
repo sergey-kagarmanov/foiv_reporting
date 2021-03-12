@@ -27,14 +27,8 @@ public class KeyViewController {
 
 	private Stage dialogStage;
 
-	private MainApp mainApp;
-
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
 	}
 
 	@FXML
@@ -73,7 +67,7 @@ public class KeyViewController {
 					@Override
 					public void handle(ActionEvent event) {
 						keyTable.getItems().remove(row.getItem());
-						mainApp.getDb().delete(row.getItem());
+						MainApp.getDb().delete(row.getItem());
 					}
 				});
 				contextMenu.getItems().add(removeMenuItem);
@@ -100,7 +94,7 @@ public class KeyViewController {
 	}
 	
 	public void setData(){
-		keyTable.setItems(mainApp.getDb().getKeys());
+		keyTable.setItems(MainApp.getDb().getKeys());
 	}
 	
 	@FXML
@@ -115,7 +109,7 @@ public class KeyViewController {
 		}
 		
 		if (errors.size() == 0){
-			mainApp.getDb().addKey(nameField.getText(), dataField.getText());
+			MainApp.getDb().addKey(nameField.getText(), dataField.getText());
 			setData();
 		}else{
 			Alert alert = new Alert(AlertType.ERROR);
@@ -143,7 +137,7 @@ public class KeyViewController {
 		if (errors.size() == 0){
 			key.setName(nameField.getText());
 			key.setData(dataField.getText());
-			mainApp.getDb().editKey(key);
+			MainApp.getDb().editKey(key);
 			setData();
 		}else{
 			Alert alert = new Alert(AlertType.ERROR);

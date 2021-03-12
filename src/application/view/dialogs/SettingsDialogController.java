@@ -55,14 +55,8 @@ public class SettingsDialogController {
 
 	private Stage dialogStage;
 
-	private MainApp mainApp;
-
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
 	}
 
 	public void initialize() {
@@ -84,7 +78,7 @@ public class SettingsDialogController {
 	}
 
 	public void setData(){
-		mainApp.getDb().loadSettings().forEach(data -> fillData(data));
+		MainApp.getDb().loadSettings().forEach(data -> fillData(data));
 	}
 	
 	private void fillData(Pair<String, String> pair) {
@@ -199,6 +193,6 @@ public class SettingsDialogController {
 		list.add(new Pair<String, String>(Constants.TMP_DIR, tmpDir.getText()));
 		list.add(new Pair<String, String>(Constants.FILE_SIZE, fileSize.getText()));
 		list.add(new Pair<String, String>(Constants.FILE_COUNT, fileCount.getText()));
-		mainApp.getDb().saveSettings(list);
+		MainApp.getDb().saveSettings(list);
 	}
 }

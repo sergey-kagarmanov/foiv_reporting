@@ -22,7 +22,6 @@ public class AttributeEditController {
 
 	private Stage dialogStage;
 
-	private MainApp mainApp;
 	private FileAttribute attribute;
 
 	public void setDialogStage(Stage dialogStage) {
@@ -57,7 +56,7 @@ public class AttributeEditController {
 							@Override
 							public void handle(ActionEvent event) {
 								attributeView.getItems().remove(row.getItem());
-								mainApp.getDb().delete(row.getItem());
+								MainApp.getDb().delete(row.getItem());
 							}
 						});
 						contextMenu.getItems().add(removeMenuItem);
@@ -83,7 +82,7 @@ public class AttributeEditController {
 	}
 
 	public void setData() {
-		attributeView.setItems(mainApp.getDb().getAttributes());
+		attributeView.setItems(MainApp.getDb().getAttributes());
 	}
 
 	@FXML
@@ -92,10 +91,10 @@ public class AttributeEditController {
 			if (attributeView.getSelectionModel().getSelectedIndex() != -1) {
 				attributeView.getItems().get(attributeView.getSelectionModel().getSelectedIndex())
 						.setName(nameField.getText());
-				mainApp.getDb().saveAttribute(attributeView.getItems()
+				MainApp.getDb().saveAttribute(attributeView.getItems()
 						.get(attributeView.getSelectionModel().getSelectedIndex()));
 			}else{
-				mainApp.getDb().saveAttribute(new FileAttribute(0, nameField.getText(), null));
+				MainApp.getDb().saveAttribute(new FileAttribute(0, nameField.getText(), null));
 			}
 			setData();
 		} else {
@@ -107,10 +106,4 @@ public class AttributeEditController {
 
 		}
 	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-
-	}
-
 }

@@ -114,7 +114,7 @@ public class AttributeLocationDialogController {
 							@Override
 							public void handle(ActionEvent event) {
 								AttributeDescr obj = row.getItem();
-								mainApp.getDb().remove(obj);
+								MainApp.getDb().remove(obj);
 								handleSelectType();
 							}
 						});
@@ -140,7 +140,7 @@ public class AttributeLocationDialogController {
 
 	@Deprecated
 	public void setData() {
-		attributes = mainApp.getDb().getAttributesDescriptions();
+		attributes = MainApp.getDb().getAttributesDescriptions();
 		attributeTable.setItems(attributes);
 	}
 
@@ -154,9 +154,9 @@ public class AttributeLocationDialogController {
 
 	public void updateData() {
 		if (type != null)
-			attributes = mainApp.getDb().getAttributesDescriptions(type);
+			attributes = MainApp.getDb().getAttributesDescriptions(type);
 		else
-			attributes = mainApp.getDb().getAttributesDescriptions();
+			attributes = MainApp.getDb().getAttributesDescriptions();
 	}
 
 	@FXML
@@ -189,7 +189,7 @@ public class AttributeLocationDialogController {
 	private void remove() {
 		AttributeDescr attr = attributeTable.getSelectionModel().getSelectedItem();
 		if (attr != null) {
-			mainApp.getDb().remove(attr);
+			MainApp.getDb().remove(attr);
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Ошибка");
@@ -214,7 +214,7 @@ public class AttributeLocationDialogController {
 	
 	@FXML
 	public void handleSelectType() {
-		attributes = mainApp.getDb().getAttributesDescriptions(fileTypeCombo.selectionModelProperty().getValue().getSelectedItem());
+		attributes = MainApp.getDb().getAttributesDescriptions(fileTypeCombo.selectionModelProperty().getValue().getSelectedItem());
 		attributeTable.setItems(attributes);
 		attributeTable.refresh();
 	}

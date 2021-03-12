@@ -17,14 +17,9 @@ public class AddEditAttributeDescrController {
 
 	private Stage dialogStage;
 
-	private MainApp mainApp;
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
 	}
 
 	private AttributeDescr attr;
@@ -49,8 +44,8 @@ public class AddEditAttributeDescrController {
 	}
 	
 	private void fillChoosers(){
-		typeChooser.setItems(mainApp.getDb().getFileTypes());
-		attributeChooser.setItems(mainApp.getDb().getAttributes());
+		typeChooser.setItems(MainApp.getDb().getFileTypes());
+		attributeChooser.setItems(MainApp.getDb().getAttributes());
 	}
 	
 	public void setData(AttributeDescr attr){
@@ -113,7 +108,7 @@ public class AddEditAttributeDescrController {
 			attr.setFile(typeChooser.getValue());
 			attr.setInName(inNameCheck.isSelected());
 			attr.setLocation(locationField.getText());
-			mainApp.getDb().save(attr);
+			MainApp.getDb().save(attr);
 			dialogStage.close();
 		}
 		

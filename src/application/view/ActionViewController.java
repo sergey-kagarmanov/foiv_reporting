@@ -156,9 +156,9 @@ public class ActionViewController {
 					public void handle(ActionEvent event) {
 						Object obj = row.getItem();
 						if (obj instanceof Chain) {
-							mainApp.getDb().remove((Chain) obj);
+							MainApp.getDb().remove((Chain) obj);
 						} else {
-							mainApp.getDb().remove((ProcessStep) obj);
+							MainApp.getDb().remove((ProcessStep) obj);
 						}
 						setData();
 					}
@@ -217,7 +217,7 @@ public class ActionViewController {
 				if (tmpObject.getValue() instanceof Chain) {
 					selectedChain = (Chain) tmpObject.getValue();
 				} else {
-					selectedChain = mainApp.getDb()
+					selectedChain = MainApp.getDb()
 							.getChainByItemId(((ProcessStep) tmpObject.getValue()).getId());
 				}
 			}
@@ -251,7 +251,7 @@ public class ActionViewController {
 	}
 
 	private void editItem(ProcessStep item) {
-		mainApp.showProcessStepDialog(item, mainApp.getDb().getChainByItemId(item.getId()));
+		mainApp.showProcessStepDialog(item, MainApp.getDb().getChainByItemId(item.getId()));
 	}
 
 	private void editChain(Chain chain) {
@@ -260,18 +260,18 @@ public class ActionViewController {
 
 	@FXML
 	public void handleReport() {
-		chains = mainApp.getDb().getChains(reportChooser.getValue(), directionChooser.getValue());
+		chains = MainApp.getDb().getChains(reportChooser.getValue(), directionChooser.getValue());
 		createTree();
 	}
 
 	public void setData() {
 		fillCombo();
-		this.chains = mainApp.getDb().getChains(reportChooser.getValue(), directionChooser.getValue());
+		this.chains = MainApp.getDb().getChains(reportChooser.getValue(), directionChooser.getValue());
 		createTree();
 	}
 
 	private void fillCombo() {
-		reportChooser.setItems(mainApp.getDb().getReports());
+		reportChooser.setItems(MainApp.getDb().getReports());
 		reportChooser.getItems().add(new Report() {
 			{
 				setName(Constants.ALL);
@@ -307,9 +307,9 @@ public class ActionViewController {
 		if (obj!=null){
 			Object tmp = ((TreeItem)obj).getValue();
 			if (tmp instanceof Chain){
-				mainApp.getDb().remove((Chain) tmp);
+				MainApp.getDb().remove((Chain) tmp);
 			}else{
-				mainApp.getDb().remove((ProcessStep)tmp);
+				MainApp.getDb().remove((ProcessStep)tmp);
 			}
 			((TreeItem)obj).getParent().getChildren().remove(obj);
 		}else{

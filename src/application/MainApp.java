@@ -57,7 +57,7 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	private Dao dao;
+	private static Dao dao;
 
 	/**
 	 * Temp data
@@ -89,7 +89,7 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
-	public Dao getDb() {
+	public static Dao getDb() {
 		return dao;
 	}
 
@@ -215,7 +215,6 @@ public class MainApp extends Application {
 
 			// Set the company into the controller.
 			AddeditActionDialogController controller = loader.getController();
-			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
 			controller.setData(step, chain);
 
@@ -279,9 +278,7 @@ public class MainApp extends Application {
 			Scene scene = new Scene(editOverview);
 			dialogStage.setScene(scene);
 
-			// Set the company into the controller.
 			AddEditChainDialogController controller = loader.getController();
-			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
 			
 			// Show the dialog and wait until the user closes it
@@ -302,7 +299,6 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("view/dialogs/AddeditChainDialog.fxml"));
 			AnchorPane editOverview = (AnchorPane) loader.load();
 
-			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Последовательность команд");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -311,16 +307,12 @@ public class MainApp extends Application {
 			Scene scene = new Scene(editOverview);
 			dialogStage.setScene(scene);
 
-			// Set the company into the controller.
 			AddEditChainDialogController controller = loader.getController();
-			controller.setMainApp(this);
 			controller.setDialogStage(dialogStage);
 			controller.setData(chain);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-
-			// return controller.isOkClicked();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -345,7 +337,6 @@ public class MainApp extends Application {
 
 			// Set the company into the controller.
 			ArchiveOverviewController controller = loader.getController();
-			controller.setMainApp(this);
 			controller.setReports(dao.getReports());
 			LocalDate today = LocalDate.now();
 			controller.setStartDate(today);
@@ -412,7 +403,6 @@ public class MainApp extends Application {
 
 			// Set the company into the controller.
 			AttributeEditController controller = loader.getController();
-			controller.setMainApp(this);
 			controller.setData();
 			controller.setDialogStage(dialogStage);
 
@@ -444,7 +434,6 @@ public class MainApp extends Application {
 
 			// Set the company into the controller.
 			KeyViewController controller = loader.getController();
-			controller.setMainApp(this);
 			controller.setData();
 			controller.setDialogStage(dialogStage);
 
@@ -578,7 +567,6 @@ public class MainApp extends Application {
 
 			// Set the company into the controller.
 			SettingsDialogController controller = loader.getController();
-			controller.setMainApp(this);
 			controller.setData();
 			controller.setDialogStage(dialogStage);
 
@@ -614,7 +602,6 @@ public class MainApp extends Application {
 
 			// Set the company into the controller.
 			AddEditAttributeDescrController controller = loader.getController();
-			controller.setMainApp(this);
 			controller.setData(attr);
 			controller.setDialogStage(dialogStage);
 			if (type!=null)

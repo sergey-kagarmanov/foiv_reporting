@@ -142,7 +142,7 @@ public class AddReportController {
 				removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						mainApp.getDb().remove(row.getItem());
+						MainApp.getDb().remove(row.getItem());
 						report.getPatternIn().remove(row.getItem());
 						maskIn.getItems().remove(row.getItem());
 					}
@@ -306,7 +306,7 @@ public class AddReportController {
 					@Override
 					public void handle(ActionEvent event) {
 						Object obj = row.getItem();
-						mainApp.getDb().remove((FileType) obj);
+						MainApp.getDb().remove((FileType) obj);
 						fillData();
 					}
 				});
@@ -353,7 +353,7 @@ public class AddReportController {
 	}
 
 	private void fillChoosers() {
-		reportChooser.setItems(mainApp.getDb().getReports());
+		reportChooser.setItems(MainApp.getDb().getReports());
 		reportChooser.getItems().add(new Report() {
 			{
 				setName("Добавить");
@@ -416,7 +416,7 @@ public class AddReportController {
 					report.setName(nameField.getText());
 				}
 
-				report.setId(mainApp.getDb().saveReport(report));
+				report.setId(MainApp.getDb().saveReport(report));
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Сохранение");
 				alert.setContentText("Сохранение прошло успешно!");
@@ -433,14 +433,14 @@ public class AddReportController {
 
 	@FXML
 	public void deleteData() {
-		mainApp.getDb().deleteReport(report);
+		MainApp.getDb().deleteReport(report);
 	}
 	
 	public void fillData() {
 		if (report != null) {
 
 			if (report.getId() != 0) {
-				report = mainApp.getDb().getReportById(report.getId());
+				report = MainApp.getDb().getReportById(report.getId());
 				nameField.setText(report.getName());
 			} else
 				nameField.setText("");
@@ -588,7 +588,7 @@ public class AddReportController {
                 alert.setContentText("Директория не выбрана");
                 alert.showAndWait();
             }else{
-    			String text = XMLCreator.create(reportChooser.getValue(), mainApp.getDb(), selectedDirectory);
+    			String text = XMLCreator.create(reportChooser.getValue(), selectedDirectory);
     			Alert alert = new Alert(AlertType.INFORMATION);
     			alert.setContentText("Экспорт выполнен в файл - "+text);
     			alert.showAndWait();
@@ -601,6 +601,6 @@ public class AddReportController {
 	public void importXML(){
 		FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(dialogStage);
-		XMLCreator.load(file, mainApp.getDb());
+		XMLCreator.load(file, MainApp.getDb());
 	}
 }

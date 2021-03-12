@@ -17,14 +17,9 @@ public class AddeditActionDialogController {
 
 	private Stage dialogStage;
 
-	private MainApp mainApp;
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
 	}
 
 	private ProcessStep step;
@@ -48,8 +43,8 @@ public class AddeditActionDialogController {
 	}
 
 	private void fillChoosers() {
-		typeChooser.setItems(mainApp.getDb().getActions());
-		keyChooser.setItems(mainApp.getDb().getKeys());
+		typeChooser.setItems(MainApp.getDb().getActions());
+		keyChooser.setItems(MainApp.getDb().getKeys());
 	}
 
 	public void setData(ProcessStep step, Chain chain) {
@@ -89,7 +84,7 @@ public class AddeditActionDialogController {
 		if (keyChooser.getValue() == null) {
 			warning += " ключ,";
 		}
-		if ("".equals(dataField)) {
+		if ("".equals(dataField.getText())) {
 			warning += " данные,";
 		}
 
@@ -116,7 +111,7 @@ public class AddeditActionDialogController {
 			step.setPosition(Integer.parseInt(position.getText()));
 			step.setKey(keyChooser.getValue());
 			step.setData(dataField.getText());
-			mainApp.getDb().save(step, chain);
+			MainApp.getDb().save(step, chain);
 			dialogStage.close();
 		}
 	}

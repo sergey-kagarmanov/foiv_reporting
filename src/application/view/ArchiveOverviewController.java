@@ -78,17 +78,10 @@ public class ArchiveOverviewController {
 	@FXML
 	TreeTableColumn<FileEntity, String> fileReportColumn;
 
-	private MainApp mainApp;
 
 	private Map<String, FileEntity> fileFiles;
 
-	// private final Node inIcon = new ImageView(new
-	// Image(getClass().getResourceAsStream("/img/in.png")));
-	// private final Node outIcon = new ImageView(new
-	// Image(getClass().getResourceAsStream("/img/out.png")));
-
 	public ArchiveOverviewController() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@FXML
@@ -218,7 +211,7 @@ public class ArchiveOverviewController {
 							} else {
 
 								if (param.getValue().getValue() != null) {
-									ObservableList<ReportFile> list = mainApp.getDb()
+									ObservableList<ReportFile> list = MainApp.getDb()
 											.getFilesByTransport(param.getValue().getValue());
 									int status = 0;
 
@@ -316,7 +309,7 @@ public class ArchiveOverviewController {
 								} else {
 									// tmp = "Ответ обработан некорректно";
 									if (rf.getAttributes().get(AttributeDescr.CODE) != null)
-										tmp = mainApp.getDb().getMessageByCode(rf.getAttributes()
+										tmp = MainApp.getDb().getMessageByCode(rf.getAttributes()
 												.get(AttributeDescr.CODE).getValue());
 									else
 										tmp = "Ответ обработан некорректно";
@@ -385,7 +378,7 @@ public class ArchiveOverviewController {
 								}
 							} else {
 								if (fe != null) {
-									ObservableList<ReportFile> list = mainApp.getDb()
+									ObservableList<ReportFile> list = MainApp.getDb()
 											.getFilesByTransport(fe);
 									int status = 0;
 
@@ -465,11 +458,6 @@ public class ArchiveOverviewController {
 		});
 	}
 
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-
-	}
-
 	private Stage dialogStage;
 
 	public void setDialogStage(Stage dialogStage) {
@@ -489,7 +477,7 @@ public class ArchiveOverviewController {
 
 	@FXML
 	public void handleUpdate() {
-		setData(mainApp.getDb().getArchiveFiles(startTime, endTime, reportChooser.getValue()));
+		setData(MainApp.getDb().getArchiveFiles(startTime, endTime, reportChooser.getValue()));
 		fillData();
 	}
 

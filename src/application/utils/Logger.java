@@ -1,19 +1,17 @@
 package application.utils;
 
-import application.db.Dao;
+import application.MainApp;
 import application.models.ReportFile;
 import application.models.TransportFile;
 
 public class Logger {
 
-	private Dao dao;
 	
-	public Logger(Dao dao){
-		this.dao = dao;
+	public Logger(){
 	}
 	
 	public void log(TransportFile transportFile){
-			dao.saveTransportFile(transportFile);//TODO: test if it fills id
+			MainApp.getDb().saveTransportFile(transportFile);//TODO: test if it fills id
 	}
 	
 	/**
@@ -21,6 +19,6 @@ public class Logger {
 	 * @param ticket
 	 */
 	public void log(ReportFile ticket){
-		dao.save(ticket);
+		MainApp.getDb().save(ticket);
 	}
 }

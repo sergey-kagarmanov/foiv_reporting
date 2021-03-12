@@ -21,7 +21,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import application.db.Dao;
+import application.MainApp;
 import application.errors.ReportError;
 import application.models.AttributeDescr;
 import application.models.FileAttribute;
@@ -34,14 +34,12 @@ public class FileParser {
 
 	private Report report;
 	private boolean direction;
-	private Dao dao;
 	private FileType fType;
 	private List<Exception> schemaExceptions;
 
-	public FileParser(Dao dao, Report report, boolean encrypt) {
-		this.dao = dao;
+	public FileParser(Report report, boolean direction) {
 		this.report = report;
-		this.direction = encrypt;
+		this.direction = direction;
 		schemaExceptions = new ArrayList<Exception>();
 	}
 
@@ -67,7 +65,7 @@ public class FileParser {
 		}
 
 		if (fType != null) {
-			Map<String, AttributeDescr> map = dao.getAttributes(fType);
+			Map<String, AttributeDescr> map = MainApp.getDb().getAttributes(fType);
 			try {
 				for (AttributeDescr ad : map.values()) {
 					attr.put(ad.getAttr().getName(), new FileAttribute(ad.getId(),
@@ -91,11 +89,6 @@ public class FileParser {
 
 	private String getValue(File file, AttributeDescr attributeDescr) throws ReportError {
 		if (attributeDescr.getInName()) {
-			// return file.getName().replace(attributeDescr.getLocation(),
-			// "");// TODO:
-			// Something
-			// strange...
-			// attributeDescr.getLocation()
 			Pattern p = Pattern.compile(attributeDescr.getLocation());
 			Matcher m = p.matcher(file.getName());
 			if (m.find())
@@ -109,30 +102,9 @@ public class FileParser {
 				try {
 					dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(file);
-					String[] par = attributeDescr.getLocation().split("\\|");// think
-																				// about
-																				// use
-																				// only
-																				// node
-																				// name,
-																				// not
-																				// work..
-																				// this
-																				// change,
-																				// if
-																				// @
-																				// is
-																				// first
-																				// letter
-																				// value
-																				// is
-																				// took
-																				// from
-																				// attribute
-																				// with
-																				// name
-																				// after
-																				// @
+					String[] par = attributeDescr.getLocation().split("\\|");
+					// think about use only node name, not work.. this change,
+					//if @ is first letter value is took from attribute with name after @
 					int i = 0;
 					Node node = null;
 					NodeList list = doc.getChildNodes();
@@ -174,24 +146,12 @@ public class FileParser {
 							return node.getFirstChild().getNodeValue();
 						else
 							return null;
-					} /*
-						 * else { NamedNodeMap m = node.getAttributes(); if
-						 * (m.getNamedItem(par[par.length - 1]) != null)// This
-						 * // is // for // if // data // not // in // attributes
-						 * return m.getNamedItem(par[par.length -
-						 * 1]).getNodeValue(); else { if (node!=null &&
-						 * node.getFirstChild()!=null) return
-						 * node.getFirstChild().getNodeValue(); else return
-						 * null; } }
-						 */
+					} 
 				} catch (ParserConfigurationException | SAXException | IOException e) {
 					e.printStackTrace();
 				}
 			} else if (fType.getFileType() == 1) {
-				String[] tmp = attributeDescr.getLocation().split(":|,");// Regexp
-																			// :
-																			// OR
-																			// ,
+				String[] tmp = attributeDescr.getLocation().split(":|,");
 
 				try {
 					Object[] text = Files.lines(file.toPath(), Charset.forName("cp866")).toArray();

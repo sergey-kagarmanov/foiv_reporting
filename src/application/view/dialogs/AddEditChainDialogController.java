@@ -16,14 +16,8 @@ public class AddEditChainDialogController {
 
 	private Stage dialogStage;
 
-	private MainApp mainApp;
-
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
 	}
 
 	private Chain chain;
@@ -52,7 +46,7 @@ public class AddEditChainDialogController {
 	}
 
 	private void fillChoosers() {
-		reportChooser.setItems(mainApp.getDb().getReports());
+		reportChooser.setItems(MainApp.getDb().getReports());
 		directionChooser.setItems(FXCollections.observableArrayList(Constants.IN, Constants.OUT));
 	}
 
@@ -85,7 +79,7 @@ public class AddEditChainDialogController {
 				chain.setName(nameField.getText());
 				chain.setReport(reportChooser.getValue());
 				chain.setDirection(directionChooser.getValue().equals(Constants.IN));
-				mainApp.getDb().save(chain);
+				MainApp.getDb().save(chain);
 				dialogStage.close();
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
