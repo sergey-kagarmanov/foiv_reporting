@@ -2,13 +2,11 @@ package application.utils.skzi;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.zip.GZIPOutputStream;
 
-import application.errors.ReportError;
-import application.models.ErrorFile;
 import application.models.Key;
+import application.models.WorkingFile;
 
 public class EncryptorHandler extends SignaturaHandler {
 
@@ -22,13 +20,13 @@ public class EncryptorHandler extends SignaturaHandler {
 	void init(Key key) {
 		encryptor = new EncryptorSignatura(key);
 	}
-	
+
 	@Override
-	public ErrorFile call() throws Exception {
-		try {
+	public WorkingFile call() throws Exception {
+
 		ByteArrayInputStream bais = null;
-		FileInputStream fis = new FileInputStream(file);
-		FileOutputStream fos = new FileOutputStream(out);
+		InputStream fis = getInputStream();
+		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		GZIPOutputStream gzip = new GZIPOutputStream(baos);
 
@@ -44,7 +42,7 @@ public class EncryptorHandler extends SignaturaHandler {
 		bais = new ByteArrayInputStream(baos.toByteArray());
 		while ((length = bais.read(bufferEncrypt)) > 0) {
 			encrypted = encryptor.next(bufferEncrypt, length);
-			if (encrypted!=null) {
+			if (encrypted != null) {
 				fos.write(bufferEncrypt);
 			}
 		}
@@ -56,10 +54,8 @@ public class EncryptorHandler extends SignaturaHandler {
 		baos.close();
 		fis.close();
 		unload();
-		return null;
-		}catch (ReportError e) {
-			return new ErrorFile(file.getName(), e.getErrorCode());
-		}
+		file.setData(fos.toByteArray());
+		return file;
 	}
 
 	@Override

@@ -580,7 +580,7 @@ public class EncryptOverviewController {
 				reportChooser.getValue(), outPath.getText(),
 				outOutputPath.getText(), outPathArch.getText(), false);
 		try {
-			executor.start();
+			executor.startStream();
 
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Информация");

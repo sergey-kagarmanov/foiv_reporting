@@ -1,6 +1,7 @@
 package application.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -48,7 +49,7 @@ public class ArchieveInputStreamHandler {
 				byte[] buffer = new byte[1024];
 				int len;
 				while ((len = is.read(buffer)) != -1) {
-				    out.write(buffer, 0, len);
+					out.write(buffer, 0, len);
 				}
 			} finally {
 				out.flush();
@@ -62,4 +63,28 @@ public class ArchieveInputStreamHandler {
 		}
 		return file;
 	}
+
+	public static byte[] slurpByte(final InputStream is) {
+		ByteArrayOutputStream out = null;
+		out = new ByteArrayOutputStream();
+		try {
+			try {
+				byte[] buffer = new byte[1024];
+				int len;
+				while ((len = is.read(buffer)) != -1) {
+					out.write(buffer, 0, len);
+				}
+			} finally {
+				out.flush();
+				out.close();
+				is.close();
+			}
+		} catch (UnsupportedEncodingException ex) {
+			/* ... */
+		} catch (IOException ex) {
+			/* ... */
+		}
+		return out.toByteArray();
+	}
+
 }

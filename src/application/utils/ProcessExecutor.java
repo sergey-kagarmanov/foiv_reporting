@@ -32,6 +32,7 @@ import application.models.ProcessStep;
 import application.models.Report;
 import application.models.ReportFile;
 import application.models.TransportFile;
+import application.models.WorkingFile;
 import application.utils.skzi.SignaturaService;
 import application.view.controls.ArchiveNameDialogBox;
 import javafx.collections.FXCollections;
@@ -74,7 +75,13 @@ public class ProcessExecutor {
 	public ProcessExecutor(List<String> filenames, Report report, String path,
 			String outputPath, String archivePath, Boolean direction){
 		this.report = report;
-		this.filenames = filenames;
+		
+		//this should translate to absolute filenames
+		this.filenames = new ArrayList<>();
+		filenames.forEach(name->{
+			this.filenames.add(path+"\\"+name);
+		});
+		
 		this.path = path;
 		this.outputPath = outputPath;
 		transportFiles = new HashMap<FileTransforming, TransportFile>();
@@ -105,7 +112,7 @@ public class ProcessExecutor {
 		 */
 		for (String filename : filenames) {
 			currentFile = new FileTransforming(filename,
-					direction ? report.getPathIn() : report.getPathOut());
+					direction==Constants.INPUT ? report.getPathIn() : report.getPathOut());
 			if (currentFile.getOriginalFile().exists()) {
 
 				// Copy files to tmp directory for work
@@ -174,7 +181,6 @@ public class ProcessExecutor {
 				// TODO: Error, warning etc.
 			}
 		}
-
 		/**
 		 * File parsing end
 		 */
@@ -350,6 +356,152 @@ public class ProcessExecutor {
 		return result;
 	}
 
+	public int startStream() throws ReportError{
+	
+		FileChecker checker = new FileChecker();
+		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
+		
+		ObservableList<WorkingFile> wFiles = checker.execute(filenames, report);
+		wFiles.forEach(wFile -> {
+			if (wFile.getExceptions()!=null && wFile.getExceptions().size()>0) {
+				wFile.getExceptions().forEach(e -> {
+					errorFiles.add(new ErrorFile(wFile.getOriginalName(), ErrorFile.VALIDATE_EXCEPTION, e.getMessage()));
+				});
+			}
+		});
+		
+		if (errorFiles.size()>0) {
+			//Ask to proceed
+		}
+		
+		ObservableList<Chain> chains = MainApp.getDb().getChains(report,
+				direction ? Constants.IN : Constants.OUT);
+		if (chains != null) {
+			chain = chains.get(0);
+		} else {
+			throw new ReportError("Для отчетности " + report.getName() + " направление "
+					+ (direction ? Constants.IN : Constants.OUT)
+					+ " не определена последовательность действий");
+		}
+		if (chain.getSteps() != null) {
+			currentStep = chain.getSteps().get(0);
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Пустой список обработки");
+			alert.show();
+			return 0;
+		}
+		
+		while (currentStep != null && !breakFlag) {
+
+			try {
+				StepExecutor stepExecutor = new StepExecutor(currentStep, report);
+				
+					wFiles = stepExecutor.execute(wFiles);
+					
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			if (errorFiles.size() == 0) {
+				currentStep = currentStep.getNext();
+			} else {
+				String errorString = "";
+				for (ErrorFile errorFile : errorFiles) {
+					errorString += " Файл - " + errorFile.getFile() + " ошибка:"
+							+ (errorFile.getErrorCode() == -1 ? " Проблема с доступом к файлу"
+									: errorFile.getErrorCode());
+				}
+				Alert msg = new Alert(AlertType.CONFIRMATION);
+				msg.setContentText("Имеются ошибки при обработке файлов: " + errorString
+						+ " Продолжить обработку?");
+
+				breakFlag = msg.showAndWait().get() == ButtonType.YES;
+			}
+		}
+	
+		wFiles.forEach(file -> {
+			try {
+				file.saveData(outputPath);
+			} catch (ReportError e) {
+				e.printStackTrace();
+			}
+		});
+		
+		return 0;
+	}
+	
+	/*private void fileParsing(Report report, List<File> inFiles) {
+		List<WorkingFile> files = new ArrayList<>();
+		List<FileType> types = MainApp.getDb().getFileTypes(report);
+		
+		for (String filename : filenames) {
+			currentFile = new FileTransforming(filename,
+					direction==Constants.INPUT ? report.getPathIn() : report.getPathOut());
+			if (currentFile.getOriginalFile().exists()) {
+
+				// Copy files to tmp directory for work
+				currentFile.copyCurrent(FileUtils.tmpDir, true);
+				executedFiles.add(currentFile);
+
+				boolean flag = true;
+				FileType fileType = null;
+				for (FileType tFile : report.getTickets()) {
+					fileType = tFile;
+					if (FileUtils.isType(currentFile.getCommonOriginal(), tFile)) {
+						Map<String, FileAttribute> attr = null;
+						try {
+							attr = parser.parse(currentFile.getCurrentFile());
+						} catch (ReportError e) {
+							if (currentFile.getCurrentFile().exists()) {
+								System.gc();
+								if (!currentFile.getCurrentFile().delete()) {
+									System.out.println(
+											"Can't delete file - " + currentFile.getCurrent());
+								}
+							}
+							break;
+						}
+						ticketFiles.put(currentFile, new ReportFile(0, currentFile.getOriginal(),
+								LocalDateTime.now(), report, direction, null, attr, tFile));
+						flag = false;
+					}
+				}
+
+				if (flag)
+					try {
+						if (!direction) {
+							ReportFile fileEntity = new ReportFile(0,
+									currentFile.getCommonOriginal(), LocalDateTime.now(), report,
+									direction, null, parser.parse(currentFile.getCurrentFile()),
+									fileType);
+							mapFiles.put(currentFile, fileEntity);
+						} else {
+							transportFiles.put(currentFile,
+									new TransportFile(0, currentFile.getOriginal(),
+											LocalDateTime.now(), report, direction, null, null,
+											MainApp.getDb().getFileType(report.getId(), direction ? 1 : 0, 1)));
+
+						}
+					} catch (ReportError e) {
+						if (currentFile.getCurrentFile().exists()) {
+							System.gc();
+							if (!currentFile.getCurrentFile().delete()) {
+								System.out
+										.println("Can't delete file - " + currentFile.getCurrent());
+							}
+						}
+
+					}
+				result++;
+			} else {
+				// TODO: Error, warning etc.
+			}
+		}
+
+	}*/
+
 	private ReportFile linkParent(ReportFile reportFile) {
 		if (reportFile.getAttributes() != null) {
 			for (String attributeName : reportFile.getAttributes().keySet()) {
@@ -429,15 +581,6 @@ public class ProcessExecutor {
 			}
 		}
 	}
-
-	/*
-	 * private int initSignatura(Key key) { int result = 0; if (currentKey ==
-	 * null || "".equals(currentKey) || !currentKey.equals(key.getData())) {
-	 * result = signatura.initConfig(key.getData()); currentKey = key.getData();
-	 * } else { result = 0; }
-	 * 
-	 * if (result == 0) { signatura.setParameters(); } return result; }
-	 */
 
 	/**
 	 * create archive - transport file
@@ -605,8 +748,7 @@ public class ProcessExecutor {
 			System.out.println("Error!!!");
 			throw new ReportError("Ошибка создания транспортного файла");
 		}
-		System.out.println("ARJ returned " + p.exitValue());
-
+		MainApp.info("ARJ returned " + p.exitValue());
 	}
 
 	/**
@@ -728,6 +870,7 @@ public class ProcessExecutor {
 		return errorFiles;
 	}
 
+	
 	private List<File> unrar(String file) {
 		List<File> files = new ArrayList<File>();
 		RandomAccessFile randomAccessFile = null;
@@ -766,6 +909,7 @@ public class ProcessExecutor {
 		}
 		return files;
 	}
+	
 
 	private void excludeErrorFiles(ObservableList<ErrorFile> errorFiles) {
 		this.errorFiles.addAll(errorFiles);

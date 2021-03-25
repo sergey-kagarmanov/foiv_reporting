@@ -1,34 +1,34 @@
 package application.utils.skzi;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.concurrent.Callable;
 
-import application.models.ErrorFile;
+import application.errors.ReportError;
 import application.models.Key;
+import application.models.WorkingFile;
 
-public abstract class SignaturaHandler implements Callable<ErrorFile>{
+public abstract class SignaturaHandler implements Callable<WorkingFile> {
 
-	protected File file;
-	protected File out;
+	protected WorkingFile file;
 
 	public SignaturaHandler(Key key) {
 		init(key);
 	}
 
-	public void setParameters(File file, String path) {
+	public void setParameters(WorkingFile file) {
 		this.file = file;
-		this.out = new File(path+"\\"+file.getName());
-		if (out.exists()) {
-			out.delete();
-		}
-		try {
-			out.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
-	
+
 	abstract void init(Key key);
+
 	abstract void unload();
+
+	InputStream getInputStream() throws ReportError {
+		if (file != null)
+			return new ByteArrayInputStream(file.getData());
+		else
+			throw new ReportError("Входные данные отсутствуют");
+	}
+
 }

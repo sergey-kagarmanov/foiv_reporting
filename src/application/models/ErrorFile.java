@@ -1,15 +1,21 @@
 package application.models;
 
-
 public class ErrorFile {
+
+	public static int VALIDATE_EXCEPTION = 1;
 
 	private String file;
 	private Integer errorCode;
+	private String msg;
 
-	
-	public ErrorFile(String file, Integer code) {
+	public ErrorFile(String file, Integer code, String msg) {
 		this.file = file;
 		this.errorCode = code;
+		this.msg = msg;
+	}
+
+	public ErrorFile(String file, Integer code) {
+		this(file, code, "");
 	}
 
 	public ErrorFile() {
@@ -44,6 +50,14 @@ public class ErrorFile {
 	 */
 	public void setErrorCode(Integer errorCode) {
 		this.errorCode = errorCode;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 }

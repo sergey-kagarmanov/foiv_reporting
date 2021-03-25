@@ -2,6 +2,8 @@ package application.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,6 +27,7 @@ import application.MainApp;
 import application.errors.ReportError;
 import application.models.FileType;
 import application.models.Report;
+import application.models.WorkingFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import net.sf.sevenzipjbinding.ExtractOperationResult;
@@ -51,8 +54,7 @@ public class FileUtils {
 	 * @return
 	 * @throws ReportError
 	 */
-	public static ObservableList<String> getDirContentByMask(String directory,
-			ObservableList<FileType> observableList) throws ReportError {
+	public static ObservableList<String> getDirContentByMask(String directory, ObservableList<FileType> observableList) throws ReportError {
 		try {
 			if (directory == null) {
 				directory = "c:\\";
@@ -81,8 +83,7 @@ public class FileUtils {
 		return Pattern.compile(type.getMask().toLowerCase()).matcher(fileName).matches();
 	}
 
-	public static ObservableList<String> getDirContentByMask(String directory, FileType fileType)
-			throws ReportError {
+	public static ObservableList<String> getDirContentByMask(String directory, FileType fileType) throws ReportError {
 		try {
 			File file = new File(directory);
 			String[] files = file.list((dir, filename) -> {
@@ -107,8 +108,7 @@ public class FileUtils {
 	 */
 	public static ObservableList<String> getDirContentByMask(String directory, String mask) {
 		File file = new File(directory);
-		String[] files = file
-				.list((dir, filename) -> Pattern.compile(mask).matcher(filename).matches());
+		String[] files = file.list((dir, filename) -> Pattern.compile(mask).matcher(filename).matches());
 		if (files != null)
 			return FXCollections.observableArrayList(files);
 		else
@@ -208,7 +208,7 @@ public class FileUtils {
 			}
 		}
 	}
-	
+
 	public static int decompressGzip(File input, File output) throws IOException {
 		try (GZIPInputStream in = new GZIPInputStream(new FileInputStream(input))) {
 			try (FileOutputStream out = new FileOutputStream(output)) {
@@ -220,14 +220,12 @@ public class FileUtils {
 			}
 			MainApp.info("File " + input + " is decompressed to " + output);
 		} catch (Exception e) {
-			MainApp.error("File " + input + " isn't decompressed to" + output + " cause "
-					+ e.getLocalizedMessage());
+			MainApp.error("File " + input + " isn't decompressed to" + output + " cause " + e.getLocalizedMessage());
 			e.printStackTrace();
 			return -1;
 		}
 		return 0;
 	}
-
 
 	public static ObservableList<File> getFromZip(File zipFile) throws IOException {
 		byte[] buffer = new byte[1024];
@@ -314,8 +312,7 @@ public class FileUtils {
 					if (result == ExtractOperationResult.OK) {
 						if (item.getPath().endsWith(".zip") || item.getPath().endsWith(".gz")) {
 							tmp.addAll(getFromZip(new File(item.getPath())));
-						} else if (item.getPath().endsWith(".zip")
-								|| item.getPath().endsWith(".gz")) {
+						} else if (item.getPath().endsWith(".zip") || item.getPath().endsWith(".gz")) {
 							tmp.addAll(getFromZip(new File(item.getPath())));
 						} else if (item.getPath().endsWith(".xml")) {
 							tmp.add(new File(item.getPath()));
@@ -348,8 +345,7 @@ public class FileUtils {
 	}
 
 	public static void copyFile(File file, String where) {
-		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
-				StandardCopyOption.COPY_ATTRIBUTES };
+		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES };
 		try {
 			Files.copy(file.toPath(), Paths.get(where + "\\" + file.getName()), options);
 		} catch (IOException e) {
@@ -359,8 +355,7 @@ public class FileUtils {
 	}
 
 	public static void copyFiles(ObservableList<File> files, String where) {
-		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
-				StandardCopyOption.COPY_ATTRIBUTES };
+		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES };
 		try {
 			if (where != null && !"".equals(where)) {
 				for (File f : files) {
@@ -372,10 +367,9 @@ public class FileUtils {
 		}
 
 	}
-	
+
 	public static ObservableList<File> copyFilesReturn(ObservableList<File> files, String where) {
-		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
-				StandardCopyOption.COPY_ATTRIBUTES };
+		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES };
 		ObservableList<File> tmp = FXCollections.observableArrayList();
 		try {
 			if (where != null && !"".equals(where)) {
@@ -391,11 +385,9 @@ public class FileUtils {
 		}
 		return tmp;
 	}
-	
 
 	public static void moveFiles(ObservableList<File> files, String where) {
-		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
-				StandardCopyOption.COPY_ATTRIBUTES };
+		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES };
 		try {
 			for (File f : files) {
 				Files.move(f.toPath(), Paths.get(where + "\\" + f.getName()), options);
@@ -435,5 +427,92 @@ public class FileUtils {
 			zipOut.write(bytes, 0, length);
 		}
 	}
-	
+
+	public static InputStream saveWithInput(WorkingFile file) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			byte[] buffer = new byte[1024];
+			FileOutputStream toFile = new FileOutputStream(new File(file.getName()));
+			ByteArrayInputStream signed = new ByteArrayInputStream(file.getData());
+			int length = 0;
+			while ((length = signed.read(buffer)) != -1) {
+				baos.write(buffer, 0, length);
+				toFile.write(buffer, 0, length);
+			}
+			toFile.close();
+			signed.close();
+		} catch (Exception e) {
+		}
+		return new ByteArrayInputStream(baos.toByteArray());
+	}
+
+	public static void saveWorkingFile(WorkingFile file, String path) {
+		try {
+			byte[] buffer = new byte[1024];
+			FileOutputStream toFile = new FileOutputStream(new File(path + "\\"+file.getName()));
+			ByteArrayInputStream signed = new ByteArrayInputStream(file.getData());
+			int length = 0;
+			while ((length = signed.read(buffer)) != -1) {
+				toFile.write(buffer, 0, length);
+			}
+			toFile.close();
+			signed.close();
+		} catch (Exception e) {
+		}
+	}
+
+	public static OutputStream saveWithOutput(WorkingFile file) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			byte[] buffer = new byte[1024];
+			FileOutputStream toFile = new FileOutputStream(new File(file.getName()));
+			ByteArrayInputStream signed = new ByteArrayInputStream(file.getData());
+			int length = 0;
+			while ((length = signed.read(buffer)) != -1) {
+				baos.write(buffer, 0, length);
+				toFile.write(buffer, 0, length);
+			}
+			toFile.close();
+			signed.close();
+		} catch (Exception e) {
+		}
+		return baos;
+	}
+
+	public static InputStream splitToInputAndOutput(InputStream input, OutputStream resultOut) {
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte[] buffer = new byte[1024];
+			int length = 0;
+			while ((length = input.read(buffer)) != -1) {
+				baos.write(buffer, 0, length);
+				resultOut.write(buffer, 0, length);
+			}
+			input.close();
+			return new ByteArrayInputStream(baos.toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static InputStream getStreamWithSaveData(WorkingFile file) {
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ByteArrayOutputStream resultOut = new ByteArrayOutputStream();
+			byte[] buffer = new byte[1024];
+			int length = 0;
+			InputStream is = new ByteArrayInputStream(file.getData());
+			while ((length = is.read(buffer)) != -1) {
+				baos.write(buffer, 0, length);
+				resultOut.write(buffer, 0, length);
+			}
+			is.close();
+			file.setData(baos.toByteArray());
+			return new ByteArrayInputStream(resultOut.toByteArray());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

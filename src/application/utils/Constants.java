@@ -9,7 +9,10 @@ public class Constants {
 	public static final int SIMPLE = 0;
 	public static final String PARENT = "parent";
 	
-
+	public static final boolean INPUT = true;
+	public static final boolean OUTPUT = false;
+	public static final int INPUT_INT = 1;
+	public static final int OUTPUT_INT = 0;
 	
 	public static final String ENCRYPT = "ENCRYPT";
 	public static final String SIGN ="SIGN";

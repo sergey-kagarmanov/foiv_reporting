@@ -1,12 +1,10 @@
 package application.utils.skzi;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.InputStream;
 
-import application.errors.ReportError;
-import application.models.ErrorFile;
 import application.models.Key;
+import application.models.WorkingFile;
 
 public class UnsignHandler extends SignaturaHandler{
 
@@ -17,23 +15,22 @@ public class UnsignHandler extends SignaturaHandler{
 	}
 
 	@Override
-	public ErrorFile call() throws Exception {
-		try {
+	public WorkingFile call() throws Exception {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			FileInputStream fis = new FileInputStream(file);
-			FileOutputStream fos = new FileOutputStream(out);
+			file.copyToSign();
+			InputStream fis = getInputStream();
+			ByteArrayOutputStream fos = new ByteArrayOutputStream();
+			
 			byte[] buffer = new byte[1024];
 			int length = 0;
 			while ((length = fis.read(buffer)) > 0) {
 				baos.write(buffer, 0, length);
 			}
 			fos.write(unsigner.next(baos.toByteArray(), baos.toByteArray().length));
+			file.setData(fos.toByteArray());
 			fis.close();
 			fos.close();
-			return null;
-		} catch (ReportError e) {
-			return new ErrorFile(file.getName(), e.getErrorCode());
-		}
+			return file;
 	}
 
 	@Override

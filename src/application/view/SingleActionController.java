@@ -11,8 +11,8 @@ import org.xml.sax.SAXException;
 
 import application.MainApp;
 import application.models.ErrorFile;
-import application.models.FileTransforming;
 import application.models.Key;
+import application.models.WorkingFile;
 import application.utils.AlertWindow;
 import application.utils.Constants;
 import application.utils.DateUtils;
@@ -141,8 +141,7 @@ public class SingleActionController {
 	@FXML
 	public void chooseOutput() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		String pathOut = files.getItems().size() > 0 ? files.getItems().get(0).getParent()
-				: "c:\\";
+		String pathOut = files.getItems().size() > 0 ? files.getItems().get(0).getParent() : "c:\\";
 		directoryChooser.setInitialDirectory(new File(pathOut));
 		File selectedDirectory = directoryChooser.showDialog(null);
 		outPath.setText(selectedDirectory.getAbsolutePath());
@@ -150,8 +149,7 @@ public class SingleActionController {
 
 	private ObservableList<File> copyFiles() {
 		File archive = new File(
-				"arch\\" + actionChooser.getSelectionModel().getSelectedItem().getKey()
-						+"\\"+ DateUtils.toFolderString(LocalDate.now()));
+				"arch\\" + actionChooser.getSelectionModel().getSelectedItem().getKey() + "\\" + DateUtils.toFolderString(LocalDate.now()));
 		archive.mkdirs();
 		FileUtils.copyFiles(files.getItems(), archive.getAbsolutePath());
 		FileUtils.clearTmp();
@@ -162,12 +160,13 @@ public class SingleActionController {
 	public void startAction() {
 		Pair<String, String> action = actionChooser.getSelectionModel().getSelectedItem();
 		ObservableList<ErrorFile> errorFiles = null;
+		ObservableList<WorkingFile> wFiles = null;
 		if (action.getKey().equals(Constants.ENCRYPT)) {
 			mainApp.showChooseKeyDialog();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
 					public SignaturaHandler getHandler(Key key) {
@@ -176,7 +175,10 @@ public class SingleActionController {
 					
 				};
 				try {
-					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+					wFiles = executor.execute(mainApp.getCurrentKey());
+					wFiles.forEach(file ->{
+						FileUtils.saveWorkingFile(file, outPath.getText());
+					});
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -187,7 +189,7 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 					
 					@Override
 					public SignaturaHandler getHandler(Key key) {
@@ -195,9 +197,11 @@ public class SingleActionController {
 					}
 				};
 				try {
-					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+					wFiles = executor.execute(mainApp.getCurrentKey());
+					wFiles.forEach(file ->{
+						FileUtils.saveWorkingFile(file, outPath.getText());
+					});
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -208,7 +212,7 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
 					public SignaturaHandler getHandler(Key key) {
@@ -216,9 +220,11 @@ public class SingleActionController {
 					}
 				};
 				try {
-					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+					wFiles = executor.execute(mainApp.getCurrentKey());
+					wFiles.forEach(file ->{
+						FileUtils.saveWorkingFile(file, outPath.getText());
+					});
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				AlertWindow.show(Constants.DECRYPT_RUS, errorFiles);
@@ -228,7 +234,7 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			}else {
-				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
 					public SignaturaHandler getHandler(Key key) {
@@ -236,7 +242,11 @@ public class SingleActionController {
 					}
 				};
 				try {
-					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+					wFiles = executor.execute(mainApp.getCurrentKey());
+					wFiles.forEach(file ->{
+						FileUtils.saveWorkingFile(file, outPath.getText());
+					});
+
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -274,7 +284,7 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(FileTransforming.toFileTransforming(files.getItems())) {
+				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
 					public SignaturaHandler getHandler(Key key) {
@@ -282,7 +292,10 @@ public class SingleActionController {
 					}
 				};
 				try {
-					errorFiles = executor.execute(mainApp.getCurrentKey(), outPath.getText());
+					wFiles = executor.execute(mainApp.getCurrentKey());
+					wFiles.forEach(file ->{
+						FileUtils.saveWorkingFile(file, outPath.getText());
+					});
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -324,8 +337,6 @@ public class SingleActionController {
 				}
 			}
 			AlertWindow.show(Constants.COPY_RUS, errorFiles);
-
-
 		}
 	}
 

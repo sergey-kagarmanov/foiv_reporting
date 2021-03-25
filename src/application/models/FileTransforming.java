@@ -22,7 +22,6 @@ public class FileTransforming {
 	}
 
 	public FileTransforming(String original, String inPath) {
-		//this.current = new File(FileUtils.tmpDir + original);
 		this.inPath = inPath;
 		this.original = new File(inPath +"\\"+ original);
 		this.current = this.original;

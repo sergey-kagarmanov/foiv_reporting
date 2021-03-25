@@ -1,13 +1,14 @@
 package application.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,80 +27,70 @@ import application.errors.ReportError;
 import application.models.AttributeDescr;
 import application.models.FileAttribute;
 import application.models.FileType;
-import application.models.Report;
+import application.models.WorkingFile;
 import application.utils.xml.XMLValidator;
-import javafx.collections.ObservableList;
 
-public class FileParser {
+public class SingleFileCheck implements Callable<WorkingFile>{
 
-	private Report report;
-	private boolean direction;
-	private FileType fType;
-	private List<Exception> schemaExceptions;
-
-	public FileParser(Report report, boolean direction) {
-		this.report = report;
-		this.direction = direction;
-		schemaExceptions = new ArrayList<Exception>();
+	private File file;
+	private List<FileType> types;
+	
+	public SingleFileCheck(File file, List<FileType> types) {
+		this.file = file;
+		this.types = types;
 	}
-
-	/**
-	 * Parse exist file in temp directory
-	 * 
-	 * @param file
-	 * @return
-	 * @throws ReportError
-	 */
-	public Map<String, FileAttribute> parse(File file) throws ReportError {
-		Map<String, FileAttribute> attr = new HashMap<>();
-
-		fType = getType(file);
-		if (fType == null) {
-			throw new ReportError("Неизвестный тип файла");
-		}
-		if (fType.getValidationSchema() != null && !"".equals(fType.getValidationSchema())) {
-			List<Exception> list = XMLValidator.validate(file, new File(fType.getValidationSchema()));
-			if (list.size() > 0)
-				schemaExceptions.addAll(list);
-		}
-
-		if (fType != null) {
-			Map<String, AttributeDescr> map = MainApp.getDb().getAttributes(fType);
-			try {
-				for (AttributeDescr ad : map.values()) {
-					attr.put(ad.getAttr().getName(), new FileAttribute(ad.getId(), ad.getAttr().getName(), getValue(file, ad)));
-				}
-
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (ReportError e) {
-				e.printStackTrace();
+	
+	@Override
+	public WorkingFile call() throws Exception {
+		FileType cType = null;
+		for(FileType type: types) {
+			if (Pattern.matches(type.getMask(), file.getName())) {
+				cType = type;
+				break;
 			}
-			return attr;
-		} else {
-			throw new ReportError("Неизвестный тип файла " + file.getName());
 		}
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		WorkingFile wFile = new WorkingFile();
+		wFile.setType(cType);
+		List<Exception> exception = XMLValidator.validate(FileUtils.splitToInputAndOutput(new FileInputStream(file), baos), new File(cType.getValidationSchema()));
+		wFile.setData(baos.toByteArray());
+		wFile.setOriginalName(file.getName());
+		if (exception == null || exception.size()==0) {
+			parseAttributes(wFile);
+		}else {
+			wFile.setExceptions(exception);
+		}
+		
+		return wFile;
 	}
 
-	public List<Exception> getExceptions() {
-		return schemaExceptions;
-	}
+	private Map<String, FileAttribute> parseAttributes(WorkingFile wFile) throws ReportError{
+		Map<String, FileAttribute> attr = new HashMap<>();
+		Map<String, AttributeDescr> map = MainApp.getDb().getAttributes(wFile.getType());
+			for (AttributeDescr ad : map.values()) {
+				attr.put(ad.getAttr().getName(), new FileAttribute(ad.getId(), ad.getAttr().getName(), getValue(wFile, ad)));
+			}
 
-	private String getValue(File file, AttributeDescr attributeDescr) throws ReportError {
+		return attr;
+
+	}
+	
+	private String getValue(WorkingFile wFile, AttributeDescr attributeDescr) throws ReportError {
 		if (attributeDescr.getInName()) {
 			Pattern p = Pattern.compile(attributeDescr.getLocation());
-			Matcher m = p.matcher(file.getName());
+			Matcher m = p.matcher(wFile.getName());
 			if (m.find())
 				return m.group(1);// First group is whole expression,
 			else
 				return null;
 		} else {
-			if (fType.getFileType() == 0) {
+			if (wFile.getType().getFileType() == 0) {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder;
 				try {
 					dBuilder = dbFactory.newDocumentBuilder();
-					Document doc = dBuilder.parse(file);
+					Document doc = dBuilder.parse(FileUtils.getStreamWithSaveData(wFile));
 					String[] par = attributeDescr.getLocation().split("\\|");
 					// think about use only node name, not work.. this change,
 					// if @ is first letter value is took from attribute with
@@ -148,11 +139,11 @@ public class FileParser {
 				} catch (ParserConfigurationException | SAXException | IOException e) {
 					e.printStackTrace();
 				}
-			} else if (fType.getFileType() == 1) {
+			} else if (wFile.getType().getFileType() == 1) {
 				String[] tmp = attributeDescr.getLocation().split(":|,");
 
-				try {
-					Object[] text = Files.lines(file.toPath(), Charset.forName("cp866")).toArray();
+					Object[] text = new String(wFile.getData(), Charset.forName("cp866")).split(System.lineSeparator());
+								//Files.lines(file.toPath(), Charset.forName("cp866")).toArray();
 					String value = "";
 					if (tmp[0].equals(tmp[2])) {
 						value = (String) text[Integer.parseInt(tmp[0]) >= 0 ? Integer.parseInt(tmp[0]) : (text.length + Integer.parseInt(tmp[0]))];
@@ -176,25 +167,10 @@ public class FileParser {
 					}
 					return value;
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return null;
 			}
 		}
 		return null;
 
 	}
 
-	public FileType getType(File file) {
-		ObservableList<FileType> list = direction ? report.getPatternIn() : report.getPatternOut();
-		if (direction)
-			list.addAll(report.getTickets());
-		for (FileType type : list) {
-			if (Pattern.compile(type.getMask()).matcher(file.getName()).matches()) {
-				return type;
-			}
-		}
-		return null;
-	}
 }

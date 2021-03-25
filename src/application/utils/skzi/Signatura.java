@@ -157,7 +157,7 @@ public class Signatura {
 		return cert;
 	}
 
-	public int encrypt(FileInputStream fis, FileOutputStream fos) throws IOException {
+	public int encrypt(InputStream fis, OutputStream fos) throws IOException {
 		mem_blk_t memory1 = new mem_blk_t();
 		mem_blk_t memory2 = new mem_blk_t();
 		strencrypt_handle_t handler = new strencrypt_handle_t();
