@@ -1,19 +1,19 @@
 package application.models;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class FileEntity {
 
-	private IntegerProperty id;
+	private ObjectProperty<UUID> uuid;
 	private StringProperty name;
 	private ObjectProperty<LocalDateTime> datetime;
 	private ObjectProperty<Report> report;
@@ -22,10 +22,10 @@ public class FileEntity {
 	private ObjectProperty<FileType> fileType;
 
 
-	public FileEntity(Integer id, String name, LocalDateTime datetime, Report report,
+	public FileEntity(UUID uuid, String name, LocalDateTime datetime, Report report,
 			Boolean direction, FileEntity linkedFile, FileType fileType) {
-		this.id = new SimpleIntegerProperty();
-		this.id.setValue(id);
+		this.uuid = new SimpleObjectProperty();
+		this.uuid.setValue(uuid);
 		this.name = new SimpleStringProperty(name);
 		this.datetime = new SimpleObjectProperty<LocalDateTime>(datetime);
 		this.report = new SimpleObjectProperty<Report>(report);
@@ -42,16 +42,16 @@ public class FileEntity {
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
-		return id.get();
+	public UUID getId() {
+		return uuid.get();
 	}
 
 	/**
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(Integer id) {
-		this.id.set(id);
+	public void setUuid(UUID uuid) {
+		this.uuid.set(uuid);
 	}
 
 	/**
@@ -132,16 +132,16 @@ public class FileEntity {
 	/**
 	 * @return the id
 	 */
-	public IntegerProperty getIdProperty() {
-		return id;
+	public ObjectProperty<UUID> getIdProperty() {
+		return uuid;
 	}
 
 	/**
 	 * @param id
 	 *            the id to set
 	 */
-	public void setIdProperty(IntegerProperty id) {
-		this.id = id;
+	public void setUuidProperty(ObjectProperty<UUID> uuid) {
+		this.uuid = uuid;
 	}
 
 	/**

@@ -305,7 +305,7 @@ public class StepExecutor {
 						new ByteArrayStream(file.getData(), false));
 				ISimpleInArchive simpleInArchive = inArchive.getSimpleInterface();
 
-				List<WorkingFile> localFiles = new ArrayList<>();
+				ObservableList<WorkingFile> localFiles = FXCollections.observableArrayList();
 				
 				for (ISimpleInArchiveItem item : simpleInArchive.getArchiveItems()) {
 					if (!item.isFolder()) {

@@ -18,8 +18,10 @@ import java.util.concurrent.Future;
 
 import application.MainApp;
 import application.errors.ReportError;
+import javafx.collections.ObservableList;
 
 public class WorkingFile {
+	private Integer id;
 	private byte[] data;
 	private String name;
 	private String originalName;
@@ -27,9 +29,18 @@ public class WorkingFile {
 	private List<Exception> exceptions;
 	private Map<String, FileAttribute> attributes;
 	private byte[] signData;
-	private List<WorkingFile> childs;
+	private ObservableList<WorkingFile> childs;
 	private byte[] hashData;
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	
 	/**
 	 * @return the data
 	 */
@@ -110,11 +121,11 @@ public class WorkingFile {
 		this.signData = signData;
 	}
 
-	public List<WorkingFile> getChilds() {
+	public ObservableList<WorkingFile> getChilds() {
 		return childs;
 	}
 
-	public void setChilds(List<WorkingFile> childs) {
+	public void setChilds(ObservableList<WorkingFile> childs) {
 		this.childs = childs;
 	}
 
@@ -182,8 +193,55 @@ public class WorkingFile {
 		FileOutputStream fis = null;
 		ByteArrayInputStream bais = null;
 		try {
-			fis = new FileOutputStream(new File(path + "\\" + name));
+			File f = new File(path + "\\" + name);
+			f.mkdirs();
+			if (f.exists()) {
+				f.delete();
+			}
+			f.createNewFile();
+			
+			fis = new FileOutputStream(f);
 			bais = new ByteArrayInputStream(data);
+			byte[] buffer = new byte[1024];
+			int length = 0;
+			while ((length = bais.read(buffer)) > 0) {
+				fis.write(buffer, 0, length);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new ReportError(e.getMessage());
+		} finally {
+			try {
+				fis.close();
+				bais.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Flush data to disk in path with filename according to field name
+	 * 
+	 * @param path
+	 * @throws ReportError
+	 */
+	public void saveSignedData(String path) throws ReportError {
+		FileOutputStream fis = null;
+		ByteArrayInputStream bais = null;
+		try {
+			File f = new File(path + "\\" + name);
+			f.mkdirs();
+			if (f.exists()) {
+				f.delete();
+			}
+			f.createNewFile();
+			
+			fis = new FileOutputStream(f);
+			if (signData!=null && signData.length>0)
+				bais = new ByteArrayInputStream(signData);
+			else
+				bais = new ByteArrayInputStream(data);
 			byte[] buffer = new byte[1024];
 			int length = 0;
 			while ((length = bais.read(buffer)) > 0) {

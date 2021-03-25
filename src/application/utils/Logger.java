@@ -11,7 +11,7 @@ public class Logger {
 	}
 	
 	public void log(TransportFile transportFile){
-			MainApp.getDb().saveTransportFile(transportFile);//TODO: test if it fills id
+			//MainApp.getDb().saveTransportFile(transportFile);//TODO: test if it fills id
 	}
 	
 	/**
