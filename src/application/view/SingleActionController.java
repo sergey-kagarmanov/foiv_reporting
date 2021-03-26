@@ -320,23 +320,31 @@ public class SingleActionController {
 		} else if (action.getKey().equals(Constants.COPY)) {
 			FileUtils.copyFiles(files.getItems(), outPath.getText());
 			AlertWindow.show(Constants.COPY_RUS, errorFiles);
-		} else if ("CHECK".equals(action.getKey())) {
+		} else if (Constants.CHECK.equals(action.getKey())) {
 			mainApp.showChooseSchemaDialog(files.getItems());
 			ObservableList<Pair<File, String>> schemaPairs = mainApp.getSchemaPairs();
 			//StringBuilder errors = new StringBuilder();
 			List<String> testList = new ArrayList<>();
+			errorFiles = FXCollections.observableArrayList();
 			for (Pair<File, String> f : schemaPairs) {
 				List<Exception> tmpList = XMLValidator.validate(f.getKey(), new File(f.getValue()));
 				if (tmpList.size() > 0) {
 						//errors.append("В файле " + f.getKey().getName());
 					for (Exception ex : tmpList) {
 						//errors .append(" " + ((SAXException) ex).getMessage() + System.lineSeparator());
+						if (ex instanceof SAXException) {
 						testList.add("Файл - "+ f.getKey().getName()+" " + ((SAXException) ex).getMessage());
+						errorFiles.add(new ErrorFile(f.getKey().getName(), 0, ((SAXException) ex).getMessage()));
+						}else {
+							testList.add("Файл - "+ f.getKey().getName()+" " + ex.getMessage());
+							errorFiles.add(new ErrorFile(f.getKey().getName(), 0, "Структура не соответствует XML-формату"));
+							
+						}
 					}
 					//exceptions.put(f.getKey(), errors.toString());
 				}
 			}
-			AlertWindow.show(Constants.COPY_RUS, errorFiles);
+			AlertWindow.show(Constants.CHECK_RUS, errorFiles);
 		}
 	}
 

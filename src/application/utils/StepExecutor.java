@@ -1,18 +1,27 @@
 package application.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.regex.Pattern;
+
+import org.apache.commons.compress.archivers.ArchiveException;
+import org.apache.commons.compress.archivers.arj.ArjArchiveEntry;
+import org.apache.commons.compress.archivers.arj.ArjArchiveInputStream;
 
 import application.MainApp;
 import application.errors.ReportError;
@@ -31,6 +40,8 @@ import javafx.collections.ObservableList;
 import net.sf.sevenzipjbinding.IInArchive;
 import net.sf.sevenzipjbinding.SevenZip;
 import net.sf.sevenzipjbinding.SevenZipException;
+import net.sf.sevenzipjbinding.impl.InArchiveImpl;
+import net.sf.sevenzipjbinding.impl.RandomAccessFileInStream;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchive;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
 import net.sf.sevenzipjbinding.util.ByteArrayStream;
@@ -147,14 +158,19 @@ public class StepExecutor {
 
 		boolean loop = true;
 		int countperDay = 0;
-		ObservableList<TransportFile> archiveTransportFiles = MainApp.getDb().getArchiveFiles(report, Constants.OUTPUT, LocalDate.now());
-		if (archiveTransportFiles != null)
-			for (TransportFile f : archiveTransportFiles) {
-				if (f.getDatetime().toLocalDate().isEqual(LocalDate.now())) {
-					countperDay++;
-				}
-			}
 
+		String lastName = MainApp.getDb().getLastArchiveToday(report);
+		String pattern = report.getTransportOutPattern().getMask();
+		pattern = pattern.replaceAll("%date", DateUtils.formatReport(LocalDate.now()));
+		pattern = pattern.replaceAll("%dd", LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
+		pattern = pattern.replaceAll("%MM", LocalDate.now().format(DateTimeFormatter.ofPattern("MM")));
+		pattern = pattern.replaceAll("%yy", LocalDate.now().format(DateTimeFormatter.ofPattern("yy")));
+
+		if (lastName!=null) {
+			lastName = lastName.replaceFirst(pattern.substring(0, pattern.indexOf("%")-1), "");
+			lastName = lastName.replace(lastName.substring(lastName.indexOf(".")), "");
+			countperDay = Integer.parseInt(lastName);
+		}
 		ObservableList<WorkingFile> doneList = FXCollections.observableArrayList();
 		Stack<WorkingFile> pool = new Stack<>();
 		for (WorkingFile f : files) {
@@ -171,11 +187,6 @@ public class StepExecutor {
 				String multiCommand = FileUtils.exeDir + "arj.exe A -V5000k -Y -E ";
 
 				// create new filename start
-				String pattern = report.getTransportOutPattern().getMask();
-				pattern = pattern.replaceAll("%date", DateUtils.formatReport(LocalDate.now()));
-				pattern = pattern.replaceAll("%dd", LocalDate.now().format(DateTimeFormatter.ofPattern("dd")));
-				pattern = pattern.replaceAll("%MM", LocalDate.now().format(DateTimeFormatter.ofPattern("MM")));
-				pattern = pattern.replaceAll("%yy", LocalDate.now().format(DateTimeFormatter.ofPattern("yy")));
 
 				if (countperDay < 10) {
 					pattern = pattern.replaceAll("%n", countperDay + "").replaceAll("%", "0");
@@ -237,14 +248,14 @@ public class StepExecutor {
 					for (int k = 1; k < numberPart; k++) {
 						String localPattern = pattern.replaceAll("\\.(arj|ARJ)", ".a0" + k);
 
-						WorkingFile tmpFile = new WorkingFile();
+						WorkingFile tmpFile = new WorkingFile(WorkingFile.NEW);
 						tmpFile.setOriginalName(localPattern);
 						tmpFile.setType(MainApp.getDb().getFileType(report.getId(), Constants.OUTPUT_INT, 1));
 						tmpFile.setChilds(doneList);
 						transportFiles.add(tmpFile);
 					}
 				}else {
-					WorkingFile tmpFile = new WorkingFile();
+					WorkingFile tmpFile = new WorkingFile(WorkingFile.NEW);
 					tmpFile.setOriginalName(pattern);
 					tmpFile.setType(MainApp.getDb().getFileType(report.getId(), Constants.OUTPUT_INT, 1));
 					tmpFile.setChilds(doneList);
@@ -267,7 +278,8 @@ public class StepExecutor {
 
 					transportFiles.forEach(file -> {
 						try {
-							file.readData(FileUtils.tmpDir + "arj\\");
+							file.readData(FileUtils.tmpDir + "arj");
+							new File(FileUtils.tmpDir + "arj//"+file.getOriginalName()).delete();
 						} catch (ReportError e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -275,6 +287,9 @@ public class StepExecutor {
 					});
 
 					resultList.addAll(transportFiles);
+					doneList.forEach(file->{
+						new File(FileUtils.tmpDir + "arj//"+file.getName()).delete();
+					});
 					doneList= FXCollections.observableArrayList();
 					transportFiles.clear();
 
@@ -301,15 +316,16 @@ public class StepExecutor {
 		files.forEach(file->{
 			IInArchive inArchive = null;
 			try {
+				file.saveData(FileUtils.tmpDir);
 				inArchive = SevenZip.openInArchive(null, // autodetect archive type
-						new ByteArrayStream(file.getData(), false));
+						new RandomAccessFileInStream(new RandomAccessFile(new File(FileUtils.tmpDir+"\\"+file.getName()), "r")));
 				ISimpleInArchive simpleInArchive = inArchive.getSimpleInterface();
 
 				ObservableList<WorkingFile> localFiles = FXCollections.observableArrayList();
 				
 				for (ISimpleInArchiveItem item : simpleInArchive.getArchiveItems()) {
 					if (!item.isFolder()) {
-						WorkingFile tmp = new WorkingFile();
+						WorkingFile tmp = new WorkingFile(WorkingFile.NEW);
 						tmp.setOriginalName(item.getPath());
 						tmp.setData(ArchieveInputStreamHandler.slurpByte(
 								new ArchieveInputStreamHandler(item).getInputStream()));
@@ -330,9 +346,45 @@ public class StepExecutor {
 						System.err.println("Error closing archive: " + e.getMessage());
 					}
 				}
+				new File(FileUtils.tmpDir+"\\"+file.getName()).delete();
 			}
 		});
 		
-		return resultList;
+		return files;
+	}
+	
+	private ObservableList<WorkingFile> unpackCommon(ObservableList<WorkingFile> files){
+		files.forEach(file->{
+			ObservableList<WorkingFile> children = FXCollections.observableArrayList();
+			try(ArjArchiveInputStream i = new ArjArchiveInputStream(new ByteArrayInputStream(file.getData()))){
+				ArjArchiveEntry entry = null;
+			    while ((entry = i.getNextEntry()) != null) {
+			        if (!i.canReadEntryData(entry)) {
+			            // log something?
+			           
+			        	continue;
+			        }
+			        WorkingFile wFile = new WorkingFile(WorkingFile.NEW);
+			        wFile.setOriginalName(entry.getName());
+			        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			        byte[] buffer = new byte[1024];
+			        long last = entry.getSize();
+			        int len = (int) ((last - 1024)>0 ? 1024 : (1024-last));
+			        int lenRead = 0;
+			        while(len>0) {
+			        	lenRead = i.read(buffer, 0, len);
+			        	if (len == lenRead)
+			        		baos.write(buffer, 0, len);
+			        }
+			        wFile.setData(baos.toByteArray());
+			        wFile.setDatetime(LocalDateTime.now());
+			        file.setChilds(children);
+		        }
+			} catch (IOException | ArchiveException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		return files;
 	}
 }

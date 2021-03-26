@@ -26,7 +26,7 @@ public class FileChecker {
 			List<SingleFileCheck> checks = new ArrayList<>();
 			List<FileType> types = MainApp.getDb().getFileTypes(report);
 			filenames.forEach(name -> {
-				checks.add(new SingleFileCheck(new File(name), types));
+				checks.add(new SingleFileCheck(new File(name), null, types));
 			});
 			List<Future<WorkingFile>> futures = service.invokeAll(checks);
 			futures.forEach(future -> {
@@ -45,4 +45,32 @@ public class FileChecker {
 		}
 		return null;
 	}
+	
+	public ObservableList<WorkingFile> execute(ObservableList<WorkingFile> files, Report report) {
+		try {
+			ExecutorService service = Executors.newWorkStealingPool();
+
+			List<SingleFileCheck> checks = new ArrayList<>();
+			List<FileType> types = MainApp.getDb().getFileTypes(report);
+			files.forEach(file -> {
+				checks.add(new SingleFileCheck(null, file, types));
+			});
+			List<Future<WorkingFile>> futures = service.invokeAll(checks);
+/*			futures.forEach(future -> {
+				try {
+					//if (future.get() != null)
+						//wFiles.add(future.get());
+				} catch (InterruptedException | ExecutionException e) {
+					new ReportError("Ошибка выполнения проверки входных файлов");
+				}
+
+			});*/
+			service.shutdown();
+			return files;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

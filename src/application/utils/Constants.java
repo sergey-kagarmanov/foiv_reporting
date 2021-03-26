@@ -23,6 +23,7 @@ public class Constants {
 	public static final String RENAME = "RENAME";
 	public static final String UNPACK = "UNPACK";
 	public static final String COPY = "COPY";
+	public static final String CHECK = "CHECK";
 
 	public static final String ENCRYPT_RUS = "Шифрование";
 	public static final String SIGN_RUS ="Подпись";
@@ -33,6 +34,7 @@ public class Constants {
 	public static final String RENAME_RUS = "Переименование";
 	public static final String UNPACK_RUS = "Разархивация";
 	public static final String COPY_RUS = "Копирование";
+	public static final String CHECK_RUS = "Проверка";
 
 
 	public static String OUT = "Отправлено";

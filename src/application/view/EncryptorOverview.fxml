@@ -23,7 +23,7 @@
             <ToolBar prefHeight="40.0" prefWidth="200.0">
                <items>
                   <Label text="Форма" />
-                  <ComboBox fx:id="reportChooser" prefHeight="25.0" prefWidth="309.0" />
+                  <ComboBox fx:id="reportChooser" onAction="#calculateData" prefHeight="25.0" prefWidth="309.0" />
                </items>
             </ToolBar>
             <Accordion prefHeight="361.0" prefWidth="600.0" VBox.vgrow="ALWAYS">

@@ -25,10 +25,13 @@ public class XMLValidator {
             validator.validate(new StreamSource(xmlDocument));
         } catch (SAXException e) {
         	exceptions.add(e);
+            System.out.println(xmlDocument);
             e.printStackTrace();
         } catch (IOException ioe) {
+        	exceptions.add(ioe);
+        	System.out.println(xmlDocument);
         	ioe.printStackTrace();
-        }
+       }
         return exceptions;
 	}
 	

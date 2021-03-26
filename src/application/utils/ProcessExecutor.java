@@ -153,12 +153,12 @@ public class ProcessExecutor {
 				if (flag)
 					try {
 						if (!direction) {
-							ReportFile fileEntity = new ReportFile(UUID.randomUUID(), currentFile.getCommonOriginal(), LocalDateTime.now(), report, direction, null,
-									parser.parse(currentFile.getCurrentFile()), fileType);
+							ReportFile fileEntity = new ReportFile(UUID.randomUUID(), currentFile.getCommonOriginal(), LocalDateTime.now(), report,
+									direction, null, parser.parse(currentFile.getCurrentFile()), fileType);
 							mapFiles.put(currentFile, fileEntity);
 						} else {
-							transportFiles.put(currentFile, new TransportFile(UUID.randomUUID(), currentFile.getOriginal(), LocalDateTime.now(), report, direction,
-									null, null, MainApp.getDb().getFileType(report.getId(), direction ? 1 : 0, 1)));
+							transportFiles.put(currentFile, new TransportFile(UUID.randomUUID(), currentFile.getOriginal(), LocalDateTime.now(),
+									report, direction, null, null, MainApp.getDb().getFileType(report.getId(), direction ? 1 : 0, 1)));
 
 						}
 					} catch (ReportError e) {
@@ -341,14 +341,33 @@ public class ProcessExecutor {
 		FileChecker checker = new FileChecker();
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 
-		ObservableList<WorkingFile> wFiles = checker.execute(filenames, report);
-		wFiles.forEach(wFile -> {
-			if (wFile.getExceptions() != null && wFile.getExceptions().size() > 0) {
-				wFile.getExceptions().forEach(e -> {
-					errorFiles.add(new ErrorFile(wFile.getOriginalName(), ErrorFile.VALIDATE_EXCEPTION, e.getMessage()));
-				});
+		ObservableList<WorkingFile> wFiles = null;
+		if (direction == Constants.OUTPUT) {
+			/**
+			 * Check files
+			 */
+			wFiles = checker.execute(filenames, report);
+			wFiles.forEach(wFile -> {
+				if (wFile.getExceptions() != null && wFile.getExceptions().size() > 0) {
+					wFile.getExceptions().forEach(e -> {
+						errorFiles.add(new ErrorFile(wFile.getOriginalName(), ErrorFile.VALIDATE_EXCEPTION, e.getMessage()));
+					});
+				}
+			});
+		} else {
+			wFiles = FXCollections.observableArrayList();
+			for (String file : filenames) {
+				WorkingFile wFile = new WorkingFile(WorkingFile.NEW);
+				wFile.setOriginalName(file.substring(file.lastIndexOf("\\") + 1, file.length()));
+				try {
+					wFile.readData(file.substring(0, file.lastIndexOf("\\")));
+					wFiles.add(wFile);
+				} catch (ReportError e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-		});
+		}
 
 		if (errorFiles.size() > 0) {
 			// Ask to proceed
@@ -370,12 +389,23 @@ public class ProcessExecutor {
 			return 0;
 		}
 
+		ObservableList<WorkingFile> parents = FXCollections.observableArrayList();
+
 		while (currentStep != null && !breakFlag) {
 
 			try {
 				StepExecutor stepExecutor = new StepExecutor(currentStep, report);
 
-				wFiles = stepExecutor.execute(wFiles);
+				if (currentStep.getAction().getName().equals(Constants.UNPACK)) {
+					parents = stepExecutor.execute(wFiles);
+					ObservableList<WorkingFile> tmp = FXCollections.observableArrayList();
+					for (WorkingFile parent : parents) {
+						tmp.addAll(parent.getChilds());
+					}
+					wFiles = tmp;
+				} else {
+					wFiles = stepExecutor.execute(wFiles);
+				}
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -397,6 +427,11 @@ public class ProcessExecutor {
 			}
 		}
 
+		if(direction == Constants.INPUT) {
+			wFiles = checker.execute(wFiles, report);
+			parents = checker.execute(parents, report);
+		}
+		
 		wFiles.forEach(file -> {
 			try {
 				file.saveData(outputPath);
@@ -405,16 +440,15 @@ public class ProcessExecutor {
 			}
 		});
 
-		saveArchive(wFiles, archivePath);
-
-		MainApp.getDb().save(report, direction ? 1 : 0, wFiles, null);
+		if (parents.size() > 0) {
+			saveArchive(parents, archivePath);
+			MainApp.getDb().save(report, direction ? 1 : 0, parents, null);
+		} else {
+			saveArchive(wFiles, archivePath);
+			MainApp.getDb().save(report, direction ? 1 : 0, wFiles, null);
+		}
+		
 		return 0;
-	}
-
-	public void saveToDb(ObservableList<WorkingFile> files) {
-		files.forEach(file -> {
-
-		});
 	}
 
 	public void saveArchive(ObservableList<WorkingFile> files, String path) {
@@ -500,6 +534,7 @@ public class ProcessExecutor {
 		col.forEach((file) -> new File(path + "/" + ((FileEntity) file).getName()).delete());
 	}
 
+	@Deprecated
 	public void putFilesIntoArch() throws ReportError {
 		String dateString = "\\" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
 		for (FileTransforming tf : transportFiles.keySet()) {
@@ -646,16 +681,28 @@ public class ProcessExecutor {
 							}
 						}
 						checkCount++;
-					/*	transportFiles.put(new FileTransforming(pattern, FileUtils.tmpDir), new TransportFile(0, pattern, LocalDateTime.now(), report,
-								direction, null, partialFileMap, MainApp.getDb().getFileType(report.getId(), direction ? 1 : 0, 1)));*/
+						/*
+						 * transportFiles.put(new FileTransforming(pattern,
+						 * FileUtils.tmpDir), new TransportFile(0, pattern,
+						 * LocalDateTime.now(), report, direction, null,
+						 * partialFileMap,
+						 * MainApp.getDb().getFileType(report.getId(), direction
+						 * ? 1 : 0, 1)));
+						 */
 						doneList.add(new FileTransforming(pattern, FileUtils.tmpDir));
 						if (multiVolumes) {
 							for (int k = 1; k < numberPart; k++) {
 								String localPattern = pattern.replaceAll("\\.(arj|ARJ)", ".a0" + k);
 								FileTransforming tmpFile = new FileTransforming(localPattern, FileUtils.tmpDir);
 								doneList.add(tmpFile);
-							/*	transportFiles.put(tmpFile, new TransportFile(0, localPattern, LocalDateTime.now(), report, direction, null,
-										partialFileMap, MainApp.getDb().getFileType(report.getId(), direction ? 1 : 0, 1)));*/
+								/*
+								 * transportFiles.put(tmpFile, new
+								 * TransportFile(0, localPattern,
+								 * LocalDateTime.now(), report, direction, null,
+								 * partialFileMap,
+								 * MainApp.getDb().getFileType(report.getId(),
+								 * direction ? 1 : 0, 1)));
+								 */
 							}
 						}
 					}
@@ -730,6 +777,7 @@ public class ProcessExecutor {
 
 	}
 
+	@Deprecated
 	private void unpack(String data) {
 		for (String filename : FileUtils.getDirContentByMask(FileUtils.tmpDir, data)) {
 
@@ -739,13 +787,12 @@ public class ProcessExecutor {
 				if (tmpTransportFile.getListFiles() == null) {
 					tmpTransportFile.setListFiles(new HashMap<String, ReportFile>());
 				}
-				/*tmpTransportFile.getListFiles().put(f.getName(),
-						new ReportFile(0, f.getName(), LocalDateTime.now(), report, direction, null, null, null)); // is
-																													// set
-																													// below
-																													// near
-																													// attribute
-																													// parse*/
+				/*
+				 * tmpTransportFile.getListFiles().put(f.getName(), new
+				 * ReportFile(0, f.getName(), LocalDateTime.now(), report,
+				 * direction, null, null, null)); // is // set // below // near
+				 * // attribute // parse
+				 */
 				executedFiles.add(new FileTransforming(f.getName(), f.getName(), FileUtils.tmpDir));
 			}
 		}

@@ -7,9 +7,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -18,26 +20,46 @@ import java.util.concurrent.Future;
 
 import application.MainApp;
 import application.errors.ReportError;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 public class WorkingFile {
-	private Integer id;
+	
+	public static boolean LOADED = true;
+	public static boolean NEW = false;
+	
+	private ObjectProperty<UUID> id;
 	private byte[] data;
 	private String name;
-	private String originalName;
+	private StringProperty originalName;
 	private FileType type;
 	private List<Exception> exceptions;
 	private Map<String, FileAttribute> attributes;
 	private byte[] signData;
 	private ObservableList<WorkingFile> childs;
 	private byte[] hashData;
+	private ObjectProperty<LocalDateTime> datetime;
 
-	public Integer getId() {
-		return id;
+	public WorkingFile() {
+		this(NEW);
+	}
+	
+	public WorkingFile(boolean loaded) {
+		if (!loaded) {
+			setUUID(UUID.randomUUID());
+			setDatetime(LocalDateTime.now());
+		}
+	}
+	
+	public UUID getUUID() {
+		return id.get();
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUUID(UUID id) {
+		this.id = new SimpleObjectProperty<>(id);
 	}
 
 	
@@ -72,7 +94,7 @@ public class WorkingFile {
 	}
 
 	public String getOriginalName() {
-		return originalName;
+		return originalName.get();
 	}
 
 	/**
@@ -81,7 +103,7 @@ public class WorkingFile {
 	 * @param originalName
 	 */
 	public void setOriginalName(String originalName) {
-		this.originalName = originalName;
+		this.originalName = new SimpleStringProperty(originalName);
 		this.name = originalName;
 	}
 
@@ -152,7 +174,7 @@ public class WorkingFile {
 					while ((len = fis.read(buffer)) != -1) {
 						baos.write(buffer, 0, len);
 					}
-					WorkingFile wFile = new WorkingFile();
+					WorkingFile wFile = new WorkingFile(NEW);
 					wFile.setData(baos.toByteArray());
 					wFile.setName(file.getName());
 					wFile.setOriginalName(file.getName());
@@ -193,10 +215,11 @@ public class WorkingFile {
 		FileOutputStream fis = null;
 		ByteArrayInputStream bais = null;
 		try {
-			File f = new File(path + "\\" + name);
-			f.mkdirs();
-			if (f.exists()) {
-				f.delete();
+			File f = new File(path + "\\" + getName());
+			int i = 1;
+			while (f.exists()) {
+				f = new File(path + "\\" + getName().substring(0, getName().indexOf("."))+"_"+i+getName().substring(getName().indexOf(".")));
+				i++;
 			}
 			f.createNewFile();
 			
@@ -230,10 +253,11 @@ public class WorkingFile {
 		FileOutputStream fis = null;
 		ByteArrayInputStream bais = null;
 		try {
-			File f = new File(path + "\\" + name);
-			f.mkdirs();
-			if (f.exists()) {
-				f.delete();
+			File f = new File(path + "\\" +  getOriginalName());
+			int i = 1;
+			while (f.exists()) {
+				f = new File(path + "\\" + getName().substring(0, getName().indexOf("."))+"_"+i+getName().substring(getName().indexOf(".")));
+				i++;
 			}
 			f.createNewFile();
 			
@@ -269,7 +293,7 @@ public class WorkingFile {
 		FileInputStream fis = null;
 		ByteArrayOutputStream baos = null;
 		try {
-			fis = new FileInputStream(new File(path + "\\" + originalName));
+			fis = new FileInputStream(new File(path + "\\" + getOriginalName()));
 			baos = new ByteArrayOutputStream();
 			byte[] buffer = new byte[1024];
 			int length = 0;
@@ -279,7 +303,7 @@ public class WorkingFile {
 			data = baos.toByteArray();
 		} catch (IOException e) {
 			MainApp.error(e.getMessage());
-			throw new ReportError("Ошибка чтения файла " + path + "\\" + originalName);
+			throw new ReportError("Ошибка чтения файла " + path + "\\" + getOriginalName());
 		} finally {
 			try {
 				fis.close();
@@ -298,4 +322,57 @@ public class WorkingFile {
 		
 	}
 
+	public LocalDateTime getDatetime() {
+		return datetime.get();
+	}
+
+	public void setDatetime(LocalDateTime datetime) {
+		this.datetime = new SimpleObjectProperty(datetime);
+	}
+
+	/**
+	 * @return the id
+	 */
+	public ObjectProperty<UUID> getIdProperty() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setIdProperty(ObjectProperty<UUID> id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param originalName the originalName to set
+	 */
+	public void setOriginalNameProperty(StringProperty originalName) {
+		this.originalName = originalName;
+	}
+
+	/**
+	 * @param datetime the datetime to set
+	 */
+	public void setDatetimeProperty(ObjectProperty<LocalDateTime> datetime) {
+		this.datetime = datetime;
+	}
+
+	public ObjectProperty<LocalDateTime> getDatetimeProperty() {
+		return datetime;
+	}
+	
+	public StringProperty getOriginalNameProprety() {
+		return originalName;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof WorkingFile) {
+			WorkingFile wo = (WorkingFile)obj;
+			return (id.get().equals(wo.getUUID()) && originalName.get().equals(wo.getOriginalName()) && datetime.get().equals(wo.getDatetime()));
+		}else {
+			return false;
+		}
+	}
 }

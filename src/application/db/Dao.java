@@ -2,8 +2,6 @@ package application.db;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -69,6 +67,7 @@ public class Dao {
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
 		PreparedStatement ps3 = null;
+		PreparedStatement ps4 = null;
 		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
@@ -77,7 +76,7 @@ public class Dao {
 			updateFlag = true;
 		} finally {
 			try {
-				if (ps!=null)
+				if (ps != null)
 					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -98,15 +97,16 @@ public class Dao {
 				ps = connection.prepareStatement("Select id FROM files");
 				rs = ps.executeQuery();
 				List<Integer> ids = new ArrayList<>();
-				while(rs.next()) {
+				while (rs.next()) {
 					ids.add(rs.getInt("id"));
 				}
 				ps.close();
 				ps = connection.prepareStatement("UPDATE files set uuid = ? WHERE id = ?");
 				ps2 = connection.prepareStatement("UPDATE transport_files set parent_uuid = ? WHERE parent_id =?");
 				ps3 = connection.prepareStatement("UPDATE transport_files set child_uuid = ? WHERE child_id =?");
+				ps4 = connection.prepareStatement("UPDATE files set linked_uuid = ? WHERE linked_id = ?");
 				UUID uuid = null;
-				for(Integer id : ids) {
+				for (Integer id : ids) {
 					uuid = UUID.randomUUID();
 					ps.setString(1, uuid.toString());
 					ps.setInt(2, id);
@@ -117,22 +117,32 @@ public class Dao {
 					ps3.setString(1, uuid.toString());
 					ps3.setInt(2, id);
 					ps3.addBatch();
+					ps4.setString(1, uuid.toString());
+					ps4.setInt(2, id);
+					ps4.addBatch();
 				}
 				ps.executeBatch();
 				ps2.executeBatch();
 				ps3.executeBatch();
+				ps4.executeBatch();
 			} catch (Exception e) {
 				e.printStackTrace();
-			}finally {
+			} finally {
 				try {
-					if (ps!=null)
-					ps.close();
+					if (ps != null)
+						ps.close();
+					if (ps2 != null)
+						ps2.close();
+					if (ps3 != null)
+						ps3.close();
+					if (ps4 != null)
+						ps4.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			
+
 			try {
 				updates = Files.readAllLines(new File("sql_update2.sql").toPath());
 			} catch (IOException e) {
@@ -145,7 +155,6 @@ public class Dao {
 					e.printStackTrace();
 				}
 			}
-
 
 		}
 	}
@@ -468,13 +477,14 @@ public class Dao {
 	 * @param direction
 	 * @return
 	 */
+	@Deprecated
 	public ObservableList<TransportFile> getArchiveFiles(Report report, Boolean direction) {
 		List<TransportFile> files = new ArrayList<TransportFile>();
 		TransportFile tfile = null;
 		UUID id = null;
 		Map<String, ReportFile> listFiles = null;
 		try {
-			String sql = "SELECT f.uuid, f.name, f.datetime, f2.uuid as cuuid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f.type_id as parent_type, f2.type_id as child_type FROM files f LEFT JOIN transport_files tf ON f.uuid = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.uuid WHERE f.report_id = ? AND f.direction = ? AND tf.uuid IS NOT NULL ORDER BY f.datetime DESC, f.uuid ASC";
+			String sql = "SELECT f.uuid, f.name, f.datetime, f2.uuid as cuuid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f.type_id as parent_type, f2.type_id as child_type FROM files f LEFT JOIN transport_files tf ON f.uuid = tf.parent_uuid LEFT JOIN files f2 ON tf.child_uuid = f2.uuid WHERE f.report_id = ? AND f.direction = ? ORDER BY f.datetime DESC, f.uuid ASC";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, report.getId());
 			ps.setInt(2, direction ? 1 : 0);
@@ -496,8 +506,47 @@ public class Dao {
 			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 		}
-
 		return FXCollections.observableArrayList(files);
+	}
+
+	public ObservableList<WorkingFile> getArchiveFilesLite(Report report, int direction) {
+		ObservableList<WorkingFile> files = FXCollections.observableArrayList();
+		String sql = "SELECT f.uuid, f.name, f.datetime from files f LEFT JOIN file_types ft ON f.type_id = ft.id WHERE f.report_id = ? AND f.direction = ? AND ft.transport = 1 ORDER BY f.datetime DESC";
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setInt(1, report.getId());
+			ps.setInt(2, direction);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				WorkingFile file = new WorkingFile(WorkingFile.LOADED);
+				file.setUUID(UUID.fromString(rs.getString("uuid")));
+				file.setOriginalName(rs.getString("name"));
+				file.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				files.add(file);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return files;
+	}
+
+	public ObservableList<WorkingFile> getArchiveFilesChildLite(WorkingFile parent) {
+		ObservableList<WorkingFile> files = FXCollections.observableArrayList();
+		String sql = "SELECT f.uuid, f.name, f.datetime from files f  WHERE f.linked_uuid = ?";
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setString(1, parent.getUUID().toString());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				WorkingFile file = new WorkingFile(WorkingFile.LOADED);
+				file.setUUID(UUID.fromString(rs.getString("uuid")));
+				file.setOriginalName(rs.getString("name"));
+				file.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				files.add(file);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return files;
+
 	}
 
 	/**
@@ -514,22 +563,26 @@ public class Dao {
 		UUID id = null;
 		Map<String, ReportFile> listFiles = null;
 		try {
-			String sql = "SELECT f.name, f.datetime, f2.id as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f.type_id as parent_type, f2.type_id as child_type FROM files f LEFT JOIN transport_files tf ON f.id = tf.parent_id LEFT JOIN files f2 ON tf.child_id = f2.id WHERE f.report_id = ? AND f.direction = ? AND tf.id IS NOT NULL AND f.datetime >= ?  ORDER BY f.id ASC , f.datetime ASC";
+			String sql = "SELECT f.name, f.datetime, f2.uuid as cuuid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f.type_id as parent_type, f2.type_id as child_type FROM files f LEFT JOIN transport_files tf ON f.uuid = tf.parent_uuid LEFT JOIN files f2 ON tf.child_uuid = f2.uuid WHERE f.report_id = ? AND f.direction = ? AND f.datetime >= ?  ORDER BY f.datetime ASC";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, report.getId());
 			ps.setInt(2, direction ? 1 : 0);
 			ps.setString(3, DateUtils.toSQLite(date.minusDays(1).atStartOfDay()));
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				/*if (id != rs.getInt("uuid")) {
-					id = rs.getInt("id");
-					listFiles = new HashMap<String, ReportFile>();
-					tfile = new TransportFile(id, rs.getString("name"), DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
-							listFiles, getFileType(rs.getInt("parent_type")));
-					files.add(tfile);
-				}
-				listFiles.put(rs.getString("cname"), new ReportFile(rs.getInt("cid"), rs.getString("cname"),
-						DateUtils.fromSQLite(rs.getString("cdatetime")), report, direction, null, null, getFileType(rs.getInt("child_type"))));*/
+				/*
+				 * if (id != rs.getInt("uuid")) { id = rs.getInt("id");
+				 * listFiles = new HashMap<String, ReportFile>(); tfile = new
+				 * TransportFile(id, rs.getString("name"),
+				 * DateUtils.fromSQLite(rs.getString("datetime")), report,
+				 * direction, null, listFiles,
+				 * getFileType(rs.getInt("parent_type"))); files.add(tfile); }
+				 * listFiles.put(rs.getString("cname"), new
+				 * ReportFile(rs.getInt("cid"), rs.getString("cname"),
+				 * DateUtils.fromSQLite(rs.getString("cdatetime")), report,
+				 * direction, null, null,
+				 * getFileType(rs.getInt("child_type"))));
+				 */
 			}
 			rs.close();
 			ps.close();
@@ -541,6 +594,45 @@ public class Dao {
 		return FXCollections.observableArrayList(files);
 	}
 
+	public ObservableList<WorkingFile> getArchivesPerDay(Report report, int direction, LocalDate date) {
+		String sql = "SELECT f.uuid, f.name, f.datetime FROM files f LEFT JOIN file_type ft ON f.type_id = ft.id WHERE f.report_id = ? AND f.direction = ? AND ft.id IS NOT NULL AND f.datetime > ? AND ft.transport=1 ORDER BY f.datetime ASC";
+		ObservableList<WorkingFile> result = FXCollections.observableArrayList();
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setInt(1, report.getId());
+			ps.setInt(2, direction);
+			ps.setString(3, DateUtils.toSQLite(date));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				WorkingFile file = new WorkingFile(WorkingFile.LOADED);
+				file.setUUID(UUID.fromString(rs.getString("uuid")));
+				file.setOriginalName(rs.getString("name"));
+				file.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				result.add(file);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+
+	public String getLastArchiveToday(Report report) {
+		String result = null;
+		String sql = "SELECT f.name FROM files f LEFT JOIN file_types ft ON f.type_id = ft.id WHERE f.report_id = ? AND f.direction = ? AND ft.id IS NOT NULL AND f.datetime > ? AND ft.transport=1 ORDER BY f.datetime DESC LIMIT 1";
+
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setInt(1, report.getId());
+			ps.setInt(2, Constants.OUTPUT_INT);
+			ps.setString(3, DateUtils.toSQLite(LocalDate.now()));
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				result = rs.getString("name");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+
 	/**
 	 * Return files without linked files and attributes, but transport files
 	 * with list it contains
@@ -549,6 +641,7 @@ public class Dao {
 	 * @param direction
 	 * @return
 	 */
+	@Deprecated
 	public ObservableList<TransportFile> getArchiveFiles(Report report, Boolean direction, LocalDate date) {
 		List<TransportFile> files = new ArrayList<TransportFile>();
 		TransportFile tfile = null;
@@ -562,15 +655,19 @@ public class Dao {
 			ps.setString(3, DateUtils.toSQLite(date));
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				/*if (id != rs.getInt("id")) {
-					id = rs.getInt("id");
-					listFiles = new HashMap<String, ReportFile>();
-					tfile = new TransportFile(id, rs.getString("name"), DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
-							listFiles, getFileType(rs.getInt("parent_type")));
-					files.add(tfile);
-				}
-				listFiles.put(rs.getString("cname"), new ReportFile(rs.getInt("cid"), rs.getString("cname"),
-						DateUtils.fromSQLite(rs.getString("cdatetime")), report, direction, null, null, getFileType(rs.getInt("child_type"))));*/
+				/*
+				 * if (id != rs.getInt("id")) { id = rs.getInt("id"); listFiles
+				 * = new HashMap<String, ReportFile>(); tfile = new
+				 * TransportFile(id, rs.getString("name"),
+				 * DateUtils.fromSQLite(rs.getString("datetime")), report,
+				 * direction, null, listFiles,
+				 * getFileType(rs.getInt("parent_type"))); files.add(tfile); }
+				 * listFiles.put(rs.getString("cname"), new
+				 * ReportFile(rs.getInt("cid"), rs.getString("cname"),
+				 * DateUtils.fromSQLite(rs.getString("cdatetime")), report,
+				 * direction, null, null,
+				 * getFileType(rs.getInt("child_type"))));
+				 */
 			}
 			rs.close();
 			ps.close();
@@ -597,10 +694,14 @@ public class Dao {
 				if (id != rs.getInt("id")) {
 					id = rs.getInt("id");
 					listFiles = new HashMap<String, ReportFile>();
-				/*	tfile = new TransportFile(id, rs.getString("name"), DateUtils.fromSQLite(rs.getString("datetime")),
-							getReportById(rs.getInt("rid")), rs.getInt("cdir") == 1,
-							rs.getObject("linked_id") != null ? getReportFileById(rs.getInt("linked_id")) : null, listFiles,
-							getFileType(rs.getInt("parent_type")));*/
+					/*
+					 * tfile = new TransportFile(id, rs.getString("name"),
+					 * DateUtils.fromSQLite(rs.getString("datetime")),
+					 * getReportById(rs.getInt("rid")), rs.getInt("cdir") == 1,
+					 * rs.getObject("linked_id") != null ?
+					 * getReportFileById(rs.getInt("linked_id")) : null,
+					 * listFiles, getFileType(rs.getInt("parent_type")));
+					 */
 					files.put(tfile.getName(), tfile);
 				}
 				listFiles.put(rs.getString("cname"), getReportFileById(rs.getInt("cid")));
@@ -659,10 +760,14 @@ public class Dao {
 				if (id != rs.getInt("id")) {
 					id = rs.getInt("id");
 					listFiles = new HashMap<String, ReportFile>();
-					/*tfile = new TransportFile(id, rs.getString("name"), DateUtils.fromSQLite(rs.getString("datetime")),
-							getReportById(rs.getInt("rid")), rs.getInt("cdir") == 1,
-							rs.getObject("linked_id") != null ? getReportFileById(rs.getInt("linked_id")) : null, listFiles,
-							getFileType(rs.getInt("parent_type")));*/
+					/*
+					 * tfile = new TransportFile(id, rs.getString("name"),
+					 * DateUtils.fromSQLite(rs.getString("datetime")),
+					 * getReportById(rs.getInt("rid")), rs.getInt("cdir") == 1,
+					 * rs.getObject("linked_id") != null ?
+					 * getReportFileById(rs.getInt("linked_id")) : null,
+					 * listFiles, getFileType(rs.getInt("parent_type")));
+					 */
 					files.put(tfile.getName(), tfile);
 				}
 				listFiles.put(rs.getString("cname"), getReportFileById(rs.getInt("cid")));
@@ -731,9 +836,13 @@ public class Dao {
 					if (rs.getObject("linked_id") != null) {
 						rftmp = getReportFileById(rs.getInt("linked_id"));
 					}
-					/*rf = new ReportFile(rs.getInt("id"), rs.getString("name"), DateUtils.fromSQLite(rs.getString("datetime")), rep,
-							rs.getInt("direction") == 1, rftmp, new HashMap<String, FileAttribute>(), getFileType(rs.getInt("file_type")));
-*/
+					/*
+					 * rf = new ReportFile(rs.getInt("id"),
+					 * rs.getString("name"),
+					 * DateUtils.fromSQLite(rs.getString("datetime")), rep,
+					 * rs.getInt("direction") == 1, rftmp, new HashMap<String,
+					 * FileAttribute>(), getFileType(rs.getInt("file_type")));
+					 */
 					newFile = false;
 				}
 				if (rs.getObject("aname") != null) {
@@ -768,9 +877,13 @@ public class Dao {
 					if (rs.getObject("linked_id") != null) {
 						rftmp = getReportFileById(rs.getInt("linked_id"));
 					}
-					/*rf = new ReportFile(rs.getInt("id"), rs.getString("name"), DateUtils.fromSQLite(rs.getString("datetime")), rep,
-							rs.getInt("direction") == 1, rftmp, new HashMap<String, FileAttribute>(), getFileType(rs.getInt("file_type")));
-*/
+					/*
+					 * rf = new ReportFile(rs.getInt("id"),
+					 * rs.getString("name"),
+					 * DateUtils.fromSQLite(rs.getString("datetime")), rep,
+					 * rs.getInt("direction") == 1, rftmp, new HashMap<String,
+					 * FileAttribute>(), getFileType(rs.getInt("file_type")));
+					 */
 					newFile = false;
 				}
 				if (rs.getObject("aname") != null) {
@@ -800,15 +913,20 @@ public class Dao {
 			ps.setInt(2, direction ? 1 : 0);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				/*if (id != rs.getInt("id")) {
-					id = rs.getInt("id");
-					listFiles = new HashMap<String, ReportFile>();
-					tfile = new TransportFile(id, rs.getString("name"), DateUtils.fromSQLite(rs.getString("datetime")), report, direction, null,
-							listFiles, getFileType(rs.getInt("parent_type")));
-
-				}
-				listFiles.put(rs.getString("cname"), new ReportFile(rs.getInt("cid"), rs.getString("cname"),
-						DateUtils.fromSQLite(rs.getString("cdatetime")), report, direction, null, null, getFileType(rs.getInt("child_type"))));*/
+				/*
+				 * if (id != rs.getInt("id")) { id = rs.getInt("id"); listFiles
+				 * = new HashMap<String, ReportFile>(); tfile = new
+				 * TransportFile(id, rs.getString("name"),
+				 * DateUtils.fromSQLite(rs.getString("datetime")), report,
+				 * direction, null, listFiles,
+				 * getFileType(rs.getInt("parent_type")));
+				 * 
+				 * } listFiles.put(rs.getString("cname"), new
+				 * ReportFile(rs.getInt("cid"), rs.getString("cname"),
+				 * DateUtils.fromSQLite(rs.getString("cdatetime")), report,
+				 * direction, null, null,
+				 * getFileType(rs.getInt("child_type"))));
+				 */
 			}
 			rs.close();
 			ps.close();
@@ -890,44 +1008,48 @@ public class Dao {
 		return map;
 	}
 
-	public void save(Report report, Integer direction, ObservableList<WorkingFile> files, Integer parent) {
+	public void save(Report report, Integer direction, ObservableList<WorkingFile> files, UUID parent) {
 		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
 		try {
-			String sql = "INSERT INTO files(report_id, name, datetime, direction, linked_id, type_id) VALUES (?,?,?,?,?,?)";
+			String sql = "INSERT INTO files(report_id, name, datetime, direction, linked_uuid, type_id, uuid) VALUES (?,?,?,?,?,?,?)";
+			String sql2 = "INSERT INTO transport_files(parent_uuid, child_uuid) VALUES (?,?)";
 			ps = connection.prepareStatement(sql);
+			ps2 = connection.prepareStatement(sql2);
 			for (WorkingFile file : files) {
 				ps.setInt(1, report.getId());
 				ps.setString(2, file.getOriginalName());
 				ps.setString(3, DateUtils.toSQLite(LocalDateTime.now()));
 				ps.setInt(4, direction);
 				if (parent != null) {
-					ps.setInt(5, parent);
+					ps.setString(5, parent.toString());
 				} else {
-					ps.setNull(5, Types.INTEGER);
+					ps.setNull(5, Types.VARCHAR);
 				}
 				if (file.getType() != null && file.getType().getId() != null)
 					ps.setInt(6, file.getType().getId());
 				else
 					ps.setNull(6, Types.INTEGER);
-
+				ps.setString(7, file.getUUID().toString());
 				ps.addBatch();
-			}
 
-			ps.executeBatch();
-			try (ResultSet rs = ps.getGeneratedKeys()) {
-				if (rs != null) {
-					int i = 0;
-					while (rs.next()) {
-						files.get(i).setId(rs.getInt(1));
-					}
+				if (parent != null) {
+					ps2.setString(1, parent.toString());
+					ps2.setString(2, file.getUUID().toString());
+					ps2.addBatch();
 				}
 			}
+			ps.executeBatch();
+			if (parent != null)
+				ps2.executeBatch();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				ps.close();
+				if (ps2 != null)
+					ps2.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -935,7 +1057,7 @@ public class Dao {
 
 		files.forEach(file -> {
 			if (file.getChilds() != null) {
-				save(report, direction, file.getChilds(), file.getId());
+				save(report, direction, file.getChilds(), file.getUUID());
 			}
 		});
 
@@ -950,7 +1072,7 @@ public class Dao {
 			ps.setString(3, DateUtils.toSQLite(file.getDatetime()));
 			ps.setInt(4, file.getDirection() ? 1 : 0);
 			if (file.getLinkedFile() != null) {
-				//ps.setInt(5, file.getLinkedFile().getId());
+				// ps.setInt(5, file.getLinkedFile().getId());
 			} else {
 				ps.setNull(5, Types.INTEGER);
 			}
@@ -963,7 +1085,7 @@ public class Dao {
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
-				//file.setId(rs.getInt(1));
+				// file.setId(rs.getInt(1));
 			}
 			rs.close();
 			ps.close();
@@ -987,7 +1109,7 @@ public class Dao {
 			ps.setString(3, DateUtils.toSQLite(file.getDatetime()));
 			ps.setInt(4, file.getDirection() ? 1 : 0);
 			if (file.getLinkedFile() != null && file.getLinkedFile().getId() != null) {
-			//	ps.setInt(5, file.getLinkedFile().getId());
+				// ps.setInt(5, file.getLinkedFile().getId());
 			} else {
 				ps.setNull(5, Types.INTEGER);
 			}
@@ -995,7 +1117,7 @@ public class Dao {
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
-		//		file.setId(rs.getInt(1));
+				// file.setId(rs.getInt(1));
 			}
 			rs.close();
 			ps.close();
@@ -1003,7 +1125,7 @@ public class Dao {
 			for (FileAttribute fattr : file.getAttributes().values()) {
 				sql = "INSERT INTO file_attributes(file_id, attribute_id, value)VALUES(?,?,?)";
 				ps = connection.prepareStatement(sql);
-			//	ps.setInt(1, file.getId());
+				// ps.setInt(1, file.getId());
 				ps.setInt(2, fattr.getId());
 				ps.setString(3, fattr.getValue());
 				ps.executeUpdate();
@@ -1035,12 +1157,12 @@ public class Dao {
 
 				if (parentId != null) {
 					ps2 = connection.prepareStatement("UPDATE files SET linked_id = ? WHERE id = ?");
-					//ps2.setInt(1, file.getId());
+					// ps2.setInt(1, file.getId());
 					ps2.setInt(2, parentId);
 					ps2.executeUpdate();
 				} else if (file.getAttributes() != null && file.getAttributes().get(AttributeDescr.PARENT) != null) {
 					ps2 = connection.prepareStatement("UPDATE files SET linked_id = ? WHERE name LIKE ?");
-				//	ps2.setInt(1, file.getId());
+					// ps2.setInt(1, file.getId());
 					ps2.setString(2, file.getAttributes().get(AttributeDescr.PARENT).getValue() + ".arj");
 					ps2.executeUpdate();
 				}
@@ -1059,48 +1181,29 @@ public class Dao {
 		}
 	}
 
-/*	@Deprecated
-	public void saveTransportFile(TransportFile tfile) {
-		String sql = "";
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			sql = "INSERT INTO files(report_id, name, datetime, direction, linked_id, type_id) VALUES (?,?,?,?,?,?)";
-			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, tfile.getReport().getId());
-			ps.setString(2, tfile.getName());
-			ps.setString(3, DateUtils.toSQLite(tfile.getDatetime()));
-			ps.setInt(4, tfile.getDirection() ? 1 : 0);
-			if (tfile.getLinkedFile() != null && tfile.getLinkedFile().getId() != 0) {
-				ps.setInt(5, tfile.getLinkedFile().getId());
-			} else {
-				ps.setNull(5, Types.INTEGER);
-			}
-			ps.setInt(6, tfile.getFileType().getId());
-			ps.executeUpdate();
-			rs = ps.getGeneratedKeys();
-			if (rs.next()) {
-				tfile.setId(rs.getInt(1));
-			}
-			rs.close();
-			ps.close();
-
-			for (ReportFile rf : tfile.getListFiles().values()) {
-				save(rf);
-				sql = "INSERT INTO transport_files(parent_id, child_id)VALUES(?,?)";
-				ps = connection.prepareStatement(sql);
-				ps.setInt(1, tfile.getId());
-				ps.setInt(2, rf.getId());
-				ps.executeUpdate();
-				ps.close();
-			}
-
-		} catch (SQLException e) {
-			MainApp.error(e.getLocalizedMessage());
-			e.printStackTrace();
-		}
-	}
-*/
+	/*
+	 * @Deprecated public void saveTransportFile(TransportFile tfile) { String
+	 * sql = ""; PreparedStatement ps = null; ResultSet rs = null; try { sql =
+	 * "INSERT INTO files(report_id, name, datetime, direction, linked_id, type_id) VALUES (?,?,?,?,?,?)"
+	 * ; ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+	 * ps.setInt(1, tfile.getReport().getId()); ps.setString(2,
+	 * tfile.getName()); ps.setString(3,
+	 * DateUtils.toSQLite(tfile.getDatetime())); ps.setInt(4,
+	 * tfile.getDirection() ? 1 : 0); if (tfile.getLinkedFile() != null &&
+	 * tfile.getLinkedFile().getId() != 0) { ps.setInt(5,
+	 * tfile.getLinkedFile().getId()); } else { ps.setNull(5, Types.INTEGER); }
+	 * ps.setInt(6, tfile.getFileType().getId()); ps.executeUpdate(); rs =
+	 * ps.getGeneratedKeys(); if (rs.next()) { tfile.setId(rs.getInt(1)); }
+	 * rs.close(); ps.close();
+	 * 
+	 * for (ReportFile rf : tfile.getListFiles().values()) { save(rf); sql =
+	 * "INSERT INTO transport_files(parent_id, child_id)VALUES(?,?)"; ps =
+	 * connection.prepareStatement(sql); ps.setInt(1, tfile.getId());
+	 * ps.setInt(2, rf.getId()); ps.executeUpdate(); ps.close(); }
+	 * 
+	 * } catch (SQLException e) { MainApp.error(e.getLocalizedMessage());
+	 * e.printStackTrace(); } }
+	 */
 	public void deleteReport(Report report) {
 
 		/**
@@ -2696,7 +2799,7 @@ public class Dao {
 		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
-			//ps.setInt(1, transportFile.getId());
+			// ps.setInt(1, transportFile.getId());
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(getReportFileById(rs.getInt("child_id")));

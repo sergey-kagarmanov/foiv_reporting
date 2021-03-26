@@ -30,11 +30,13 @@ import org.xml.sax.SAXException;
 
 import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
 
+import application.models.WorkingFile;
+
 
 public class Printing {
-	public static void printFormattedXML(String fileName,byte[] fileContent) throws UnsupportedEncodingException
+	public static void printFormattedXML(WorkingFile file) throws UnsupportedEncodingException
 	{	
-			
+			byte[] fileContent = file.getData();
 			String contentWOSign=new String(fileContent,("Windows-1251"));
 			
 			if(fileContent[0]==0x30 && fileContent[1]==(byte)0x82)
@@ -44,7 +46,7 @@ public class Printing {
 			
 			
 			String formattedXML=toPrettyXmlString(convertStringToDocument(contentWOSign));
-			formattedXML=fileName+"\n"+formattedXML;			
+			formattedXML=file.getOriginalName()+"\n"+formattedXML;			
 			try 
 	        {	           
 				PrintService service = PrintServiceLookup.lookupDefaultPrintService();

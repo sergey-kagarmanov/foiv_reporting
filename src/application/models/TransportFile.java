@@ -7,6 +7,7 @@ import java.util.UUID;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
+@Deprecated
 public class TransportFile extends FileEntity {
 
 	private ObjectProperty<Map<String, ReportFile>> listFiles;
@@ -17,6 +18,10 @@ public class TransportFile extends FileEntity {
 		this.listFiles = new SimpleObjectProperty<>(listFiles);
 	}
 
+	public TransportFile(UUID uuid, String name, LocalDateTime time) {
+		super(uuid, name, time, null, null, null, null);
+	}
+	
 	public TransportFile() {
 		super();
 		this.listFiles = null;

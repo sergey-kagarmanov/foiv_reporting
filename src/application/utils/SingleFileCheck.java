@@ -30,52 +30,67 @@ import application.models.FileType;
 import application.models.WorkingFile;
 import application.utils.xml.XMLValidator;
 
-public class SingleFileCheck implements Callable<WorkingFile>{
+public class SingleFileCheck implements Callable<WorkingFile> {
 
 	private File file;
 	private List<FileType> types;
-	
-	public SingleFileCheck(File file, List<FileType> types) {
+	private WorkingFile wFile;
+
+	public SingleFileCheck(File file, WorkingFile wFile, List<FileType> types) {
 		this.file = file;
 		this.types = types;
+		this.wFile = wFile;
 	}
-	
+
 	@Override
 	public WorkingFile call() throws Exception {
-		FileType cType = null;
-		for(FileType type: types) {
-			if (Pattern.matches(type.getMask(), file.getName())) {
-				cType = type;
-				break;
+		List<Exception> exception = null;
+		if (file != null) {
+			FileType cType = null;
+			for (FileType type : types) {
+				if (Pattern.matches(type.getMask(), file.getName())) {
+					cType = type;
+					break;
+				}
 			}
-		}
 		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		WorkingFile wFile = new WorkingFile();
-		wFile.setType(cType);
-		List<Exception> exception = XMLValidator.validate(FileUtils.splitToInputAndOutput(new FileInputStream(file), baos), new File(cType.getValidationSchema()));
-		wFile.setData(baos.toByteArray());
-		wFile.setOriginalName(file.getName());
-		if (exception == null || exception.size()==0) {
-			parseAttributes(wFile);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			wFile = new WorkingFile(WorkingFile.NEW);
+			wFile.setType(cType);
+			exception = XMLValidator.validate(FileUtils.splitToInputAndOutput(new FileInputStream(file), baos),
+					new File(cType.getValidationSchema()));
+			wFile.setData(baos.toByteArray());
+			wFile.setOriginalName(file.getName());
 		}else {
+			FileType cType = null;
+			for (FileType type : types) {
+				if (Pattern.matches(type.getMask(), wFile.getName())) {
+					cType = type;
+					break;
+				}
+			}
+			wFile.setType(cType);
+		}
+		if (exception == null || exception.size() == 0) {
+			parseAttributes(wFile);
+		} else {
 			wFile.setExceptions(exception);
 		}
-		
+
 		return wFile;
 	}
 
-	private Map<String, FileAttribute> parseAttributes(WorkingFile wFile) throws ReportError{
+	private Map<String, FileAttribute> parseAttributes(WorkingFile wFile) throws ReportError {
 		Map<String, FileAttribute> attr = new HashMap<>();
 		Map<String, AttributeDescr> map = MainApp.getDb().getAttributes(wFile.getType());
-			for (AttributeDescr ad : map.values()) {
-				attr.put(ad.getAttr().getName(), new FileAttribute(ad.getId(), ad.getAttr().getName(), getValue(wFile, ad)));
-			}
+		for (AttributeDescr ad : map.values()) {
+			attr.put(ad.getAttr().getName(), new FileAttribute(ad.getId(), ad.getAttr().getName(), getValue(wFile, ad)));
+		}
 
 		return attr;
 
 	}
-	
+
 	private String getValue(WorkingFile wFile, AttributeDescr attributeDescr) throws ReportError {
 		if (attributeDescr.getInName()) {
 			Pattern p = Pattern.compile(attributeDescr.getLocation());
@@ -142,30 +157,31 @@ public class SingleFileCheck implements Callable<WorkingFile>{
 			} else if (wFile.getType().getFileType() == 1) {
 				String[] tmp = attributeDescr.getLocation().split(":|,");
 
-					Object[] text = new String(wFile.getData(), Charset.forName("cp866")).split(System.lineSeparator());
-								//Files.lines(file.toPath(), Charset.forName("cp866")).toArray();
-					String value = "";
-					if (tmp[0].equals(tmp[2])) {
-						value = (String) text[Integer.parseInt(tmp[0]) >= 0 ? Integer.parseInt(tmp[0]) : (text.length + Integer.parseInt(tmp[0]))];
-						value = (value).substring(
-								(Integer.parseInt(tmp[1]) >= 0 ? Integer.parseInt(tmp[1]) : (value.length() + Integer.parseInt(tmp[1]))),
-								(Integer.parseInt(tmp[3]) >= 0 ? Integer.parseInt(tmp[3]) : (value.length() + Integer.parseInt(tmp[3]))));
-					} else {
-						for (int i = (Integer.parseInt(tmp[0]) >= 0 ? Integer.parseInt(tmp[0])
-								: (text.length + Integer.parseInt(tmp[0]))); i < (Integer.parseInt(tmp[2]) >= 0 ? Integer.parseInt(tmp[2])
-										: (text.length + Integer.parseInt(tmp[2]))); i++) {
-							if (i == (Integer.parseInt(tmp[0]) >= 0 ? Integer.parseInt(tmp[0]) : (text.length + Integer.parseInt(tmp[0])))) {
-								value += ((String) text[i]).substring((Integer.parseInt(tmp[1]) >= 0 ? Integer.parseInt(tmp[1])
-										: (((String) text[i]).length() + Integer.parseInt(tmp[1]))));
-							} else if (i == (Integer.parseInt(tmp[2]) >= 0 ? Integer.parseInt(tmp[2]) : (text.length + Integer.parseInt(tmp[2])))) {
-								value += ((String) text[i]).substring(0, (Integer.parseInt(tmp[3]) >= 0 ? Integer.parseInt(tmp[3])
-										: (((String) text[i]).length() + Integer.parseInt(tmp[3]))));
-							} else {
-								value += text[i];
-							}
+				Object[] text = new String(wFile.getData(), Charset.forName("cp866")).split(System.lineSeparator());
+				// Files.lines(file.toPath(),
+				// Charset.forName("cp866")).toArray();
+				String value = "";
+				if (tmp[0].equals(tmp[2])) {
+					value = (String) text[Integer.parseInt(tmp[0]) >= 0 ? Integer.parseInt(tmp[0]) : (text.length + Integer.parseInt(tmp[0]))];
+					value = (value).substring(
+							(Integer.parseInt(tmp[1]) >= 0 ? Integer.parseInt(tmp[1]) : (value.length() + Integer.parseInt(tmp[1]))),
+							(Integer.parseInt(tmp[3]) >= 0 ? Integer.parseInt(tmp[3]) : (value.length() + Integer.parseInt(tmp[3]))));
+				} else {
+					for (int i = (Integer.parseInt(tmp[0]) >= 0 ? Integer.parseInt(tmp[0])
+							: (text.length + Integer.parseInt(tmp[0]))); i < (Integer.parseInt(tmp[2]) >= 0 ? Integer.parseInt(tmp[2])
+									: (text.length + Integer.parseInt(tmp[2]))); i++) {
+						if (i == (Integer.parseInt(tmp[0]) >= 0 ? Integer.parseInt(tmp[0]) : (text.length + Integer.parseInt(tmp[0])))) {
+							value += ((String) text[i]).substring((Integer.parseInt(tmp[1]) >= 0 ? Integer.parseInt(tmp[1])
+									: (((String) text[i]).length() + Integer.parseInt(tmp[1]))));
+						} else if (i == (Integer.parseInt(tmp[2]) >= 0 ? Integer.parseInt(tmp[2]) : (text.length + Integer.parseInt(tmp[2])))) {
+							value += ((String) text[i]).substring(0, (Integer.parseInt(tmp[3]) >= 0 ? Integer.parseInt(tmp[3])
+									: (((String) text[i]).length() + Integer.parseInt(tmp[3]))));
+						} else {
+							value += text[i];
 						}
 					}
-					return value;
+				}
+				return value;
 
 			}
 		}

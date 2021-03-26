@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -58,7 +61,7 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private static Dao dao;
-
+	private ScheduledExecutorService service;
 	/**
 	 * Temp data
 	 */
@@ -85,6 +88,12 @@ public class MainApp extends Application {
 		showEncryptOverview();
 	}
 
+	@Override
+	public void stop() throws Exception {
+		super.stop();
+		service.shutdownNow();
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -180,16 +189,20 @@ public class MainApp extends Application {
 
 	public void showEncryptOverview() {
 		try {
-			// Загружаем сведения об адресатах.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ReportDetails.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/EncryptorOverview.fxml"));
 			AnchorPane mainOverview = (AnchorPane) loader.load();
 
-			// Помещаем сведения об адресатах в центр корневого макета.
 			rootLayout.setCenter(mainOverview);
 
 			EncryptOverviewController controller = loader.getController();
 			controller.setMainApp(this);
+			controller.fillData();
+
+			service = Executors.newScheduledThreadPool(1);
+			service.scheduleWithFixedDelay(() -> {
+				controller.checkAndUpdateData();
+			}, 0, 10, TimeUnit.SECONDS);
 
 		} catch (IOException e) {
 			e.printStackTrace();
