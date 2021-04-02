@@ -354,7 +354,7 @@ public class MainApp extends Application {
 			LocalDate today = LocalDate.now();
 			controller.setStartDate(today);
 			controller.setEndTime(today);
-			controller.setData(dao.getArchiveFiles(today, today, null));
+			//controller.setData(dao.getArchiveFiles(today, today, null));
 			controller.setDialogStage(dialogStage);
 
 			// Show the dialog and wait until the user closes it

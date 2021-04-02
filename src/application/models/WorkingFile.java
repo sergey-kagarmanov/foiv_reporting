@@ -42,6 +42,9 @@ public class WorkingFile {
 	private ObservableList<WorkingFile> childs;
 	private byte[] hashData;
 	private ObjectProperty<LocalDateTime> datetime;
+	private Boolean direction;
+	private WorkingFile linked;
+	private WorkingFile answer;
 
 	public WorkingFile() {
 		this(NEW);
@@ -216,6 +219,8 @@ public class WorkingFile {
 		ByteArrayInputStream bais = null;
 		try {
 			File f = new File(path + "\\" + getName());
+			File dir = new File(path);
+			dir.mkdirs();
 			int i = 1;
 			while (f.exists()) {
 				f = new File(path + "\\" + getName().substring(0, getName().indexOf("."))+"_"+i+getName().substring(getName().indexOf(".")));
@@ -253,6 +258,8 @@ public class WorkingFile {
 		FileOutputStream fis = null;
 		ByteArrayInputStream bais = null;
 		try {
+			File dir = new File(path);
+			dir.mkdirs();
 			File f = new File(path + "\\" +  getOriginalName());
 			int i = 1;
 			while (f.exists()) {
@@ -370,9 +377,36 @@ public class WorkingFile {
 	public boolean equals(Object obj) {
 		if (obj instanceof WorkingFile) {
 			WorkingFile wo = (WorkingFile)obj;
-			return (id.get().equals(wo.getUUID()) && originalName.get().equals(wo.getOriginalName()) && datetime.get().equals(wo.getDatetime()));
+			if(id!=null && wo.getUUID()!=null && originalName!=null && wo.getOriginalName()!=null && datetime!=null && wo.getDatetime()!=null)
+				return (id.get().equals(wo.getUUID()) && originalName.get().equals(wo.getOriginalName()) && datetime.get().equals(wo.getDatetime()));
+			else
+				return false;
 		}else {
 			return false;
 		}
+	}
+
+	public Boolean getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Boolean direction) {
+		this.direction = direction;
+	}
+
+	public WorkingFile getLinked() {
+		return linked;
+	}
+
+	public void setLinked(WorkingFile linked) {
+		this.linked = linked;
+	}
+
+	public WorkingFile getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(WorkingFile answer) {
+		this.answer = answer;
 	}
 }

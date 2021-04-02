@@ -68,6 +68,7 @@ public class Dao {
 		PreparedStatement ps2 = null;
 		PreparedStatement ps3 = null;
 		PreparedStatement ps4 = null;
+		PreparedStatement ps5 = null;
 		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
@@ -105,6 +106,7 @@ public class Dao {
 				ps2 = connection.prepareStatement("UPDATE transport_files set parent_uuid = ? WHERE parent_id =?");
 				ps3 = connection.prepareStatement("UPDATE transport_files set child_uuid = ? WHERE child_id =?");
 				ps4 = connection.prepareStatement("UPDATE files set linked_uuid = ? WHERE linked_id = ?");
+				ps5 = connection.prepareStatement("UPDATE file_attributes set file_uuid = ? WHERE file_id = ?");
 				UUID uuid = null;
 				for (Integer id : ids) {
 					uuid = UUID.randomUUID();
@@ -120,11 +122,15 @@ public class Dao {
 					ps4.setString(1, uuid.toString());
 					ps4.setInt(2, id);
 					ps4.addBatch();
+					ps5.setString(1, uuid.toString());
+					ps5.setInt(2, id);
+					ps5.addBatch();
 				}
 				ps.executeBatch();
 				ps2.executeBatch();
 				ps3.executeBatch();
 				ps4.executeBatch();
+				ps5.executeBatch();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -137,6 +143,8 @@ public class Dao {
 						ps3.close();
 					if (ps4 != null)
 						ps4.close();
+					if (ps5 != null)
+						ps5.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -715,6 +723,267 @@ public class Dao {
 
 		return files;
 	}
+	
+	public List<WorkingFile> getTicketFilesPerPeriod(LocalDate start, LocalDate end, Report report, Boolean direction){
+		List<WorkingFile> result = new ArrayList<>();
+		String sql = "select f.name, f.datetime, f.direction, f.uuid, f.type_id from files f left join file_types ft ON f.type_id = ft.id WHERE ticket = 1";
+		String sqlEnd = " ORDER BY f.datetime ASC";
+		if (start != null) {
+			sql += " AND f.datetime > ?";
+		}
+		if (end != null) {
+			sql += " AND f.datetime < ?";
+		}
+		if (report != null)
+			sql += " AND f.report_id = ? ";
+		if (direction!=null)
+			sql += " AND f.direction = ? ";
+		try(PreparedStatement ps = connection.prepareStatement(sql+sqlEnd)){
+			int i = 1;
+			if (start != null) {
+				ps.setString(i, DateUtils.toSQLite(start.atStartOfDay()));
+				i++;
+			}
+			if (end != null) {
+				ps.setString(i, DateUtils.toSQLite(end.atTime(23, 59, 59)));
+				i++;
+			}
+			if (report != null) {
+				ps.setInt(i, report.getId());
+				i++;
+			}
+			if (direction !=null) {
+				ps.setInt(i, direction ? 1:0);
+			}
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				WorkingFile wFile = new WorkingFile(WorkingFile.LOADED);
+				wFile.setUUID(UUID.fromString(rs.getString("uuid")));
+				wFile.setOriginalName(rs.getString("name"));
+				wFile.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				wFile.setDirection(rs.getInt("direction")==1);
+				wFile.setType(getFileType(rs.getInt("type_id")));
+				loadAttributesByFile(wFile);
+				result.add(wFile);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public List<WorkingFile> getTransportFilesPerPeriod(LocalDate start, LocalDate end, Report report, Boolean direction){
+		List<WorkingFile> result = new ArrayList<>();
+		String sql = "select f.name, f.datetime, f.direction, f.uuid, f.type_id from files f left join file_types ft ON f.type_id = ft.id WHERE transport = 1";
+		String sqlEnd = " ORDER BY f.datetime ASC";
+		if (start != null) {
+			sql += " AND f.datetime > ?";
+		}
+		if (end != null) {
+			sql += " AND f.datetime < ?";
+		}
+		if (report != null)
+			sql += " AND f.report_id = ? ";
+		if (direction!=null)
+			sql += " AND f.direction = ? ";
+		try(PreparedStatement ps = connection.prepareStatement(sql+sqlEnd)){
+			int i = 1;
+			if (start != null) {
+				ps.setString(i, DateUtils.toSQLite(start.atStartOfDay()));
+				i++;
+			}
+			if (end != null) {
+				ps.setString(i, DateUtils.toSQLite(end.atTime(23, 59, 59)));
+				i++;
+			}
+			if (report != null) {
+				ps.setInt(i, report.getId());
+				i++;
+			}
+			if (direction !=null) {
+				ps.setInt(i, direction ? 1:0);
+			}
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				WorkingFile wFile = new WorkingFile(WorkingFile.LOADED);
+				wFile.setUUID(UUID.fromString(rs.getString("uuid")));
+				wFile.setOriginalName(rs.getString("name"));
+				wFile.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				wFile.setDirection(rs.getInt("direction")==1);
+				wFile.setType(getFileType(rs.getInt("type_id")));
+				loadAttributesByFile(wFile);
+				loadChilds(wFile);
+				loadLinkedFile(wFile);
+				result.add(wFile);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public List<WorkingFile> getNonTransportFilesPerPeriod(LocalDate start, LocalDate end, Report report, Boolean direction){
+		List<WorkingFile> result = new ArrayList<>();
+		String sql = "select f.name, f.datetime, f.direction, f.uuid, f.type_id from files f left join file_types ft ON f.type_id = ft.id WHERE transport = 0";
+		String sqlEnd = " ORDER BY f.datetime ASC";
+		if (start != null) {
+			sql += " AND f.datetime > ?";
+		}
+		if (end != null) {
+			sql += " AND f.datetime < ?";
+		}
+		if (report != null)
+			sql += " AND f.report_id = ? ";
+		if (direction!=null)
+			sql += " AND f.direction = ? ";
+		try(PreparedStatement ps = connection.prepareStatement(sql+sqlEnd)){
+			int i = 1;
+			if (start != null) {
+				ps.setString(i, DateUtils.toSQLite(start.atStartOfDay()));
+				i++;
+			}
+			if (end != null) {
+				ps.setString(i, DateUtils.toSQLite(end.atTime(23, 59, 59)));
+				i++;
+			}
+			if (report != null) {
+				ps.setInt(i, report.getId());
+				i++;
+			}
+			if (direction !=null) {
+				ps.setInt(i, direction ? 1:0);
+			}
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				WorkingFile wFile = new WorkingFile(WorkingFile.LOADED);
+				wFile.setUUID(UUID.fromString(rs.getString("uuid")));
+				wFile.setOriginalName(rs.getString("name"));
+				wFile.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				wFile.setDirection(rs.getInt("direction")==1);
+				wFile.setType(getFileType(rs.getInt("type_id")));
+				loadAttributesByFile(wFile);
+				loadLinkedFile(wFile);
+				result.add(wFile);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public void loadChilds(WorkingFile file) {
+		ObservableList<WorkingFile> childs = null;
+		if(file.getChilds()!=null) {
+			childs = file.getChilds();
+		}else {
+			childs = FXCollections.observableArrayList();
+			file.setChilds(childs);
+		}
+		
+		String sql = "select f.* from transport_files tf LEFT JOIN files f ON f.uuid = tf.child_uuid WHERE tf.parent_uuid = ?";
+		try(PreparedStatement ps = connection.prepareStatement(sql)){
+			ps.setString(1, file.getUUID().toString());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				WorkingFile wFile = new WorkingFile(WorkingFile.LOADED);
+				wFile.setUUID(UUID.fromString(rs.getString("uuid")));
+				wFile.setOriginalName(rs.getString("name"));
+				wFile.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				wFile.setDirection(rs.getInt("direction")==1);
+				wFile.setType(getFileType(rs.getInt("type_id")));
+				loadAttributesByFile(wFile);
+				loadLinkedFile(wFile);
+				childs.add(wFile);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadLinkedFile(WorkingFile file) {
+		String sql = "SELECT * FROM files WHERE linked_uuid = ?";
+		try(PreparedStatement ps = connection.prepareStatement(sql)){
+			ps.setString(1, file.getUUID().toString());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				WorkingFile linked = new WorkingFile(WorkingFile.LOADED);
+				linked.setUUID(UUID.fromString(rs.getString("uuid")));
+				linked.setOriginalName(rs.getString("name"));
+				linked.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				linked.setDirection(rs.getInt("direction")==1);
+				linked.setType(getFileType(rs.getInt("type_id")));
+				loadAttributesByFile(linked);
+				file.setLinked(linked);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadAttributesByFile(WorkingFile file){
+		Map<String, FileAttribute> attributes = null;
+		if (file.getAttributes() == null) {
+			attributes = new HashMap<>();
+			file.setAttributes(attributes);
+		}else {
+			attributes = file.getAttributes();
+		}
+		
+		String sql = "select fa.value, a.name, a.id from file_attributes fa left join attributes a ON fa.attribute_id = a.id WHERE fa.file_uuid = ?";
+		try(PreparedStatement ps = connection.prepareStatement(sql)){
+			ps.setString(1, file.getUUID().toString());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				attributes.put(rs.getString("name"), new FileAttribute(rs.getInt("id"), rs.getString("name"), rs.getString("value")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public List<WorkingFile> getArchiveByRange(LocalDate start, LocalDate end, Report report){
+		List<WorkingFile> files = new ArrayList<>();
+		String sql = "SELECT f.uuid, f.name, f.datetime, f.linked_uuid, f2.uuid as cid, f2.name as cname, f2.datetime as cdatetime, f.direction, f.report_id, f2.direction as cdir, r.id as rid, f.type_id as parent_type FROM files f LEFT JOIN transport_files tf ON f.uuid = tf.parent_uuid LEFT JOIN files f2 ON tf.child_uuid = f2.uuid LEFT JOIN reports r ON f.report_id = r.id WHERE f.uuid IS NOT NULL ";
+		String sqlEnd = " ORDER BY f.datetime ASC, f.id ASC";
+		
+			if (start != null) {
+				sql += " AND f.datetime > ?";
+			}
+			if (end != null) {
+				sql += " AND f.datetime < ?";
+			}
+			if (report != null)
+				sql += " AND f.report_id = ? ";
+			
+			try(PreparedStatement ps = connection.prepareStatement(sql+sqlEnd)){
+				int i = 1;
+				if (start != null) {
+					ps.setString(i, DateUtils.toSQLite(start.atStartOfDay()));
+					i++;
+				}
+				if (end != null) {
+					ps.setString(i, DateUtils.toSQLite(end.atTime(23, 59, 59)));
+					i++;
+				}
+				if (report != null)
+					ps.setInt(i, report.getId());
+
+				ResultSet rs = ps.executeQuery();
+
+				while(rs.next()) {
+					WorkingFile wFile = new WorkingFile(WorkingFile.LOADED);
+					wFile.setUUID(UUID.fromString(rs.getString("uuid")));
+					wFile.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return files;
+	}
 
 	/**
 	 * Return file with filter, if it is null, this parameter will not be used
@@ -782,6 +1051,8 @@ public class Dao {
 		return files;
 	}
 
+	
+	
 	public Report getReportById(Integer id) {
 		Report tmpReport = null;
 		try {
@@ -1021,9 +1292,25 @@ public class Dao {
 				ps.setString(2, file.getOriginalName());
 				ps.setString(3, DateUtils.toSQLite(LocalDateTime.now()));
 				ps.setInt(4, direction);
-				if (parent != null) {
+				/*if (parent != null) {
 					ps.setString(5, parent.toString());
 				} else {
+					ps.setNull(5, Types.VARCHAR);
+				}*/
+				if (file.getAttributes()!=null) {
+					if (file.getAttributes().get(AttributeDescr.PARENT_ID)!=null) {
+						ps.setString(5, file.getAttributes().get(AttributeDescr.PARENT_ID).getValue());
+					}else if (file.getAttributes().get(AttributeDescr.PARENT)!=null) {
+						WorkingFile parentFile = getFileByName(file.getAttributes().get(AttributeDescr.PARENT).getValue());
+						if(parentFile!=null) {
+							ps.setString(5, parentFile.getUUID().toString());
+						}else {
+							ps.setNull(5, Types.VARCHAR);
+						}
+					}else {
+						ps.setNull(5, Types.VARCHAR);
+					}
+				}else {
 					ps.setNull(5, Types.VARCHAR);
 				}
 				if (file.getType() != null && file.getType().getId() != null)
@@ -1037,6 +1324,10 @@ public class Dao {
 					ps2.setString(1, parent.toString());
 					ps2.setString(2, file.getUUID().toString());
 					ps2.addBatch();
+				}
+				
+				if (file.getAttributes()!=null) {
+					saveAttributes(file);
 				}
 			}
 			ps.executeBatch();
@@ -1063,6 +1354,41 @@ public class Dao {
 
 	}
 
+	public WorkingFile getFileByName(String name) {
+		WorkingFile result = null;
+		String sql = "Select * from files WHERE name like ?";
+		try(PreparedStatement ps = connection.prepareStatement(sql)){
+			ps.setString(1, "%"+name+"%");
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				result = new WorkingFile(WorkingFile.LOADED);
+				result.setUUID(UUID.fromString(rs.getString("uuid")));
+				result.setOriginalName(rs.getString("name"));
+				result.setDatetime(DateUtils.fromSQLite(rs.getString("datetime")));
+				result.setDirection(rs.getInt("direction")==1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public void saveAttributes(WorkingFile wFile) {
+		String sql = "INSERT INTO file_attributes(file_uuid, attribute_id, value) VALUES (?,?,?)";
+		try(PreparedStatement ps = connection.prepareStatement(sql)){
+			for(FileAttribute attr : wFile.getAttributes().values()) {
+				ps.setString(1, wFile.getUUID().toString());
+				ps.setInt(2, attr.getId());
+				ps.setString(3, attr.getValue());
+				ps.addBatch();
+			}
+			ps.executeBatch();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void saveReportFile(ReportFile file) {
 		try {
 			String sql = "INSERT INTO files(report_id, name, datetime, direction, linked_in, type_id) VALUES (?,?,?,?,?,?)";

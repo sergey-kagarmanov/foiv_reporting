@@ -6,3 +6,7 @@ ALTER TABLE transport_files RENAME TO sqlitestudio_temp_table;
 CREATE TABLE transport_files (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, child_id INTEGER, parent_uuid VARCHAR (36), child_uuid VARCHAR (36));
 INSERT INTO transport_files (id, parent_id, child_id) SELECT id, parent_id, child_id FROM sqlitestudio_temp_table;
 DROP TABLE sqlitestudio_temp_table;
+ALTER TABLE file_attributes RENAME TO sqlitestudio_temp_table;
+CREATE TABLE file_attributes (id INTEGER PRIMARY KEY AUTOINCREMENT, file_id INTEGER, attribute_id INTEGER, value VARCHAR, file_uuid VARCHAR (36));
+INSERT INTO file_attributes (id, file_id, attribute_id, value) SELECT id, file_id, attribute_id, value FROM sqlitestudio_temp_table;
+DROP TABLE sqlitestudio_temp_table;

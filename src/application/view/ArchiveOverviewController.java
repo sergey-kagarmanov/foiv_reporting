@@ -3,29 +3,23 @@ package application.view;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 import application.MainApp;
-import application.errors.ReportError;
 import application.models.AttributeDescr;
-import application.models.FileAttribute;
-import application.models.FileEntity;
 import application.models.Report;
-import application.models.ReportFile;
-import application.models.TransportFile;
+import application.models.WorkingFile;
 import application.utils.Constants;
 import application.utils.DateUtils;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
@@ -37,9 +31,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class ArchiveOverviewController {
 
@@ -66,20 +60,19 @@ public class ArchiveOverviewController {
 	private LocalDate endTime;
 
 	@FXML
-	TreeTableView<FileEntity> fileView;
+	TreeTableView<WorkingFile> fileView;
 	@FXML
-	TreeTableColumn<FileEntity, String> fileNameColumn;
+	TreeTableColumn<WorkingFile, String> fileNameColumn;
 	@FXML
-	TreeTableColumn<FileEntity, LocalDateTime> fileDateColumn;
+	TreeTableColumn<WorkingFile, LocalDateTime> fileDateColumn;
 	@FXML
-	TreeTableColumn<FileEntity, String> fileDirectionColumn;
+	TreeTableColumn<WorkingFile, String> fileDirectionColumn;
 	@FXML
-	TreeTableColumn<FileEntity, String> fileStatusColumn;
+	TreeTableColumn<WorkingFile, String> fileStatusColumn;
 	@FXML
-	TreeTableColumn<FileEntity, String> fileReportColumn;
+	TreeTableColumn<WorkingFile, String> fileReportColumn;
 
-
-	private Map<String, FileEntity> fileFiles;
+	private List<WorkingFile> fileFiles;
 
 	public ArchiveOverviewController() {
 	}
@@ -87,47 +80,31 @@ public class ArchiveOverviewController {
 	@FXML
 	private void initialize() {
 
-		reportChooser.setCellFactory(new Callback<ListView<Report>, ListCell<Report>>() {
-			@Override
-			public ListCell<Report> call(ListView<Report> param) {
-				final ListCell<Report> cell = new ListCell<Report>() {
-					{
-						super.setPrefWidth(100);
-					}
+		reportChooser.setCellFactory(param -> {
+			final ListCell<Report> cell = new ListCell<Report>() {
+				{
+					super.setPrefWidth(100);
+				}
 
-					@Override
-					public void updateItem(Report item, boolean empty) {
-						super.updateItem(item, empty);
-						if (item != null) {
-							setText(item.getName());
-						} else {
-							setText(null);
-						}
+				@Override
+				public void updateItem(Report item, boolean empty) {
+					super.updateItem(item, empty);
+					if (item != null) {
+						setText(item.getName());
+					} else {
+						setText(null);
 					}
-				};
-				return cell;
-			}
+				}
+			};
+			return cell;
 		});
 
-		fileNameColumn
-				.setCellValueFactory(new TreeItemPropertyValueFactory<FileEntity, String>("name"));
-		fileDateColumn.setCellValueFactory(
-				new TreeItemPropertyValueFactory<FileEntity, LocalDateTime>("datetime") {
-					@Override
-					public ObservableValue<LocalDateTime> call(
-							CellDataFeatures<FileEntity, LocalDateTime> param) {
-						return new SimpleObjectProperty<LocalDateTime>(
-								param.getValue().getValue().getDatetime());
-						/*
-						 * return new SimpleStringProperty(
-						 * DateUtils.formatGUI(param.getValue().getValue().
-						 * getDatetime()));
-						 */
-					}
-				});
-		fileDateColumn.setCellFactory(column -> {
-			TreeTableCell<FileEntity, LocalDateTime> cell = new TreeTableCell<FileEntity, LocalDateTime>() {
+		fileNameColumn.setCellValueFactory(new TreeItemPropertyValueFactory<WorkingFile, String>("name"));
 
+		fileDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<LocalDateTime>(param.getValue().getValue().getDatetime()));
+
+		fileDateColumn.setCellFactory(param -> {
+			TreeTableCell<WorkingFile, LocalDateTime> cell = new TreeTableCell<WorkingFile, LocalDateTime>() {
 				@Override
 				protected void updateItem(LocalDateTime item, boolean empty) {
 					super.updateItem(item, empty);
@@ -135,326 +112,139 @@ public class ArchiveOverviewController {
 						setText(null);
 					} else {
 						this.setText(DateUtils.tableFormatter.format(item));
-
 					}
 				}
 			};
-
 			return cell;
+
 		});
 
-		fileReportColumn.setCellValueFactory(
-				new TreeItemPropertyValueFactory<FileEntity, String>("report"));
-		fileDirectionColumn.setCellValueFactory(
-				new TreeItemPropertyValueFactory<FileEntity, String>("direction") {
-					@Override
-					public ObservableValue<String> call(
-							CellDataFeatures<FileEntity, String> param) {
-						return new SimpleStringProperty(
-								param.getValue().getValue().getDirection() ? Constants.IN
-										: Constants.OUT);
-					}
-				});
-		fileStatusColumn.setCellValueFactory(
-				new TreeItemPropertyValueFactory<FileEntity, String>("linkedFile") {
-					@Override
-					public ObservableValue<String> call(
-							CellDataFeatures<FileEntity, String> param) {
-						FileEntity fe = param.getValue().getValue().getLinkedFile();
-						String tmp = "";
-						if (fe == null) {
-							if (param.getValue().getValue() instanceof ReportFile) {
-								if (!((ReportFile) param.getValue().getValue()).getAttributes()
-										.isEmpty()) {
-									Map<String, FileAttribute> attr = ((ReportFile) param.getValue()
-											.getValue()).getAttributes();
-									if ((attr.get(AttributeDescr.PARENT) != null
-											&& attr.get(AttributeDescr.PARENT).getValue() != null
-											&& !"".equals(
-													attr.get(AttributeDescr.PARENT).getValue()))
-											|| (attr.get(AttributeDescr.PARENT_ID) != null
-													&& attr.get(AttributeDescr.PARENT_ID)
-															.getValue() != null
-													&& !"".equals(attr.get(AttributeDescr.PARENT_ID)
-															.getValue()))) {
-										if (attr != null && attr.get(AttributeDescr.CODE) != null) {
-											if (Constants.isPositive(
-													attr.get(AttributeDescr.CODE).getValue()))
-												tmp += Constants.POSITIVE + " ";
-											else
-												tmp += Constants.NEGATIVE + " ";
-											if (attr.get(AttributeDescr.PARENT) != null)
-												tmp += Constants.ANSWER_ON + attr
-														.get(AttributeDescr.PARENT).getValue();
-											else
-												tmp += Constants.ANSWER_ON + attr
-														.get(AttributeDescr.PARENT_ID).getValue();
-										} else {
-											tmp = "Ответ на ";
-											if (attr.get(AttributeDescr.PARENT) != null
-													&& attr.get(AttributeDescr.PARENT)
-															.getValue() != null
-													&& !"".equals(attr.get(AttributeDescr.PARENT)
-															.getValue())) {
-												tmp += attr.get(AttributeDescr.PARENT).getValue();
-											} else {
-												tmp += attr.get(AttributeDescr.PARENT_ID)
-														.getValue();
-											}
-										}
-									} else {
-										tmp = "Исходный файл не найден";
-									}
-								} else {
-									tmp = "Ответ не получен";
-								}
-							} else {
+		fileReportColumn.setCellValueFactory(new TreeItemPropertyValueFactory<WorkingFile, String>("report"));
 
-								if (param.getValue().getValue() != null) {
-									ObservableList<ReportFile> list = MainApp.getDb()
-											.getFilesByTransport(param.getValue().getValue());
-									int status = 0;
-
-									if (param.getValue().getValue().getDirection()) {
-										for (ReportFile file : list) {// This is
-																		// only
-																		// for
-																		// incoming
-																		// transport
-																		// files,
-																		// because
-																		// we
-																		// don't
-																		// do
-																		// tickets
-																		// for
-																		// them,
-																		// we
-																		// need
-																		// check
-																		// all
-																		// files
-																		// in
-																		// transport
-																		// file,
-																		// if
-																		// they
-																		// have
-																		// linked
-																		// files
-																		// or it
-																		// is
-																		// ticket
-																		// we
-																		// mark
-																		// transport
-																		// as
-																		// 'good'(green),
-																		// if
-																		// not
-																		// all
-																		// have
-																		// answers
-																		// or be
-																		// tickets,
-																		// we
-																		// mark
-																		// transport
-																		// yellow,
-																		// if no
-																		// one
-																		// have
-																		// answers
-																		// we
-																		// mark
-																		// transport
-																		// pink
-											if (file.getLinkedFile() != null
-													|| file.getFileType().getTicket()) {
-												status++;
-											}
-										}
-										if (status == 0) {
-											tmp = "Файлы не обработаны";
-										} else if (status == list.size()) {
-											tmp = "Все файлы обработаны";
-										} else {
-											tmp = "Файлы обработаны частично";
-										}
-									} else {
-										tmp = "Файлы не обработаны";
-									}
-								}
-
-							}
-						} else if (fe instanceof ReportFile) {
-							ReportFile rf = (ReportFile) fe;
-							if (rf.getAttributes() != null) {
-								FileAttribute fa = rf.getAttributes().get(AttributeDescr.CODE);
-								FileAttribute commentAttr = rf.getAttributes()
-										.get(AttributeDescr.COMMENT);
-								if (((fa != null) && (Constants.isPositive(fa.getValue())))
-										|| ((commentAttr != null) && (Constants.ACCEPT
-												.equals(commentAttr.getValue())))) {
-									tmp = "Успешный";
-									if (rf.getAttributes().get(AttributeDescr.PARENT) != null) {
-										tmp += " ответ " + rf.getName();
-									} else if (rf.getAttributes()
-											.get(AttributeDescr.PARENT_ID) != null) {
-										tmp += " ответ " + rf.getName();
-									}
-								} else if (fa != null
-										&& rf.getAttributes().get(AttributeDescr.COMMENT) != null) {
-									tmp = rf.getAttributes().get(AttributeDescr.COMMENT).getValue();
-								} else {
-									// tmp = "Ответ обработан некорректно";
-									if (rf.getAttributes().get(AttributeDescr.CODE) != null)
-										tmp = MainApp.getDb().getMessageByCode(rf.getAttributes()
-												.get(AttributeDescr.CODE).getValue());
-									else
-										tmp = "Ответ обработан некорректно";
-								}
-
-							} else {
-								tmp = "Ответ некорректного формата";
-							}
-						}
-						return new SimpleStringProperty(tmp);
-					}
-				});
-		fileView.setRowFactory(new Callback<TreeTableView<FileEntity>, TreeTableRow<FileEntity>>() {
+		fileDirectionColumn.setCellValueFactory(new TreeItemPropertyValueFactory<WorkingFile, String>("direction") {
 			@Override
-			public TreeTableRow<FileEntity> call(TreeTableView<FileEntity> param) {
+			public ObservableValue<String> call(CellDataFeatures<WorkingFile, String> param) {
+				return new SimpleStringProperty(param.getValue().getValue().getDirection() ? Constants.IN : Constants.OUT);
+			}
+		});
+		fileStatusColumn.setCellValueFactory(new TreeItemPropertyValueFactory<WorkingFile, String>("linkedFile") {
 
-				TreeTableRow<FileEntity> row = new TreeTableRow<FileEntity>() {
-					@Override
-					protected void updateItem(FileEntity item, boolean empty) {
-						super.updateItem(item, empty);
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<WorkingFile, String> param) {
+				String result = "";
+				WorkingFile wFile = param.getValue().getValue();
 
-						this.setBackground(
-								new Background(new BackgroundFill(Color.WHITE, null, null)));
-						FileEntity fe = item;
-						if (fe != null && fe.getLinkedFile() == null) {
-							if (fe instanceof ReportFile) {
-								ReportFile rf = ((ReportFile) fe);
-								if (rf.getAttributes() == null) {
-									this.setBackground(new Background(
-											new BackgroundFill(Color.PINK, null, null)));
-								} else {
-									if ((rf.getAttributes().get(AttributeDescr.PARENT) != null
-											&& rf.getAttributes().get(AttributeDescr.PARENT)
-													.getValue() != null)
-											|| (rf.getAttributes()
-													.get(AttributeDescr.PARENT_ID) != null
-													&& rf.getAttributes()
-															.get(AttributeDescr.PARENT_ID)
-															.getValue() != null)) {
-										if ((rf.getAttributes().get(AttributeDescr.CODE) != null
-												&& (Constants.isPositive(rf.getAttributes()
-														.get(AttributeDescr.CODE).getValue()))
-												|| (rf.getAttributes()
-														.get(AttributeDescr.COMMENT) != null
-														&& (Constants.ACCEPT
-																.equals(rf.getAttributes()
-																		.get(AttributeDescr.COMMENT)
-																		.getValue()))))) {
-											this.setBackground(new Background(new BackgroundFill(
-													Color.SPRINGGREEN, null, null)));
-										} else {
-											this.setBackground(new Background(
-													new BackgroundFill(Color.RED, null, null)));
+				if (wFile.getChilds() == null) {
+					// Not transport file
+					if (wFile.getType() != null && wFile.getType().getTicket()) {
+						// Is ticket file
+						if (wFile.getAttributes() != null && wFile.getAttributes().size() > 0) {
+							if (Constants.isPositive(wFile.getAttributes().get(AttributeDescr.CODE).getValue())) {
+								result += Constants.POSITIVE;
+							} else {
+								result += Constants.NEGATIVE;
+							}
 
-										}
-									} else if (rf.getAttributes().get(AttributeDescr.PARENT) != null
-											&& rf.getAttributes().get(AttributeDescr.PARENT)
-													.getValue() == null) {
-										this.setBackground(new Background(
-												new BackgroundFill(Color.YELLOW, null, null)));
+							result += Constants.ANSWER_ON;
 
+							if (wFile.getLinked() != null) {
+								result += wFile.getLinked().getOriginalName();
+							} else {
+								result = Constants.UNKNOWN;
+							}
+						} else {
+							result = Constants.UNKNOWN;
+						}
+					} else {
+						// Common file
+						if (wFile.getAnswer() != null) {
+							if (Constants.isPositive(wFile.getAnswer().getAttributes().get(AttributeDescr.CODE).getValue())) {
+								result += Constants.POSITIVE;
+							} else {
+								result += Constants.NEGATIVE;
+							}
+
+							result += wFile.getAnswer().getOriginalName();
+						} else {
+							result += Constants.NO_ANSWER;
+						}
+					}
+				} else {
+					// Transport File
+					if (wFile.getAnswer() != null) {
+						if (Constants.isPositive(wFile.getAnswer().getAttributes().get(AttributeDescr.CODE).getValue())) {
+							result += Constants.POSITIVE;
+						} else {
+							result += Constants.NEGATIVE;
+						}
+
+						result += wFile.getAnswer().getOriginalName();
+					} else {
+						result += Constants.NO_ANSWER;
+					}
+				}
+
+				if (wFile.getLinked() == null) {
+					if (wFile.getDirection() == Constants.OUTPUT) {
+						result += Constants.NO_ANSWER;
+					} else if (wFile.getChilds() == null) {
+
+					}
+				}
+				return new SimpleStringProperty(result);
+			}
+		});
+
+		fileView.setRowFactory(param -> {
+			TreeTableRow<WorkingFile> row = new TreeTableRow<WorkingFile>() {
+
+				@Override
+				protected void updateItem(WorkingFile item, boolean empty) {
+					super.updateItem(item, empty);
+					this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+					if (item != null) {
+						if (item.getChilds() == null) {
+							// Not transport file
+							if (item.getType() != null && item.getType().getTicket()) {
+								// Is ticket file
+								if (item.getAttributes() != null && item.getAttributes().size() > 0) {
+									if (Constants.isPositive(item.getAttributes().get(AttributeDescr.CODE).getValue())) {
+										this.setBackground(new Background(new BackgroundFill(Color.GREEN, null, getInsets())));
 									} else {
-										this.setBackground(new Background(
-												new BackgroundFill(Color.PINK, null, null)));
+										this.setBackground(new Background(new BackgroundFill(Color.RED, null, getInsets())));
 									}
+								} else {
+									this.setBackground(new Background(new BackgroundFill(Color.PURPLE, null, getInsets())));
 								}
 							} else {
-								if (fe != null) {
-									ObservableList<ReportFile> list = MainApp.getDb()
-											.getFilesByTransport(fe);
-									int status = 0;
-
-									if (fe.getDirection()) {
-										/**
-										 * This is only for incoming transport
-										 * files, because we don't do tickets
-										 * for them, we need check all files in
-										 * transport file, if they have linked
-										 * files or it is ticket we mark
-										 * transport as 'good'(green), if not
-										 * all have answers or be tickets, we
-										 * mark transport yellow, if no one have
-										 * answers we mark transport pink
-										 */
-										for (ReportFile file : list) {
-											if (file.getLinkedFile() != null
-													|| file.getFileType().getTicket()) {
-												status++;
-											}
-										}
-										if (status == 0) {
-											this.setBackground(new Background(
-													new BackgroundFill(Color.PINK, null, null)));
-										} else if (status == list.size()) {
-											this.setBackground(new Background(new BackgroundFill(
-													Color.SPRINGGREEN, null, null)));
-										} else {
-											this.setBackground(new Background(
-													new BackgroundFill(Color.YELLOW, null, null)));
-										}
+								// Common file
+								if (item.getAnswer() != null) {
+									if (Constants.isPositive(item.getAnswer().getAttributes().get(AttributeDescr.CODE).getValue())) {
+										this.setBackground(new Background(new BackgroundFill(Color.GREEN, null, getInsets())));
 									} else {
-										this.setBackground(new Background(
-												new BackgroundFill(Color.PINK, null, null)));
+										this.setBackground(new Background(new BackgroundFill(Color.RED, null, getInsets())));
 									}
+								} else {
+									this.setBackground(new Background(new BackgroundFill(Color.PURPLE, null, getInsets())));
 								}
 							}
 						} else {
-							if (fe != null && fe.getLinkedFile() instanceof ReportFile) {
-								ReportFile lrf = (ReportFile) fe.getLinkedFile();
-								if (lrf.getAttributes() != null) {
-									if (lrf.getAttributes() != null)
-										if (lrf.getAttributes().get(AttributeDescr.CODE) != null) {
-											if (Constants.isPositive(lrf.getAttributes()
-													.get(AttributeDescr.CODE).getValue())) {
-												this.setBackground(
-														new Background(new BackgroundFill(
-																Color.SPRINGGREEN, null, null)));
-											}
-										} else if (lrf.getAttributes()
-												.get(AttributeDescr.COMMENT) != null) {
-											if (Constants.ACCEPT.equals(lrf.getAttributes()
-													.get(AttributeDescr.COMMENT).getValue())) {
-												this.setBackground(
-														new Background(new BackgroundFill(
-																Color.SPRINGGREEN, null, null)));
-
-											} else {
-												this.setBackground(new Background(
-														new BackgroundFill(Color.RED, null, null)));
-
-											}
-										}
+							// Transport File
+							if (item.getAnswer() != null) {
+								if (Constants.isPositive(item.getAnswer().getAttributes().get(AttributeDescr.CODE).getValue())) {
+									this.setBackground(new Background(new BackgroundFill(Color.GREEN, null, getInsets())));
 								} else {
-									try {
-										throw new ReportError("Не обработан файл " + fe.getName());
-									} catch (ReportError e) {
-										e.printStackTrace();
-									}
+									this.setBackground(new Background(new BackgroundFill(Color.RED, null, getInsets())));
 								}
+							} else {
+								this.setBackground(new Background(new BackgroundFill(Color.PURPLE, null, getInsets())));
 							}
 						}
 					}
-				};
-				return row;
-			}
+				}
+			};
+			return row;
 		});
 	}
 
@@ -477,43 +267,44 @@ public class ArchiveOverviewController {
 
 	@FXML
 	public void handleUpdate() {
-		setData(MainApp.getDb().getArchiveFiles(startTime, endTime, reportChooser.getValue()));
+		List<WorkingFile> files = MainApp.getDb().getTransportFilesPerPeriod(startTime, endTime, reportChooser.getValue(), null);
+		files.addAll(MainApp.getDb().getTicketFilesPerPeriod(startTime, endTime, reportChooser.getValue(), null));
+		setData(files);
 		fillData();
 	}
 
 	public void fillData() {
-		TreeItem<FileEntity> root = new TreeItem<>(new FileEntity());
+		TreeItem<WorkingFile> root = new TreeItem<>(new WorkingFile());
 		root.setExpanded(true);
 		fileView.setShowRoot(false);
-		for (FileEntity file : fileFiles.values()) {
+		for (WorkingFile file : fileFiles) {
 			root.getChildren().add(createItem(file, 0));
 		}
 		fileView.setRoot(root);
 	}
 
-	private TreeItem<FileEntity> createItem(FileEntity entity, Integer padding) {
-		TreeItem<FileEntity> item = null;
+	private TreeItem<WorkingFile> createItem(WorkingFile entity, Integer padding) {
+		TreeItem<WorkingFile> item = null;
 		if (entity != null && !entity.getDirection()) {
 			Node outIcon = new ImageView(new Image(getClass().getResourceAsStream("out.png")));
-			item = new TreeItem<FileEntity>(entity, outIcon);
+			item = new TreeItem<WorkingFile>(entity, outIcon);
 		} else {
 			Node inIcon = new ImageView(new Image(getClass().getResourceAsStream("in.png")));
-			item = new TreeItem<FileEntity>(entity, inIcon);
+			item = new TreeItem<WorkingFile>(entity, inIcon);
 		} // item.
-		if (entity instanceof TransportFile) {
-			TransportFile tFile = (TransportFile) entity;
-			for (FileEntity cEntity : tFile.getListFiles().values()) {
+		if (entity.getChilds() != null && entity.getChilds().size() > 0) {
+			for (WorkingFile cEntity : entity.getChilds()) {
 				item.getChildren().add(createItem(cEntity, padding + 5));
 			}
 		}
 
-		if (entity != null && entity.getLinkedFile() != null) {
-			item.getChildren().add(createItem(entity.getLinkedFile(), padding + 5));
+		if (entity != null && entity.getLinked() != null) {
+			item.getChildren().add(createItem(entity.getLinked(), padding + 5));
 		}
 		return item;
 	}
 
-	public void setData(Map<String, FileEntity> fileFiles) {
+	public void setData(List<WorkingFile> fileFiles) {
 		this.fileFiles = fileFiles;
 		fillData();
 	}

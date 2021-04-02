@@ -86,7 +86,7 @@ public class SingleFileCheck implements Callable<WorkingFile> {
 		for (AttributeDescr ad : map.values()) {
 			attr.put(ad.getAttr().getName(), new FileAttribute(ad.getId(), ad.getAttr().getName(), getValue(wFile, ad)));
 		}
-
+		wFile.setAttributes(attr);
 		return attr;
 
 	}

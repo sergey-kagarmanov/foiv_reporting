@@ -37,13 +37,16 @@ public class Constants {
 	public static final String CHECK_RUS = "Проверка";
 
 
-	public static String OUT = "Отправлено";
+	public final static String OUT = "Отправлено";
 
-	public static String IN = "Получено";
+	public final static String IN = "Получено";
 	public final static String ANSWER_ON = "Ответ на ";
-	public final static String POSITIVE = "Положительный";
-	public final static String NEGATIVE = "Отрицательный";
+	public final static String POSITIVE = "Положительный ";
+	public final static String NEGATIVE = "Отрицательный ";
 
+	public final static String NO_ANSWER = "Ответ не получен ";
+	public final static String UNKNOWN = "Неизвестный исходный файл ";
+	
 	public final static String[] FILETYPE = { "xml", "txt" };
 
 	public static String direct(boolean b) {
