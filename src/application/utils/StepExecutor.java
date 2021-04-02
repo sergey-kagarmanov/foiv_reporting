@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,7 +26,6 @@ import application.MainApp;
 import application.errors.ReportError;
 import application.models.ProcessStep;
 import application.models.Report;
-import application.models.TransportFile;
 import application.models.WorkingFile;
 import application.utils.skzi.DecryptorHandler;
 import application.utils.skzi.EncryptorHandler;
@@ -40,11 +38,9 @@ import javafx.collections.ObservableList;
 import net.sf.sevenzipjbinding.IInArchive;
 import net.sf.sevenzipjbinding.SevenZip;
 import net.sf.sevenzipjbinding.SevenZipException;
-import net.sf.sevenzipjbinding.impl.InArchiveImpl;
 import net.sf.sevenzipjbinding.impl.RandomAccessFileInStream;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchive;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
-import net.sf.sevenzipjbinding.util.ByteArrayStream;
 
 public class StepExecutor {
 
@@ -58,14 +54,28 @@ public class StepExecutor {
 
 	public ObservableList<WorkingFile> execute(ObservableList<WorkingFile> files) throws IOException, ReportError {
 		ObservableList<WorkingFile> result = FXCollections.observableArrayList();
+		ObservableList<WorkingFile> stepFiles = FXCollections.observableArrayList();
+		ObservableList<WorkingFile> nonWork = FXCollections.observableArrayList();
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		boolean signaturaAction = false;
 		List<SignaturaHandler> handlers = new ArrayList<>();
 
+		if (step.getData()!=null && step.getAction().getName()!=Constants.RENAME) {
+			for(WorkingFile file : files) {
+				if (Pattern.matches(step.getData(), file.getName())) {
+					stepFiles.add(file);
+				}else {
+					nonWork.add(file);
+				}
+			}
+		}else {
+			stepFiles = files;
+		}
+		
 		switch (step.getAction().getName()) {
 		case Constants.SIGN:
 			signaturaAction = true;
-			files.forEach(file -> {
+			stepFiles.forEach(file -> {
 				SignaturaHandler handler = new SignHandler(step.getKey());
 				handler.setParameters(file);
 				handlers.add(handler);
@@ -73,7 +83,7 @@ public class StepExecutor {
 			break;
 		case Constants.UNSIGN:
 			signaturaAction = true;
-			files.forEach(file -> {
+			stepFiles.forEach(file -> {
 				SignaturaHandler handler = new UnsignHandler(step.getKey());
 				handler.setParameters(file);
 				handlers.add(handler);
@@ -81,7 +91,7 @@ public class StepExecutor {
 			break;
 		case Constants.ENCRYPT:
 			signaturaAction = true;
-			files.forEach(file -> {
+			stepFiles.forEach(file -> {
 				SignaturaHandler handler = new EncryptorHandler(step.getKey());
 				handler.setParameters(file);
 				handlers.add(handler);
@@ -89,20 +99,20 @@ public class StepExecutor {
 			break;
 		case Constants.DECRYPT:
 			signaturaAction = true;
-			files.forEach(file -> {
+			stepFiles.forEach(file -> {
 				SignaturaHandler handler = new DecryptorHandler(step.getKey());
 				handler.setParameters(file);
 				handlers.add(handler);
 			});
 			break;
 		case Constants.PACK:
-			result = createArchive(report, files);
+			result = createArchive(report, stepFiles);
 			break;
 		case Constants.UNPACK:
 			result = unpack(files);
 			break;
 		case Constants.RENAME:
-			files.forEach(file -> {
+			stepFiles.forEach(file -> {
 				replace(step.getData(), file);
 			});
 			result = files;
@@ -126,6 +136,11 @@ public class StepExecutor {
 			}
 			executor.shutdown();
 		}
+		
+		if (nonWork.size()>0) {
+			result.addAll(nonWork);
+		}
+		
 		return result;
 	}
 

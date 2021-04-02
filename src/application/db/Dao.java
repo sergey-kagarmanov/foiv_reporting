@@ -539,7 +539,7 @@ public class Dao {
 
 	public ObservableList<WorkingFile> getArchiveFilesChildLite(WorkingFile parent) {
 		ObservableList<WorkingFile> files = FXCollections.observableArrayList();
-		String sql = "SELECT f.uuid, f.name, f.datetime from files f  WHERE f.linked_uuid = ?";
+		String sql = "SELECT f.uuid, f.name, f.datetime from files f LEFT JOIN transport_files tf ON f.uuid = tf.child_uuid WHERE tf.parent_uuid = ?";
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setString(1, parent.getUUID().toString());
 			ResultSet rs = ps.executeQuery();

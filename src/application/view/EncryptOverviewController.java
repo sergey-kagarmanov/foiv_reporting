@@ -277,23 +277,6 @@ public class EncryptOverviewController {
 
 		reportChooser.setItems(MainApp.getDb().getReports());
 		reportChooser.setValue(reportChooser.getItems().get(0));
-		/*
-		 * outArchiveFileTable
-		 * .setItems(MainApp.getDb().getArchiveFiles(reportChooser.getValue(),
-		 * false)); inArchiveFileTable
-		 * .setItems(MainApp.getDb().getArchiveFiles(reportChooser.getValue(),
-		 * true));
-		 */
-		// outArchiveFileTable.setItems(MainApp.getDb().getArchiveFilesLite(reportChooser.getValue(),
-		// Constants.OUTPUT_INT));
-		// inArchiveFileTable.setItems(MainApp.getDb().getArchiveFilesLite(reportChooser.getValue(),
-		// Constants.INPUT_INT));
-
-		/*
-		 * calculateData(); Timeline timeline = new Timeline(new
-		 * KeyFrame(Duration.millis(TIMER), ae -> calculateData()));
-		 * timeline.setCycleCount(Animation.INDEFINITE); timeline.play();
-		 */
 	}
 
 	public void checkAndUpdateData() {
@@ -345,21 +328,6 @@ public class EncryptOverviewController {
 		}
 
 	}
-
-	/*
-	 * private void fillData(String form) { Report tmp = null;
-	 * reportChooser.setItems(MainApp.getDb().getReports()); for (Report current
-	 * : reportChooser.getItems()) { if (current.getName().equals(form)) { tmp =
-	 * current; } } reportChooser.setValue(tmp);
-	 * outArchiveFileTable.setItems(MainApp.getDb().getArchiveFilesLite(
-	 * reportChooser.getValue(), Constants.OUTPUT_INT));
-	 * inArchiveFileTable.setItems(MainApp.getDb().getArchiveFilesLite(
-	 * reportChooser.getValue(), Constants.INPUT_INT));
-	 * 
-	 * calculateData(); Timeline timeline = new Timeline(new
-	 * KeyFrame(Duration.millis(TIMER), ae -> calculateData()));
-	 * timeline.setCycleCount(Animation.INDEFINITE); timeline.play(); }
-	 */
 
 	@FXML
 	public void openOutPathDialog() {
@@ -444,32 +412,6 @@ public class EncryptOverviewController {
 		inArchiveFileTable.setItems(MainApp.getDb().getArchiveFilesLite(reportChooser.getValue(), Constants.INPUT_INT));
 		outArchiveFileTable.refresh();
 		inArchiveFileTable.refresh();
-
-		/*
-		 * try { if (reportChooser.getValue().getPathOut() != null) {
-		 * outFileList.setItems(FileUtils.getDirContentByMask(reportChooser.
-		 * getValue().getPathOut(), reportChooser.getValue().getPatternOut()));
-		 * outFileCount.setText(
-		 * FileUtils.getDirContentByMask(reportChooser.getValue().getPathOut(),
-		 * reportChooser.getValue().getPatternOut()).size() + ""); }
-		 * 
-		 * ObservableList<FileType> list =
-		 * FXCollections.observableArrayList(reportChooser.getValue().
-		 * getTransportInPattern()); if (reportChooser.getValue().getTickets()
-		 * != null && reportChooser.getValue().getTickets().size() > 0) {
-		 * list.addAll(reportChooser.getValue().getTickets()); } if
-		 * (reportChooser.getValue().getPathIn() != null) {
-		 * inFileList.setItems(FileUtils.getDirContentByMask(reportChooser.
-		 * getValue().getPathIn(), list));
-		 * inFileCount.setText(FileUtils.getDirContentByMask(reportChooser.
-		 * getValue().getPathIn(), list).size() + ""); }
-		 * 
-		 * } catch (ReportError e) { Alert alert = new Alert(AlertType.ERROR);
-		 * alert.setTitle("Ошибка"); alert.setHeaderText("Ошибка выполнения");
-		 * alert.
-		 * setContentText("При загрузке данных возникла ошибка проверьте настройки фильтрации"
-		 * ); alert.show(); } finally { System.gc(); }
-		 */
 	}
 
 	public void fillFilesFromArchive() {
