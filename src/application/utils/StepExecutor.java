@@ -3,9 +3,12 @@ package application.utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -60,18 +63,19 @@ public class StepExecutor {
 		boolean signaturaAction = false;
 		List<SignaturaHandler> handlers = new ArrayList<>();
 
-		if (step.getData()!=null && step.getAction().getName()!=Constants.RENAME) {
-			for(WorkingFile file : files) {
+		if (step.getData() != null && !Constants.RENAME.equals(step.getAction().getName()) && !Constants.COPY.equals(step.getAction().getName())
+				&& !Constants.PACK.equals(step.getAction().getName())) {
+			for (WorkingFile file : files) {
 				if (Pattern.matches(step.getData(), file.getName())) {
 					stepFiles.add(file);
-				}else {
+				} else {
 					nonWork.add(file);
 				}
 			}
-		}else {
+		} else {
 			stepFiles = files;
 		}
-		
+
 		switch (step.getAction().getName()) {
 		case Constants.SIGN:
 			signaturaAction = true;
@@ -106,7 +110,7 @@ public class StepExecutor {
 			});
 			break;
 		case Constants.PACK:
-			result = createArchive(report, stepFiles);
+			result = createArchive(report, files);
 			break;
 		case Constants.UNPACK:
 			result = unpack(files);
@@ -117,14 +121,39 @@ public class StepExecutor {
 			});
 			result = files;
 			break;
-
+		case Constants.COPY:
+			stepFiles.forEach(file -> {
+				File newfile = new File(step.getData() + "\\" + file.getName());
+				if(newfile.exists()) {
+					newfile.delete();
+				}
+				try {
+					new File(step.getData()).mkdirs();
+					newfile.createNewFile();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				InputStream in = FileUtils.getStreamWithSaveData(file);
+				try (FileOutputStream fos = new FileOutputStream(newfile)) {
+					byte[] buffer = new byte[1024];
+					int length = 0;
+					while ((length = in.read(buffer)) > 0) {
+						fos.write(buffer, 0, length);
+					}
+					in.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			});
+			result = stepFiles;
 		}
 		if (signaturaAction) {
 			try {
 				List<Future<WorkingFile>> futures = executor.invokeAll(handlers);
-				for(Future<WorkingFile> future : futures) {
+				for (Future<WorkingFile> future : futures) {
 					try {
-						result.add(future.get());
+						if (future != null)
+							result.add(future.get());
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					} catch (ExecutionException e) {
@@ -135,12 +164,11 @@ public class StepExecutor {
 				e.printStackTrace();
 			}
 			executor.shutdown();
+			if (nonWork.size() > 0) {
+				result.addAll(nonWork);
+			}
 		}
-		
-		if (nonWork.size()>0) {
-			result.addAll(nonWork);
-		}
-		
+
 		return result;
 	}
 
@@ -181,15 +209,15 @@ public class StepExecutor {
 		pattern = pattern.replaceAll("%MM", LocalDate.now().format(DateTimeFormatter.ofPattern("MM")));
 		pattern = pattern.replaceAll("%yy", LocalDate.now().format(DateTimeFormatter.ofPattern("yy")));
 
-		if (lastName!=null) {
-			lastName = lastName.replaceFirst(pattern.substring(0, pattern.indexOf("%")-1), "");
+		if (lastName != null) {
+			lastName = lastName.replaceFirst(pattern.substring(0, pattern.indexOf("%")), "");
 			lastName = lastName.replace(lastName.substring(lastName.indexOf(".")), "");
 			countperDay = Integer.parseInt(lastName);
 		}
 		ObservableList<WorkingFile> doneList = FXCollections.observableArrayList();
 		Stack<WorkingFile> pool = new Stack<>();
 		for (WorkingFile f : files) {
-			if (f.getExceptions()==null || f.getExceptions()
+			if (f.getExceptions() == null || f.getExceptions()
 					.size() == 0/* && !doneList.contains(f) */)
 				pool.push(f);
 		}
@@ -220,7 +248,7 @@ public class StepExecutor {
 									// numbers of multivolume archive
 
 				int col = 0;
-				
+
 				ObservableList<WorkingFile> transportFiles = FXCollections.observableArrayList();
 
 				WorkingFile currentFile = null;
@@ -254,11 +282,11 @@ public class StepExecutor {
 						numberPart = (int) Math.ceil((currentFile.getData().length * 10) / Settings.FILE_SIZE / 10.0);
 					} else {
 						loop = false;
-						
+
 					}
 
 				}
-				
+
 				if (multiVolumes) {
 					for (int k = 1; k < numberPart; k++) {
 						String localPattern = pattern.replaceAll("\\.(arj|ARJ)", ".a0" + k);
@@ -269,7 +297,7 @@ public class StepExecutor {
 						tmpFile.setChilds(doneList);
 						transportFiles.add(tmpFile);
 					}
-				}else {
+				} else {
 					WorkingFile tmpFile = new WorkingFile(WorkingFile.NEW);
 					tmpFile.setOriginalName(pattern);
 					tmpFile.setType(MainApp.getDb().getFileType(report.getId(), Constants.OUTPUT_INT, 1));
@@ -294,7 +322,7 @@ public class StepExecutor {
 					transportFiles.forEach(file -> {
 						try {
 							file.readData(FileUtils.tmpDir + "arj");
-							new File(FileUtils.tmpDir + "arj//"+file.getOriginalName()).delete();
+							new File(FileUtils.tmpDir + "arj//" + file.getOriginalName()).delete();
 						} catch (ReportError e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -302,10 +330,10 @@ public class StepExecutor {
 					});
 
 					resultList.addAll(transportFiles);
-					doneList.forEach(file->{
-						new File(FileUtils.tmpDir + "arj//"+file.getName()).delete();
+					doneList.forEach(file -> {
+						new File(FileUtils.tmpDir + "arj//" + file.getName()).delete();
 					});
-					doneList= FXCollections.observableArrayList();
+					doneList = FXCollections.observableArrayList();
 					transportFiles.clear();
 
 				} catch (InterruptedException | IOException ie) {
@@ -325,31 +353,31 @@ public class StepExecutor {
 		return resultList;
 	}
 
-	private ObservableList<WorkingFile> unpack(ObservableList<WorkingFile> files){
+	private ObservableList<WorkingFile> unpack(ObservableList<WorkingFile> files) {
 		ObservableList<WorkingFile> resultList = FXCollections.observableArrayList();
-		
-		files.forEach(file->{
+
+		files.forEach(file -> {
 			IInArchive inArchive = null;
 			try {
 				file.saveData(FileUtils.tmpDir);
-				inArchive = SevenZip.openInArchive(null, // autodetect archive type
-						new RandomAccessFileInStream(new RandomAccessFile(new File(FileUtils.tmpDir+"\\"+file.getName()), "r")));
+				inArchive = SevenZip.openInArchive(null, // autodetect archive
+															// type
+						new RandomAccessFileInStream(new RandomAccessFile(new File(FileUtils.tmpDir + "\\" + file.getName()), "r")));
 				ISimpleInArchive simpleInArchive = inArchive.getSimpleInterface();
 
 				ObservableList<WorkingFile> localFiles = FXCollections.observableArrayList();
-				
+
 				for (ISimpleInArchiveItem item : simpleInArchive.getArchiveItems()) {
 					if (!item.isFolder()) {
 						WorkingFile tmp = new WorkingFile(WorkingFile.NEW);
 						tmp.setOriginalName(item.getPath());
-						tmp.setData(ArchieveInputStreamHandler.slurpByte(
-								new ArchieveInputStreamHandler(item).getInputStream()));
+						tmp.setData(ArchieveInputStreamHandler.slurpByte(new ArchieveInputStreamHandler(item).getInputStream()));
 						localFiles.add(tmp);
 					}
 				}
 				file.setChilds(localFiles);
 				resultList.addAll(localFiles);
-				
+
 			} catch (Exception e) {
 				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
@@ -361,40 +389,40 @@ public class StepExecutor {
 						System.err.println("Error closing archive: " + e.getMessage());
 					}
 				}
-				new File(FileUtils.tmpDir+"\\"+file.getName()).delete();
+				new File(FileUtils.tmpDir + "\\" + file.getName()).delete();
 			}
 		});
-		
+
 		return files;
 	}
-	
-	private ObservableList<WorkingFile> unpackCommon(ObservableList<WorkingFile> files){
-		files.forEach(file->{
+
+	private ObservableList<WorkingFile> unpackCommon(ObservableList<WorkingFile> files) {
+		files.forEach(file -> {
 			ObservableList<WorkingFile> children = FXCollections.observableArrayList();
-			try(ArjArchiveInputStream i = new ArjArchiveInputStream(new ByteArrayInputStream(file.getData()))){
+			try (ArjArchiveInputStream i = new ArjArchiveInputStream(new ByteArrayInputStream(file.getData()))) {
 				ArjArchiveEntry entry = null;
-			    while ((entry = i.getNextEntry()) != null) {
-			        if (!i.canReadEntryData(entry)) {
-			            // log something?
-			           
-			        	continue;
-			        }
-			        WorkingFile wFile = new WorkingFile(WorkingFile.NEW);
-			        wFile.setOriginalName(entry.getName());
-			        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			        byte[] buffer = new byte[1024];
-			        long last = entry.getSize();
-			        int len = (int) ((last - 1024)>0 ? 1024 : (1024-last));
-			        int lenRead = 0;
-			        while(len>0) {
-			        	lenRead = i.read(buffer, 0, len);
-			        	if (len == lenRead)
-			        		baos.write(buffer, 0, len);
-			        }
-			        wFile.setData(baos.toByteArray());
-			        wFile.setDatetime(LocalDateTime.now());
-			        file.setChilds(children);
-		        }
+				while ((entry = i.getNextEntry()) != null) {
+					if (!i.canReadEntryData(entry)) {
+						// log something?
+
+						continue;
+					}
+					WorkingFile wFile = new WorkingFile(WorkingFile.NEW);
+					wFile.setOriginalName(entry.getName());
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					byte[] buffer = new byte[1024];
+					long last = entry.getSize();
+					int len = (int) ((last - 1024) > 0 ? 1024 : (1024 - last));
+					int lenRead = 0;
+					while (len > 0) {
+						lenRead = i.read(buffer, 0, len);
+						if (len == lenRead)
+							baos.write(buffer, 0, len);
+					}
+					wFile.setData(baos.toByteArray());
+					wFile.setDatetime(LocalDateTime.now());
+					file.setChilds(children);
+				}
 			} catch (IOException | ArchiveException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

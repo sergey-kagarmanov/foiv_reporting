@@ -13,3 +13,6 @@
 ./tmp
 /tmp/
 /arch/
+/fc_reports_new.db
+/fc_reports — копия.db
+/test.txt

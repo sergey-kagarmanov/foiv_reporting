@@ -56,11 +56,20 @@ public class SingleFileCheck implements Callable<WorkingFile> {
 		
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			wFile = new WorkingFile(WorkingFile.NEW);
-			wFile.setType(cType);
-			exception = XMLValidator.validate(FileUtils.splitToInputAndOutput(new FileInputStream(file), baos),
-					new File(cType.getValidationSchema()));
-			wFile.setData(baos.toByteArray());
 			wFile.setOriginalName(file.getName());
+			wFile.setType(cType);
+			try {
+				if (cType.getValidationSchema()!=null) {
+					exception = XMLValidator.validate(FileUtils.splitToInputAndOutput(new FileInputStream(file), baos),
+							new File(cType.getValidationSchema()));
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (baos.toByteArray()!=null && baos.toByteArray().length>0)
+				wFile.setData(baos.toByteArray());
+			else
+				wFile.readData(file.getParent());
 		}else {
 			FileType cType = null;
 			for (FileType type : types) {
@@ -72,7 +81,12 @@ public class SingleFileCheck implements Callable<WorkingFile> {
 			wFile.setType(cType);
 		}
 		if (exception == null || exception.size() == 0) {
+			try {
 			parseAttributes(wFile);
+			}catch (Exception e) {
+				exception.add(e);
+				e.printStackTrace();
+			}
 		} else {
 			wFile.setExceptions(exception);
 		}

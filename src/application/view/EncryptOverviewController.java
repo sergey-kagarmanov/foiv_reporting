@@ -277,6 +277,7 @@ public class EncryptOverviewController {
 
 		reportChooser.setItems(MainApp.getDb().getReports());
 		reportChooser.setValue(reportChooser.getItems().get(0));
+		calculateData();
 	}
 
 	public void checkAndUpdateData() {

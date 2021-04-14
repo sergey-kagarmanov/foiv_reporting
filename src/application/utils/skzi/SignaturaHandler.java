@@ -25,10 +25,11 @@ public abstract class SignaturaHandler implements Callable<WorkingFile> {
 	abstract void unload();
 
 	InputStream getInputStream() throws ReportError {
-		if (file != null)
+		if (file != null) {
 			return new ByteArrayInputStream(file.getData());
-		else
+		}else {
 			throw new ReportError("Входные данные отсутствуют");
+		}
 	}
 
 }
