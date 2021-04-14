@@ -413,6 +413,8 @@ public class EncryptOverviewController {
 		inArchiveFileTable.setItems(MainApp.getDb().getArchiveFilesLite(reportChooser.getValue(), Constants.INPUT_INT));
 		outArchiveFileTable.refresh();
 		inArchiveFileTable.refresh();
+		inFileList.refresh();
+		outFileList.refresh();
 	}
 
 	public void fillFilesFromArchive() {

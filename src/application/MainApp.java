@@ -58,10 +58,13 @@ import javafx.util.Pair;
 
 public class MainApp extends Application {
 
+	public static boolean testMode = false; 
+	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private static Dao dao;
 	private ScheduledExecutorService service;
+	
 	/**
 	 * Temp data
 	 */
@@ -202,7 +205,7 @@ public class MainApp extends Application {
 			service = Executors.newScheduledThreadPool(1);
 			service.scheduleWithFixedDelay(() -> {
 				controller.checkAndUpdateData();
-			}, 0, 10, TimeUnit.SECONDS);
+			}, 0, 2, TimeUnit.SECONDS);
 
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -448,7 +448,15 @@ public class ProcessExecutor {
 			MainApp.getDb().save(report, direction ? 1 : 0, wFiles, null);
 		}
 		
+		deleteFiles();
+		
 		return 0;
+	}
+	
+	private void deleteFiles() {
+		filenames.forEach(name->{
+			new File(name).delete();
+		});
 	}
 
 	public void saveArchive(ObservableList<WorkingFile> files, String path) {
