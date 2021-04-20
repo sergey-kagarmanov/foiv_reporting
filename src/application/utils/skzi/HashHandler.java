@@ -40,7 +40,7 @@ public class HashHandler extends SignaturaHandler {
 
 	@Override
 	void unload() {
-		hasher.unload();
+		//hasher.unload();
 	}
 
 }

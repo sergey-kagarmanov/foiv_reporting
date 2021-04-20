@@ -20,6 +20,7 @@ import application.utils.FileUtils;
 import application.utils.skzi.DecryptorHandler;
 import application.utils.skzi.EncryptorHandler;
 import application.utils.skzi.HashHandler;
+import application.utils.skzi.LocalSignatura;
 import application.utils.skzi.SignHandler;
 import application.utils.skzi.SignaturaHandler;
 import application.utils.skzi.SignaturaTheadingExecutor;
@@ -166,6 +167,9 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
+				
+				LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
+				
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
@@ -183,12 +187,14 @@ public class SingleActionController {
 					e.printStackTrace();
 				}
 				AlertWindow.show(Constants.ENCRYPT_RUS, errorFiles);
+				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.SIGN)) {
 			mainApp.showChooseKeyDialog();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
+				LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 					
 					@Override
@@ -206,8 +212,10 @@ public class SingleActionController {
 				}
 				
 				AlertWindow.show(Constants.SIGN_RUS, errorFiles);
+				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.DECRYPT)) {
+			LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 			mainApp.showChooseKeyDialog();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
@@ -228,8 +236,10 @@ public class SingleActionController {
 					e.printStackTrace();
 				}
 				AlertWindow.show(Constants.DECRYPT_RUS, errorFiles);
+				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.UNSIGN)) {
+			LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 			mainApp.showChooseKeyDialog();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
@@ -252,6 +262,7 @@ public class SingleActionController {
 					e.printStackTrace();
 				}
 				AlertWindow.show(Constants.UNSIGN_RUS, errorFiles);
+				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.PACK)) {
 			ObservableList<File> tmp = copyFiles();
@@ -275,6 +286,7 @@ public class SingleActionController {
 				System.out.println(p.waitFor());
 				
 				AlertWindow.show(Constants.PACK_RUS, errorFiles);
+				LocalSignatura.uninitilize();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -300,6 +312,7 @@ public class SingleActionController {
 					e.printStackTrace();
 				}
 				AlertWindow.show(Constants.DECRYPT_RUS, errorFiles);
+				LocalSignatura.uninitilize();
 			}
 
 		} else if (action.getKey().equals(Constants.UNPACK)) {

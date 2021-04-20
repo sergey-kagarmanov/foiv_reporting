@@ -18,9 +18,10 @@ public abstract class CommonSignatura implements SignaturaExecutor{
 
 
 	public CommonSignatura(Key key) {
-		iFace = new LocalIface();
-		MainApp.info("Local interface of signature is created");
-		initConfig(key.getData());
+		iFace = LocalSignatura.getLocaIFace();
+		//iFace = new LocalIface();
+		MainApp.info("Work on process start");
+		//initConfig(key.getData());
 		memory1 = new mem_blk_t();
 		memory2 = new mem_blk_t();
 		init();
@@ -38,7 +39,7 @@ public abstract class CommonSignatura implements SignaturaExecutor{
 		return cert;
 	}
 
-	private int initConfig(String profile) {
+	/*private int initConfig(String profile) {
 		int flag = LocalIface.FLAG_INIT_REGISTRY;
 
 		result = iFace.VCERT_Initialize(profile, flag);
@@ -51,7 +52,7 @@ public abstract class CommonSignatura implements SignaturaExecutor{
 		}
 		return result;
 
-	}
+	}*/
 
 	protected certificate_t getCert(String string) {
 		certificate_t cert = new LocalIface.certificate_t();

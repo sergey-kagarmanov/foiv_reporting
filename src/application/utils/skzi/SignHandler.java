@@ -39,7 +39,7 @@ public class SignHandler extends SignaturaHandler {
 
 	@Override
 	void unload() {
-		sign.unload();
+		//sign.unload();
 	}
 
 }

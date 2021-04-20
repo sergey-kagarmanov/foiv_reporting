@@ -32,6 +32,7 @@ import application.models.Report;
 import application.models.WorkingFile;
 import application.utils.skzi.DecryptorHandler;
 import application.utils.skzi.EncryptorHandler;
+import application.utils.skzi.LocalSignatura;
 import application.utils.skzi.SignHandler;
 import application.utils.skzi.SignaturaHandler;
 import application.utils.skzi.UnsignHandler;
@@ -62,6 +63,8 @@ public class StepExecutor {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		boolean signaturaAction = false;
 		List<SignaturaHandler> handlers = new ArrayList<>();
+		
+		LocalSignatura.initSignatura(step.getKey().getData());
 
 		if (step.getData() != null && !Constants.RENAME.equals(step.getAction().getName()) && !Constants.COPY.equals(step.getAction().getName())
 				&& !Constants.PACK.equals(step.getAction().getName())) {
@@ -113,7 +116,7 @@ public class StepExecutor {
 			result = createArchive(report, files);
 			break;
 		case Constants.UNPACK:
-			result = unpack(files);
+			result = unpack(stepFiles);
 			break;
 		case Constants.RENAME:
 			stepFiles.forEach(file -> {
@@ -164,9 +167,10 @@ public class StepExecutor {
 				e.printStackTrace();
 			}
 			executor.shutdown();
-			if (nonWork.size() > 0) {
-				result.addAll(nonWork);
-			}
+		}
+		
+		if (nonWork.size() > 0) {
+			result.addAll(nonWork);
 		}
 
 		return result;

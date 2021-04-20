@@ -400,7 +400,10 @@ public class ProcessExecutor {
 					parents = stepExecutor.execute(wFiles);
 					ObservableList<WorkingFile> tmp = FXCollections.observableArrayList();
 					for (WorkingFile parent : parents) {
-						tmp.addAll(parent.getChilds());
+						if (parent.getChilds()!=null)
+							tmp.addAll(parent.getChilds());
+						else
+							tmp.add(parent);
 					}
 					wFiles = tmp;
 				} else {

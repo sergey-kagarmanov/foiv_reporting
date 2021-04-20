@@ -40,7 +40,7 @@ public class UnsignHandler extends SignaturaHandler{
 
 	@Override
 	void unload() {
-		unsigner.unload();
+		//unsigner.unload();
 	}
 
 }

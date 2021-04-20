@@ -27,6 +27,7 @@ import application.models.Key;
 import application.models.ProcessStep;
 import application.models.Report;
 import application.utils.FileUtils;
+import application.utils.skzi.LocalSignatura;
 import application.view.ActionViewController;
 import application.view.AddEditAttributeDescrController;
 import application.view.AddReportController;

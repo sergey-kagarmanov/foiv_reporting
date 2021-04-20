@@ -1,22 +1,20 @@
 package application.utils.skzi;
 
-import Pki1.LocalIface;
 import Pki1.LocalIface.encrypt_param_t;
 import Pki1.LocalIface.strencrypt_handle_t;
-import application.MainApp;
 import application.errors.ReportError;
 import application.models.Key;
 
 public class EncryptorSignatura extends CommonSignatura {
 
-	private static volatile encrypt_param_t encryptParameters;
+	private encrypt_param_t encryptParameters;
 	private strencrypt_handle_t handler;
 
 	public EncryptorSignatura(Key key) {
 		super(key);
 	}
 
-	private synchronized void setEncryptParameters() {
+	/*private synchronized void setEncryptParameters() {
 		if (encryptParameters == null) {
 			encryptParameters = new encrypt_param_t();
 			encryptParameters.flag = LocalIface.FLAG_PKCS7;
@@ -26,11 +24,11 @@ public class EncryptorSignatura extends CommonSignatura {
 			encryptParameters.receivers[0] = getCert("");
 			MainApp.info("Encrypt parameters are set");
 		}
-	}
+	}*/
 
 	@Override
 	public void init() {
-		setEncryptParameters();
+		encryptParameters = LocalSignatura.getEncryptedParameters();
 		handler = new strencrypt_handle_t();
 	}
 
