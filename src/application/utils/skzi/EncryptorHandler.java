@@ -43,9 +43,10 @@ public class EncryptorHandler extends SignaturaHandler {
 		while ((length = bais.read(bufferEncrypt)) > 0) {
 			encrypted = encryptor.next(bufferEncrypt, length);
 			if (encrypted != null) {
-				fos.write(bufferEncrypt);
+				fos.write(encrypted);
 			}
 		}
+		//encrypted = encryptor.next(baos.toByteArray(), baos.toByteArray().length);
 
 		fos.write(encryptor.end());
 		fos.flush();

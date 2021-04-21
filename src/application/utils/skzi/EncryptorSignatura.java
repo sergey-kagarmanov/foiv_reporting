@@ -1,6 +1,7 @@
 package application.utils.skzi;
 
 import Pki1.LocalIface.encrypt_param_t;
+import Pki1.LocalIface.mem_blk_t;
 import Pki1.LocalIface.strencrypt_handle_t;
 import application.errors.ReportError;
 import application.models.Key;
@@ -50,11 +51,14 @@ public class EncryptorSignatura extends CommonSignatura {
 
 	@Override
 	public byte[] next(byte[] buffer, int length) throws ReportError {
-		memory1.buf = buffer;
-		memory1.len = length;
-		result = iFace.VCERT_StrEncryptUpdateMem(encryptParameters, handler, memory1, memory2);
+		mem_blk_t memory = new mem_blk_t();
+		memory.buf = buffer;
+		memory.len = length;
+		mem_blk_t memory_out = new mem_blk_t();
+		
+		result = iFace.VCERT_StrEncryptUpdateMem(encryptParameters, handler, memory, memory_out);
 		if (result == 0)
-			return memory2.buf;
+			return memory_out.buf;
 		else
 			throw new ReportError(result + "");
 
