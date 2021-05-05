@@ -215,8 +215,8 @@ public class SingleActionController {
 				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.DECRYPT)) {
-			LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 			mainApp.showChooseKeyDialog();
+			LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
@@ -239,8 +239,8 @@ public class SingleActionController {
 				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.UNSIGN)) {
-			LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 			mainApp.showChooseKeyDialog();
+			LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			}else {

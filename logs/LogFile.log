@@ -1,27 +1,97 @@
-[2021-04-21 11:21:21] [INFO   ] Programm started 
-[2021-04-21 11:21:21] [INFO   ] Database connected 
-[2021-04-21 11:23:02] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-04-21 11:23:03] [INFO   ] Work on process start 
-[2021-04-21 11:23:04] [INFO   ] Encrypt parameters are set 
-[2021-04-21 11:29:10] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-04-21 11:29:10] [INFO   ] Work on process start 
-[2021-04-21 11:31:59] [INFO   ] Programm started 
-[2021-04-21 11:31:59] [INFO   ] Database connected 
-[2021-04-21 11:33:20] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-04-21 11:33:20] [INFO   ] Work on process start 
-[2021-04-21 11:33:54] [INFO   ] Encrypt parameters are set 
-[2021-04-21 11:35:14] [INFO   ] Programm started 
-[2021-04-21 11:35:14] [INFO   ] Database connected 
-[2021-04-21 11:35:37] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-04-21 11:35:37] [INFO   ] Work on process start 
-[2021-04-21 11:35:39] [INFO   ] Encrypt parameters are set 
-[2021-04-21 12:31:41] [INFO   ] Programm started 
-[2021-04-21 12:31:42] [INFO   ] Database connected 
-[2021-04-21 12:32:14] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-04-21 12:32:14] [INFO   ] Work on process start 
-[2021-04-21 12:32:19] [INFO   ] Encrypt parameters are set 
-[2021-04-21 13:04:37] [INFO   ] Programm started 
-[2021-04-21 13:04:37] [INFO   ] Database connected 
-[2021-04-21 13:05:07] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
-[2021-04-21 13:05:07] [INFO   ] Work on process start 
-[2021-04-21 13:05:09] [INFO   ] Encrypt parameters are set 
+[2021-05-05 13:36:40] [INFO   ] Programm started 
+[2021-05-05 13:36:41] [INFO   ] Database connected 
+[2021-05-05 13:38:06] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:38:06] [INFO   ] Work on process start 
+[2021-05-05 13:38:06] [INFO   ] Verify parameters are set 
+[2021-05-05 13:38:06] [INFO   ] Work on process start 
+[2021-05-05 13:38:06] [INFO   ] Verify parameters are set 
+[2021-05-05 13:38:06] [INFO   ] Work on process start 
+[2021-05-05 13:38:06] [INFO   ] Verify parameters are set 
+[2021-05-05 13:38:06] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:38:06] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:38:06] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:38:47] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:38:47] [INFO   ] Work on process start 
+[2021-05-05 13:38:47] [INFO   ] Verify parameters are set 
+[2021-05-05 13:38:47] [INFO   ] Work on process start 
+[2021-05-05 13:38:47] [INFO   ] Verify parameters are set 
+[2021-05-05 13:38:47] [INFO   ] Work on process start 
+[2021-05-05 13:38:47] [INFO   ] Verify parameters are set 
+[2021-05-05 13:38:47] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:38:47] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:38:47] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:38:57] [INFO   ] Programm started 
+[2021-05-05 13:38:58] [INFO   ] Database connected 
+[2021-05-05 13:47:00] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:47:00] [INFO   ] Work on process start 
+[2021-05-05 13:47:00] [INFO   ] Verify parameters are set 
+[2021-05-05 13:47:00] [INFO   ] Work on process start 
+[2021-05-05 13:47:00] [INFO   ] Verify parameters are set 
+[2021-05-05 13:47:00] [INFO   ] Work on process start 
+[2021-05-05 13:47:00] [INFO   ] Verify parameters are set 
+[2021-05-05 13:47:00] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:47:00] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:47:00] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:47:34] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:47:34] [INFO   ] Work on process start 
+[2021-05-05 13:47:34] [INFO   ] Verify parameters are set 
+[2021-05-05 13:47:34] [INFO   ] Work on process start 
+[2021-05-05 13:47:34] [INFO   ] Verify parameters are set 
+[2021-05-05 13:47:34] [INFO   ] Work on process start 
+[2021-05-05 13:47:34] [INFO   ] Verify parameters are set 
+[2021-05-05 13:48:53] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:48:53] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:48:53] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:49:09] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:49:09] [INFO   ] Work on process start 
+[2021-05-05 13:49:09] [INFO   ] Verify parameters are set 
+[2021-05-05 13:49:09] [INFO   ] Work on process start 
+[2021-05-05 13:49:09] [INFO   ] Verify parameters are set 
+[2021-05-05 13:49:09] [INFO   ] Work on process start 
+[2021-05-05 13:49:09] [INFO   ] Verify parameters are set 
+[2021-05-05 13:51:18] [INFO   ] Programm started 
+[2021-05-05 13:51:19] [INFO   ] Database connected 
+[2021-05-05 13:52:09] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:52:09] [INFO   ] Work on process start 
+[2021-05-05 13:52:09] [INFO   ] Verify parameters are set 
+[2021-05-05 13:52:09] [INFO   ] Work on process start 
+[2021-05-05 13:52:09] [INFO   ] Verify parameters are set 
+[2021-05-05 13:52:09] [INFO   ] Work on process start 
+[2021-05-05 13:52:09] [INFO   ] Verify parameters are set 
+[2021-05-05 13:52:18] [INFO   ] Programm started 
+[2021-05-05 13:52:19] [INFO   ] Database connected 
+[2021-05-05 13:52:31] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:52:38] [INFO   ] Work on process start 
+[2021-05-05 13:52:38] [INFO   ] Verify parameters are set 
+[2021-05-05 13:52:39] [INFO   ] Work on process start 
+[2021-05-05 13:52:39] [INFO   ] Verify parameters are set 
+[2021-05-05 13:52:39] [INFO   ] Work on process start 
+[2021-05-05 13:52:39] [INFO   ] Verify parameters are set 
+[2021-05-05 13:55:38] [INFO   ] Programm started 
+[2021-05-05 13:55:39] [INFO   ] Database connected 
+[2021-05-05 13:59:41] [SEVERE ] Local interface of signature isn't initialized with profile - 08_FOIV. Error code - e0700003 
+[2021-05-05 13:59:41] [INFO   ] Work on process start 
+[2021-05-05 13:59:41] [INFO   ] Verify parameters are set 
+[2021-05-05 14:04:05] [INFO   ] Programm started 
+[2021-05-05 14:04:06] [INFO   ] Database connected 
+[2021-05-05 14:14:34] [INFO   ] Programm started 
+[2021-05-05 14:14:34] [INFO   ] Database connected 
+[2021-05-05 14:26:10] [INFO   ] Programm started 
+[2021-05-05 14:26:10] [INFO   ] Database connected 
+[2021-05-05 14:27:08] [SEVERE ] Local interface of signature isn't initialized with profile - 06_FOIV. Error code - e0700003 
+[2021-05-05 14:27:08] [INFO   ] Work on process start 
+[2021-05-05 14:27:08] [INFO   ] Verify parameters are set 
+[2021-05-05 15:22:16] [SEVERE ] Local interface of signature isn't initialized with profile - 06_FOIV. Error code - e0700003 
+[2021-05-05 15:22:16] [INFO   ] Work on process start 
+[2021-05-05 15:22:16] [INFO   ] Verify parameters are set 
+[2021-05-05 15:22:27] [INFO   ] Programm started 
+[2021-05-05 15:22:28] [INFO   ] Database connected 
+[2021-05-05 15:23:07] [SEVERE ] Local interface of signature isn't initialized with profile - 06_FOIV. Error code - e0700003 
+[2021-05-05 15:23:07] [INFO   ] Work on process start 
+[2021-05-05 15:23:07] [INFO   ] Verify parameters are set 
+[2021-05-05 15:25:36] [SEVERE ] Local interface of signature isn't initialized with profile - 06_FOIV. Error code - e0700003 
+[2021-05-05 15:25:36] [INFO   ] Work on process start 
+[2021-05-05 15:25:36] [INFO   ] Verify parameters are set 
+[2021-05-05 15:26:57] [INFO   ] Local interface of signature is initialized with profile - 06-FOIV 
+[2021-05-05 15:26:57] [INFO   ] Work on process start 
+[2021-05-05 15:26:57] [INFO   ] Verify parameters are set 
