@@ -54,7 +54,6 @@ public class EncryptorHandler extends SignaturaHandler {
 		bais.close();
 		baos.close();
 		fis.close();
-		unload();
 		file.setData(fos.toByteArray());
 		return file;
 	}

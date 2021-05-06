@@ -167,6 +167,7 @@ public class StepExecutor {
 				e.printStackTrace();
 			}
 			executor.shutdown();
+			LocalSignatura.uninitilize();
 		}
 		
 		if (nonWork.size() > 0) {
