@@ -19,5 +19,6 @@
 	<classpathentry kind="lib" path="C:/jars/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/MDPREI/spki1jni/Pki1.LocalIface.Jar"/>
 	<classpathentry kind="lib" path="C:/jars/commons-compress.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/signatura6"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
