@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
+import Pki1.LocalIface;
 import application.models.Key;
 import application.models.WorkingFile;
 import application.utils.skzi.SignaturaHandler;
@@ -56,9 +57,5 @@ public class DecryptorHandler extends SignaturaHandler {
 		decryptor = new DecryptorSignatura(key);
 	}
 
-	@Override
-	protected void unload() {
-		decryptor.unload();
-	}
 
 }

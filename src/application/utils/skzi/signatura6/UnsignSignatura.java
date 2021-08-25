@@ -1,7 +1,10 @@
 package application.utils.skzi.signatura6;
 
 import Pki1.LocalIface;
+import Pki1.LocalIface.mem_blk_t;
+import Pki1.LocalIface.strcms_handle_t;
 import Pki1.LocalIface.verify_param_t;
+import Pki1.LocalIface.verify_result_t;
 import application.MainApp;
 import application.errors.ReportError;
 import application.models.Key;
@@ -9,15 +12,19 @@ import application.models.Key;
 public class UnsignSignatura extends CommonSignatura{
 
 	private static volatile verify_param_t verifyParameters;
+	private strcms_handle_t handle;
+	private verify_result_t verifyResult;
 	
 	public UnsignSignatura(Key key) {
 		super(key);
+		handle = new strcms_handle_t();
+		verifyResult = new verify_result_t();
 	}
 
 
 	private void setVerifyParamaters() {
 		verifyParameters = new verify_param_t();
-		verifyParameters.flag = LocalIface.FLAG_PKCS7 | LocalIface.FLAG_VERIFY_DELSIGN;
+		verifyParameters.flag = LocalIface.FLAG_CMS_VERIFY_DELETESIGNATURES ^ LocalIface.FLAG_CMS_VERIFY_DONOTCHECKTIMES ^ LocalIface.FLAG_CMS_VERIFY_IGNOREATTACHEDSIGNER;
 		verifyParameters.mycert = null; // for local skzi
 		// verifyParameters.keyUsage = LocalIface.FLAG_VERIFY_EXTKEYUSAGE; //
 		// use only this flag for check cert scope
@@ -65,15 +72,25 @@ public class UnsignSignatura extends CommonSignatura{
 
 	@Override
 	public void start(byte[] buffer, int length) throws ReportError {
-		// TODO Auto-generated method stub
+		memory1 = new mem_blk_t();
+		memory1.buf = new byte[length];
+		for(int i = 0; i<length; i++) {
+			memory1.buf[i] = buffer[i];
+		}
+		memory1.len = length;
+		result = iFace.VCERT_CmsStrAttVerifyInitMem(verifyParameters, memory1, handle);
 		
 	}
 
 	@Override
 	public byte[] next(byte[] buffer, int length) throws ReportError {
-		memory1.buf = buffer;
+		memory1 = new mem_blk_t();
+		memory1.buf = new byte[length];
+		for(int i = 0; i<length; i++) {
+			memory1.buf[i] = buffer[i];
+		}
 		memory1.len = length;
-		result = iFace.VCERT_VerifyMem(verifyParameters, null, memory1, memory2, null);
+		result = iFace.VCERT_CmsStrAttVerifyUpdateMem(verifyParameters, handle, memory1, memory2);
 		if (result!=0) {
 			throw new ReportError("Unsign error");
 		}
@@ -82,8 +99,8 @@ public class UnsignSignatura extends CommonSignatura{
 
 	@Override
 	public byte[] end() throws ReportError {
-		// TODO Auto-generated method stub
-		return null;
+		result = iFace.VCERT_CmsStrAttVerifyFinalMem(verifyParameters, handle, memory2, verifyResult);
+		return memory2.buf;
 	}
 
 }

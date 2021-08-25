@@ -60,8 +60,4 @@ public class EncryptorHandler extends SignaturaHandler {
 		return file;
 	}
 
-	@Override
-	protected void unload() {
-		// encryptor.unload();
-	}
 }

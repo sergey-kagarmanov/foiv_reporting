@@ -17,17 +17,31 @@ public class UnsignHandler extends SignaturaHandler {
 
 	@Override
 	public WorkingFile call() throws Exception {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		boolean flag = true;
 		file.copyToSign();
 		InputStream fis = getInputStream();
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 
 		byte[] buffer = new byte[1024];
 		int length = 0;
+		length = fis.read(buffer);
+		unsigner.start(buffer, length);
 		while ((length = fis.read(buffer)) > 0) {
-			baos.write(buffer, 0, length);
+			byte[] bytes = unsigner.next(buffer, length);
+			if (bytes!=null)
+				fos.write(bytes);
+			flag = false;
 		}
-		fos.write(unsigner.next(baos.toByteArray(), baos.toByteArray().length));
+		/**
+		 * This block uses to force call of next function, without it you get an error
+		 */
+		if (flag) {
+			byte[] bytes = unsigner.next(new byte[0], 0);
+			if (bytes!=null)
+				fos.write(bytes);
+		}
+			
+		fos.write(unsigner.end());
 		file.setData(fos.toByteArray());
 		fis.close();
 		fos.close();
@@ -37,11 +51,6 @@ public class UnsignHandler extends SignaturaHandler {
 	@Override
 	protected void init(Key key) {
 		unsigner = new UnsignSignatura(key);
-	}
-
-	@Override
-	protected void unload() {
-		// unsigner.unload();
 	}
 
 }

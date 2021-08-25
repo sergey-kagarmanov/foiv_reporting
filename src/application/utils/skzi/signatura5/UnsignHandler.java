@@ -39,9 +39,4 @@ public class UnsignHandler extends SignaturaHandler {
 		unsigner = new UnsignSignatura(key);
 	}
 
-	@Override
-	protected void unload() {
-		// unsigner.unload();
-	}
-
 }

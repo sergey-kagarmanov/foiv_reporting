@@ -38,9 +38,4 @@ public class SignHandler extends SignaturaHandler {
 		sign = new SignSignatura(key);
 	}
 
-	@Override
-	protected void unload() {
-		// sign.unload();
-	}
-
 }

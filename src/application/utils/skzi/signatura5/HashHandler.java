@@ -39,9 +39,4 @@ public class HashHandler extends SignaturaHandler {
 		hasher = new HashSignatura(key);
 	}
 
-	@Override
-	protected void unload() {
-		// hasher.unload();
-	}
-
 }

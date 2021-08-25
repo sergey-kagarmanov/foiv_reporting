@@ -22,7 +22,6 @@ public abstract class SignaturaHandler implements Callable<WorkingFile> {
 
 	protected abstract void init(Key key);
 
-	protected abstract void unload();
 
 	protected InputStream getInputStream() throws ReportError {
 		if (file != null) {

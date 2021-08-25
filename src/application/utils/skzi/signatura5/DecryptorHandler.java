@@ -56,9 +56,5 @@ public class DecryptorHandler extends SignaturaHandler {
 		decryptor = new DecryptorSignatura(key);
 	}
 
-	@Override
-	protected void unload() {
-		decryptor.unload();
-	}
 
 }

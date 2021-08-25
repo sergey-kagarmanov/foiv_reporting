@@ -1,7 +1,6 @@
 package application.utils.skzi.signatura6;
 
 import Pki1.LocalIface;
-import Pki1.LocalIface.mem_blk_t;
 import Pki1.LocalIface.sign_param_t;
 import Pki1.LocalIface.strcms_handle_t;
 import application.MainApp;
@@ -12,17 +11,17 @@ public class SignSignatura extends CommonSignatura {
 
 	private static volatile sign_param_t signParameters;
 	private strcms_handle_t handle;
-	
+
 	public SignSignatura(Key key) {
 		super(key);
-		LocalSignatura.initSignatura(key.getData());
 		handle = new strcms_handle_t();
 	}
-	
+
 	public static synchronized void setSignParameters() {
 		signParameters = new sign_param_t();
-		//signParameters.flag = LocalIface.FLAG_PKCS7_INFO_TYPE_SIGNED ^ LocalIface.FLAG_PKCS7;
 		//signParameters.flag = LocalIface.FLAG_CMS_SIGN_ENVELOPE;
+		// LocalIface.FLAG_PKCS7;
+		// signParameters.flag = LocalIface.FLAG_CMS_SIGN_ENVELOPE;
 		signParameters.mycert = null; // for local skzi
 		MainApp.info("Sign parameters are set");
 	}
@@ -42,7 +41,7 @@ public class SignSignatura extends CommonSignatura {
 	@Override
 	public void start(byte[] buffer, int length) throws ReportError {
 		memory1.buf = new byte[length];
-		for(int i=0;i<length;i++) {
+		for (int i = 0; i < length; i++) {
 			memory1.buf[i] = buffer[i];
 		}
 		memory1.len = length;
@@ -52,7 +51,7 @@ public class SignSignatura extends CommonSignatura {
 	@Override
 	public byte[] next(byte[] buffer, int length) throws ReportError {
 		memory1.buf = new byte[length];
-		for(int i=0;i<length;i++) {
+		for (int i = 0; i < length; i++) {
 			memory1.buf[i] = buffer[i];
 		}
 		memory1.len = length;
@@ -65,7 +64,7 @@ public class SignSignatura extends CommonSignatura {
 	@Override
 	public byte[] end() throws ReportError {
 		result = iFace.VCERT_CmsStrAttSignFinalMem(signParameters, handle, memory2);
-		LocalSignatura.uninitilize();
+		unload();
 		return memory2.buf;
 	}
 
