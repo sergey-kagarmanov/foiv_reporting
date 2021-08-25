@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 import application.models.Key;
 import application.models.WorkingFile;
+import application.utils.skzi.SignaturaHandler;
 
 public class SignHandler extends SignaturaHandler {
 
@@ -16,30 +17,36 @@ public class SignHandler extends SignaturaHandler {
 
 	@Override
 	public WorkingFile call() throws Exception {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			InputStream fis = getInputStream();
-			ByteArrayOutputStream fos = new ByteArrayOutputStream();
-			byte[] buffer = new byte[1024];
-			int length = 0;
-			while ((length = fis.read(buffer)) > 0) {
-				baos.write(buffer, 0, length);
-			}
-			fos.write(sign.next(baos.toByteArray(), baos.toByteArray().length));
-			fis.close();
-			fos.close();
-			file.setData(fos.toByteArray());
-			file.copyToSign();
-			return file;
+		boolean flag = true;
+		InputStream fis = getInputStream();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int length = fis.read(buffer);
+		sign.start(buffer, length);
+		while ((length = fis.read(buffer)) > 0) {
+			baos.write(sign.next(buffer, length));
+			flag = false;
+		}
+		/*if (flag) {
+			baos.write(sign.next(buffer, buffer.length));
+		}*/
+		fis.close();
+		byte[] bytes = sign.end();
+		baos.write(bytes);
+		file.setData(baos.toByteArray());
+		baos.close();
+		file.copyToSign();
+		return file;
 	}
 
 	@Override
-	void init(Key key) {
+	protected void init(Key key) {
 		sign = new SignSignatura(key);
 	}
 
 	@Override
-	void unload() {
-		//sign.unload();
+	protected void unload() {
+		// sign.unload();
 	}
 
 }

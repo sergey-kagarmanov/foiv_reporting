@@ -17,14 +17,14 @@ import application.utils.AlertWindow;
 import application.utils.Constants;
 import application.utils.DateUtils;
 import application.utils.FileUtils;
-import application.utils.skzi.DecryptorHandler;
-import application.utils.skzi.EncryptorHandler;
-import application.utils.skzi.HashHandler;
-import application.utils.skzi.LocalSignatura;
-import application.utils.skzi.SignHandler;
 import application.utils.skzi.SignaturaHandler;
 import application.utils.skzi.SignaturaTheadingExecutor;
-import application.utils.skzi.UnsignHandler;
+import application.utils.skzi.signatura5.HashHandler;
+import application.utils.skzi.signatura6.DecryptorHandler;
+import application.utils.skzi.signatura6.EncryptorHandler;
+import application.utils.skzi.signatura6.LocalSignatura;
+import application.utils.skzi.signatura6.SignHandler;
+import application.utils.skzi.signatura6.UnsignHandler;
 import application.utils.xml.XMLValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -167,20 +167,20 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				
+
 				LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
-				
+
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
 					public SignaturaHandler getHandler(Key key) {
 						return new EncryptorHandler(key);
 					}
-					
+
 				};
 				try {
 					wFiles = executor.execute(mainApp.getCurrentKey());
-					wFiles.forEach(file ->{
+					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
 					});
 				} catch (InterruptedException e) {
@@ -194,9 +194,9 @@ public class SingleActionController {
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
+				
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
-					
+
 					@Override
 					public SignaturaHandler getHandler(Key key) {
 						return new SignHandler(key);
@@ -204,15 +204,14 @@ public class SingleActionController {
 				};
 				try {
 					wFiles = executor.execute(mainApp.getCurrentKey());
-					wFiles.forEach(file ->{
+					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
 					});
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				
+
 				AlertWindow.show(Constants.SIGN_RUS, errorFiles);
-				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.DECRYPT)) {
 			mainApp.showChooseKeyDialog();
@@ -229,7 +228,7 @@ public class SingleActionController {
 				};
 				try {
 					wFiles = executor.execute(mainApp.getCurrentKey());
-					wFiles.forEach(file ->{
+					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
 					});
 				} catch (InterruptedException e) {
@@ -243,7 +242,7 @@ public class SingleActionController {
 			LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
-			}else {
+			} else {
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
@@ -253,7 +252,7 @@ public class SingleActionController {
 				};
 				try {
 					wFiles = executor.execute(mainApp.getCurrentKey());
-					wFiles.forEach(file ->{
+					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
 					});
 
@@ -284,7 +283,7 @@ public class SingleActionController {
 					System.out.print((char) w);
 				}
 				System.out.println(p.waitFor());
-				
+
 				AlertWindow.show(Constants.PACK_RUS, errorFiles);
 				LocalSignatura.uninitilize();
 			} catch (Exception e) {
@@ -305,7 +304,7 @@ public class SingleActionController {
 				};
 				try {
 					wFiles = executor.execute(mainApp.getCurrentKey());
-					wFiles.forEach(file ->{
+					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
 					});
 				} catch (InterruptedException e) {
@@ -336,25 +335,26 @@ public class SingleActionController {
 		} else if (Constants.CHECK.equals(action.getKey())) {
 			mainApp.showChooseSchemaDialog(files.getItems());
 			ObservableList<Pair<File, String>> schemaPairs = mainApp.getSchemaPairs();
-			//StringBuilder errors = new StringBuilder();
+			// StringBuilder errors = new StringBuilder();
 			List<String> testList = new ArrayList<>();
 			errorFiles = FXCollections.observableArrayList();
 			for (Pair<File, String> f : schemaPairs) {
 				List<Exception> tmpList = XMLValidator.validate(f.getKey(), new File(f.getValue()));
 				if (tmpList.size() > 0) {
-						//errors.append("В файле " + f.getKey().getName());
+					// errors.append("В файле " + f.getKey().getName());
 					for (Exception ex : tmpList) {
-						//errors .append(" " + ((SAXException) ex).getMessage() + System.lineSeparator());
+						// errors .append(" " + ((SAXException) ex).getMessage()
+						// + System.lineSeparator());
 						if (ex instanceof SAXException) {
-						testList.add("Файл - "+ f.getKey().getName()+" " + ((SAXException) ex).getMessage());
-						errorFiles.add(new ErrorFile(f.getKey().getName(), 0, ((SAXException) ex).getMessage()));
-						}else {
-							testList.add("Файл - "+ f.getKey().getName()+" " + ex.getMessage());
+							testList.add("Файл - " + f.getKey().getName() + " " + ((SAXException) ex).getMessage());
+							errorFiles.add(new ErrorFile(f.getKey().getName(), 0, ((SAXException) ex).getMessage()));
+						} else {
+							testList.add("Файл - " + f.getKey().getName() + " " + ex.getMessage());
 							errorFiles.add(new ErrorFile(f.getKey().getName(), 0, "Структура не соответствует XML-формату"));
-							
+
 						}
 					}
-					//exceptions.put(f.getKey(), errors.toString());
+					// exceptions.put(f.getKey(), errors.toString());
 				}
 			}
 			AlertWindow.show(Constants.CHECK_RUS, errorFiles);

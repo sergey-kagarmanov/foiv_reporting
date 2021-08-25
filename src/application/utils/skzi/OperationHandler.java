@@ -1,4 +1,4 @@
-package application.utils.skzi.signatura6;
+package application.utils.skzi;
 
 import java.io.File;
 import java.util.concurrent.Callable;

@@ -9,12 +9,11 @@ import application.MainApp;
 
 public class LocalSignatura {
 
-	private static LocalIface iFace;
+	private static LocalIface iFace = new LocalIface();
 	protected static final int MAX_ELEMENTS_NUM = 32;
 	private static encrypt_param_t encryptParameters;
 	
 	public static void initSignatura(String profile) {
-		iFace = new LocalIface();
 		int flag = LocalIface.FLAG_INIT_REGISTRY;
 		int result = iFace.VCERT_Initialize(profile, flag);
 		if (result == LocalIface.VCERT_OK) {

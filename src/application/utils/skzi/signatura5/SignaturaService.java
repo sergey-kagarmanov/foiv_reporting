@@ -11,9 +11,11 @@ import application.models.ErrorFile;
 import application.models.FileTransforming;
 import application.models.Key;
 import application.utils.FileUtils;
+import application.utils.skzi.ISignaturaService;
+import application.utils.skzi.SignaturaServiceAbstract;
 import javafx.collections.ObservableList;
 
-public class SignaturaService {
+public class SignaturaService implements ISignaturaService{
 
 	private Signatura signatura;
 	private Key key;
@@ -23,7 +25,7 @@ public class SignaturaService {
 		initSignatura(key);
 	}
 	
-	private int initSignatura(Key key) {
+	public int initSignatura(Key key) {
 		int result = 0;
 		if (this.key == null || !this.key.equals(key)) {
 			result = signatura.initConfig(key.getData());

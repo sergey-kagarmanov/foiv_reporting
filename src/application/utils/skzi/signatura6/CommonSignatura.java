@@ -9,6 +9,12 @@ import application.MainApp;
 import application.models.Key;
 import application.utils.skzi.SignaturaExecutor;
 
+/**
+ * Add functionality to get signatura interface, load user certificate and load recipients certificates
+ * Add local fields like memory, result
+ * @author Sergey Kagarmanov
+ *
+ */
 public abstract class CommonSignatura implements SignaturaExecutor{
 
 	protected LocalIface iFace;
@@ -20,16 +26,15 @@ public abstract class CommonSignatura implements SignaturaExecutor{
 
 	public CommonSignatura(Key key) {
 		iFace = LocalSignatura.getLocaIFace();
-		//iFace = new LocalIface();
+		
 		MainApp.info("Work on process start");
-		//initConfig(key.getData());
 		memory1 = new mem_blk_t();
 		memory2 = new mem_blk_t();
 		init();
 
 	}
 	
-	public certificate_t getMyCert() {
+/*	public certificate_t getMyCert() {
 		certificate_t cert = new LocalIface.certificate_t();
 		find_param_t findParameters = new find_param_t();
 		findParameters.flag = LocalIface.FLAG_FIND_MY;
@@ -39,21 +44,6 @@ public abstract class CommonSignatura implements SignaturaExecutor{
 			cert = findResult.certs[0];
 		return cert;
 	}
-
-	/*private int initConfig(String profile) {
-		int flag = LocalIface.FLAG_INIT_REGISTRY;
-
-		result = iFace.VCERT_Initialize(profile, flag);
-		if (result == LocalIface.VCERT_OK) {
-			System.out.println("Init success");
-			MainApp.info("Local interface of signature is initialized with profile - " + profile);
-		} else {
-			MainApp.error("Local interface of signature isn't initialized with profile - " + profile
-					+ ". Error code - " + Integer.toHexString(result));
-		}
-		return result;
-
-	}*/
 
 	protected certificate_t getCert(String string) {
 		certificate_t cert = new LocalIface.certificate_t();
@@ -78,5 +68,5 @@ public abstract class CommonSignatura implements SignaturaExecutor{
 			MainApp.error("Local interface Signatura unloads with error - "
 					+ Integer.toHexString(result));
 		}
-	}
+	}*/
 }

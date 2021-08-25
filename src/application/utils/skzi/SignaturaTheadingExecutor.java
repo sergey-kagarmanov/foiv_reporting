@@ -1,4 +1,4 @@
-package application.utils.skzi.signatura6;
+package application.utils.skzi;
 
 import java.util.ArrayList;
 import java.util.List;

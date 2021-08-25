@@ -1,7 +1,9 @@
 package application.utils.skzi.signatura6;
 
 import Pki1.LocalIface;
+import Pki1.LocalIface.mem_blk_t;
 import Pki1.LocalIface.sign_param_t;
+import Pki1.LocalIface.strcms_handle_t;
 import application.MainApp;
 import application.errors.ReportError;
 import application.models.Key;
@@ -9,14 +11,18 @@ import application.models.Key;
 public class SignSignatura extends CommonSignatura {
 
 	private static volatile sign_param_t signParameters;
+	private strcms_handle_t handle;
 	
 	public SignSignatura(Key key) {
 		super(key);
+		LocalSignatura.initSignatura(key.getData());
+		handle = new strcms_handle_t();
 	}
 	
 	public static synchronized void setSignParameters() {
 		signParameters = new sign_param_t();
-		signParameters.flag = LocalIface.FLAG_PKCS7;
+		//signParameters.flag = LocalIface.FLAG_PKCS7_INFO_TYPE_SIGNED ^ LocalIface.FLAG_PKCS7;
+		//signParameters.flag = LocalIface.FLAG_CMS_SIGN_ENVELOPE;
 		signParameters.mycert = null; // for local skzi
 		MainApp.info("Sign parameters are set");
 	}
@@ -33,29 +39,34 @@ public class SignSignatura extends CommonSignatura {
 	public void start() throws ReportError {
 	}
 
-	/**
-	 * Don't use it
-	 */
 	@Override
 	public void start(byte[] buffer, int length) throws ReportError {
+		memory1.buf = new byte[length];
+		for(int i=0;i<length;i++) {
+			memory1.buf[i] = buffer[i];
+		}
+		memory1.len = length;
+		result = iFace.VCERT_CmsStrAttSignInitMem(signParameters, memory1, handle);
 	}
 
 	@Override
 	public byte[] next(byte[] buffer, int length) throws ReportError {
-		memory1.buf = buffer;
+		memory1.buf = new byte[length];
+		for(int i=0;i<length;i++) {
+			memory1.buf[i] = buffer[i];
+		}
 		memory1.len = length;
-		result = iFace.VCERT_SignMem(signParameters, null, memory1, memory2);
+		result = iFace.VCERT_CmsStrAttSignUpdateMem(signParameters, handle, memory1, memory2);
 		if (result != 0)
 			throw new ReportError(result + "");
 		return memory2.buf;
 	}
 
-	/**
-	 * Don't use it
-	 */
 	@Override
 	public byte[] end() throws ReportError {
-		return null;
+		result = iFace.VCERT_CmsStrAttSignFinalMem(signParameters, handle, memory2);
+		LocalSignatura.uninitilize();
+		return memory2.buf;
 	}
 
 }

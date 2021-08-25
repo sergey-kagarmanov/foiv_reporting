@@ -7,6 +7,7 @@ import java.util.zip.GZIPOutputStream;
 
 import application.models.Key;
 import application.models.WorkingFile;
+import application.utils.skzi.SignaturaHandler;
 
 public class EncryptorHandler extends SignaturaHandler {
 
@@ -17,7 +18,7 @@ public class EncryptorHandler extends SignaturaHandler {
 	}
 
 	@Override
-	void init(Key key) {
+	protected void init(Key key) {
 		encryptor = new EncryptorSignatura(key);
 	}
 
@@ -46,7 +47,8 @@ public class EncryptorHandler extends SignaturaHandler {
 				fos.write(encrypted);
 			}
 		}
-		//encrypted = encryptor.next(baos.toByteArray(), baos.toByteArray().length);
+		// encrypted = encryptor.next(baos.toByteArray(),
+		// baos.toByteArray().length);
 
 		fos.write(encryptor.end());
 		fos.flush();
@@ -59,7 +61,7 @@ public class EncryptorHandler extends SignaturaHandler {
 	}
 
 	@Override
-	public void unload() {
-		//encryptor.unload();
+	protected void unload() {
+		// encryptor.unload();
 	}
 }

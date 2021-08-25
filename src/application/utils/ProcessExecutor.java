@@ -34,7 +34,8 @@ import application.models.Report;
 import application.models.ReportFile;
 import application.models.TransportFile;
 import application.models.WorkingFile;
-import application.utils.skzi.SignaturaService;
+import application.utils.skzi.ISignaturaService;
+import application.utils.skzi.signatura5.SignaturaService;
 import application.view.controls.ArchiveNameDialogBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -819,7 +820,7 @@ public class ProcessExecutor {
 
 	public ObservableList<ErrorFile> executeStepSignatura(ProcessStep step) throws ReportError, InterruptedException, ExecutionException {
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
-		SignaturaService service = new SignaturaService(step.getKey());
+		ISignaturaService service = new SignaturaService(step.getKey());
 		switch (step.getAction().getName()) {
 		case Constants.ENCRYPT:
 			errorFiles = service.encrypt(executedFiles.filtered(t -> {
