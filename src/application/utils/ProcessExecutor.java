@@ -19,6 +19,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Predicate;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXParseException;
 
 import application.MainApp;
@@ -62,7 +63,7 @@ public class ProcessExecutor {
 	private String archivePath = "";
 	private Map<FileTransforming, TransportFile> transportFiles;
 	private Map<FileTransforming, ReportFile> mapFiles;
-	private Logger logger;
+	private Logger logger = Logger.getLogger(ProcessExecutor.class.getName());
 	private Boolean direction;
 	private FileParser parser;
 	private String[] renameFiles = null;
@@ -87,7 +88,6 @@ public class ProcessExecutor {
 		this.outputPath = outputPath;
 		transportFiles = new HashMap<FileTransforming, TransportFile>();
 		this.archivePath = archivePath;
-		logger = new Logger();
 		mapFiles = new HashMap<FileTransforming, ReportFile>();
 		parser = new FileParser(report, direction);
 		ticketFiles = new HashMap<FileTransforming, ReportFile>();
@@ -314,10 +314,10 @@ public class ProcessExecutor {
 			putFilesIntoArch();
 
 			for (TransportFile tf : transportFiles.values()) {
-				logger.log(tf);
+				//MainApp.getDb().save(tf);
 			}
 			for (ReportFile ticket : ticketFiles.values()) {
-				logger.log(ticket);
+				MainApp.getDb().save(ticket);
 			}
 
 			/*

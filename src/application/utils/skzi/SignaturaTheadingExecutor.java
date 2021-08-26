@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import application.errors.ReportError;
 import application.models.Key;
 import application.models.WorkingFile;
 import javafx.collections.FXCollections;
@@ -27,7 +28,12 @@ public abstract class SignaturaTheadingExecutor {
 		
 		List<SignaturaHandler> handlers = new ArrayList<>();
 		for (WorkingFile f : files) {
-			handler = getHandler(key);
+			try {
+				handler = getHandler(key);
+			} catch (ReportError e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			handler.setParameters(f);
 			handlers.add(handler);
 		}
@@ -46,6 +52,6 @@ public abstract class SignaturaTheadingExecutor {
 		return outFiles;
 	}
 	
-	public abstract SignaturaHandler getHandler(Key key);
+	public abstract SignaturaHandler getHandler(Key key) throws ReportError;
 	
 }

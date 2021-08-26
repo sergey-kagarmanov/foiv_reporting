@@ -10,9 +10,8 @@ import application.models.Key;
 public class SignSignatura extends CommonSignatura {
 
 	private static volatile sign_param_t signParameters;
-	private strcms_handle_t handle;
 
-	public SignSignatura(Key key) {
+	public SignSignatura(Key key) throws ReportError {
 		super(key);
 		handle = new strcms_handle_t();
 	}

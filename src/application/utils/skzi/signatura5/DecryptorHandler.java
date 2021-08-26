@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
+import application.errors.ReportError;
 import application.models.Key;
 import application.models.WorkingFile;
 import application.utils.skzi.SignaturaHandler;
@@ -13,7 +14,7 @@ public class DecryptorHandler extends SignaturaHandler {
 
 	private DecryptorSignatura decryptor;
 
-	public DecryptorHandler(Key key) {
+	public DecryptorHandler(Key key) throws ReportError {
 		super(key);
 	}
 

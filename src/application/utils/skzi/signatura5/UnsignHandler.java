@@ -3,6 +3,7 @@ package application.utils.skzi.signatura5;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
+import application.errors.ReportError;
 import application.models.Key;
 import application.models.WorkingFile;
 import application.utils.skzi.SignaturaHandler;
@@ -11,7 +12,7 @@ public class UnsignHandler extends SignaturaHandler {
 
 	private UnsignSignatura unsigner;
 
-	public UnsignHandler(Key key) {
+	public UnsignHandler(Key key) throws ReportError {
 		super(key);
 	}
 

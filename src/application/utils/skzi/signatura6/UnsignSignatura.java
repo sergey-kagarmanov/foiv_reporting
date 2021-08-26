@@ -12,10 +12,9 @@ import application.models.Key;
 public class UnsignSignatura extends CommonSignatura{
 
 	private static volatile verify_param_t verifyParameters;
-	private strcms_handle_t handle;
 	private verify_result_t verifyResult;
 	
-	public UnsignSignatura(Key key) {
+	public UnsignSignatura(Key key) throws ReportError {
 		super(key);
 		handle = new strcms_handle_t();
 		verifyResult = new verify_result_t();
@@ -102,5 +101,5 @@ public class UnsignSignatura extends CommonSignatura{
 		result = iFace.VCERT_CmsStrAttVerifyFinalMem(verifyParameters, handle, memory2, verifyResult);
 		return memory2.buf;
 	}
-
+	
 }

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
 import Pki1.LocalIface;
+import application.errors.ReportError;
 import application.models.Key;
 import application.models.WorkingFile;
 import application.utils.skzi.SignaturaHandler;
@@ -14,7 +15,7 @@ public class DecryptorHandler extends SignaturaHandler {
 
 	private DecryptorSignatura decryptor;
 
-	public DecryptorHandler(Key key) {
+	public DecryptorHandler(Key key) throws ReportError {
 		super(key);
 	}
 
@@ -53,8 +54,13 @@ public class DecryptorHandler extends SignaturaHandler {
 	}
 
 	@Override
-	protected void init(Key key) {
+	protected void init(Key key) throws ReportError {
 		decryptor = new DecryptorSignatura(key);
+	}
+
+	@Override
+	public void close() throws Exception {
+		decryptor.unload();
 	}
 
 

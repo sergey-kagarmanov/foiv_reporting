@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk8">
+	<classpathentry kind="src" output="target/classes" path="src">
 		<attributes>
-			<attribute name="module" value="true"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/saxon"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/skad"/>
-	<classpathentry kind="lib" path="C:/jars/sevenzipjbinding.jar" sourcepath="C:/jars/sevenzipjbinding-9.20-2.00beta-AllPlatforms/java-src.zip"/>
-	<classpathentry kind="lib" path="C:/jars/sevenzipjbinding-9.20-2.00beta.jar" sourcepath="C:/jars/sevenzipjbinding-9.20-2.00beta-AllPlatforms/java-src.zip">
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/jars/sevenzipjbinding-9.20-2.00beta-AllPlatforms/javadoc.zip!/"/>
+			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/jars/sevenzipjbinding-all-platforms.jar"/>
-	<classpathentry kind="lib" path="C:/jars/sqlite-jdbc-3.8.11.2.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/MDPREI/spki1jni/Pki1.LocalIface.Jar"/>
-	<classpathentry kind="lib" path="C:/jars/commons-compress.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/signatura6"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

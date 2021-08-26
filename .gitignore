@@ -16,3 +16,8 @@
 /fc_reports_new.db
 /fc_reports — копия.db
 /test.txt
+.project
+.classpath
+*.prefs
+*.prefs
+/target/

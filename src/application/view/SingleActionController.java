@@ -10,6 +10,7 @@ import java.util.List;
 import org.xml.sax.SAXException;
 
 import application.MainApp;
+import application.errors.ReportError;
 import application.models.ErrorFile;
 import application.models.Key;
 import application.models.WorkingFile;
@@ -168,12 +169,12 @@ public class SingleActionController {
 				showAlert("Ключ не выбран");
 			} else {
 
-				LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
+				//LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
-					public SignaturaHandler getHandler(Key key) {
+					public SignaturaHandler getHandler(Key key) throws ReportError {
 						return new EncryptorHandler(key);
 					}
 
@@ -198,7 +199,7 @@ public class SingleActionController {
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
-					public SignaturaHandler getHandler(Key key) {
+					public SignaturaHandler getHandler(Key key) throws ReportError {
 						return new SignHandler(key);
 					}
 				};
@@ -215,14 +216,19 @@ public class SingleActionController {
 			}
 		} else if (action.getKey().equals(Constants.DECRYPT)) {
 			mainApp.showChooseKeyDialog();
-			LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
+			try {
+				LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
+			} catch (ReportError e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
-					public SignaturaHandler getHandler(Key key) {
+					public SignaturaHandler getHandler(Key key) throws ReportError {
 						return new DecryptorHandler(key);
 					}
 				};
@@ -239,14 +245,14 @@ public class SingleActionController {
 			}
 		} else if (action.getKey().equals(Constants.UNSIGN)) {
 			mainApp.showChooseKeyDialog();
-			LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
+			//LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
-					public SignaturaHandler getHandler(Key key) {
+					public SignaturaHandler getHandler(Key key) throws ReportError {
 						return new UnsignHandler(key);
 					}
 				};
@@ -298,7 +304,7 @@ public class SingleActionController {
 				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
-					public SignaturaHandler getHandler(Key key) {
+					public SignaturaHandler getHandler(Key key) throws ReportError {
 						return new HashHandler(key);
 					}
 				};

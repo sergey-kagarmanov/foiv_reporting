@@ -6,6 +6,7 @@ import Pki1.LocalIface.encrypt_param_t;
 import Pki1.LocalIface.find_param_t;
 import Pki1.LocalIface.find_result_t;
 import application.MainApp;
+import application.errors.ReportError;
 
 public class LocalSignatura {
 
@@ -13,15 +14,15 @@ public class LocalSignatura {
 	protected static final int MAX_ELEMENTS_NUM = 32;
 	private static encrypt_param_t encryptParameters;
 	
-	public static void initSignatura(String profile) {
+	public static void initSignatura(String profile) throws ReportError {
 		int flag = LocalIface.FLAG_INIT_REGISTRY;
 		int result = iFace.VCERT_Initialize(profile, flag);
 		if (result == LocalIface.VCERT_OK) {
-			System.out.println("Init success");
 			MainApp.info("Local interface of signature is initialized with profile - " + profile);
 		} else {
-			MainApp.error("Local interface of signature isn't initialized with profile - " + profile
-					+ ". Error code - " + Integer.toHexString(result));
+			throw new ReportError("Local interface of signature isn't initialized with profile - " + profile
+					+ ". Error code - 0x" + Integer.toHexString(result));
+			
 		}
 
 	}
@@ -35,7 +36,7 @@ public class LocalSignatura {
 	
 	public static void setEncryptParameters() {
 			encryptParameters = new encrypt_param_t();
-			encryptParameters.flag = LocalIface.FLAG_PKCS7;
+			//encryptParameters.flag = LocalIface.
 			encryptParameters.mycert = null;
 			encryptParameters.receiver_num = 1;
 			encryptParameters.receivers = new LocalIface.certificate_t[MAX_ELEMENTS_NUM];

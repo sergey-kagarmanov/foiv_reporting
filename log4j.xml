@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+  
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' >
+
+   <appender name="file" class="org.apache.log4j.RollingFileAppender">
+   <param name="file" value="logs/LogFile.log"/>
+   <param name="immediateFlush" value="true"/>
+   <!--param name="threshold" value="debug"/-->
+   <param name="append" value="true"/>   
+   <param name="MaxFileSize" value="50MB"/>
+   <param name="maxBackupIndex" value="1000"/>
+   <layout class="org.apache.log4j.PatternLayout">
+      <param name="conversionPattern" value="%d %-5p  [%c{1}] %m %n"/>
+   </layout>
+</appender>
+  
+  	<!--  CONSOLE appender  -->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+		 	<param name="ConversionPattern"  
+		  		value="[%-5p]: %c - %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- logstash appender -->
+    <!-- <appender name="LOGSTASH" class="org.apache.log4j.net.SocketAppender">
+                 <param name="RemoteHost" value="localhost"/>
+        <param name="Port" value="8052"/>
+    </appender> -->
+	
+	<!-- Spring Logger -->  
+	<logger name="console_logger">  
+        <level value="ALL" />  
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <!-- throwableRenderer <throwableRenderer class="org.apache.log4j.EnhancedThrowableRenderer"/>--> 
+
+   <logger name="debug">
+		 <level value="INFO" />  
+  	     <appender-ref ref="file"/>
+  </logger>
+	
+    <!-- Root Logger -->  
+	<root>
+		 <level value="ALL" />  
+		<!--priority value ="warn"/-->
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="file" />
+		<!-- <appender-ref ref="LOGSTASH"/> -->
+	</root>
+</log4j:configuration>

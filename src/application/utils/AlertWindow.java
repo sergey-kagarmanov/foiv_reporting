@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.errors.ReportError;
 import application.models.ErrorFile;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -45,5 +46,7 @@ public class AlertWindow {
 		}
 	}
 
-
+	public static void show(ReportError error) {
+		
+	}
 }

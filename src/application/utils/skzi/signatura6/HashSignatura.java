@@ -9,7 +9,7 @@ public class HashSignatura extends CommonSignatura {
 	private strhash_handle_t handler; 
 	private String algoritm;
 	
-	public HashSignatura(Key key) {
+	public HashSignatura(Key key) throws ReportError {
 		super(key);
 	}
 

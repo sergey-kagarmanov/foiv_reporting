@@ -15,7 +15,7 @@ public class DecryptorSignatura extends CommonSignatura {
 	private int[] left = new int[] { 1024 };
 	private decrypt_result_t decryptResult = null;
 
-	public DecryptorSignatura(Key key) {
+	public DecryptorSignatura(Key key) throws ReportError {
 		super(key);
 	}
 

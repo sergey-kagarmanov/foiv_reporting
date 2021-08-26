@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.arj.ArjArchiveEntry;
 import org.apache.commons.compress.archivers.arj.ArjArchiveInputStream;
+import org.apache.log4j.Logger;
 
 import application.MainApp;
 import application.errors.ReportError;
@@ -48,6 +49,7 @@ public class StepExecutor {
 
 	private ProcessStep step;
 	private Report report;
+	private Logger logger = Logger.getLogger(StepExecutor.class.getName());
 
 	public StepExecutor(ProcessStep step, Report report) {
 		this.step = step;
@@ -61,7 +63,7 @@ public class StepExecutor {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		boolean signaturaAction = false;
 		List<SignaturaHandler> handlers = new ArrayList<>();
-		
+
 		LocalSignatura.initSignatura(step.getKey().getData());
 
 		if (step.getData() != null && !Constants.RENAME.equals(step.getAction().getName()) && !Constants.COPY.equals(step.getAction().getName())
@@ -81,23 +83,40 @@ public class StepExecutor {
 		case Constants.SIGN:
 			signaturaAction = true;
 			stepFiles.forEach(file -> {
-				SignaturaHandler handler = new SignHandler(step.getKey());
-				handler.setParameters(file);
-				handlers.add(handler);
+				try (SignaturaHandler handler = new SignHandler(step.getKey())) {
+
+					handler.setParameters(file);
+					handlers.add(handler);
+				} catch (ReportError e) {
+					// TODO: handle exception
+				} catch (Exception e1) {
+					
+				}
 			});
 			break;
 		case Constants.UNSIGN:
 			signaturaAction = true;
 			stepFiles.forEach(file -> {
-				SignaturaHandler handler = new UnsignHandler(step.getKey());
+				try(SignaturaHandler handler = new UnsignHandler(step.getKey())){
 				handler.setParameters(file);
 				handlers.add(handler);
+				}catch (ReportError e) {
+					// TODO: handle exception
+				} catch (Exception e1) {
+					logger.error(e1.getLocalizedMessage());
+				}
 			});
 			break;
 		case Constants.ENCRYPT:
 			signaturaAction = true;
 			stepFiles.forEach(file -> {
-				SignaturaHandler handler = new EncryptorHandler(step.getKey());
+				SignaturaHandler handler = null;
+				try {
+					handler = new EncryptorHandler(step.getKey());
+				} catch (ReportError e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				handler.setParameters(file);
 				handlers.add(handler);
 			});
@@ -105,7 +124,13 @@ public class StepExecutor {
 		case Constants.DECRYPT:
 			signaturaAction = true;
 			stepFiles.forEach(file -> {
-				SignaturaHandler handler = new DecryptorHandler(step.getKey());
+				SignaturaHandler handler = null;
+				try {
+					handler = new DecryptorHandler(step.getKey());
+				} catch (ReportError e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				handler.setParameters(file);
 				handlers.add(handler);
 			});
@@ -125,7 +150,7 @@ public class StepExecutor {
 		case Constants.COPY:
 			stepFiles.forEach(file -> {
 				File newfile = new File(step.getData() + "\\" + file.getName());
-				if(newfile.exists()) {
+				if (newfile.exists()) {
 					newfile.delete();
 				}
 				try {
@@ -167,7 +192,7 @@ public class StepExecutor {
 			executor.shutdown();
 			LocalSignatura.uninitilize();
 		}
-		
+
 		if (nonWork.size() > 0) {
 			result.addAll(nonWork);
 		}

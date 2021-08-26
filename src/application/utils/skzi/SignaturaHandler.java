@@ -7,12 +7,15 @@ import java.util.concurrent.Callable;
 import application.errors.ReportError;
 import application.models.Key;
 import application.models.WorkingFile;
+import application.utils.skzi.signatura6.CommonSignatura;
 
-public abstract class SignaturaHandler implements Callable<WorkingFile> {
+public abstract class SignaturaHandler implements Callable<WorkingFile>, AutoCloseable {
 
 	public WorkingFile file;
+	protected int result;
+	protected CommonSignatura executor;
 
-	public SignaturaHandler(Key key) {
+	public SignaturaHandler(Key key) throws ReportError {
 		init(key);
 	}
 
@@ -20,7 +23,7 @@ public abstract class SignaturaHandler implements Callable<WorkingFile> {
 		this.file = file;
 	}
 
-	protected abstract void init(Key key);
+	protected abstract void init(Key key) throws ReportError;
 
 
 	protected InputStream getInputStream() throws ReportError {
@@ -31,4 +34,8 @@ public abstract class SignaturaHandler implements Callable<WorkingFile> {
 		}
 	}
 
+	@Override
+	public void close() throws Exception {
+		executor.unload();
+	}
 }
