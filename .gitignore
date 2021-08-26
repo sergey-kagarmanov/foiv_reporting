@@ -7,8 +7,6 @@
 /TEST1.s3db
 ./logs
 /logs/
-./exe
-/exe/
 /fc_reports.db
 ./tmp
 /tmp/
