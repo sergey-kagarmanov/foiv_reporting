@@ -1,6 +1,5 @@
 package application.utils.skzi.signatura6;
 
-import Pki1.LocalIface;
 import Pki1.LocalIface.sign_param_t;
 import Pki1.LocalIface.strcms_handle_t;
 import application.MainApp;
@@ -55,15 +54,12 @@ public class SignSignatura extends CommonSignatura {
 		}
 		memory1.len = length;
 		result = iFace.VCERT_CmsStrAttSignUpdateMem(signParameters, handle, memory1, memory2);
-		if (result != 0)
-			throw new ReportError(result + "");
 		return memory2.buf;
 	}
 
 	@Override
 	public byte[] end() throws ReportError {
 		result = iFace.VCERT_CmsStrAttSignFinalMem(signParameters, handle, memory2);
-		unload();
 		return memory2.buf;
 	}
 

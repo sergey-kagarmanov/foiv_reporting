@@ -46,7 +46,7 @@ public class SignSignatura extends CommonSignatura {
 		memory1.len = length;
 		result = iFace.VCERT_SignMem(signParameters, null, memory1, memory2);
 		if (result != 0)
-			throw new ReportError(result + "");
+			throw new ReportError(ReportError.SIGN_ERROR, result + "");
 		return memory2.buf;
 	}
 

@@ -42,7 +42,7 @@ public class HashHandler extends SignaturaHandler {
 
 	@Override
 	public void close() throws Exception {
-		hasher.unload();
+		//hasher.unload();
 	}
 
 

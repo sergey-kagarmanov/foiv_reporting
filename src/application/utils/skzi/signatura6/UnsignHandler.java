@@ -17,6 +17,7 @@ public class UnsignHandler extends SignaturaHandler {
 	@Override
 	public WorkingFile call() throws Exception {
 		boolean flag = true;
+		byte[] bytes = null;
 		file.copyToSign();
 		InputStream fis = getInputStream();
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
@@ -25,8 +26,17 @@ public class UnsignHandler extends SignaturaHandler {
 		int length = 0;
 		length = fis.read(buffer);
 		executor.start(buffer, length);
+		result = executor.getResult();
+		if (result != 0) {
+			throw new ReportError(ReportError.UNSIGN_ERROR, "Ошибка верификации и снятия подписи 0x" + Integer.toHexString(result), file.getName());
+		}
 		while ((length = fis.read(buffer)) > 0) {
-			byte[] bytes = executor.next(buffer, length);
+			bytes = executor.next(buffer, length);
+			if (result != 0) {
+				throw new ReportError(ReportError.UNSIGN_ERROR, "Ошибка верификации и снятия подписи 0x" + Integer.toHexString(result),
+						file.getName());
+			}
+
 			if (bytes != null)
 				fos.write(bytes);
 			flag = false;
@@ -36,12 +46,20 @@ public class UnsignHandler extends SignaturaHandler {
 		 * error
 		 */
 		if (flag) {
-			byte[] bytes = executor.next(new byte[0], 0);
+			bytes = executor.next(new byte[0], 0);
+			if (result != 0) {
+				throw new ReportError(ReportError.UNSIGN_ERROR, "Ошибка верификации и снятия подписи 0x" + Integer.toHexString(result),
+						file.getName());
+			}
 			if (bytes != null)
 				fos.write(bytes);
 		}
 
-		fos.write(executor.end());
+		bytes = executor.end();
+		if (result!=0) {
+			throw new ReportError(ReportError.UNSIGN_ERROR, "Ошибка верификации и снятия подписи 0x"+Integer.toHexString(result), file.getName());
+		}
+		fos.write(bytes);
 		file.setData(fos.toByteArray());
 		fis.close();
 		fos.close();

@@ -36,6 +36,8 @@ public class EncryptorSignatura extends CommonSignatura {
 		for (int i = 0; i < length; i++) {
 			bytes[i] = buffer[i];
 		}
+		memory1.buf = bytes;
+		memory1.len = length;
 		result = iFace.VCERT_CmsStrEncryptInitMem(encryptParameters, memory1, handle);
 	}
 

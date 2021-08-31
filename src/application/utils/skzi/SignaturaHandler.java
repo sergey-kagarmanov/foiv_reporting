@@ -11,7 +11,7 @@ import application.utils.skzi.signatura6.CommonSignatura;
 
 public abstract class SignaturaHandler implements Callable<WorkingFile>, AutoCloseable {
 
-	public WorkingFile file;
+	protected WorkingFile file;
 	protected int result;
 	protected CommonSignatura executor;
 
@@ -30,12 +30,12 @@ public abstract class SignaturaHandler implements Callable<WorkingFile>, AutoClo
 		if (file != null) {
 			return new ByteArrayInputStream(file.getData());
 		}else {
-			throw new ReportError("Входные данные отсутствуют");
+			throw new ReportError(ReportError.FILE_ERROR, "Входные данные отсутствуют", file.getName());
 		}
 	}
 
 	@Override
 	public void close() throws Exception {
-		executor.unload();
+		//executor.unload();
 	}
 }

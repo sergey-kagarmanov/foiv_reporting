@@ -237,7 +237,7 @@ public class WorkingFile {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new ReportError(e.getMessage());
+			throw new ReportError(ReportError.FILE_ERROR, e.getStackTrace().toString(), getName());
 		} finally {
 			try {
 				fis.close();
@@ -280,7 +280,7 @@ public class WorkingFile {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new ReportError(e.getMessage());
+			throw new ReportError(ReportError.FILE_ERROR, e.getMessage(), getName());
 		} finally {
 			try {
 				fis.close();
@@ -310,7 +310,7 @@ public class WorkingFile {
 			data = baos.toByteArray();
 		} catch (IOException e) {
 			MainApp.error(e.getMessage());
-			throw new ReportError("Ошибка чтения файла " + path + "\\" + getOriginalName());
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибка чтения файла ", path + "\\" + getOriginalName());
 		} finally {
 			try {
 				fis.close();

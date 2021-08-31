@@ -100,11 +100,11 @@ public class FileTransforming {
 		if (inPath != null && !"".equals(inPath)) {
 			this.original = new File(inPath + "\\" + original);
 			if (!this.original.exists()) {
-				throw new ReportError(
+				throw new ReportError(ReportError.FILE_ERROR,
 						"Ошибка при установке оригинального файла, файл не существует");
 			}
 		} else
-			throw new ReportError(
+			throw new ReportError(ReportError.FILE_ERROR,
 					"Ошибка при установке оригинального файла, входной каталог не задан");
 	}
 

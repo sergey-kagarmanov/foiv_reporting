@@ -75,7 +75,7 @@ public class FileUtils {
 				return FXCollections.observableArrayList();
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ReportError("Ошибка при фильтрации файлов в каталоге - " + directory);
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибка при фильтрации файлов в каталоге - ", directory);
 		}
 	}
 
@@ -94,7 +94,7 @@ public class FileUtils {
 			else
 				return FXCollections.observableArrayList();
 		} catch (Exception e) {
-			throw new ReportError("Ошибка при фильтрации файлов в каталоге - " + directory);
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибка при фильтрации файлов в каталоге - ", directory);
 		}
 	}
 
@@ -449,7 +449,7 @@ public class FileUtils {
 	public static void saveWorkingFile(WorkingFile file, String path) {
 		try {
 			byte[] buffer = new byte[1024];
-			FileOutputStream toFile = new FileOutputStream(new File(path + "\\"+file.getName()));
+			FileOutputStream toFile = new FileOutputStream(new File(path + "\\" + file.getName()));
 			ByteArrayInputStream signed = new ByteArrayInputStream(file.getData());
 			int length = 0;
 			while ((length = signed.read(buffer)) != -1) {
@@ -510,7 +510,7 @@ public class FileUtils {
 			is.close();
 			file.setData(baos.toByteArray());
 			return new ByteArrayInputStream(resultOut.toByteArray());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

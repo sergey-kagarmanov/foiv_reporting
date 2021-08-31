@@ -55,7 +55,7 @@ public class FileParser {
 
 		fType = getType(file);
 		if (fType == null) {
-			throw new ReportError("Неизвестный тип файла");
+			throw new ReportError(ReportError.UNKNOWN_FILETYPE, "Неизвестный тип файла", file.getName());
 		}
 		if (fType.getValidationSchema() != null && !"".equals(fType.getValidationSchema())) {
 			List<Exception> list = XMLValidator.validate(file, new File(fType.getValidationSchema()));
@@ -77,7 +77,7 @@ public class FileParser {
 			}
 			return attr;
 		} else {
-			throw new ReportError("Неизвестный тип файла " + file.getName());
+			throw new ReportError(ReportError.UNKNOWN_FILETYPE, "Неизвестный тип файла " ,file.getName());
 		}
 	}
 
@@ -133,7 +133,7 @@ public class FileParser {
 								}
 							}
 						} else if (node == null) {
-							throw new ReportError("Node not found");
+							throw new ReportError(ReportError.XML_PARSE_ERROR, "Файл не может быть разобран, проверьте структуру", file.getName());
 						} else {
 							i++;
 						}

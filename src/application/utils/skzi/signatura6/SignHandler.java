@@ -16,18 +16,30 @@ public class SignHandler extends SignaturaHandler {
 
 	@Override
 	public WorkingFile call() throws Exception {
-		boolean flag = true;
 		InputStream fis = getInputStream();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
+		byte[] bytes = null;
 		int length = fis.read(buffer);
 		executor.start(buffer, length);
+		result = executor.getResult();
+		if (result != 0) {
+			throw new ReportError(ReportError.SIGN_ERROR, "Ошибка подписи 0x" + Integer.toHexString(result), file.getName());
+		}
 		while ((length = fis.read(buffer)) > 0) {
-			baos.write(executor.next(buffer, length));
-			flag = false;
+			bytes = executor.next(buffer, length);
+			result = executor.getResult();
+			if (result != 0) {
+				throw new ReportError(ReportError.SIGN_ERROR, "Ошибка подписи 0x" + Integer.toHexString(result), file.getName());
+			}
+			baos.write(bytes);
 		}
 		fis.close();
-		byte[] bytes = executor.end();
+		bytes = executor.end();
+		result = executor.getResult();
+		if (result != 0) {
+			throw new ReportError(ReportError.SIGN_ERROR, "Ошибка подписи 0x" + Integer.toHexString(result), file.getName());
+		}
 		baos.write(bytes);
 		file.setData(baos.toByteArray());
 		baos.close();

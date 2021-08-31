@@ -2339,7 +2339,7 @@ public class Dao {
 			} catch (SQLException e) {
 				MainApp.error(e.getLocalizedMessage());
 				e.printStackTrace();
-				throw new ReportError("Не удалось сохранить маску для файла");
+				throw new ReportError(ReportError.SQL_ERROR, "Не удалось сохранить маску для файла");
 			} finally {
 				try {
 					rs.close();

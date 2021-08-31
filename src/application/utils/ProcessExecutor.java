@@ -209,8 +209,8 @@ public class ProcessExecutor {
 		if (chains != null) {
 			chain = chains.get(0);
 		} else {
-			throw new ReportError("Для отчетности " + report.getName() + " направление " + (direction ? Constants.IN : Constants.OUT)
-					+ " не определена последовательность действий");
+			throw new ReportError(ReportError.SETUP_ERROR, "Для отчетности " + report.getName() + " направление "
+					+ (direction ? Constants.IN : Constants.OUT) + " не определена последовательность действий");
 		}
 		if (chain.getSteps() != null) {
 			currentStep = chain.getSteps().get(0);
@@ -254,13 +254,15 @@ public class ProcessExecutor {
 			if (!direction) {
 				for (FileTransforming tf : transportFiles.keySet()) {
 					if (!tf.copyCurrent(outputPath, false)) {
-						throw new ReportError("Не могу перенести транспортный файл " + tf.getCurrent() + " в выходную директорию " + outputPath);
+						throw new ReportError(ReportError.FILE_ERROR,
+								"Не могу перенести транспортный файл " + tf.getCurrent() + " в выходную директорию " + outputPath);
 					}
 				}
 			} else {
 				for (FileTransforming rf : mapFiles.keySet()) {
 					if (!rf.copyCurrent(outputPath, false)) {
-						throw new ReportError("не могу перенести файл отчетности " + rf.getCurrent() + " в выходную директорию " + outputPath);
+						throw new ReportError(ReportError.FILE_ERROR,
+								"Не могу перенести файл отчетности " + rf.getCurrent() + " в выходную директорию " + outputPath);
 					}
 				}
 
@@ -282,17 +284,20 @@ public class ProcessExecutor {
 						}
 					}
 				} catch (ReportError e) {
-					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setTitle("Ошибка");
-					alert.setHeaderText("Ошибка при обработке файла - " + e.getMessage());
-					alert.setContentText("Произошла ошибка при обработке файла - " + e.getMessage() + "\n\rВы хотите прервать обработку?");
-					if (alert.showAndWait().get() == ButtonType.OK) {
-						throw new ReportError("Прервать обработку");
-					} else {
-						System.out.println(e.getMessage());
-						MainApp.error(e.getLocalizedMessage());
-						e.printStackTrace();
-					}
+					/*
+					 * Alert alert = new Alert(AlertType.CONFIRMATION);
+					 * alert.setTitle("Ошибка");
+					 * alert.setHeaderText("Ошибка при обработке файла - " +
+					 * e.getMessage()); alert.
+					 * setContentText("Произошла ошибка при обработке файла - "
+					 * + e.getMessage() + "\n\rВы хотите прервать обработку?");
+					 * if (alert.showAndWait().get() == ButtonType.OK) { throw
+					 * new ReportError("Прервать обработку"); } else {
+					 * System.out.println(e.getMessage());
+					 * MainApp.error(e.getLocalizedMessage());
+					 * e.printStackTrace(); }
+					 */
+					AlertWindow.show(e, logger);
 				}
 			}
 
@@ -301,12 +306,13 @@ public class ProcessExecutor {
 			 */
 			for (FileTransforming fe : ticketFiles.keySet()) {
 				if (!fe.copyCurrent(outputPath, false)) {
-					throw new ReportError("Не могу перенести файл квитанции " + fe.getCurrent() + " в выходную директорию " + outputPath);
+					throw new ReportError(ReportError.FILE_ERROR,
+							"Не могу перенести файл квитанции " + fe.getCurrent() + " в выходную директорию " + outputPath);
 				}
 
 				// Copy to archive
 				if (!fe.copyCurrent(archivePath, false)) {
-					throw new ReportError("Не могу перенести файл квитанции " + fe.getCurrent() + " в архив " + archivePath);
+					throw new ReportError(ReportError.FILE_ERROR, "Не могу перенести файл квитанции " + fe.getCurrent() + " в архив " + archivePath);
 
 				}
 			}
@@ -314,7 +320,7 @@ public class ProcessExecutor {
 			putFilesIntoArch();
 
 			for (TransportFile tf : transportFiles.values()) {
-				//MainApp.getDb().save(tf);
+				// MainApp.getDb().save(tf);
 			}
 			for (ReportFile ticket : ticketFiles.values()) {
 				MainApp.getDb().save(ticket);
@@ -378,8 +384,8 @@ public class ProcessExecutor {
 		if (chains != null) {
 			chain = chains.get(0);
 		} else {
-			throw new ReportError("Для отчетности " + report.getName() + " направление " + (direction ? Constants.IN : Constants.OUT)
-					+ " не определена последовательность действий");
+			throw new ReportError(ReportError.SETUP_ERROR, "Для отчетности " + report.getName() + " направление "
+					+ (direction ? Constants.IN : Constants.OUT) + " не определена последовательность действий");
 		}
 		if (chain.getSteps() != null) {
 			currentStep = chain.getSteps().get(0);
@@ -401,7 +407,7 @@ public class ProcessExecutor {
 					parents = stepExecutor.execute(wFiles);
 					ObservableList<WorkingFile> tmp = FXCollections.observableArrayList();
 					for (WorkingFile parent : parents) {
-						if (parent.getChilds()!=null)
+						if (parent.getChilds() != null)
 							tmp.addAll(parent.getChilds());
 						else
 							tmp.add(parent);
@@ -431,11 +437,11 @@ public class ProcessExecutor {
 			}
 		}
 
-		if(direction == Constants.INPUT) {
+		if (direction == Constants.INPUT) {
 			wFiles = checker.execute(wFiles, report);
 			parents = checker.execute(parents, report);
 		}
-		
+
 		wFiles.forEach(file -> {
 			try {
 				file.saveData(outputPath);
@@ -451,14 +457,14 @@ public class ProcessExecutor {
 			saveArchive(wFiles, archivePath);
 			MainApp.getDb().save(report, direction ? 1 : 0, wFiles, null);
 		}
-		
+
 		deleteFiles();
-		
+
 		return 0;
 	}
-	
+
 	private void deleteFiles() {
-		filenames.forEach(name->{
+		filenames.forEach(name -> {
 			new File(name).delete();
 		});
 	}
@@ -559,7 +565,7 @@ public class ProcessExecutor {
 				// Collection<ReportFile> fc = mf.values();
 
 				if (transportFiles == null || transportFiles.get(tf) == null || transportFiles.get(tf).getListFiles() == null) {
-					throw new ReportError("Неверные настройки отчетности!");
+					throw new ReportError(ReportError.SETUP_ERROR, "Неверные настройки отчетности!");
 				}
 
 				for (String rf : transportFiles.get(tf).getListFiles().keySet()) {
@@ -568,7 +574,7 @@ public class ProcessExecutor {
 					if (index >= 0) {
 						fileTransforming = executedFiles.get(index);
 					} else {
-						throw new ReportError("Внутренняя ошибка, не могу найти изначальный файл " + rf);
+						throw new ReportError(ReportError.FILE_ERROR, "Внутренняя ошибка, не могу найти изначальный файл ", rf);
 					}
 					fileTransforming.copySigned(archivePath + dateString);
 				}
@@ -587,7 +593,7 @@ public class ProcessExecutor {
 				p = r.exec(q);
 				int i = p.waitFor();
 				if (i != 0)
-					throw new ReportError("Ключи не были выгружены");
+					throw new ReportError(ReportError.RUNTIME_ERROR, "Ключи не были выгружены");
 
 			} catch (InterruptedException | IOException ie) {
 				MainApp.error(ie.getLocalizedMessage());
@@ -745,8 +751,7 @@ public class ProcessExecutor {
 					executedFiles.addAll(transportFiles.keySet());
 				} catch (InterruptedException | IOException ie) {
 					MainApp.error(ie.getLocalizedMessage());
-					ie.printStackTrace();
-					throw new ReportError("Ошибка создания транспортного файла");
+					throw new ReportError(ReportError.FILE_ERROR, "Ошибка создания транспортного файла");
 				}
 
 			}
@@ -754,7 +759,7 @@ public class ProcessExecutor {
 			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 			System.out.println("Error!!!");
-			throw new ReportError("Ошибка создания транспортного файла");
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибка создания транспортного файла");
 		}
 		MainApp.info("ARJ returned " + p.exitValue());
 	}

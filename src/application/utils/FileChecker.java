@@ -34,7 +34,7 @@ public class FileChecker {
 					if (future.get() != null)
 						wFiles.add(future.get());
 				} catch (InterruptedException | ExecutionException e) {
-					new ReportError("Ошибка выполнения проверки входных файлов");
+					new ReportError(ReportError.UNHANDLE_SIGNATURA_ERROR,"Ошибка выполнения проверки входных файлов");
 				}
 
 			});

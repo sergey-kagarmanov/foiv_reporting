@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import application.MainApp;
@@ -45,6 +46,7 @@ public class SingleActionController {
 	private Stage dialogStage;
 
 	private MainApp mainApp;
+	private Logger logger = Logger.getLogger(SingleActionController.class.getName());
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
@@ -169,105 +171,105 @@ public class SingleActionController {
 				showAlert("Ключ не выбран");
 			} else {
 
-				//LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
+				// LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 
-				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
+				try (SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
 					public SignaturaHandler getHandler(Key key) throws ReportError {
 						return new EncryptorHandler(key);
 					}
 
-				};
-				try {
+				}) {
 					wFiles = executor.execute(mainApp.getCurrentKey());
 					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
+						logger.info("File encrypted "+file.getName());
 					});
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					AlertWindow.show(Constants.ENCRYPT_RUS, errorFiles);
+				} catch (ReportError e) {
+					AlertWindow.show(e, logger);
+				} catch (Exception e1) {
+					AlertWindow.show(new ReportError(ReportError.RUNTIME_ERROR, e1.getLocalizedMessage(), null, e1), logger);
 				}
-				AlertWindow.show(Constants.ENCRYPT_RUS, errorFiles);
-				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.SIGN)) {
 			mainApp.showChooseKeyDialog();
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				
-				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
+
+				try (SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
 					public SignaturaHandler getHandler(Key key) throws ReportError {
 						return new SignHandler(key);
 					}
-				};
-				try {
+				}) {
+
 					wFiles = executor.execute(mainApp.getCurrentKey());
 					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
+						logger.info("File signed "+file.getName());
 					});
-				} catch (InterruptedException e) {
+					AlertWindow.show(Constants.SIGN_RUS, errorFiles);
+				} catch (Exception e) {
 					e.printStackTrace();
+					AlertWindow.show(new ReportError(ReportError.RUNTIME_ERROR, e.getLocalizedMessage(), null , e), logger);
 				}
 
-				AlertWindow.show(Constants.SIGN_RUS, errorFiles);
 			}
 		} else if (action.getKey().equals(Constants.DECRYPT)) {
 			mainApp.showChooseKeyDialog();
-			try {
-				LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
-			} catch (ReportError e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
+				try (SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
 					public SignaturaHandler getHandler(Key key) throws ReportError {
 						return new DecryptorHandler(key);
 					}
-				};
-				try {
+				}) {
 					wFiles = executor.execute(mainApp.getCurrentKey());
 					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
+						logger.info("File decrypted "+file.getName());
 					});
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					AlertWindow.show(Constants.DECRYPT_RUS, errorFiles);
+				} catch (ReportError e) {
+					AlertWindow.show(e, logger);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					AlertWindow.show(new ReportError(ReportError.RUNTIME_ERROR, e1.getLocalizedMessage(), null, e1), logger);
 				}
-				AlertWindow.show(Constants.DECRYPT_RUS, errorFiles);
-				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.UNSIGN)) {
 			mainApp.showChooseKeyDialog();
-			//LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
+			// LocalSignatura.initSignatura(mainApp.getCurrentKey().getData());
 			if (mainApp.getCurrentKey() == null) {
 				showAlert("Ключ не выбран");
 			} else {
-				SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
+				try (SignaturaTheadingExecutor executor = new SignaturaTheadingExecutor(WorkingFile.toWorking(files.getItems())) {
 
 					@Override
 					public SignaturaHandler getHandler(Key key) throws ReportError {
 						return new UnsignHandler(key);
 					}
-				};
-				try {
+				}) {
 					wFiles = executor.execute(mainApp.getCurrentKey());
 					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
+						logger.info("File unsigned "+file.getName());
 					});
+					AlertWindow.show(Constants.UNSIGN_RUS, errorFiles);
 
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (ReportError e) {
+					AlertWindow.show(e, logger);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					AlertWindow.show(new ReportError(ReportError.RUNTIME_ERROR, e1.getLocalizedMessage(), null, e1), logger);
 				}
-				AlertWindow.show(Constants.UNSIGN_RUS, errorFiles);
-				LocalSignatura.uninitilize();
 			}
 		} else if (action.getKey().equals(Constants.PACK)) {
 			ObservableList<File> tmp = copyFiles();
@@ -291,7 +293,6 @@ public class SingleActionController {
 				System.out.println(p.waitFor());
 
 				AlertWindow.show(Constants.PACK_RUS, errorFiles);
-				LocalSignatura.uninitilize();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -313,8 +314,8 @@ public class SingleActionController {
 					wFiles.forEach(file -> {
 						FileUtils.saveWorkingFile(file, outPath.getText());
 					});
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				} catch (ReportError e) {
+					AlertWindow.show(e, logger);
 				}
 				AlertWindow.show(Constants.DECRYPT_RUS, errorFiles);
 				LocalSignatura.uninitilize();

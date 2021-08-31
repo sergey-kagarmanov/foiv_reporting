@@ -21,3 +21,4 @@
 *.prefs
 *.prefs
 /target/
+*.log

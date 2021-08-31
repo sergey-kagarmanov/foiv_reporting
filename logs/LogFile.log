@@ -18,3 +18,431 @@
 2021-08-26 14:45:49,995 INFO   [MainApp] Database connected 
 2021-08-26 14:46:44,560 INFO   [MainApp] Database connected 
 2021-08-26 16:33:28,678 INFO   [MainApp] Database connected 
+2021-08-31 14:10:48,980 INFO   [MainApp] Database connected 
+2021-08-31 14:11:39,293 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 14:11:39,293 INFO   [MainApp] Work on process start 
+2021-08-31 14:11:39,295 INFO   [MainApp] Sign parameters are set 
+2021-08-31 14:11:39,302 INFO   [MainApp] Local interface Signatura unloads successfull 
+2021-08-31 14:12:15,864 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 14:12:15,864 INFO   [MainApp] Work on process start 
+2021-08-31 14:12:15,867 INFO   [MainApp] Verify parameters are set 
+2021-08-31 14:12:35,653 ERROR  [SingleActionController] Ошибка инициализации Сигнатуры 
+2021-08-31 14:12:35,654 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: Local interface of signature isn't initialized with profile - 06-FOIV. Error code - 0xe0700003 
+2021-08-31 14:12:50,990 ERROR  [SingleActionController] Ошибка инициализации Сигнатуры 
+2021-08-31 14:12:50,990 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: Local interface of signature isn't initialized with profile - 06-FOIV. Error code - 0xe0700003 
+2021-08-31 14:32:25,099 INFO   [MainApp] Database connected 
+2021-08-31 14:33:14,070 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 14:33:14,071 INFO   [MainApp] Work on process start 
+2021-08-31 14:33:14,074 INFO   [MainApp] Sign parameters are set 
+2021-08-31 14:33:14,085 INFO   [MainApp] Local interface Signatura unloads successfull 
+2021-08-31 14:33:14,194 ERROR  [MainApp] Local interface Signatura unloads with error - e0700003 
+2021-08-31 14:34:18,098 INFO   [MainApp] Database connected 
+2021-08-31 14:34:45,545 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 14:34:45,546 INFO   [MainApp] Work on process start 
+2021-08-31 14:34:45,547 INFO   [MainApp] Sign parameters are set 
+2021-08-31 14:34:45,758 INFO   [MainApp] Local interface Signatura unloads successfull 
+2021-08-31 14:45:55,610 INFO   [MainApp] Database connected 
+2021-08-31 14:46:06,838 INFO   [MainApp] Database connected 
+2021-08-31 14:46:35,462 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 14:46:35,462 INFO   [MainApp] Work on process start 
+2021-08-31 14:46:37,444 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 14:46:37,663 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 14:49:37,592 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 14:49:37,592 INFO   [MainApp] Work on process start 
+2021-08-31 14:52:37,126 INFO   [MainApp] Database connected 
+2021-08-31 14:53:07,871 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 14:53:07,871 INFO   [MainApp] Work on process start 
+2021-08-31 14:53:09,981 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 14:53:10,027 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 14:53:10,207 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 14:55:01,103 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 14:55:01,103 INFO   [MainApp] Work on process start 
+2021-08-31 14:55:01,105 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 14:55:01,108 ERROR  [MainApp]  
+2021-08-31 14:55:01,108 ERROR  [MainApp] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 14:55:01,282 ERROR  [SingleActionController]  
+2021-08-31 14:55:01,282 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: null 
+2021-08-31 15:12:41,746 INFO   [MainApp] Database connected 
+2021-08-31 15:13:21,874 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:13:21,874 INFO   [MainApp] Work on process start 
+2021-08-31 15:13:21,877 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 15:13:21,904 ERROR  [MainApp]  
+2021-08-31 15:13:21,904 ERROR  [MainApp] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 15:13:22,132 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:13:53,088 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:13:53,088 INFO   [MainApp] Work on process start 
+2021-08-31 15:13:53,088 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 15:15:09,605 ERROR  [MainApp]  
+2021-08-31 15:15:09,606 ERROR  [MainApp] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 15:15:09,895 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:16:04,763 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:16:04,764 INFO   [MainApp] Work on process start 
+2021-08-31 15:16:08,390 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 15:16:08,402 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 15:16:08,493 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:16:37,980 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:16:37,980 INFO   [MainApp] Work on process start 
+2021-08-31 15:20:30,881 INFO   [MainApp] Database connected 
+2021-08-31 15:20:55,536 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:20:55,536 INFO   [MainApp] Work on process start 
+2021-08-31 15:20:57,759 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 15:21:01,511 ERROR  [MainApp]  
+2021-08-31 15:21:01,511 ERROR  [MainApp] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NegativeArraySizeException 
+2021-08-31 15:21:01,795 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:21:26,243 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:21:26,243 INFO   [MainApp] Work on process start 
+2021-08-31 15:21:41,089 ERROR  [MainApp]  
+2021-08-31 15:21:41,089 ERROR  [MainApp] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NegativeArraySizeException 
+2021-08-31 15:21:41,281 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:22:21,196 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:22:21,196 INFO   [MainApp] Work on process start 
+2021-08-31 15:23:23,053 INFO   [MainApp] Database connected 
+2021-08-31 15:23:57,607 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:23:57,607 INFO   [MainApp] Work on process start 
+2021-08-31 15:23:59,381 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 15:24:54,926 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 15:24:55,118 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:25:34,754 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:25:34,754 INFO   [MainApp] Work on process start 
+2021-08-31 15:28:01,936 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 15:28:02,068 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:28:07,819 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:28:07,819 INFO   [MainApp] Work on process start 
+2021-08-31 15:28:49,765 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 15:28:49,880 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:31:32,267 INFO   [MainApp] Database connected 
+2021-08-31 15:31:55,536 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:31:55,536 INFO   [MainApp] Work on process start 
+2021-08-31 15:31:57,440 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 15:31:57,460 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 15:31:57,620 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:32:36,865 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:32:36,865 INFO   [MainApp] Work on process start 
+2021-08-31 15:32:36,866 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 15:32:41,699 INFO   [SingleActionController] File decrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 15:32:41,786 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:39:55,015 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:39:55,015 INFO   [MainApp] Work on process start 
+2021-08-31 15:39:55,016 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 15:39:55,020 ERROR  [MainApp]  
+2021-08-31 15:39:55,020 ERROR  [MainApp] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: [Ljava.lang.StackTraceElement;@d1b10ee 
+2021-08-31 15:39:55,194 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:40:08,180 INFO   [MainApp] Database connected 
+2021-08-31 15:40:50,098 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:40:50,098 INFO   [MainApp] Work on process start 
+2021-08-31 15:40:50,101 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 15:40:50,145 ERROR  [MainApp]  
+2021-08-31 15:40:50,145 ERROR  [MainApp] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: [Ljava.lang.StackTraceElement;@3ddcf90a 
+2021-08-31 15:40:50,355 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:43:26,718 INFO   [MainApp] Database connected 
+2021-08-31 15:43:58,240 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:43:58,240 INFO   [MainApp] Work on process start 
+2021-08-31 15:43:58,243 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 15:43:58,282 ERROR  [MainApp]  
+2021-08-31 15:43:58,282 ERROR  [MainApp] application.errors.ReportError: ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: [Ljava.lang.StackTraceElement;@578cad72 
+2021-08-31 15:43:58,490 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:51:22,680 INFO   [MainApp] Database connected 
+2021-08-31 15:52:02,207 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:52:02,207 INFO   [MainApp] Work on process start 
+2021-08-31 15:52:02,211 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 15:52:02,252 ERROR  [MainApp]  
+2021-08-31 15:52:02,252 ERROR  [MainApp] application.errors.ReportError: ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: [Ljava.lang.StackTraceElement;@420761db 
+2021-08-31 15:52:27,974 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:54:10,687 INFO   [MainApp] Database connected 
+2021-08-31 15:54:40,527 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:54:40,527 INFO   [MainApp] Work on process start 
+2021-08-31 15:54:40,530 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 15:54:45,775 ERROR  [MainApp]  
+2021-08-31 15:54:45,781 ERROR  [MainApp] application.errors.ReportError: ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 15:58:46,582 INFO   [MainApp] Database connected 
+2021-08-31 15:59:14,855 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 15:59:14,855 INFO   [MainApp] Work on process start 
+2021-08-31 15:59:14,858 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 15:59:14,869 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 15:59:49,658 ERROR  [SingleActionController]  
+2021-08-31 16:00:56,686 INFO   [MainApp] Database connected 
+2021-08-31 16:01:50,590 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:01:50,590 INFO   [MainApp] Work on process start 
+2021-08-31 16:01:50,595 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:01:50,606 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:01:54,062 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 16:01:54,062 ERROR  [SingleActionController]  
+2021-08-31 16:09:29,980 INFO   [MainApp] Database connected 
+2021-08-31 16:09:58,619 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:09:58,619 INFO   [MainApp] Work on process start 
+2021-08-31 16:09:58,620 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:09:58,627 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:10:07,138 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 16:10:07,139 DEBUG  [SingleActionController]  
+2021-08-31 16:17:56,574 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:17:56,574 INFO   [MainApp] Work on process start 
+2021-08-31 16:17:56,574 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:17:56,596 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:19:52,104 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 16:19:52,104 DEBUG  [SingleActionController]  
+2021-08-31 16:19:58,842 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:19:58,843 INFO   [MainApp] Work on process start 
+2021-08-31 16:19:58,843 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:19:58,848 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:20:24,457 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 16:20:24,457 DEBUG  [SingleActionController]  
+2021-08-31 16:20:30,469 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:20:30,470 INFO   [MainApp] Work on process start 
+2021-08-31 16:20:30,470 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:21:39,631 INFO   [MainApp] Database connected 
+2021-08-31 16:22:07,775 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:22:07,775 INFO   [MainApp] Work on process start 
+2021-08-31 16:22:07,778 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:22:07,783 ERROR  [MainApp] java.util.concurrent.ExecutionException: java.lang.NullPointerException 
+2021-08-31 16:22:07,783 ERROR  [MainApp] java.lang.NullPointerException 
+2021-08-31 16:23:23,428 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:23:27,593 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 16:23:27,593 DEBUG  [SingleActionController]  
+2021-08-31 16:23:34,015 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:23:34,015 INFO   [MainApp] Work on process start 
+2021-08-31 16:23:34,015 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:23:59,689 ERROR  [MainApp] java.util.concurrent.ExecutionException: java.lang.NullPointerException 
+2021-08-31 16:23:59,690 ERROR  [MainApp] java.lang.NullPointerException 
+2021-08-31 16:24:00,552 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:24:02,592 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.NullPointerException 
+2021-08-31 16:24:02,593 DEBUG  [SingleActionController]  
+2021-08-31 16:24:09,334 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:24:09,334 INFO   [MainApp] Work on process start 
+2021-08-31 16:24:09,334 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:24:56,962 INFO   [MainApp] Database connected 
+2021-08-31 16:25:21,186 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:25:21,187 INFO   [MainApp] Work on process start 
+2021-08-31 16:25:21,189 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:26:12,861 ERROR  [MainApp] java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.lang.RuntimeException: application.errors.ReportError: ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: Код ошибки - 0x0 
+2021-08-31 16:26:12,862 ERROR  [MainApp] java.lang.RuntimeException: java.lang.RuntimeException: application.errors.ReportError: ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: Код ошибки - 0x0 
+2021-08-31 16:26:28,600 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:26:33,352 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.RuntimeException: java.lang.RuntimeException: application.errors.ReportError: ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: Код ошибки - 0x0 
+2021-08-31 16:26:33,353 DEBUG  [SingleActionController]  
+2021-08-31 16:26:44,651 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:26:44,652 INFO   [MainApp] Work on process start 
+2021-08-31 16:26:44,652 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:27:55,388 INFO   [MainApp] Database connected 
+2021-08-31 16:30:54,907 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:30:54,907 INFO   [MainApp] Work on process start 
+2021-08-31 16:30:54,912 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 16:31:42,666 ERROR  [MainApp] java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.lang.RuntimeException: application.errors.ReportError: ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: Ошибка чтения файла 
+2021-08-31 16:31:42,667 ERROR  [MainApp] java.lang.RuntimeException: java.lang.RuntimeException: application.errors.ReportError: ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: Ошибка чтения файла 
+2021-08-31 16:31:47,086 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:32:05,546 ERROR  [SingleActionController] ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: java.lang.RuntimeException: java.lang.RuntimeException: application.errors.ReportError: ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: Ошибка чтения файла 
+2021-08-31 16:32:05,546 DEBUG  [SingleActionController]  
+2021-08-31 16:33:34,433 INFO   [MainApp] Database connected 
+2021-08-31 16:34:41,116 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:34:41,117 INFO   [MainApp] Work on process start 
+2021-08-31 16:34:43,096 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 16:34:43,101 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:34:43,141 ERROR  [SingleActionController] Ошибка инициализации Сигнатуры 
+2021-08-31 16:34:43,142 DEBUG  [SingleActionController]  
+2021-08-31 16:38:38,662 INFO   [MainApp] Database connected 
+2021-08-31 16:40:18,562 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:40:18,562 INFO   [MainApp] Work on process start 
+2021-08-31 16:40:20,750 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 16:40:20,777 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:40:20,783 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 16:40:35,538 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:40:35,539 INFO   [MainApp] Work on process start 
+2021-08-31 16:40:35,562 INFO   [MainApp] Local interface Signatura unloads successfully 
+2021-08-31 16:40:35,564 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 16:40:53,722 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 16:40:53,723 INFO   [MainApp] Work on process start 
+2021-08-31 16:40:53,727 ERROR  [SingleActionController] Ошибка инициализации Сигнатуры 
+2021-08-31 16:40:53,727 DEBUG  [SingleActionController]  
+2021-08-31 17:02:34,448 INFO   [MainApp] Database connected 
+2021-08-31 17:03:45,211 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 17:03:45,218 INFO   [MainApp] Work on process start 
+2021-08-31 17:03:47,075 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 17:03:47,098 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 17:05:05,150 INFO   [MainApp] Database connected 
+2021-08-31 17:06:37,313 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 17:06:37,316 INFO   [MainApp] Work on process start 
+2021-08-31 17:06:39,543 INFO   [MainApp] Encrypt parameters are set 
+2021-08-31 17:06:39,562 INFO   [MainApp] Local interface uninitialize 
+2021-08-31 17:06:39,569 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 17:10:00,400 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 17:10:00,400 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,401 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,401 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,401 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,401 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,401 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,402 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,402 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,402 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,402 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,403 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,403 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,403 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,403 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,403 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,403 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,403 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,403 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,403 INFO   [MainApp] Work on process start 
+2021-08-31 17:10:00,517 INFO   [MainApp] Local interface uninitialize 
+2021-08-31 17:10:00,521 INFO   [SingleActionController] File encrypted BOS1_ZSO14030878_780120200417_500272_20210312_0700_000001.xml 
+2021-08-31 17:10:00,523 INFO   [SingleActionController] File encrypted BVD1_ZSV12202745_230120210212_160301_20210312_0700_000001_000001_000001.xml 
+2021-08-31 17:10:00,526 INFO   [SingleActionController] File encrypted BVD1_ZSV14030878_781620210120_190498_20210121_0500_000001_000001.xml 
+2021-08-31 17:10:00,529 INFO   [SingleActionController] File encrypted BVS1_ZSV12202745_230120210212_160301_20210312_0700_000001.xml 
+2021-08-31 17:10:00,530 INFO   [SingleActionController] File encrypted BVS1_ZSV12202745_230120210212_161111_20210312_0700_000001.vrb 
+2021-08-31 17:10:00,531 INFO   [SingleActionController] File encrypted BVS1_ZSV14525685_771020210217_912045_20210312_0000_000001.vrb 
+2021-08-31 17:10:00,534 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210304_004.arj 
+2021-08-31 17:10:00,535 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210305_001.arj 
+2021-08-31 17:10:00,536 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210305_002.arj 
+2021-08-31 17:10:00,537 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210305_003.arj 
+2021-08-31 17:10:00,540 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210305_004.arj 
+2021-08-31 17:10:00,542 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210305_005.arj 
+2021-08-31 17:10:00,543 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210325_001.arj 
+2021-08-31 17:10:00,546 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210325_002.arj 
+2021-08-31 17:10:00,548 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210325_003.arj 
+2021-08-31 17:10:00,549 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210325_004.arj 
+2021-08-31 17:10:00,550 INFO   [SingleActionController] File encrypted FNSPS_1637_0005_20210325_005.arj 
+2021-08-31 17:10:00,552 INFO   [SingleActionController] File encrypted FTSPS_1637_0005_20210305_001.ARJ 
+2021-08-31 17:10:00,554 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 17:13:35,321 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 17:13:35,321 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,321 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,321 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,321 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,321 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,321 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,322 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,323 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,323 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,323 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,323 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,323 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,323 INFO   [MainApp] Work on process start 
+2021-08-31 17:13:35,407 INFO   [MainApp] Local interface uninitialize 
+2021-08-31 17:13:35,410 INFO   [SingleActionController] File encrypted BOS1_ZSO14030878_780120200417_500272_20210312_0700_000001.xml 
+2021-08-31 17:13:35,412 INFO   [SingleActionController] File encrypted BVD1_ZSV12202745_230120210212_160301_20210312_0700_000001_000001_000001.xml 
+2021-08-31 17:13:35,413 INFO   [SingleActionController] File encrypted BVD1_ZSV12202745_230120210212_160301_20210312_0700_000001_000001_000002.xml 
+2021-08-31 17:13:35,414 INFO   [SingleActionController] File encrypted BVD1_ZSV12202745_230120210212_161111_20210312_0700_000001_000001_000001.xml 
+2021-08-31 17:13:35,419 INFO   [SingleActionController] File encrypted BVD1_ZSV14525685_771020210217_912045_20210312_0000_000001_000001_000001.xml 
+2021-08-31 17:13:35,420 INFO   [SingleActionController] File encrypted BVD1_ZSV14525685_771020210217_912045_20210312_0000_000001_000001_000002.xml 
+2021-08-31 17:13:35,421 INFO   [SingleActionController] File encrypted BVS1_ZSV12202745_230120210212_160301_20210312_0700_000001.xml 
+2021-08-31 17:13:35,422 INFO   [SingleActionController] File encrypted BVS1_ZSV12202745_230120210212_160303_20210312_0700_000001.xml 
+2021-08-31 17:13:35,423 INFO   [SingleActionController] File encrypted BVS1_ZSV12202745_230120210212_161111_20210312_0700_000001.xml 
+2021-08-31 17:13:35,423 INFO   [SingleActionController] File encrypted BVS1_ZSV14525685_771020210217_912045_20210312_0000_000001.xml 
+2021-08-31 17:13:35,424 INFO   [SingleActionController] File encrypted PB1_PPV12202745_525620210213_581911.xml 
+2021-08-31 17:13:35,425 INFO   [SingleActionController] File encrypted PB1_ZSN12202745_500420210203_500011.xml 
+2021-08-31 17:13:35,426 INFO   [SingleActionController] File encrypted PB1_ZSO14030878_780120200417_500271.xml 
+2021-08-31 17:13:35,426 INFO   [SingleActionController] File encrypted PB1_ZSO14030878_780120200417_500272.xml 
+2021-08-31 17:13:35,427 INFO   [SingleActionController] File encrypted PB1_ZSO14030878_780120200417_500276.xml 
+2021-08-31 17:13:35,430 INFO   [SingleActionController] File encrypted PB1_ZSO14525685_345220200629_500214.xml 
+2021-08-31 17:13:35,432 INFO   [SingleActionController] File encrypted PB1_ZSO14525685_770120210114_500107.xml 
+2021-08-31 17:13:35,433 INFO   [SingleActionController] File encrypted PB1_ZSO14525685_770420200818_500335.xml 
+2021-08-31 17:13:35,436 INFO   [SingleActionController] File encrypted PB1_ZSO14525685_771420210121_500277.xml 
+2021-08-31 17:13:35,438 INFO   [SingleActionController] File encrypted PB1_ZSO14525685_771620210225_501525.xml 
+2021-08-31 17:13:35,439 INFO   [SingleActionController] File encrypted PB1_ZSO14525685_772720200225_500202.xml 
+2021-08-31 17:13:35,440 INFO   [SingleActionController] File encrypted PB1_ZSV12202745_230120210212_160301.xml 
+2021-08-31 17:13:35,443 INFO   [SingleActionController] File encrypted PB1_ZSV12202745_230120210212_160303.xml 
+2021-08-31 17:13:35,444 INFO   [SingleActionController] File encrypted PB1_ZSV12202745_230120210212_161111.xml 
+2021-08-31 17:13:35,445 INFO   [SingleActionController] File encrypted PB1_ZSV14525685_344420210203_149111.xml 
+2021-08-31 17:13:35,446 INFO   [SingleActionController] File encrypted PB1_ZSV14525685_344420210203_149952.xml 
+2021-08-31 17:13:35,449 INFO   [SingleActionController] File encrypted PB1_ZSV14525685_771020210217_912045.xml 
+2021-08-31 17:13:35,450 INFO   [SingleActionController] File encrypted PB2_ZSN12202745_500420210203_500011_0700.xml 
+2021-08-31 17:14:56,885 INFO   [MainApp] Local interface of signature is initialized with profile - 06-FOIV 
+2021-08-31 17:14:56,893 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,894 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,894 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,894 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,894 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,894 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,894 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,894 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,894 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,894 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,894 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,894 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,894 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,894 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,894 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,894 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,894 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,894 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,894 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,895 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,895 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,896 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,896 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,896 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,896 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,897 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,897 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,897 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,897 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,897 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,897 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,898 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,898 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,898 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,898 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,898 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:14:56,899 INFO   [MainApp] Work on process start 
+2021-08-31 17:14:56,899 INFO   [MainApp] Decrypt parameters are set 
+2021-08-31 17:15:05,302 INFO   [MainApp] Local interface uninitialize 
+2021-08-31 17:15:05,315 INFO   [SingleActionController] File decrypted BOS1_ZSO14030878_780120200417_500272_20210312_0700_000001.xml 
+2021-08-31 17:15:05,333 INFO   [SingleActionController] File decrypted BVD1_ZSV12202745_230120210212_160301_20210312_0700_000001_000001_000001.xml 
+2021-08-31 17:15:05,341 INFO   [SingleActionController] File decrypted BVD1_ZSV12202745_230120210212_160301_20210312_0700_000001_000001_000002.xml 
+2021-08-31 17:15:05,342 INFO   [SingleActionController] File decrypted BVD1_ZSV12202745_230120210212_161111_20210312_0700_000001_000001_000001.xml 
+2021-08-31 17:15:05,353 INFO   [SingleActionController] File decrypted BVD1_ZSV14525685_771020210217_912045_20210312_0000_000001_000001_000001.xml 
+2021-08-31 17:15:05,361 INFO   [SingleActionController] File decrypted BVD1_ZSV14525685_771020210217_912045_20210312_0000_000001_000001_000002.xml 
+2021-08-31 17:15:05,362 INFO   [SingleActionController] File decrypted BVS1_ZSV12202745_230120210212_160301_20210312_0700_000001.xml 
+2021-08-31 17:15:05,362 INFO   [SingleActionController] File decrypted BVS1_ZSV12202745_230120210212_160303_20210312_0700_000001.xml 
+2021-08-31 17:15:05,363 INFO   [SingleActionController] File decrypted BVS1_ZSV12202745_230120210212_161111_20210312_0700_000001.xml 
+2021-08-31 17:15:05,364 INFO   [SingleActionController] File decrypted BVS1_ZSV14525685_771020210217_912045_20210312_0000_000001.xml 
+2021-08-31 17:15:05,365 INFO   [SingleActionController] File decrypted PB1_PPV12202745_525620210213_581911.xml 
+2021-08-31 17:15:05,367 INFO   [SingleActionController] File decrypted PB1_ZSN12202745_500420210203_500011.xml 
+2021-08-31 17:15:05,369 INFO   [SingleActionController] File decrypted PB1_ZSO14030878_780120200417_500271.xml 
+2021-08-31 17:15:05,370 INFO   [SingleActionController] File decrypted PB1_ZSO14030878_780120200417_500272.xml 
+2021-08-31 17:15:05,370 INFO   [SingleActionController] File decrypted PB1_ZSO14030878_780120200417_500276.xml 
+2021-08-31 17:15:05,371 INFO   [SingleActionController] File decrypted PB1_ZSO14525685_345220200629_500214.xml 
+2021-08-31 17:15:05,372 INFO   [SingleActionController] File decrypted PB1_ZSO14525685_770120210114_500107.xml 
+2021-08-31 17:15:05,373 INFO   [SingleActionController] File decrypted PB1_ZSO14525685_770420200818_500335.xml 
+2021-08-31 17:15:05,373 INFO   [SingleActionController] File decrypted PB1_ZSO14525685_771420210121_500277.xml 
+2021-08-31 17:15:05,374 INFO   [SingleActionController] File decrypted PB1_ZSO14525685_771620210225_501525.xml 
+2021-08-31 17:15:05,377 INFO   [SingleActionController] File decrypted PB1_ZSO14525685_772720200225_500202.xml 
+2021-08-31 17:15:05,379 INFO   [SingleActionController] File decrypted PB1_ZSV12202745_230120210212_160301.xml 
+2021-08-31 17:15:05,380 INFO   [SingleActionController] File decrypted PB1_ZSV12202745_230120210212_160303.xml 
+2021-08-31 17:15:05,380 INFO   [SingleActionController] File decrypted PB1_ZSV12202745_230120210212_161111.xml 
+2021-08-31 17:15:05,381 INFO   [SingleActionController] File decrypted PB1_ZSV14525685_344420210203_149111.xml 
+2021-08-31 17:15:05,383 INFO   [SingleActionController] File decrypted PB1_ZSV14525685_344420210203_149952.xml 
+2021-08-31 17:15:05,385 INFO   [SingleActionController] File decrypted PB1_ZSV14525685_771020210217_912045.xml 
+2021-08-31 17:15:05,386 INFO   [SingleActionController] File decrypted PB2_ZSN12202745_500420210203_500011_0700.xml 

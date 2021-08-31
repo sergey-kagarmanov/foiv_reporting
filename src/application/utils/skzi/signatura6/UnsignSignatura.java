@@ -90,9 +90,6 @@ public class UnsignSignatura extends CommonSignatura{
 		}
 		memory1.len = length;
 		result = iFace.VCERT_CmsStrAttVerifyUpdateMem(verifyParameters, handle, memory1, memory2);
-		if (result!=0) {
-			throw new ReportError("Unsign error");
-		}
 		return memory2.buf;
 	}
 

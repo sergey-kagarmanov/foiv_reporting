@@ -20,7 +20,7 @@ public class LocalSignatura {
 		if (result == LocalIface.VCERT_OK) {
 			MainApp.info("Local interface of signature is initialized with profile - " + profile);
 		} else {
-			throw new ReportError("Local interface of signature isn't initialized with profile - " + profile
+			throw new ReportError(ReportError.INIT_SIGNATURA,"Local interface of signature isn't initialized with profile - " + profile
 					+ ". Error code - 0x" + Integer.toHexString(result));
 			
 		}
@@ -75,5 +75,6 @@ public class LocalSignatura {
 	
 	public static void uninitilize() {
 		iFace.VCERT_Uninitialize();
+		MainApp.info("Local interface uninitialize");
 	}
 }

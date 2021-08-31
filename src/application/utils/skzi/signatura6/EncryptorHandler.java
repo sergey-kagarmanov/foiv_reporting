@@ -24,6 +24,7 @@ public class EncryptorHandler extends SignaturaHandler {
 	@Override
 	public WorkingFile call() throws Exception {
 
+		boolean flag = true;
 		ByteArrayInputStream bais = null;
 		InputStream fis = getInputStream();
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
@@ -45,7 +46,7 @@ public class EncryptorHandler extends SignaturaHandler {
 		executor.start(bufferEncrypt, length);
 		result = executor.getResult();
 		if (result != 0) {
-			throw new ReportError("Код ошибки - 0x" + Integer.toHexString(result));
+			throw new ReportError(ReportError.ENCRYPT_ERROR, "Код ошибки - 0x" + Integer.toHexString(result), file.getName());
 		}
 		while ((length = bais.read(bufferEncrypt)) > 0) {
 			encrypted = executor.next(bufferEncrypt, length);
@@ -53,14 +54,23 @@ public class EncryptorHandler extends SignaturaHandler {
 			if (result==0 && encrypted != null) {
 				fos.write(encrypted);
 			}else if (result!=0)
-				throw new ReportError("Код ошибки - 0x" + Integer.toHexString(result));
+				throw new ReportError(ReportError.ENCRYPT_ERROR, "Код ошибки - 0x" + Integer.toHexString(result), file.getName());
+			flag = false;
+		}
+		if (flag) {
+			encrypted = executor.next(new byte[0], 0);
+			result = executor.getResult();
+			if (result==0 && encrypted != null) {
+				fos.write(encrypted);
+			}else if (result!=0)
+				throw new ReportError(ReportError.ENCRYPT_ERROR, "Код ошибки - 0x" + Integer.toHexString(result), file.getName());
 		}
 		encrypted = executor.end();
 		result = executor.getResult();
 		if (result==0 && encrypted!=null)
 			fos.write(encrypted);
 		else if (result !=0) 
-			throw new ReportError("Код ошибки - 0x" + Integer.toHexString(result));
+			throw new ReportError(ReportError.ENCRYPT_ERROR, "Код ошибки - 0x" + Integer.toHexString(result), file.getName());
 		
 		fos.flush();
 		fos.close();

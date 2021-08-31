@@ -75,7 +75,7 @@ public class UnsignSignatura extends CommonSignatura{
 		memory1.len = length;
 		result = iFace.VCERT_VerifyMem(verifyParameters, null, memory1, memory2, null);
 		if (result!=0) {
-			throw new ReportError("Unsign error");
+			throw new ReportError(ReportError.UNSIGN_ERROR, "Unsign error");
 		}
 		return memory2.buf;
 	}

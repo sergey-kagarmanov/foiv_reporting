@@ -15,17 +15,15 @@ public class EncryptorSignatura extends CommonSignatura {
 		super(key);
 	}
 
-	/*private synchronized void setEncryptParameters() {
-		if (encryptParameters == null) {
-			encryptParameters = new encrypt_param_t();
-			encryptParameters.flag = LocalIface.FLAG_PKCS7;
-			encryptParameters.mycert = null;
-			encryptParameters.receiver_num = 1;
-			encryptParameters.receivers = new LocalIface.certificate_t[MAX_ELEMENTS_NUM];
-			encryptParameters.receivers[0] = getCert("");
-			MainApp.info("Encrypt parameters are set");
-		}
-	}*/
+	/*
+	 * private synchronized void setEncryptParameters() { if (encryptParameters
+	 * == null) { encryptParameters = new encrypt_param_t();
+	 * encryptParameters.flag = LocalIface.FLAG_PKCS7; encryptParameters.mycert
+	 * = null; encryptParameters.receiver_num = 1; encryptParameters.receivers =
+	 * new LocalIface.certificate_t[MAX_ELEMENTS_NUM];
+	 * encryptParameters.receivers[0] = getCert("");
+	 * MainApp.info("Encrypt parameters are set"); } }
+	 */
 
 	@Override
 	public void init() {
@@ -37,7 +35,7 @@ public class EncryptorSignatura extends CommonSignatura {
 	public void start() throws ReportError {
 		result = iFace.VCERT_StrEncryptInitMem(encryptParameters, handler);
 		if (result != 0) {
-			throw new ReportError(result + "");
+			throw new ReportError(ReportError.ENCRYPT_ERROR, result + "");
 		}
 	}
 
@@ -55,12 +53,12 @@ public class EncryptorSignatura extends CommonSignatura {
 		memory.buf = buffer;
 		memory.len = length;
 		mem_blk_t memory_out = new mem_blk_t();
-		
+
 		result = iFace.VCERT_StrEncryptUpdateMem(encryptParameters, handler, memory, memory_out);
 		if (result == 0)
 			return memory_out.buf;
 		else
-			throw new ReportError(result + "");
+			throw new ReportError(ReportError.ENCRYPT_ERROR, result + "");
 
 	}
 
@@ -70,7 +68,7 @@ public class EncryptorSignatura extends CommonSignatura {
 		if (result == 0)
 			return memory2.buf;
 		else
-			throw new ReportError(result + "");
+			throw new ReportError(ReportError.ENCRYPT_ERROR, result + "");
 	}
 
 }

@@ -19,7 +19,6 @@ public class DecryptorSignatura extends CommonSignatura {
 		super(key);
 	}
 
-
 	@Override
 	public void init() {
 		decryptParameters = new decrypt_param_t();
@@ -43,7 +42,7 @@ public class DecryptorSignatura extends CommonSignatura {
 		memory1.len = length;
 		result = iFace.VCERT_StrDecryptInitMem(decryptParameters, memory1, left, handler);
 		if (result != 0) {
-			throw new ReportError(result + "");
+			throw new ReportError(ReportError.DECRYPT_ERROR, result + "");
 		}
 	}
 
@@ -51,12 +50,11 @@ public class DecryptorSignatura extends CommonSignatura {
 	public byte[] next(byte[] buffer, int length) throws ReportError {
 		memory1.buf = buffer;
 		memory1.len = length;
-		result = iFace.VCERT_StrDecryptUpdateMem(decryptParameters, handler, memory1, left,
-				memory2);
+		result = iFace.VCERT_StrDecryptUpdateMem(decryptParameters, handler, memory1, left, memory2);
 		if (result == 0)
 			return memory2.buf;
 		else {
-			throw new ReportError(result + "");
+			throw new ReportError(ReportError.DECRYPT_ERROR, result + "");
 		}
 	}
 
@@ -66,7 +64,7 @@ public class DecryptorSignatura extends CommonSignatura {
 		if (result == 0)
 			return memory2.buf;
 		else
-			throw new ReportError(result + "");
+			throw new ReportError(ReportError.DECRYPT_ERROR, result + "");
 	}
 
 }

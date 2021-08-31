@@ -23,6 +23,7 @@ import Pki1.LocalIface.verify_param_t;
 import application.MainApp;
 import application.models.ErrorFile;
 
+@Deprecated
 public class Signatura {
 
 	private LocalIface iFace;

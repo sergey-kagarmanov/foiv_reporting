@@ -366,8 +366,7 @@ public class StepExecutor {
 
 				} catch (InterruptedException | IOException ie) {
 					MainApp.error(ie.getLocalizedMessage());
-					ie.printStackTrace();
-					throw new ReportError("Ошибка создания транспортного файла");
+					throw new ReportError(ReportError.FILE_ERROR, "Ошибка создания транспортного файла");
 				}
 
 			}
@@ -375,7 +374,7 @@ public class StepExecutor {
 			MainApp.error(e.getLocalizedMessage());
 			e.printStackTrace();
 			System.out.println("Error!!!");
-			throw new ReportError("Ошибка создания транспортного файла");
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибка создания транспортного файла");
 		}
 		MainApp.info("ARJ returned " + p.exitValue());
 		return resultList;

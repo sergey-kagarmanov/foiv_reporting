@@ -26,7 +26,7 @@ public abstract class CommonSignatura implements SignaturaExecutor{
 
 	public CommonSignatura(Key key) throws ReportError {
 		iFace = LocalSignatura.getLocaIFace();
-		LocalSignatura.initSignatura(key.getData());
+		//LocalSignatura.initSignatura(key.getData());
 		MainApp.info("Work on process start");
 		memory1 = new mem_blk_t();
 		memory2 = new mem_blk_t();
@@ -35,16 +35,15 @@ public abstract class CommonSignatura implements SignaturaExecutor{
 
 	}
 	
-	public void unload() {
+	/*public void unload() {
 		result = iFace.VCERT_Uninitialize();
 		if (result == LocalIface.VCERT_OK) {
-			System.out.println("Uninit seccess");
-			MainApp.info("Local interface Signatura unloads successfull");
+			MainApp.info("Local interface Signatura unloads successfully");
 		} else {
 			MainApp.error("Local interface Signatura unloads with error - "
 					+ Integer.toHexString(result));
 		}
-	}
+	}*/
 	public int getResult() {
 		return result;
 	}

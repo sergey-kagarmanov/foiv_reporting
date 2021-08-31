@@ -153,7 +153,7 @@ public class SingleFileCheck implements Callable<WorkingFile> {
 								}
 							}
 						} else if (node == null) {
-							throw new ReportError("Node not found");
+							throw new ReportError(ReportError.XML_PARSE_ERROR, "Тег в файле не найден, проверьте настройки", wFile.getName());
 						} else {
 							i++;
 						}

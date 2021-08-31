@@ -67,11 +67,11 @@ public class MainApp extends Application {
 	public static Boolean IN = true;
 	public static Boolean OUT = false;
 
-	private static Logger logger = Logger.getLogger(MainApp.class.getName());
+	public static Logger logger = Logger.getLogger(MainApp.class.getName());
 
 	@Override
 	public void start(Stage primaryStage) {
-		DOMConfigurator.configure("/log4j.xml");
+		DOMConfigurator.configure("log4j.xml");
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Работа с шифрованными файлами");
 		//createLogger();
