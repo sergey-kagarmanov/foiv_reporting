@@ -11,6 +11,7 @@ import application.errors.ReportError;
 import application.models.FileType;
 import application.models.Report;
 import application.models.WorkingFile;
+import application.utils.AlertWindow;
 import application.utils.Constants;
 import application.utils.DataLoader;
 import application.utils.DateUtils;
@@ -300,8 +301,7 @@ public class EncryptOverviewController {
 				list.addAll(reportChooser.getValue().getTickets());
 			}
 			if (reportChooser.getValue().getPathIn() != null) {
-				ObservableList<String> inList = FileUtils.getDirContentByMask(reportChooser.getValue().getPathIn(),
-						list);
+				ObservableList<String> inList = FileUtils.getDirContentByMask(reportChooser.getValue().getPathIn(), list);
 				if (inList != null && inFileList.getItems() != null) {
 					if (!(inList.containsAll(inFileList.getItems()) && inFileList.getItems().containsAll(inList))) {
 						Platform.runLater(() -> {
@@ -432,21 +432,26 @@ public class EncryptOverviewController {
 		ProcessExecutor executor = new ProcessExecutor(inFileList.getItems(), reportChooser.getValue(), inPath.getText(), inOutputPath.getText(),
 				inPathArch.getText(), true);
 		try {
-			executor.startStream();
+			ObservableList<ReportError> errors = executor.startStream();
 
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Информация");
-			alert.setHeaderText("Операция выполнена");
-			alert.setContentText("Транспортный файл обработан!");
-			alert.showAndWait();
-		} catch (Exception e) {
-			MainApp.error(e.getLocalizedMessage());
-			e.printStackTrace();
-			Alert msg = new Alert(AlertType.ERROR);
-			msg.setContentText(e.getMessage());
-			msg.setTitle("Ошибка выполнения");
-			msg.setHeaderText("Выполнение прервано");
-			msg.show();
+			if (errors.size() == 0) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Информация");
+				alert.setHeaderText("Операция выполнена");
+				alert.setContentText("Транспортный файл обработан!");
+				alert.showAndWait();
+			} else {
+				AlertWindow.show(errors, mainApp.logger);
+			}
+		} catch (ReportError e) {
+			/*
+			 * MainApp.error(e.getLocalizedMessage()); e.printStackTrace();
+			 * Alert msg = new Alert(AlertType.ERROR);
+			 * msg.setContentText(e.getMessage());
+			 * msg.setTitle("Ошибка выполнения");
+			 * msg.setHeaderText("Выполнение прервано"); msg.show();
+			 */
+			AlertWindow.show(e, MainApp.logger);
 		}
 		refreshData();
 	}
@@ -456,21 +461,26 @@ public class EncryptOverviewController {
 		ProcessExecutor executor = new ProcessExecutor(outFileList.getItems(), reportChooser.getValue(), outPath.getText(), outOutputPath.getText(),
 				outPathArch.getText(), false);
 		try {
-			executor.startStream();
+			ObservableList<ReportError> errors = executor.startStream();
 
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Информация");
-			alert.setHeaderText("Операция выполнена");
-			alert.setContentText("Транспортный файл сформирован!");
-			alert.showAndWait();
+			if (errors.size() == 0) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Информация");
+				alert.setHeaderText("Операция выполнена");
+				alert.setContentText("Транспортный файл обработан!");
+				alert.showAndWait();
+			} else {
+				AlertWindow.show(errors, MainApp.logger);
+			}
 		} catch (ReportError e) {
-			MainApp.error(e.getLocalizedMessage());
-			e.printStackTrace();
-			Alert msg = new Alert(AlertType.ERROR);
-			msg.setContentText(e.getMessage());
-			msg.setTitle("Ошибка выполнения");
-			msg.setHeaderText("Выполнение прервано");
-			msg.show();
+			/*
+			 * MainApp.error(e.getLocalizedMessage()); e.printStackTrace();
+			 * Alert msg = new Alert(AlertType.ERROR);
+			 * msg.setContentText(e.getMessage());
+			 * msg.setTitle("Ошибка выполнения");
+			 * msg.setHeaderText("Выполнение прервано"); msg.show();
+			 */
+			AlertWindow.show(e, MainApp.logger);
 		}
 		executor = null;
 		System.gc();

@@ -103,15 +103,13 @@ public class ProcessExecutor {
 
 	}
 
-	@Deprecated
+	/*@Deprecated
 	public int start() throws ReportError {
 		Integer result = 0;
 		FileUtils.clearTmp();
 		executedFiles = FXCollections.observableArrayList();
 		FileTransforming currentFile = null;
-		/**
-		 * File parsing start
-		 */
+
 		for (String filename : filenames) {
 			currentFile = new FileTransforming(filename, direction == Constants.INPUT ? report.getPathIn() : report.getPathOut());
 			if (currentFile.getOriginalFile().exists()) {
@@ -119,15 +117,6 @@ public class ProcessExecutor {
 				// Copy files to tmp directory for work
 				currentFile.copyCurrent(FileUtils.tmpDir, true);
 				executedFiles.add(currentFile);
-				/**
-				 * Parse files if them would be encrypted or modified and
-				 * collect into map key - name, otherwise collect transport
-				 * files into map, key - name
-				 */
-
-				/**
-				 * This cycle doesn't check equal files so be careful
-				 */
 				boolean flag = true;
 				FileType fileType = null;
 				for (FileType tFile : report.getTickets()) {
@@ -176,9 +165,6 @@ public class ProcessExecutor {
 				// TODO: Error, warning etc.
 			}
 		}
-		/**
-		 * File parsing end
-		 */
 
 		// Check parser exceptions
 		if (parser.getExceptions().size() > 0) {
@@ -221,9 +207,6 @@ public class ProcessExecutor {
 			return 0;
 		}
 
-		/**
-		 * List files that had errors
-		 */
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 		boolean breakFlag = true;
 		while (currentStep != null && breakFlag) {
@@ -284,26 +267,10 @@ public class ProcessExecutor {
 						}
 					}
 				} catch (ReportError e) {
-					/*
-					 * Alert alert = new Alert(AlertType.CONFIRMATION);
-					 * alert.setTitle("Ошибка");
-					 * alert.setHeaderText("Ошибка при обработке файла - " +
-					 * e.getMessage()); alert.
-					 * setContentText("Произошла ошибка при обработке файла - "
-					 * + e.getMessage() + "\n\rВы хотите прервать обработку?");
-					 * if (alert.showAndWait().get() == ButtonType.OK) { throw
-					 * new ReportError("Прервать обработку"); } else {
-					 * System.out.println(e.getMessage());
-					 * MainApp.error(e.getLocalizedMessage());
-					 * e.printStackTrace(); }
-					 */
 					AlertWindow.show(e, logger);
 				}
 			}
 
-			/**
-			 * Copy tickets
-			 */
 			for (FileTransforming fe : ticketFiles.keySet()) {
 				if (!fe.copyCurrent(outputPath, false)) {
 					throw new ReportError(ReportError.FILE_ERROR,
@@ -326,10 +293,6 @@ public class ProcessExecutor {
 				MainApp.getDb().save(ticket);
 			}
 
-			/*
-			 * if (direction) deleteSources(transportFiles.values()); else
-			 * deleteSources(mapFiles.values());
-			 */
 			deleteSources(executedFiles);
 			// TODO: Change to FileTransforming
 			if (!ticketFiles.values().isEmpty()) {
@@ -342,9 +305,10 @@ public class ProcessExecutor {
 		}
 		return result;
 	}
+*/
+	public ObservableList<ReportError> startStream() throws ReportError {
 
-	public int startStream() throws ReportError {
-
+		ObservableList<ReportError> errors = FXCollections.observableArrayList();
 		FileChecker checker = new FileChecker();
 		ObservableList<ErrorFile> errorFiles = FXCollections.observableArrayList();
 
@@ -393,7 +357,7 @@ public class ProcessExecutor {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Пустой список обработки");
 			alert.show();
-			return 0;
+			return null;
 		}
 
 		ObservableList<WorkingFile> parents = FXCollections.observableArrayList();
@@ -442,11 +406,14 @@ public class ProcessExecutor {
 			parents = checker.execute(parents, report);
 		}
 
+		
 		wFiles.forEach(file -> {
 			try {
 				file.saveData(outputPath);
 			} catch (ReportError e) {
-				e.printStackTrace();
+				errors.add(e);
+				//AlertWindow.show(e, logger);
+				//logger.error("Не могу сохранить данные" + e.getLocalizedMessage());
 			}
 		});
 
@@ -458,9 +425,12 @@ public class ProcessExecutor {
 			MainApp.getDb().save(report, direction ? 1 : 0, wFiles, null);
 		}
 
-		deleteFiles();
-
-		return 0;
+		if (errors.size()==0) {
+			deleteFiles();
+			return null;
+		}else {
+			return errors;
+		}
 	}
 
 	private void deleteFiles() {
@@ -469,17 +439,20 @@ public class ProcessExecutor {
 		});
 	}
 
-	public void saveArchive(ObservableList<WorkingFile> files, String path) {
+	public void saveArchive(ObservableList<WorkingFile> files, String path) throws ReportError {
+		ObservableList<ReportError> errors = FXCollections.observableArrayList(); 
 		files.forEach(file -> {
 			try {
 				file.saveSignedData(path + "\\" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
+				if (file.getChilds() != null)
+					saveArchive(file.getChilds(), path);
 			} catch (ReportError e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				AlertWindow.show(e, logger);
 			}
-			if (file.getChilds() != null)
-				saveArchive(file.getChilds(), path);
 		});
+		if (errors.size()>0) {
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибки при обработке файлов");
+		}
 	}
 
 	/*

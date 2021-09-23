@@ -13,10 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.regex.Pattern;
 
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -26,13 +22,14 @@ import org.apache.log4j.Logger;
 
 import application.MainApp;
 import application.errors.ReportError;
+import application.models.Key;
 import application.models.ProcessStep;
 import application.models.Report;
 import application.models.WorkingFile;
 import application.utils.skzi.SignaturaHandler;
+import application.utils.skzi.SignaturaTheadingExecutor;
 import application.utils.skzi.signatura6.DecryptorHandler;
 import application.utils.skzi.signatura6.EncryptorHandler;
-import application.utils.skzi.signatura6.LocalSignatura;
 import application.utils.skzi.signatura6.SignHandler;
 import application.utils.skzi.signatura6.UnsignHandler;
 import application.view.controls.ArchiveNameDialogBox;
@@ -60,11 +57,14 @@ public class StepExecutor {
 		ObservableList<WorkingFile> result = FXCollections.observableArrayList();
 		ObservableList<WorkingFile> stepFiles = FXCollections.observableArrayList();
 		ObservableList<WorkingFile> nonWork = FXCollections.observableArrayList();
-		ExecutorService executor = Executors.newSingleThreadExecutor();
+		
+		
+		
+		
 		boolean signaturaAction = false;
-		List<SignaturaHandler> handlers = new ArrayList<>();
+//		List<SignaturaHandler> handlers = new ArrayList<>();
 
-		LocalSignatura.initSignatura(step.getKey().getData());
+		//LocalSignatura.initSignatura(step.getKey().getData());
 
 		if (step.getData() != null && !Constants.RENAME.equals(step.getAction().getName()) && !Constants.COPY.equals(step.getAction().getName())
 				&& !Constants.PACK.equals(step.getAction().getName())) {
@@ -79,61 +79,62 @@ public class StepExecutor {
 			stepFiles = files;
 		}
 
+		SignaturaTheadingExecutor executor = null;
+
+		
 		switch (step.getAction().getName()) {
 		case Constants.SIGN:
 			signaturaAction = true;
-			stepFiles.forEach(file -> {
-				try (SignaturaHandler handler = new SignHandler(step.getKey())) {
+			
+			executor = new SignaturaTheadingExecutor(stepFiles) {
 
-					handler.setParameters(file);
-					handlers.add(handler);
-				} catch (ReportError e) {
-					// TODO: handle exception
-				} catch (Exception e1) {
-					
+				@Override
+				public SignaturaHandler getHandler(Key key) throws ReportError {
+					return new SignHandler(key);
 				}
-			});
+			}; /*{
+
+				wFiles = executor.execute(step.getKey());
+				wFiles.forEach(file -> {
+					FileUtils.saveWorkingFile(file, outPath.getText());
+					logger.info("File signed "+file.getName());
+				});
+				AlertWindow.show(Constants.SIGN_RUS, errorFiles);
+			} catch (Exception e) {
+				e.printStackTrace();
+				AlertWindow.show(new ReportError(ReportError.RUNTIME_ERROR, e.getLocalizedMessage(), null , e), logger);
+			}*/
+			
+			
 			break;
 		case Constants.UNSIGN:
 			signaturaAction = true;
-			stepFiles.forEach(file -> {
-				try(SignaturaHandler handler = new UnsignHandler(step.getKey())){
-				handler.setParameters(file);
-				handlers.add(handler);
-				}catch (ReportError e) {
-					// TODO: handle exception
-				} catch (Exception e1) {
-					logger.error(e1.getLocalizedMessage());
+			executor = new SignaturaTheadingExecutor(stepFiles) {
+
+				@Override
+				public SignaturaHandler getHandler(Key key) throws ReportError {
+					return new UnsignHandler(key);
 				}
-			});
+			};
 			break;
 		case Constants.ENCRYPT:
 			signaturaAction = true;
-			stepFiles.forEach(file -> {
-				SignaturaHandler handler = null;
-				try {
-					handler = new EncryptorHandler(step.getKey());
-				} catch (ReportError e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			executor = new SignaturaTheadingExecutor(stepFiles) {
+
+				@Override
+				public SignaturaHandler getHandler(Key key) throws ReportError {
+					return new EncryptorHandler(key);
 				}
-				handler.setParameters(file);
-				handlers.add(handler);
-			});
+			};
 			break;
 		case Constants.DECRYPT:
-			signaturaAction = true;
-			stepFiles.forEach(file -> {
-				SignaturaHandler handler = null;
-				try {
-					handler = new DecryptorHandler(step.getKey());
-				} catch (ReportError e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			executor = new SignaturaTheadingExecutor(stepFiles) {
+
+				@Override
+				public SignaturaHandler getHandler(Key key) throws ReportError {
+					return new DecryptorHandler(key);
 				}
-				handler.setParameters(file);
-				handlers.add(handler);
-			});
+			};
 			break;
 		case Constants.PACK:
 			result = createArchive(report, files);
@@ -174,23 +175,18 @@ public class StepExecutor {
 			result = stepFiles;
 		}
 		if (signaturaAction) {
-			try {
-				List<Future<WorkingFile>> futures = executor.invokeAll(handlers);
-				for (Future<WorkingFile> future : futures) {
-					try {
-						if (future != null)
-							result.add(future.get());
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					} catch (ExecutionException e) {
-						e.printStackTrace();
-					}
+			result = executor.execute(step.getKey());
+			/*List<Future<WorkingFile>> futures = executor.invokeAll(handlers);
+			for (Future<WorkingFile> future : futures) {
+				try {
+					if (future != null)
+						result.add(future.get());
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
 				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			executor.shutdown();
-			LocalSignatura.uninitilize();
+			}*/
 		}
 
 		if (nonWork.size() > 0) {
@@ -371,10 +367,7 @@ public class StepExecutor {
 
 			}
 		} catch (Exception e) {
-			MainApp.error(e.getLocalizedMessage());
-			e.printStackTrace();
-			System.out.println("Error!!!");
-			throw new ReportError(ReportError.FILE_ERROR, "Ошибка создания транспортного файла");
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибка создания транспортного файла. "+e.getLocalizedMessage());
 		}
 		MainApp.info("ARJ returned " + p.exitValue());
 		return resultList;

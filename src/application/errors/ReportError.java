@@ -35,7 +35,7 @@ public class ReportError extends Exception {
 	public ReportError(int code, String text, String filename, Exception e){
 		super();
 		this.errorCode = code;
-		this.message = "ВНИМАНИЕ!!! Обработка была прервана из-за седующих ошибок: "+ text;
+		this.message = "ВНИМАНИЕ!!!\n Обработка была прервана из-за следующих ошибок: "+ text;
 		this.filename = filename;
 	}
 	/**

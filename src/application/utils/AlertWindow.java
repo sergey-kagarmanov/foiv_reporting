@@ -13,6 +13,7 @@ import application.models.ErrorFile;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextArea;
 
 public class AlertWindow {
 
@@ -77,8 +78,56 @@ public class AlertWindow {
 		}
 		logger.error(sb.toString());
 		logger.debug(error.getE());
-		alert.setContentText(sb.toString());
+		TextArea area = new TextArea(sb.toString());
+		area.setWrapText(true);
+		area.setEditable(false);
+
+		alert.getDialogPane().setContent(area);
+		alert.setResizable(true);
 		alert.show();
+	}
+
+	public static void show(ObservableList<ReportError> errors, Logger logger) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Ошибка выполнения");
+
+		StringBuilder sb = new StringBuilder();
+		errors.forEach(error -> {
+			switch (error.getErrorCode()) {
+			case ReportError.INIT_SIGNATURA:
+				sb.append("Ошибка инициализации Сигнатуры");
+				break;
+			case ReportError.SIGN_ERROR:
+				sb.append("Ошибка подписи. Обработка файла " + error.getFilename() + " выполнена c ошибками");
+				break;
+			case ReportError.UNSIGN_ERROR:
+				sb.append("Ошибка верификации и снятия подписи. Обработка файла " + error.getFilename() + " выполнена c ошибками");
+				break;
+			case ReportError.ENCRYPT_ERROR:
+				sb.append("Ошибка зашифрования. Обработка файла " + error.getFilename() + " выполнена c ошибками");
+				break;
+			case ReportError.DECRYPT_ERROR:
+				sb.append("Ошибка расшифрования. Обработка файла " + error.getFilename() + " выполнена c ошибками");
+				break;
+			case ReportError.UNHANDLE_SIGNATURA_ERROR:
+				sb.append("Ошибка работы функций Сигнатуры");
+				break;
+			default:
+				sb.append(error.getMessage());
+				break;
+			}
+			sb.append("\n");
+			logger.debug(error.getE());
+		});
+		logger.error(sb.toString());
+		TextArea area = new TextArea(sb.toString());
+		area.setWrapText(true);
+		area.setEditable(false);
+
+		alert.getDialogPane().setContent(area);
+		alert.setResizable(true);
+		alert.show();
+
 	}
 
 }

@@ -11,7 +11,7 @@ public class ArchiveNameDialogBox extends DialogBox {
 
 	public static String display(String data) {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainApp.class.getResource("view/controls/ArchiveNameDialog.fxml"));
+		loader.setLocation(MainApp.class.getResource("/view/controls/ArchiveNameDialog.fxml"));
 		AnchorPane pane = null;
 		try {
 			pane = (AnchorPane) loader.load();

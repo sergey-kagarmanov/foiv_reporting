@@ -27,10 +27,10 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 public class WorkingFile {
-	
+
 	public static boolean LOADED = true;
 	public static boolean NEW = false;
-	
+
 	private ObjectProperty<UUID> id;
 	private byte[] data;
 	private String name;
@@ -49,14 +49,14 @@ public class WorkingFile {
 	public WorkingFile() {
 		this(NEW);
 	}
-	
+
 	public WorkingFile(boolean loaded) {
 		if (!loaded) {
 			setUUID(UUID.randomUUID());
 			setDatetime(LocalDateTime.now());
 		}
 	}
-	
+
 	public UUID getUUID() {
 		return id.get();
 	}
@@ -65,7 +65,6 @@ public class WorkingFile {
 		this.id = new SimpleObjectProperty<>(id);
 	}
 
-	
 	/**
 	 * @return the data
 	 */
@@ -217,17 +216,24 @@ public class WorkingFile {
 	public void saveData(String path) throws ReportError {
 		FileOutputStream fis = null;
 		ByteArrayInputStream bais = null;
+		File f = null;
 		try {
-			File f = new File(path + "\\" + getName());
+			f = new File(path + "\\" + getName());
 			File dir = new File(path);
 			dir.mkdirs();
 			int i = 1;
 			while (f.exists()) {
-				f = new File(path + "\\" + getName().substring(0, getName().indexOf("."))+"_"+i+getName().substring(getName().indexOf(".")));
+				f = new File(path + "\\" + getName().substring(0, getName().indexOf(".")) + "_" + i + getName().substring(getName().indexOf(".")));
 				i++;
 			}
 			f.createNewFile();
-			
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибка сохранения данных. Файл - " + path + "\\" + getName() + e.getLocalizedMessage(),
+					getName());
+		}
+
+		try {
 			fis = new FileOutputStream(f);
 			bais = new ByteArrayInputStream(data);
 			byte[] buffer = new byte[1024];
@@ -237,7 +243,8 @@ public class WorkingFile {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new ReportError(ReportError.FILE_ERROR, e.getStackTrace().toString(), getName());
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибка сохранения данных. Файл - " + path + "\\" + getName() + e.getLocalizedMessage(),
+					getName());
 		} finally {
 			try {
 				fis.close();
@@ -257,19 +264,26 @@ public class WorkingFile {
 	public void saveSignedData(String path) throws ReportError {
 		FileOutputStream fis = null;
 		ByteArrayInputStream bais = null;
+		File f = null;
 		try {
 			File dir = new File(path);
 			dir.mkdirs();
-			File f = new File(path + "\\" +  getOriginalName());
+			f = new File(path + "\\" + getOriginalName());
 			int i = 1;
 			while (f.exists()) {
-				f = new File(path + "\\" + getName().substring(0, getName().indexOf("."))+"_"+i+getName().substring(getName().indexOf(".")));
+				f = new File(path + "\\" + getName().substring(0, getName().indexOf(".")) + "_" + i + getName().substring(getName().indexOf(".")));
 				i++;
 			}
 			f.createNewFile();
-			
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new ReportError(ReportError.FILE_ERROR,
+					"Ошибка сохранения подписанных данных. Файл - " + path + "\\" + getName() + ". " + e.getMessage(), getName());
+		}
+
+		try {
 			fis = new FileOutputStream(f);
-			if (signData!=null && signData.length>0)
+			if (signData != null && signData.length > 0)
 				bais = new ByteArrayInputStream(signData);
 			else
 				bais = new ByteArrayInputStream(data);
@@ -280,7 +294,8 @@ public class WorkingFile {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new ReportError(ReportError.FILE_ERROR, e.getMessage(), getName());
+			throw new ReportError(ReportError.FILE_ERROR,
+					"Ошибка сохранения подписанных данных. Файл - " + path + "\\" + getName() + ". " + e.getMessage(), getName());
 		} finally {
 			try {
 				fis.close();
@@ -310,7 +325,8 @@ public class WorkingFile {
 			data = baos.toByteArray();
 		} catch (IOException e) {
 			MainApp.error(e.getMessage());
-			throw new ReportError(ReportError.FILE_ERROR, "Ошибка чтения файла ", path + "\\" + getOriginalName());
+			throw new ReportError(ReportError.FILE_ERROR, "Ошибка чтения файла . Файл - " + path + getOriginalName() + ". ",
+					path + getOriginalName());
 		} finally {
 			try {
 				fis.close();
@@ -323,10 +339,10 @@ public class WorkingFile {
 
 	public void copyToSign() {
 		signData = new byte[data.length];
-		for(int i=0; i<data.length;i++) {
+		for (int i = 0; i < data.length; i++) {
 			signData[i] = data[i];
 		}
-		
+
 	}
 
 	public LocalDateTime getDatetime() {
@@ -345,21 +361,24 @@ public class WorkingFile {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setIdProperty(ObjectProperty<UUID> id) {
 		this.id = id;
 	}
 
 	/**
-	 * @param originalName the originalName to set
+	 * @param originalName
+	 *            the originalName to set
 	 */
 	public void setOriginalNameProperty(StringProperty originalName) {
 		this.originalName = originalName;
 	}
 
 	/**
-	 * @param datetime the datetime to set
+	 * @param datetime
+	 *            the datetime to set
 	 */
 	public void setDatetimeProperty(ObjectProperty<LocalDateTime> datetime) {
 		this.datetime = datetime;
@@ -368,7 +387,7 @@ public class WorkingFile {
 	public ObjectProperty<LocalDateTime> getDatetimeProperty() {
 		return datetime;
 	}
-	
+
 	public StringProperty getOriginalNameProprety() {
 		return originalName;
 	}
@@ -376,12 +395,13 @@ public class WorkingFile {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof WorkingFile) {
-			WorkingFile wo = (WorkingFile)obj;
-			if(id!=null && wo.getUUID()!=null && originalName!=null && wo.getOriginalName()!=null && datetime!=null && wo.getDatetime()!=null)
+			WorkingFile wo = (WorkingFile) obj;
+			if (id != null && wo.getUUID() != null && originalName != null && wo.getOriginalName() != null && datetime != null
+					&& wo.getDatetime() != null)
 				return (id.get().equals(wo.getUUID()) && originalName.get().equals(wo.getOriginalName()) && datetime.get().equals(wo.getDatetime()));
 			else
 				return false;
-		}else {
+		} else {
 			return false;
 		}
 	}

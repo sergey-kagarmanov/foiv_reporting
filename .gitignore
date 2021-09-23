@@ -24,3 +24,5 @@
 *.log
 *.log
 errors.txt
+logs/LogFile.log
+fc_reports.db
