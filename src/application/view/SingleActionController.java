@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import application.MainApp;
 import application.errors.ReportError;
@@ -352,9 +353,9 @@ public class SingleActionController {
 					for (Exception ex : tmpList) {
 						// errors .append(" " + ((SAXException) ex).getMessage()
 						// + System.lineSeparator());
-						if (ex instanceof SAXException) {
-							testList.add("Файл - " + f.getKey().getName() + " " + ((SAXException) ex).getMessage());
-							errorFiles.add(new ErrorFile(f.getKey().getName(), 0, ((SAXException) ex).getMessage()));
+						if (ex instanceof SAXParseException) {
+							testList.add("Файл - " + f.getKey().getName() + " " + ((SAXParseException) ex).getMessage());
+							errorFiles.add(new ErrorFile(f.getKey().getName() + " строка - " +((SAXParseException) ex).getLineNumber()+ ", колонка - "+((SAXParseException) ex).getColumnNumber(), 0, ((SAXException) ex).getMessage()));
 						} else {
 							testList.add("Файл - " + f.getKey().getName() + " " + ex.getMessage());
 							errorFiles.add(new ErrorFile(f.getKey().getName(), 0, "Структура не соответствует XML-формату"));

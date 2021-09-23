@@ -22,3 +22,5 @@
 *.prefs
 /target/
 *.log
+*.log
+errors.txt

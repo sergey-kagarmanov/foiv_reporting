@@ -32,7 +32,8 @@ public class SignHandler extends SignaturaHandler {
 			if (result != 0) {
 				throw new ReportError(ReportError.SIGN_ERROR, "Ошибка подписи 0x" + Integer.toHexString(result), file.getName());
 			}
-			baos.write(bytes);
+			if (bytes!=null)
+				baos.write(bytes);
 		}
 		fis.close();
 		bytes = executor.end();
