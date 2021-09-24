@@ -286,10 +286,10 @@ public class ArchiveOverviewController {
 	private TreeItem<WorkingFile> createItem(WorkingFile entity, Integer padding) {
 		TreeItem<WorkingFile> item = null;
 		if (entity != null && !entity.getDirection()) {
-			Node outIcon = new ImageView(new Image(getClass().getResourceAsStream("out.png")));
+			Node outIcon = new ImageView(new Image(getClass().getResourceAsStream("/out.png")));
 			item = new TreeItem<WorkingFile>(entity, outIcon);
 		} else {
-			Node inIcon = new ImageView(new Image(getClass().getResourceAsStream("in.png")));
+			Node inIcon = new ImageView(new Image(getClass().getResourceAsStream("/in.png")));
 			item = new TreeItem<WorkingFile>(entity, inIcon);
 		} // item.
 		if (entity.getChilds() != null && entity.getChilds().size() > 0) {

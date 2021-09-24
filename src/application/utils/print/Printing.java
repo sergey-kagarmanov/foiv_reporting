@@ -126,7 +126,8 @@ public class Printing {
         	removeWhitespaceNodes(document.getDocumentElement());
             TransformerFactory transformerFactory = new TransformerFactoryImpl();
             
-            transformerFactory.setAttribute("indent-number", 2);
+            //transformerFactory.setAttribute("indent-number", 2);
+            
             Transformer transformer = transformerFactory.newTransformer();
      
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
