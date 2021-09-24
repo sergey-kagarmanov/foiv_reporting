@@ -56,13 +56,16 @@ public class DecryptorHandler extends SignaturaHandler {
 					if (buffer != null)
 						baos.write(buffer);
 				}
-				executor.end();
+				buffer = executor.end();
 				if (executor.getResult() != 0) {
-					fos.close();
 					baos.close();
 					fis.close();
 
 					throw new ReportError(ReportError.DECRYPT_ERROR, "Код ошибки - 0x" + Integer.toHexString(result), file.getName());
+				} else {
+					if (buffer != null)
+						baos.write(buffer);
+
 				}
 				baos.flush();
 				bais = new ByteArrayInputStream(baos.toByteArray());
@@ -93,7 +96,7 @@ public class DecryptorHandler extends SignaturaHandler {
 
 	@Override
 	public void close() throws Exception {
-		//executor.unload();
+		// executor.unload();
 	}
 
 }

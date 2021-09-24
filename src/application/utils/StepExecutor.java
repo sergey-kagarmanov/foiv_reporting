@@ -128,6 +128,7 @@ public class StepExecutor {
 			};
 			break;
 		case Constants.DECRYPT:
+			signaturaAction = true;
 			executor = new SignaturaTheadingExecutor(stepFiles) {
 
 				@Override

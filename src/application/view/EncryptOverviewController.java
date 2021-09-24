@@ -434,7 +434,7 @@ public class EncryptOverviewController {
 		try {
 			ObservableList<ReportError> errors = executor.startStream();
 
-			if (errors.size() == 0) {
+			if (errors==null || errors.size() == 0) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Информация");
 				alert.setHeaderText("Операция выполнена");
